@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.proyecto"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.NFC" />
+    <!--
+     If the next instruction is omitted, anybody could download the app from the market 
+     regardless that is not a NFC compatible device
+    -->
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.proyecto.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.proyecto.ReadMain"
+            android:label="@string/title_activity_read_main" >
+           <!-- 
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <data
+                    android:scheme="http"
+                    android:host="google.com"
+                    android:pathPrefix="www" />
+            </intent-filter>  
+           -->
+             <intent-filter>
+	            <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+	            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+	                android:resource="@xml/nfc_tech_list"
+                /> 
+             </intent-filter>  
+        </activity>
+        <activity
+            android:name="com.example.proyecto.WriteMain"
+            android:label="@string/title_activity_write_main">
+             <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+            </intent-filter>
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_list"
+                /> 
+        </activity>
+    </application>
+
+</manifest>
