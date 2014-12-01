@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReadMain extends Activity {
 
@@ -40,6 +41,9 @@ public class ReadMain extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_read_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		
 		status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
@@ -49,7 +53,9 @@ public class ReadMain extends Activity {
 			status.setText("NFC is available for the device");
 		}
 		
-		/*
+		
+		 // CHECK THIS METHOD
+		 //FILTERING INTENT
 		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
 			Log.d("debug","NDEF Discovered");
 			Tag detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -83,7 +89,7 @@ public class ReadMain extends Activity {
 		else{
 			Log.d("debug", "Nothing detected");
 		}
-		*/
+		
 		
 		pendingIntent = PendingIntent.getActivity(
 			    this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -102,9 +108,9 @@ public class ReadMain extends Activity {
 	    }
 	    intentFiltersArray = new IntentFilter[] {ndef, };
 	   
-	    techListsArray = new String[][] { new String[] { NfcA.class.getName() , 
-	    		Ndef.class.getName(), 
-	    		MifareUltralight.class.getName() } };
+	    techListsArray = new String[][] { new String[] {  NfcA.class.getName() , 
+	    		Ndef.class.getName()}, 
+	    		{MifareUltralight.class.getName() } };
 		
 		/*
 		if (savedInstanceState == null) {
@@ -113,31 +119,6 @@ public class ReadMain extends Activity {
 		}*/
 	}
 
-	private NdefMessage[] getNdefMessages(Intent intent) {
-		// TODO Auto-generated method stub
-		NdefMessage[] message = null;
-		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-			Log.d("", "I found some shit.");
-			Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-			if (rawMessages != null) {
-				message = new NdefMessage[rawMessages.length];
-				for (int i = 0; i < rawMessages.length; i++) {
-					message[i] = (NdefMessage) rawMessages[i];
-				}
-			} else {
-				byte[] empty = new byte[] {};
-				NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, empty, empty);
-				NdefMessage msgMessage = new NdefMessage(new NdefRecord[] {record});
-			}
-		}
-		else {
-			Log.d("", "Unknow intent.");
-			finish();
-		}
-		return message;
-	}
-
-	
 	public void onPause() {
 	    super.onPause();
 	   myNfcAdapter.disableForegroundDispatch(this);
@@ -148,7 +129,8 @@ public class ReadMain extends Activity {
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
 	}
 
-	public void onNewIntent(Intent intent) {
+	public void onNewIntent(Intent intent)
+	{
 	    Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    //do something with tagFromIntent
 	    Log.d("debug", "tag detected");
@@ -167,13 +149,20 @@ public class ReadMain extends Activity {
 				 		status.append((j+1)+"th. Record Tnf: "+record.getTnf() +"\n");
 				 		status.append((j+1)+"th. Record type: "+record.getType()+"\n");
 				 		status.append((j+1)+"th. Record id: "+record.getId()+"\n");
-				 		status.append((j+1)+"th. Record Contents: "+record.describeContents()+"\n");
+				 		//status.append((j+1)+"th. Record Contents: "+record.describeContents()+"\n");
+				 		
+				 		try {
+				 			payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
+					 		status.append((j+1)+"th. Record payload:  "+payload +"\n");
+					 		payloadHeader = record.getPayload()[0];
+					 		status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
+						} catch (StringIndexOutOfBoundsException e) {
+							// TODO: handle exception
+							Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();
+							
+						}
 				 		
 				 		
-				 		payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
-				 		status.append((j+1)+"th. Record payload:  "+payload +"\n");
-				 		payloadHeader = record.getPayload()[0];
-				 		status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
 				 	}
 				 }
 		
@@ -197,22 +186,8 @@ public class ReadMain extends Activity {
 			Log.d("debug", "that shit is so empty");
 		}
 		 
-	    /*
-		 if (payloadHeader == 0x01) {
-			Intent dataIntent = new Intent();
-			dataIntent.setAction(Intent.ACTION_VIEW);
-			dataIntent.setData(Uri.parse("http://"+payload));
-			try {
-				startActivity(dataIntent);
-				Log.d("debug", "Yes, I did it");
-			} catch (ActivityNotFoundException e) {
-				// TODO: handle exception
-				return;
-			}
-		}*/
+
 	}
-	
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -251,4 +226,46 @@ public class ReadMain extends Activity {
 		}
 	}
 
+	// UTILIATRIES METHODS
+	private NdefMessage[] getNdefMessages(Intent intent) {
+		// TODO Auto-generated method stub
+		NdefMessage[] message = null;
+		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
+			Log.d("debug", "I found some shit.");
+			Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+			if (rawMessages != null) {
+				message = new NdefMessage[rawMessages.length];
+				for (int i = 0; i < rawMessages.length; i++) {
+					message[i] = (NdefMessage) rawMessages[i];
+				}
+			} else {
+				Log.d("debug", "0 Ndef Messages.");
+				byte[] empty = new byte[] {};
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, empty, empty);
+				NdefMessage msg = new NdefMessage(new NdefRecord[] {record});
+				message = new NdefMessage[] {msg};
+			}
+		}
+		else if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+			Log.d("debug", "NDEF intent.");
+			Log.d("debug", "I found some shit.");
+			Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+			if (rawMessages != null) {
+				message = new NdefMessage[rawMessages.length];
+				for (int i = 0; i < rawMessages.length; i++) {
+					message[i] = (NdefMessage) rawMessages[i];
+				}
+			} else {
+				byte[] empty = new byte[] {};
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, empty, empty);
+				NdefMessage msg = new NdefMessage(new NdefRecord[] {record});
+				message = new NdefMessage[] {msg};
+			}
+		}
+		else {
+			Log.d("debug", "Unknow intent.");
+			finish();
+		}
+		return message;
+	}
 }

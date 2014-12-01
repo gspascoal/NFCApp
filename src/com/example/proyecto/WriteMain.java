@@ -5,12 +5,20 @@ import java.nio.charset.Charset;
 import android.R.integer;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentFilter.MalformedMimeTypeException;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
+import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,11 +33,15 @@ public class WriteMain extends Activity {
 	
 	private NfcAdapter myNfcAdapter;
 	private TextView status;
+	private String[][] techListsArray;
+	private IntentFilter[] intentFiltersArray;
+	private PendingIntent pendingIntent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -45,6 +57,8 @@ public class WriteMain extends Activity {
 			status.setText("NFC is available for the device");
 		}
 		
+		/*
+		
 		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
 			Log.d("debug","NDEF Discovered");
 			Tag detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -53,7 +67,7 @@ public class WriteMain extends Activity {
 			byte[] uriField =  "amazon.com".getBytes(Charset.forName("US-ACII"));
 			byte[] payload = new byte[uriField.length + 1];
 			payload[0] = 0x01; //Code for http://www.
-			System.arraycopy(uriField, 0, payload, 1, payload.length);
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
 			NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
 			NdefMessage newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
 			
@@ -61,8 +75,39 @@ public class WriteMain extends Activity {
 			// WRITE DATA TO TAG
 			writeNdefMessageToTag(newMessage, detectedTag );
 			
-		}
+		}*/
 		
+		pendingIntent = PendingIntent.getActivity(
+			    this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		
+		IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+	   
+		try {
+	       ndef.addDataType("*/*");    /* Handles all MIME based dispatches.
+	         //                             You should specify only the ones that you need. */
+	       // ndef.addDataScheme("http");
+	       //ndef.addAction(Intent.ACTION_VIEW);
+	    }
+	                                       
+	    catch (MalformedMimeTypeException e) {
+	        throw new RuntimeException("fail", e);
+	    }
+	    intentFiltersArray = new IntentFilter[] {ndef, };
+	   
+	    techListsArray = new String[][] { new String[] { NfcA.class.getName() , 
+	    		Ndef.class.getName(), 
+	    		MifareUltralight.class.getName() } };
+		
+	}
+	
+	public void onPause() {
+	    super.onPause();
+	   myNfcAdapter.disableForegroundDispatch(this);
+	}
+
+	public void onResume() {
+	    super.onResume();
+	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
 	}
 
 	private boolean writeNdefMessageToTag(NdefMessage message, Tag detectedTag) {
@@ -70,10 +115,12 @@ public class WriteMain extends Activity {
 		
 		int size = message.toByteArray().length;
 		
+		Log.d("debug", "Before TRY");
 		try {
 			Ndef ndef = Ndef.get(detectedTag);
 			if (ndef != null) {
 				ndef.connect();
+				Log.d("debug", "After Connect");
 				if (!ndef.isWritable()) {
 					Toast.makeText(this, "Tag is read-only", Toast.LENGTH_SHORT).show();
 					return false;
@@ -111,6 +158,7 @@ public class WriteMain extends Activity {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			Log.d("debug", "Exception: "+e.toString());
 			Toast.makeText(this, "Write operation is failed", Toast.LENGTH_SHORT).show();
 			return false;
 		}
@@ -137,6 +185,25 @@ public class WriteMain extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void onNewIntent(Intent intent)
+	{
+		Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+	    
+	    //do something with tagFromIntent
+	    byte[] uriField =  "dell.com".getBytes(Charset.forName("UTF-8"));
+		byte[] payload = new byte[uriField.length + 1];
+		payload[0] = 0x01; //Code for http://www.
+		System.arraycopy(uriField, 0, payload, 1, uriField.length);
+		NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
+		NdefMessage newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
+		
+		
+		// WRITE DATA TO TAG
+		Log.d("debug", "Starting writing process");
+		writeNdefMessageToTag(newMessage, detectedTag );
+	  
+	}
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

@@ -32,14 +32,21 @@
         </activity>
         <activity
             android:name="com.example.proyecto.ReadMain"
-            android:label="@string/title_activity_read_main" >
-           <!-- 
+            android:label="@string/title_activity_read_main" 
+            android:parentActivityName="com.example.proyecto.MainActivity">
+            
+            <!-- Parent activity meta-data o support and lower -->
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.proyecto.MainActivity" />
+            <!-- 
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:scheme="http"
-                    android:host="google.com"
-                    android:pathPrefix="www" />
+                    android:host="*"
+                    android:pathPrefix="" />
             </intent-filter>  
            -->
              <intent-filter>
@@ -50,16 +57,20 @@
         </activity>
         <activity
             android:name="com.example.proyecto.WriteMain"
-            android:label="@string/title_activity_write_main">
-             
-             <!-- 
+            android:label="@string/title_activity_write_main"
+            android:parentActivityName="com.example.proyecto.MainActivity">
+            
+            <!-- Parent activity meta-data o support and lower -->
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.proyecto.MainActivity" />
              <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED"/>
             </intent-filter>
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_list"
                 />  
-              -->
+               
         </activity>
     </application>
 
