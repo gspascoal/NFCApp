@@ -982,6 +982,7 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int ic_launcher=0x7f020057;
+        public static final int tagread=0x7f020058;
     }
     public static final class id {
         public static final int action_bar=0x7f06001c;
@@ -995,7 +996,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060043;
+        public static final int action_settings=0x7f060047;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1019,6 +1020,7 @@ containing a value of this type.
         public static final int listMode=0x7f060001;
         public static final int listView1=0x7f060042;
         public static final int list_item=0x7f060029;
+        public static final int mainimage=0x7f060044;
         public static final int middle=0x7f060012;
         public static final int my_tag=0x7f06003f;
         public static final int never=0x7f060009;
@@ -1028,6 +1030,9 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
         public static final int read=0x7f06003d;
+        public static final int readIntent=0x7f060046;
+        public static final int readIntent1=0x7f060043;
+        public static final int readIntent2=0x7f060045;
         public static final int search_badge=0x7f060032;
         public static final int search_bar=0x7f060031;
         public static final int search_button=0x7f060033;
@@ -1108,7 +1113,9 @@ containing a value of this type.
         public static final int fragment_main=0x7f03001a;
         public static final int fragment_read_main=0x7f03001b;
         public static final int fragment_write_main=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int read_tag_dialog=0x7f03001d;
+        public static final int show_tag_content=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
@@ -1156,15 +1163,18 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_settings=0x7f0b000f;
+        public static final int action_settings=0x7f0b000e;
         public static final int app_name=0x7f0b000d;
-        public static final int extras=0x7f0b0014;
-        public static final int hello_world=0x7f0b000e;
-        public static final int my_tags=0x7f0b0013;
-        public static final int read=0x7f0b0011;
-        public static final int title_activity_read_main=0x7f0b0010;
-        public static final int title_activity_write_main=0x7f0b0015;
-        public static final int write=0x7f0b0012;
+        public static final int dtagread=0x7f0b0018;
+        public static final int extras=0x7f0b0013;
+        public static final int my_tags=0x7f0b0012;
+        public static final int read=0x7f0b0010;
+        public static final int readIntenta=0x7f0b0015;
+        public static final int readIntentb=0x7f0b0016;
+        public static final int readIntentc=0x7f0b0017;
+        public static final int title_activity_read_main=0x7f0b000f;
+        public static final int title_activity_write_main=0x7f0b0014;
+        public static final int write=0x7f0b0011;
     }
     public static final class style {
         /** 

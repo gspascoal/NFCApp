@@ -2,13 +2,16 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">Proyecto</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_read_main">ReadMain</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_read_main">Leer etiqueta</string>
     <string name="read">Leer etiqueta</string>
     <string name="write">Escribir etiqueta</string>
     <string name="my_tags">Mis etiquetas</string>
     <string name="extras">Extras</string>
-    <string name="title_activity_write_main">WriteMain</string>
+    <string name="title_activity_write_main">Escribir etiqueta</string>
+    <string name="readIntenta">"Listo para leer el contenido"</string>
+    <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo"</string>
+    <string name="readIntentc">"Acerque una etiqueta NFC "</string>
+    <string name="dtagread">"Etiqueta y lupa"</string>
 
 </resources>

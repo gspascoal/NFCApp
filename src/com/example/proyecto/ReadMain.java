@@ -2,7 +2,10 @@ package com.example.proyecto;
 
 import java.nio.charset.Charset;
 
+import com.example.objetos.TagInfo;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -19,6 +22,7 @@ import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcF;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings.System;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +30,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +42,21 @@ public class ReadMain extends Activity {
 	private String[][] techListsArray;
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
+	private CustomDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_read_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		/*Setting up the dialog*/
+		dialog = new CustomDialog(this);
+		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.read_tag_dialog);
+		
+		
+		dialog.show();
 		
 		
 		status = (TextView) findViewById(R.id.status);
@@ -131,12 +146,78 @@ public class ReadMain extends Activity {
 
 	public void onNewIntent(Intent intent)
 	{
-	    Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+		//Check if the dialog is showing
+		if (dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		
+		
+		
+		//status.setText("");
+		
+		Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+	    Ndef ndef = Ndef.get(tagFromIntent);
+	    
+	    NdefMessage[] messages = getNdefMessages(intent);
+	    
+	    TagInfo tInfo = new TagInfo(tagFromIntent, intent);
+	    Log.d("TagInfo", tInfo.getTagId());
+	    Log.d("TagInfo", tInfo.getTagType());
+	    Log.d("TagInfo", tInfo.getTagTechList());
+	    Log.d("TagInfo", tInfo.getCanBeReadOnly() ? "Can be made RO" : "Can't be made RO");
+	    Log.d("TagInfo", tInfo.getIsWritable() ? "Writable" : "No writable");
+	    Log.d("TagInfo", String.valueOf(tInfo.getTagSize()) + " bytes");
+	    Log.d("TagInfo", String.valueOf(tInfo.getInUse()) + " bytes");
+	    Log.d("TagInfo", String.valueOf(tInfo.getMessages())+ " Message(s)");
+	    Log.d("TagInfo", "First Record's Payload: "+tInfo.getTagRecords().get(0).getRecordPayload());
+	    
+	    
+	    
+	    
 	    //do something with tagFromIntent
 	    Log.d("debug", "tag detected");
 		 // GET NDEF MESSAGE IN THE TAG
-		 NdefMessage[] messages = getNdefMessages(intent);
 		 
+		status.append("\n");
+		
+		/*Checking if can be made Read-Only */
+	    String cbmro= ndef.canMakeReadOnly() ? "Yes" : "No";
+	    status.append("Can be made Read-Only?: "+  cbmro + "\n" );
+	   
+	    /*Checking Memory status */
+	    status.append("Storage: \nTotal: " + ndef.getMaxSize() 
+	    		+ "\nIn use: " +  this.inUse(messages)
+	    		+ "\nFree: " + String.valueOf(ndef.getMaxSize() - this.inUse(messages)) + "\n");
+	    
+	    /*Checking if is writable */
+	    String wrtbl = ndef.isWritable() ? "Yes" : "No";
+	    status.append("Writtable?: "+  wrtbl + "\n" );
+	    
+	    /*Getting the Tag Type or Class*/
+	    status.append("Type: "+ ndef.getType());
+	    status.append("\n"); 
+	    
+	    /*Getting the Tag's ID or Serial Number */
+	    status.append("ID or Serial Number: ");
+	    byte[] tagId = tagFromIntent.getId();
+	    for (int i = 0; i < tagId.length; i++) {
+			status.append(Integer.toHexString(tagId[i]& 0xFF));
+			if (i < tagId.length-1) {
+				status.append(":");
+			}
+		}
+	    status.append("\n");
+	    
+	    /*Getting the Tag's Technologies available List  */
+	    String[] techList = tagFromIntent.getTechList();
+	    status.append("Technologies available: ");
+	    for (int i = 0; i < techList.length; i++) {
+	    	status.append(techList[i].substring(17));
+	    	if (i < techList.length-1) {
+				status.append(",");
+			}
+		}
+	    
 		 // PROCESS NDEF MESSAGE
 		 String payload = null;
 		 byte payloadHeader = 0x00;
@@ -145,10 +226,18 @@ public class ReadMain extends Activity {
 				 status.append("\n");
 				 	status.append("Message "+(i+1)+" \n");
 				 	for (int j = 0; j < messages[0].getRecords().length; j++) {
+				 		
 				 		NdefRecord record = messages[i].getRecords()[j];
+				 		
 				 		status.append((j+1)+"th. Record Tnf: "+record.getTnf() +"\n");
-				 		status.append((j+1)+"th. Record type: "+record.getType()+"\n");
-				 		status.append((j+1)+"th. Record id: "+record.getId()+"\n");
+				 		/*Getting the Well-Known NDEF Record type*/
+				 		int inttype = record.getType()[0];
+				 		char chartype = (char) inttype;
+				 		status.append((j+1)+"th. Record type: "+ chartype+"\n");
+				 		/*for (int k = 0; k < record.getType().length; k++) {
+							java.lang.System.out.println(record.getType()[k]);
+						}*/
+				 		status.append((j+1)+"th. Record id: "+record.getId().toString()+"\n");
 				 		//status.append((j+1)+"th. Record Contents: "+record.describeContents()+"\n");
 				 		
 				 		try {
@@ -166,6 +255,8 @@ public class ReadMain extends Activity {
 				 	}
 				 }
 		
+			 /*
+			  * Check if the content is a URL, then open a browser
 			 if (payloadHeader == 0x01) {
 					Intent dataIntent = new Intent();
 					dataIntent.setAction(Intent.ACTION_VIEW);
@@ -179,7 +270,7 @@ public class ReadMain extends Activity {
 						
 						return;
 					}
-				}
+				}*/
 		 
 		 }
 		 else {
@@ -268,4 +359,17 @@ public class ReadMain extends Activity {
 		}
 		return message;
 	}
+
+	/*Return amount of bytes in use*/
+	public int inUse (NdefMessage[] mssgs){
+		int total = 0;
+		
+		Log.d("debug", "# messages: " + mssgs.length);
+		for (int i = 0; i < mssgs.length; i++) {
+			total += mssgs[0].getByteArrayLength();
+		}
+		
+		
+		return total;
+	} 
 }
