@@ -169,7 +169,18 @@ public class ReadMain extends Activity {
 	    Log.d("TagInfo", String.valueOf(tInfo.getTagSize()) + " bytes");
 	    Log.d("TagInfo", String.valueOf(tInfo.getInUse()) + " bytes");
 	    Log.d("TagInfo", String.valueOf(tInfo.getMessages())+ " Message(s)");
+	    Log.d("TagInfo", "First Record's TNF: "+tInfo.getTagRecords().get(0).getRecordTNF());
+	    Log.d("TagInfo", "First Record's TNF description: "+tInfo.getTagRecords().get(0).getRecordTNFDesc());
+	    Log.d("TagInfo", "First Record's Type: "+tInfo.getTagRecords().get(0).getRecordType());
+	    Log.d("TagInfo", "First Record's Payload Type description: "+tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 	    Log.d("TagInfo", "First Record's Payload: "+tInfo.getTagRecords().get(0).getRecordPayload());
+	    Log.d("TagInfo", String.valueOf(tInfo.getMessages())+ " Message(s)");
+	    Log.d("TagInfo", "Second Record's TNF: "+tInfo.getTagRecords().get(1).getRecordTNF());
+	    Log.d("TagInfo", "Second Record's TNF description: "+tInfo.getTagRecords().get(1).getRecordTNFDesc());
+	    Log.d("TagInfo", "Second Record's Type: "+tInfo.getTagRecords().get(1).getRecordType());
+	    Log.d("TagInfo", "Second Record's Payload Type description: "+tInfo.getTagRecords().get(1).getRecordPayloadTypeDesc());
+	    Log.d("TagInfo", "Second Record's Payload: "+tInfo.getTagRecords().get(1).getRecordPayload());
+	    
 	    
 	    
 	    
