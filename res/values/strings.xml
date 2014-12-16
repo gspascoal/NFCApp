@@ -13,5 +13,7 @@
     <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo"</string>
     <string name="readIntentc">"Acerque una etiqueta NFC "</string>
     <string name="dtagread">"Etiqueta y lupa"</string>
+    <string name="saveButton">Guardar</string>
+    <string name="launchButton">Lanzar aplicación</string>
 
 </resources>

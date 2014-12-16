@@ -31,6 +31,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,11 @@ public class ReadMain extends Activity {
 
 	private NfcAdapter myNfcAdapter;
 	private TextView status;
+	private TextView Type;
+	private TextView Content;
+	private ImageView payloadTypeIcon;
+	private Button launchButton;
+	private Button saveButton;
 	private String[][] techListsArray;
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
@@ -58,14 +65,14 @@ public class ReadMain extends Activity {
 		
 		dialog.show();
 		
-		
+		/*Checking if the device support NFC*/
 		status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
 		if (myNfcAdapter == null) {
-			status.setText("NFC isn't available for the device");
+			//status.setText("NFC isn't available for the device");
 		} else {
-			status.setText("NFC is available for the device");
+			//status.setText("NFC is available for the device");
 		}
 		
 		
@@ -84,17 +91,17 @@ public class ReadMain extends Activity {
 			byte payloadHeader ;
 			
 			for (int i = 0; i < messages.length; i++) {
-				status.append("Message "+(i+1)+" \n");
+				//status.append("Message "+(i+1)+" \n");
 				for (int j = 0; j < messages[0].getRecords().length; j++) {
 					NdefRecord record = messages[i].getRecords()[j];
-					status.append((j+1)+"th. Record Tnf: "+record.getTnf()+"\n");
-					status.append((j+1)+"th. Record type: "+record.getType()+"\n");
-					status.append((j+1)+"th. Record id: "+record.getId()+"\n");
+					//status.append((j+1)+"th. Record Tnf: "+record.getTnf()+"\n");
+					//status.append((j+1)+"th. Record type: "+record.getType()+"\n");
+					//status.append((j+1)+"th. Record id: "+record.getId()+"\n");
 					
 					payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
-					status.append((j+1)+"th. Record payload:  "+payload +"\n");
+					//status.append((j+1)+"th. Record payload:  "+payload +"\n");
 					payloadHeader = record.getPayload()[0];
-					status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
+					//status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
 				}
 			}
 			// DO WHATEVER WITH THE DATA
@@ -151,9 +158,12 @@ public class ReadMain extends Activity {
 			dialog.dismiss();
 		}
 		
+		payloadTypeIcon =  (ImageView) findViewById(R.id.payloadTypeIcon);
+		Type = (TextView) findViewById(R.id.type);
+		Content = (TextView) findViewById(R.id.content);
+		launchButton = (Button) findViewById(R.id.launchButton);
+		saveButton = (Button) findViewById(R.id.saveButton);
 		
-		
-		//status.setText("");
 		
 		Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    Ndef ndef = Ndef.get(tagFromIntent);
@@ -169,52 +179,69 @@ public class ReadMain extends Activity {
 	    Log.d("TagInfo", String.valueOf(tInfo.getTagSize()) + " bytes");
 	    Log.d("TagInfo", String.valueOf(tInfo.getInUse()) + " bytes");
 	    Log.d("TagInfo", String.valueOf(tInfo.getMessages())+ " Message(s)");
+	    Log.d("TagInfo", "First Record's Payload Type: "+tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 	    Log.d("TagInfo", "First Record's Payload: "+tInfo.getTagRecords().get(0).getRecordPayload());
+	    Log.d("TagInfo", "First Record's Payload Header Desc: "+tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc());
 	    
 	    
+	    payloadTypeIcon.setVisibility(View.VISIBLE);
+	    Type.setVisibility(View.VISIBLE);
+	    Content.setVisibility(View.VISIBLE);
 	    
+	    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
+	    
+	    String cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();
+	    Content.setText(cntn);
+	    
+	    if(tInfo.getMessages() > 1)
+	    {
+	    	launchButton.setVisibility(View.VISIBLE);
+	    }
+	    
+	    saveButton.setVisibility(View.VISIBLE);
 	    
 	    //do something with tagFromIntent
 	    Log.d("debug", "tag detected");
 		 // GET NDEF MESSAGE IN THE TAG
 		 
-		status.append("\n");
+		//status.append("\n");
 		
 		/*Checking if can be made Read-Only */
 	    String cbmro= ndef.canMakeReadOnly() ? "Yes" : "No";
-	    status.append("Can be made Read-Only?: "+  cbmro + "\n" );
+	    //status.append("Can be made Read-Only?: "+  cbmro + "\n" );
 	   
 	    /*Checking Memory status */
+	    /*
 	    status.append("Storage: \nTotal: " + ndef.getMaxSize() 
 	    		+ "\nIn use: " +  this.inUse(messages)
 	    		+ "\nFree: " + String.valueOf(ndef.getMaxSize() - this.inUse(messages)) + "\n");
-	    
+	    */
 	    /*Checking if is writable */
 	    String wrtbl = ndef.isWritable() ? "Yes" : "No";
-	    status.append("Writtable?: "+  wrtbl + "\n" );
+	    //status.append("Writtable?: "+  wrtbl + "\n" );
 	    
 	    /*Getting the Tag Type or Class*/
-	    status.append("Type: "+ ndef.getType());
-	    status.append("\n"); 
+	    //status.append("Type: "+ ndef.getType());
+	    //status.append("\n"); 
 	    
 	    /*Getting the Tag's ID or Serial Number */
-	    status.append("ID or Serial Number: ");
+	    //status.append("ID or Serial Number: ");
 	    byte[] tagId = tagFromIntent.getId();
 	    for (int i = 0; i < tagId.length; i++) {
-			status.append(Integer.toHexString(tagId[i]& 0xFF));
+			//status.append(Integer.toHexString(tagId[i]& 0xFF));
 			if (i < tagId.length-1) {
-				status.append(":");
+				//status.append(":");
 			}
 		}
-	    status.append("\n");
+	    //status.append("\n");
 	    
 	    /*Getting the Tag's Technologies available List  */
 	    String[] techList = tagFromIntent.getTechList();
-	    status.append("Technologies available: ");
+	    //status.append("Technologies available: ");
 	    for (int i = 0; i < techList.length; i++) {
-	    	status.append(techList[i].substring(17));
+	    	//status.append(techList[i].substring(17));
 	    	if (i < techList.length-1) {
-				status.append(",");
+				//status.append(",");
 			}
 		}
 	    
@@ -223,28 +250,28 @@ public class ReadMain extends Activity {
 		 byte payloadHeader = 0x00;
 		 if (messages != null) {
 			 for (int i = 0; i < messages.length; i++) {
-				 status.append("\n");
-				 	status.append("Message "+(i+1)+" \n");
+				 //status.append("\n");
+				 //status.append("Message "+(i+1)+" \n");
 				 	for (int j = 0; j < messages[0].getRecords().length; j++) {
 				 		
 				 		NdefRecord record = messages[i].getRecords()[j];
 				 		
-				 		status.append((j+1)+"th. Record Tnf: "+record.getTnf() +"\n");
+				 		//status.append((j+1)+"th. Record Tnf: "+record.getTnf() +"\n");
 				 		/*Getting the Well-Known NDEF Record type*/
 				 		int inttype = record.getType()[0];
 				 		char chartype = (char) inttype;
-				 		status.append((j+1)+"th. Record type: "+ chartype+"\n");
+				 		//status.append((j+1)+"th. Record type: "+ chartype+"\n");
 				 		/*for (int k = 0; k < record.getType().length; k++) {
 							java.lang.System.out.println(record.getType()[k]);
 						}*/
-				 		status.append((j+1)+"th. Record id: "+record.getId().toString()+"\n");
+				 		//status.append((j+1)+"th. Record id: "+record.getId().toString()+"\n");
 				 		//status.append((j+1)+"th. Record Contents: "+record.describeContents()+"\n");
 				 		
 				 		try {
 				 			payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
-					 		status.append((j+1)+"th. Record payload:  "+payload +"\n");
+					 		//status.append((j+1)+"th. Record payload:  "+payload +"\n");
 					 		payloadHeader = record.getPayload()[0];
-					 		status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
+					 		//status.append((j+1)+"th. Record payload header:  "+payloadHeader +"\n");
 						} catch (StringIndexOutOfBoundsException e) {
 							// TODO: handle exception
 							Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();

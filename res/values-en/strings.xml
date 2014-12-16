@@ -13,4 +13,6 @@
     <string name="readIntentb">"Reading will begin when you tap an NFC compatible item with the back of your device"</string>
 	<string name="readIntentc">"Approach a NFC tag"</string>
 	<string name="dtagread">"Tag and magnifying glass"</string>
+	  <string name="saveButton">Save</string>
+    <string name="launchButton">Launch</string>
 </resources>
