@@ -13,27 +13,6 @@
         android:layout_marginTop="31dp"
         android:src="@drawable/ic_launcher" />
 
-    <Button
-        android:id="@+id/saveButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/content"
-        android:layout_marginLeft="61dp"
-        android:layout_marginTop="24dp"
-        android:layout_toRightOf="@+id/content"
-        android:text="Save" />
-
-    <Button
-        android:id="@+id/launchButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/saveButton"
-        android:layout_alignBottom="@+id/saveButton"
-        android:layout_toRightOf="@+id/payloadTypeIcon"
-        android:text="Launch" />
-
     <TextView
         android:id="@+id/type"
         android:layout_width="wrap_content"

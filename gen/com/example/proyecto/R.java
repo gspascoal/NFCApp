@@ -981,18 +981,23 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int call5=0x7f020057;
-        public static final int destination=0x7f020058;
-        public static final int email20=0x7f020059;
+        public static final int app_logo=0x7f020057;
+        public static final int app_logo_v1=0x7f020058;
+        public static final int destination=0x7f020059;
         public static final int ic_launcher=0x7f02005a;
         public static final int launch=0x7f02005b;
         public static final int launch16=0x7f02005c;
         public static final int link=0x7f02005d;
-        public static final int map15=0x7f02005e;
-        public static final int opened4=0x7f02005f;
-        public static final int save=0x7f020060;
-        public static final int save16=0x7f020061;
-        public static final int tagread=0x7f020062;
+        public static final int logo_app=0x7f02005e;
+        public static final int logo_app_v2=0x7f02005f;
+        public static final int logo_app_v3=0x7f020060;
+        public static final int mail=0x7f020061;
+        public static final int map15=0x7f020062;
+        public static final int opened4=0x7f020063;
+        public static final int save=0x7f020064;
+        public static final int save16=0x7f020065;
+        public static final int tagread=0x7f020066;
+        public static final int telephone=0x7f020067;
     }
     public static final class id {
         public static final int action_bar=0x7f06001c;
@@ -1006,7 +1011,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f06004e;
+        public static final int action_settings=0x7f060050;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1023,7 +1028,9 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f060026;
         public static final int expanded_menu=0x7f06002c;
         public static final int extras=0x7f060040;
-        public static final int firstLine=0x7f06004d;
+        public static final int featureList=0x7f060047;
+        public static final int featuresText=0x7f060046;
+        public static final int firstLine=0x7f06004f;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int icon=0x7f06002a;
@@ -1031,9 +1038,9 @@ containing a value of this type.
         public static final int image=0x7f060027;
         public static final int launchButton=0x7f060044;
         public static final int listMode=0x7f060001;
-        public static final int listView1=0x7f060047;
+        public static final int listView1=0x7f060049;
         public static final int list_item=0x7f060029;
-        public static final int mainimage=0x7f060049;
+        public static final int mainimage=0x7f06004b;
         public static final int middle=0x7f060012;
         public static final int my_tag=0x7f06003f;
         public static final int never=0x7f060009;
@@ -1044,10 +1051,10 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
         public static final int read=0x7f06003d;
-        public static final int readIntent=0x7f06004b;
-        public static final int readIntent1=0x7f060048;
-        public static final int readIntent2=0x7f06004a;
-        public static final int saveButton=0x7f060042;
+        public static final int readIntent=0x7f06004d;
+        public static final int readIntent1=0x7f06004a;
+        public static final int readIntent2=0x7f06004c;
+        public static final int saveButton=0x7f060045;
         public static final int search_badge=0x7f060032;
         public static final int search_bar=0x7f060031;
         public static final int search_button=0x7f060033;
@@ -1058,18 +1065,18 @@ containing a value of this type.
         public static final int search_plate=0x7f060036;
         public static final int search_src_text=0x7f060037;
         public static final int search_voice_btn=0x7f06003b;
-        public static final int secondLine=0x7f06004c;
+        public static final int secondLine=0x7f06004e;
         public static final int shortcut=0x7f06002e;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
         public static final int split_action_bar=0x7f06001e;
-        public static final int status=0x7f060046;
+        public static final int status=0x7f060048;
         public static final int submit_area=0x7f060039;
         public static final int tabMode=0x7f060002;
         public static final int title=0x7f06002b;
         public static final int top_action_bar=0x7f060020;
-        public static final int type=0x7f060045;
+        public static final int type=0x7f060042;
         public static final int up=0x7f060021;
         public static final int useLogo=0x7f060003;
         public static final int withText=0x7f06000c;
@@ -1183,19 +1190,43 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
         public static final int action_settings=0x7f0b000e;
+        /**  Commons Strings
+ Commons Strings
+         */
         public static final int app_name=0x7f0b000d;
-        public static final int dtagread=0x7f0b0018;
-        public static final int extras=0x7f0b0013;
-        public static final int launchButton=0x7f0b001a;
-        public static final int my_tags=0x7f0b0012;
-        public static final int read=0x7f0b0010;
-        public static final int readIntenta=0x7f0b0015;
-        public static final int readIntentb=0x7f0b0016;
-        public static final int readIntentc=0x7f0b0017;
-        public static final int saveButton=0x7f0b0019;
-        public static final int title_activity_read_main=0x7f0b000f;
-        public static final int title_activity_write_main=0x7f0b0014;
-        public static final int write=0x7f0b0011;
+        public static final int cntnt_desc_tagicon=0x7f0b001b;
+        public static final int cntnt_desc_tagread=0x7f0b0019;
+        public static final int extras=0x7f0b0014;
+        public static final int f_CBMRO=0x7f0b0020;
+        public static final int f_DataFormat=0x7f0b001f;
+        /**  Tag features Strings 
+ Tag features Strings 
+         */
+        public static final int f_SerialNumber=0x7f0b001e;
+        public static final int f_Storage=0x7f0b0021;
+        public static final int f_TechList=0x7f0b0023;
+        public static final int f_WRTBL=0x7f0b0022;
+        public static final int launchButton=0x7f0b0010;
+        public static final int my_tags=0x7f0b0013;
+        /**  Main activity strings 
+ Main activity strings 
+         */
+        public static final int read=0x7f0b0011;
+        public static final int readIntent_Empty=0x7f0b001c;
+        public static final int readIntenta=0x7f0b0016;
+        public static final int readIntentb=0x7f0b0017;
+        public static final int readIntentc=0x7f0b0018;
+        public static final int saveButton=0x7f0b000f;
+        /**  Read(Main) activity strings 
+ Read(Main) activity strings 
+         */
+        public static final int title_activity_read_main=0x7f0b0015;
+        /**  Write(Main) activity strings 
+ Write(Main) activity strings 
+         */
+        public static final int title_activity_write_main=0x7f0b001d;
+        public static final int title_feature_list=0x7f0b001a;
+        public static final int write=0x7f0b0012;
     }
     public static final class style {
         /** 

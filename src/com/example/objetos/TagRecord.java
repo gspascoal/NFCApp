@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.example.proyecto.R;
+
 import android.nfc.NdefRecord;
 import android.util.Log;
 
@@ -16,6 +18,7 @@ public class TagRecord {
 	private Map<String, String> TNFMap =  new LinkedHashMap<String,String>();
 	private Map<String, String> URIPFXMap =  new LinkedHashMap<String,String>();
 	private Map<String, String> PLH =  new LinkedHashMap<String,String>();
+	private Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
 	
 	private int messageId = 0;
 	private NdefRecord record;
@@ -26,6 +29,7 @@ public class TagRecord {
 	private String recordTNFDesc = "";
 	private String recordPayloadTypeDesc = "";
 	private String recordPayloadHeaderDesc;
+	private Integer iconId;
 	
 	
 	public TagRecord(NdefRecord r, int messsageId){
@@ -68,14 +72,28 @@ public class TagRecord {
 		PLH.put("66", "Bussiness card");
 		PLH.put("99", "App launcher");
 		
+		/*Initialize associative array of URI prefixes icons id*/
+		
+		PLTI.put("N/A", R.drawable.launch);
+		PLTI.put("Link", R.drawable.link);
+		PLTI.put("Secure Link", R.drawable.link);
+		PLTI.put("Telephone number", R.drawable.telephone);
+		PLTI.put("Email", R.drawable.mail);
+		
+		
 		
 		this.record = r;
+		
+		if (r.equals(null)) {
+			Log.d("debug", "Empty Tag");
+		}
 		this.setMessageId(messsageId);
 		setRecordTNF();
 		setRecordTNFDesc();
 		setRecordType();
 		setRecordPayload();	
 		setRecordTypeDesc();
+		setIconId();
 		
 		
 	}
@@ -96,13 +114,17 @@ public class TagRecord {
 	public void setRecordType() {
 		int asciiCode = 0;
 
-		for (int k = 0; k < record.getType().length; k++) {
-			asciiCode = record.getType()[k];
-			recordType += (char) asciiCode; 
-		}
-		
-		if (NRTD.containsKey( recordType.substring(0, 1) ) ) {
-			this.recordType =  NRTD.get(recordType.substring(0, 1));
+		if (record.getType().length > 0) {
+			
+			for (int k = 0; k < record.getType().length; k++) {
+				asciiCode = record.getType()[k];
+				recordType += (char) asciiCode; 
+			}
+			
+			if (NRTD.containsKey( recordType.substring(0, 1) ) ) {
+				this.recordType =  NRTD.get(recordType.substring(0, 1));
+			}
+			
 		}
 		
 	}
@@ -175,13 +197,9 @@ public class TagRecord {
 		this.messageId = messageId;
 	}
 
-
-	
 	public String getRecordPayloadHeaderDesc() {
 		return recordPayloadHeaderDesc;
 	}
-	
-
 
 	public void setRecordPayloadHeaderDesc() {
 		
@@ -195,5 +213,22 @@ public class TagRecord {
 		}
 		
 		
+	}
+
+	public Integer getIconId() {
+		return iconId;
+	}
+
+	public void setIconId() {
+		
+		
+		if ( PLTI.containsKey( String.valueOf(getRecordPayloadTypeDesc())  ) ) {
+			this.iconId =  PLTI.get(String.valueOf(getRecordPayloadTypeDesc()) );
+		}
+		
+		else {
+			Log.d("TagInfo", "It not contains");
+			this.iconId =PLTI.get("N/A");
+		}
 	}
 }

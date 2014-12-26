@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
+    
+    <!-- Commons Strings-->
     <string name="app_name">Proyecto</string>
     <string name="action_settings">Ajustes</string>
-    <string name="title_activity_read_main">Leer etiqueta</string>
+    <string name="saveButton">Guardar</string>
+    <string name="launchButton">Lanzar aplicación</string>
+    
+    <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
     <string name="write">Escribir etiqueta</string>
     <string name="my_tags">Mis etiquetas</string>
     <string name="extras">Extras</string>
-    <string name="title_activity_write_main">Escribir etiqueta</string>
+    
+    <!-- Read(Main) activity strings -->
+    <string name="title_activity_read_main">Leer etiqueta</string>
     <string name="readIntenta">"Listo para leer el contenido"</string>
     <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo"</string>
     <string name="readIntentc">"Acerque una etiqueta NFC "</string>
-    <string name="dtagread">"Etiqueta y lupa"</string>
-    <string name="saveButton">Guardar</string>
-    <string name="launchButton">Lanzar aplicación</string>
-
+    <string name="cntnt_desc_tagread">"Etiqueta y lupa"</string>
+    <string name="title_feature_list">"Carácteristicas"</string>
+    <string name="cntnt_desc_tagicon">"Icono del contenido"</string>
+    <string name="readIntent_Empty">"Etiqueta vacia"</string>
+    
+    <!-- Write(Main) activity strings -->
+    <string name="title_activity_write_main">Escribir etiqueta</string>
+        
+    <!-- Tag features Strings -->
+    <string name="f_SerialNumber">Número de serie</string>
+    <string name="f_DataFormat">Clasificación del NFC Forum</string>
+    <string name="f_CBMRO">¿Puede ser de Sólo Lectura?</string>
+    <string name="f_Storage">Almacenamiento</string>
+    <string name="f_WRTBL">¿Puede ser sobrescrita?</string>
+    <string name="f_TechList">Tecnologías soportadas</string>
+   
+  
 </resources>

@@ -5,14 +5,13 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
     >    
 
-    <RelativeLayout 
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.proyecto.ReadMain"
-    android:background="#FFF"
-    tools:ignore="MergeRootFrame"
-     >
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="171dp"
+        android:background="#FFF"
+        tools:context="com.example.proyecto.ReadMain"
+        tools:ignore="MergeRootFrame" >
 
     <ImageView
         android:id="@+id/payloadTypeIcon"
@@ -22,8 +21,46 @@ android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="31dp"
-        android:src="@drawable/link"
         android:visibility="invisible"
+        android:contentDescription="@string/cntnt_desc_tagicon"
+        />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/payloadTypeIcon"
+        android:layout_marginTop="35dp"
+        android:paddingLeft="10dp"
+        android:text="Type"
+        android:visibility="invisible"
+         />
+    
+      <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/payloadTypeIcon"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="70dp"
+        android:paddingLeft="10dp"
+        android:text="Content"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/launchButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/content"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="12dp"
+        android:layout_below="@+id/content"
+        android:drawableLeft="@drawable/launch16"
+        android:gravity="left|center_vertical"
+        android:text="@string/launchButton"
+        android:visibility="invisible" 
+        android:layout_marginTop="15dp"
         />
 
     <Button
@@ -31,50 +68,41 @@ android:layout_height="wrap_content"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="35dp"
         android:layout_below="@+id/content"
-        android:layout_marginLeft="61dp"
-        android:layout_marginTop="24dp"
-        android:layout_toRightOf="@+id/content"
+        android:layout_toRightOf="@+id/launchButton"
         android:drawableLeft="@drawable/save16"
         android:gravity="left|center_vertical"
-        android:text="@string/saveButton" 
+        android:text="@string/saveButton"
         android:visibility="invisible"
-        />
-
-    <Button
-        android:id="@+id/launchButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/saveButton"
-        android:layout_alignBottom="@+id/saveButton"
-        android:layout_toRightOf="@+id/payloadTypeIcon"
-        android:background="@drawable/launch16"
-        android:text="@string/launchButton" 
-        android:visibility="invisible"
-        />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/payloadTypeIcon"
-        android:layout_alignLeft="@+id/type"
-        android:text="Content"
-        android:visibility="invisible"
+        android:layout_marginTop="15dp"
          />
-
-    <TextView
-        android:id="@+id/type"
+  
+    <TextView 
+        android:id="@+id/featuresText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/launchButton"
-        android:layout_alignTop="@+id/payloadTypeIcon"
-        android:layout_marginRight="12dp"
-        android:text="Type"
+        android:layout_below="@+id/saveButton"
+        android:paddingLeft="10dp"
+        android:text="@string/title_feature_list"
         android:visibility="invisible"
-         />
-
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+      	android:layout_centerHorizontal="true"
+        />
+    
+    <LinearLayout 
+	    android:id="@+id/featureList"
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/featuresText"
+	    android:layout_marginTop="15dp"
+     >
+    
+	</LinearLayout>
+    
 </RelativeLayout>
 
 </ScrollView>

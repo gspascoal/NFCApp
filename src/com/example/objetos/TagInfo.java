@@ -3,7 +3,11 @@ package com.example.objetos;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import com.example.proyecto.R;
+
 import android.R.bool;
+import android.R.integer;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -26,11 +30,11 @@ public class TagInfo {
 	private boolean isWritable;
 	private String tagType;
 	private String tagTechList = "";
-	
-	private ArrayList<TagRecord> tagRecords = new ArrayList<TagRecord>();
 	private int Messages = 0;
+	private ArrayList<TagFeature> tagFeatures = new ArrayList<TagFeature>();
+	private ArrayList<TagRecord> tagRecords = new ArrayList<TagRecord>();
 	
-	public TagInfo(Tag t, Intent intent){
+	public TagInfo(Tag t, Intent intent, Context context){
 		
 		this.tag =  t;
 		this.ndef =  Ndef.get(tag);
@@ -42,10 +46,10 @@ public class TagInfo {
 		setIsWritable();
 		setTagTechList();
 		setTagType();
+		setTagFeatures(context);
 		
 		processNdefMessages();
 	}
-	
 	
 	public String getTagId() {
 		return this.tagId;
@@ -146,7 +150,6 @@ public class TagInfo {
 		
 	}
 
-
 	private NdefMessage[] getNdefMessages(Intent intent) {
 		// TODO Auto-generated method stub
 		NdefMessage[] message = null;
@@ -189,8 +192,6 @@ public class TagInfo {
 		return message;
 	}
 
-	
-
 	private void processNdefMessages(){
 		
 		 if (mssgs != null) {
@@ -213,6 +214,60 @@ public class TagInfo {
 		}
 	}
 
+	
+	public ArrayList<TagFeature> getTagFeatures() {
+		return tagFeatures;
+	}
 
+	
+	public void setTagFeatures(Context context) {
+		
+		TagFeature tagFeature = new TagFeature(context);
+		
+		/*Assign ID Feature*/
+		tagFeature.setFeatureName(R.string.f_SerialNumber); // Cambiar por un string del sistema 
+		tagFeature.setFeatureValue(getTagId());
+		//tagFeature.setFeatureIcon("ID");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+
+		/*Assign NFC Forum Class Feature*/
+		tagFeature.setFeatureName(R.string.f_DataFormat); // Cambiar por un string del sistema 
+		tagFeature.setFeatureValue(getTagType());
+		//tagFeature.setFeatureIcon("Class");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+		
+		/*Assign CBMRO Feature*/
+		tagFeature.setFeatureName(R.string.f_CBMRO); // Cambiar por un string del sistema 
+		tagFeature.setFeatureValue(getCanBeReadOnly() ? "Yes" : "No");
+		//tagFeature.setFeatureIcon("CBMRO");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+		
+		/*Assign Memory Feature*/
+		tagFeature.setFeatureName(R.string.f_Storage); // Cambiar por un string del sistema 
+		String mUse = "T:" + getTagSize() + " F:" + Integer.valueOf(getTagSize() - getInUse()) ;
+		tagFeature.setFeatureValue(mUse);
+		//tagFeature.setFeatureIcon("Size");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+		
+		/*Assign Writable Feature*/
+		tagFeature.setFeatureName(R.string.f_WRTBL); // Cambiar por un string del sistema 
+		tagFeature.setFeatureValue(getIsWritable() ? "Yes" : "No");
+		//tagFeature.setFeatureIcon("WRTBL");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+		
+		/*Assign Supported Technologies Feature*/
+		tagFeature.setFeatureName(R.string.f_TechList); // Cambiar por un string del sistema 
+		tagFeature.setFeatureValue(getTagTechList());
+		//tagFeature.setFeatureIcon("TechList");
+		tagFeatures.add(tagFeature);
+		tagFeature = new TagFeature(context);
+	}
+
+	
 	
 }

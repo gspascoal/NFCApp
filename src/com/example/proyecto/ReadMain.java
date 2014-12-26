@@ -1,16 +1,20 @@
 package com.example.proyecto;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
+import com.example.objetos.TagFeature;
 import com.example.objetos.TagInfo;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.LauncherActivity;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -33,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +55,11 @@ public class ReadMain extends Activity {
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
 	private CustomDialog dialog;
+	private int LaunchButtonVisibility;
+	private int SaveButtonVisibility;
+	private TagFeature tagFeature;
+	private LinearLayout linearLayout;
+	private String cntn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,13 +174,40 @@ public class ReadMain extends Activity {
 		launchButton = (Button) findViewById(R.id.launchButton);
 		saveButton = (Button) findViewById(R.id.saveButton);
 		
-		
 		Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    Ndef ndef = Ndef.get(tagFromIntent);
 	    
 	    NdefMessage[] messages = getNdefMessages(intent);
 	    
-	    TagInfo tInfo = new TagInfo(tagFromIntent, intent);
+	    TagInfo tInfo = new TagInfo(tagFromIntent, intent, this);
+	    
+	    Log.d("debug", "Records: " + tInfo.getTagRecords().size());
+	    
+	    if (messages != null)
+	    {
+	    	
+	    	if (tInfo.getTagRecords().size() >= 1 && tInfo.getTagRecords().get(0).getRecordPayload() != null ) 
+	    	{
+	    		payloadTypeIcon.setBackgroundResource(tInfo.getTagRecords().get(0).getIconId());
+			    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
+			    cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();
+			    Content.setText(cntn);
+			    SaveButtonVisibility = View.VISIBLE;
+			    
+			    
+			}
+	    	else 
+			{
+				Content.setText(""); // change for a system string
+		    	Type.setText(R.string.readIntent_Empty);
+		    	payloadTypeIcon.setBackgroundResource(R.drawable.launch);// Assign default icon
+		    	Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();
+		    	SaveButtonVisibility = View.INVISIBLE;
+			}
+	    	
+	    }	
+	    
+	    /*FOR DEBUG - ERASE ASAP*/
 	    Log.d("TagInfo", tInfo.getTagId());
 	    Log.d("TagInfo", tInfo.getTagType());
 	    Log.d("TagInfo", tInfo.getTagTechList());
@@ -182,73 +219,41 @@ public class ReadMain extends Activity {
 	    Log.d("TagInfo", "First Record's Payload Type: "+tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 	    Log.d("TagInfo", "First Record's Payload: "+tInfo.getTagRecords().get(0).getRecordPayload());
 	    Log.d("TagInfo", "First Record's Payload Header Desc: "+tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc());
+	    /*FOR DEBUG - ERASE ASAP*/
 	    
-	    
+	
 	    payloadTypeIcon.setVisibility(View.VISIBLE);
 	    Type.setVisibility(View.VISIBLE);
 	    Content.setVisibility(View.VISIBLE);
+
+	    LaunchButtonVisibility = tInfo.getTagRecords().size() > 1 ? View.VISIBLE : View.INVISIBLE;
 	    
-	    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
-	    
-	    String cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();
-	    Content.setText(cntn);
-	    
-	    if(tInfo.getMessages() > 1)
-	    {
-	    	launchButton.setVisibility(View.VISIBLE);
-	    }
-	    
-	    saveButton.setVisibility(View.VISIBLE);
+	    launchButton.setVisibility(LaunchButtonVisibility);
+	    saveButton.setVisibility(SaveButtonVisibility);
+	    linearLayout = (LinearLayout) findViewById(R.id.featureList);
+	   
+	    /*Add the tag's feature list*/
+	    ArrayList<TagFeature> tagFeatures =  tInfo.getTagFeatures();
+	    Log.d("debug", "Features length "+tagFeatures.size() );
+	    if (linearLayout.getChildCount() > 0) {
+			linearLayout.removeAllViews();
+		}
+	  
+	    for (int i = 0; i < tagFeatures.size(); i++) {
+	    	linearLayout.addView(tagFeatures.get(i));
+		}
 	    
 	    //do something with tagFromIntent
 	    Log.d("debug", "tag detected");
 		 // GET NDEF MESSAGE IN THE TAG
-		 
-		//status.append("\n");
-		
-		/*Checking if can be made Read-Only */
-	    String cbmro= ndef.canMakeReadOnly() ? "Yes" : "No";
-	    //status.append("Can be made Read-Only?: "+  cbmro + "\n" );
-	   
-	    /*Checking Memory status */
-	    /*
-	    status.append("Storage: \nTotal: " + ndef.getMaxSize() 
-	    		+ "\nIn use: " +  this.inUse(messages)
-	    		+ "\nFree: " + String.valueOf(ndef.getMaxSize() - this.inUse(messages)) + "\n");
-	    */
-	    /*Checking if is writable */
-	    String wrtbl = ndef.isWritable() ? "Yes" : "No";
-	    //status.append("Writtable?: "+  wrtbl + "\n" );
 	    
-	    /*Getting the Tag Type or Class*/
-	    //status.append("Type: "+ ndef.getType());
-	    //status.append("\n"); 
-	    
-	    /*Getting the Tag's ID or Serial Number */
-	    //status.append("ID or Serial Number: ");
-	    byte[] tagId = tagFromIntent.getId();
-	    for (int i = 0; i < tagId.length; i++) {
-			//status.append(Integer.toHexString(tagId[i]& 0xFF));
-			if (i < tagId.length-1) {
-				//status.append(":");
-			}
-		}
-	    //status.append("\n");
-	    
-	    /*Getting the Tag's Technologies available List  */
-	    String[] techList = tagFromIntent.getTechList();
-	    //status.append("Technologies available: ");
-	    for (int i = 0; i < techList.length; i++) {
-	    	//status.append(techList[i].substring(17));
-	    	if (i < techList.length-1) {
-				//status.append(",");
-			}
-		}
 	    
 		 // PROCESS NDEF MESSAGE
 		 String payload = null;
 		 byte payloadHeader = 0x00;
+		 
 		 if (messages != null) {
+			/*
 			 for (int i = 0; i < messages.length; i++) {
 				 //status.append("\n");
 				 //status.append("Message "+(i+1)+" \n");
@@ -258,12 +263,12 @@ public class ReadMain extends Activity {
 				 		
 				 		//status.append((j+1)+"th. Record Tnf: "+record.getTnf() +"\n");
 				 		/*Getting the Well-Known NDEF Record type*/
-				 		int inttype = record.getType()[0];
-				 		char chartype = (char) inttype;
+				 		//int inttype = record.getType()[0];
+				 		//char chartype = (char) inttype;
 				 		//status.append((j+1)+"th. Record type: "+ chartype+"\n");
 				 		/*for (int k = 0; k < record.getType().length; k++) {
 							java.lang.System.out.println(record.getType()[k]);
-						}*/
+						}
 				 		//status.append((j+1)+"th. Record id: "+record.getId().toString()+"\n");
 				 		//status.append((j+1)+"th. Record Contents: "+record.describeContents()+"\n");
 				 		
@@ -399,4 +404,6 @@ public class ReadMain extends Activity {
 		
 		return total;
 	} 
+	
+
 }
