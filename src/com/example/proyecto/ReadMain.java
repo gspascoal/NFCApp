@@ -1,21 +1,19 @@
 package com.example.proyecto;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-
-import com.example.objetos.TagFeature;
-import com.example.objetos.TagInfo;
+import java.util.Random;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.LauncherActivity;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -23,10 +21,8 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;
-import android.nfc.tech.NfcF;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.provider.Settings.System;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,9 +34,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.objetos.Comment;
+import com.example.objetos.CommentsDataSource;
+import com.example.objetos.TagFeature;
+import com.example.objetos.TagInfo;
 
 public class ReadMain extends Activity {
 
@@ -60,6 +60,7 @@ public class ReadMain extends Activity {
 	private TagFeature tagFeature;
 	private LinearLayout linearLayout;
 	private String cntn;
+	private CommentsDataSource datasource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,9 @@ public class ReadMain extends Activity {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.read_tag_dialog);
 		
-		
+		datasource = new CommentsDataSource(this);
+	    datasource.open();
+	    
 		dialog.show();
 		
 		/*Checking if the device support NFC*/
@@ -154,15 +157,19 @@ public class ReadMain extends Activity {
 	public void onPause() {
 	    super.onPause();
 	   myNfcAdapter.disableForegroundDispatch(this);
+	   datasource.open();
 	}
 
 	public void onResume() {
 	    super.onResume();
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
+	   datasource.open();
 	}
 
 	public void onNewIntent(Intent intent)
 	{
+		
+		
 		//Check if the dialog is showing
 		if (dialog.isShowing()) {
 			dialog.dismiss();
@@ -349,6 +356,59 @@ public class ReadMain extends Activity {
 		}
 	}
 
+	
+	public void onClick(View view) {
+	    @SuppressWarnings("unchecked")
+	   // ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+	    Comment comment = null;
+	    switch (view.getId()) {
+	    case R.id.saveButton:
+	      String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
+	      int nextInt = new Random().nextInt(3);
+	      // save the new comment to the database
+	      comment = datasource.createComment(comments[nextInt]);
+	      status =  (TextView) findViewById(R.id.type);
+	      status.setText(comment.toString());
+	      //adapter.add(comment);
+	      //datasource.close();
+	      
+	      /*
+	      // Local database
+	      InputStream input = new FileInputStream("comments.db");
+
+	      // create directory for backup
+	      File dir = new File("/data/data");
+	      dir.mkdir();
+
+	      // Path to the external backup
+	      OutputStream output = new FileOutputStream(to);
+
+	      // transfer bytes from the Input File to the Output File
+	      byte[] buffer = new byte[1024];
+	      int length;
+	      while ((length = input.read(buffer))>0) {
+	          output.write(buffer, 0, length);
+	      }
+
+	      output.flush();
+	      output.close();
+	      input.close();*/
+	      datasource.close();
+	      datasource.exportDB();
+	      break;
+	      
+	      /*
+	    case R.id.delete:
+	      if (getListAdapter().getCount() > 0) {
+	        comment = (Comment) getListAdapter().getItem(0);
+	        datasource.deleteComment(comment);
+	        adapter.remove(comment);
+	      }
+	      break;*/
+	    }
+	    //adapter.notifyDataSetChanged();
+	  }
+
 	// UTILIATRIES METHODS
 	private NdefMessage[] getNdefMessages(Intent intent) {
 		// TODO Auto-generated method stub
@@ -392,7 +452,9 @@ public class ReadMain extends Activity {
 		return message;
 	}
 
+	
 	/*Return amount of bytes in use*/
+	/*
 	public int inUse (NdefMessage[] mssgs){
 		int total = 0;
 		
@@ -403,7 +465,7 @@ public class ReadMain extends Activity {
 		
 		
 		return total;
-	} 
+	} */
 	
 
 }

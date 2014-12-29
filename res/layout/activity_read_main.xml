@@ -77,6 +77,7 @@ android:layout_height="wrap_content"
         android:text="@string/saveButton"
         android:visibility="invisible"
         android:layout_marginTop="15dp"
+        android:onClick="onClick"
          />
   
     <TextView 
