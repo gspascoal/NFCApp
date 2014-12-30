@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
@@ -37,8 +38,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.objetos.Comment;
-import com.example.objetos.CommentsDataSource;
+import com.example.objetos.TagContent;
+import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagFeature;
 import com.example.objetos.TagInfo;
 
@@ -60,7 +61,8 @@ public class ReadMain extends Activity {
 	private TagFeature tagFeature;
 	private LinearLayout linearLayout;
 	private String cntn;
-	private CommentsDataSource datasource;
+	private TagContentDataSource datasource;
+	private TagInfo tInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class ReadMain extends Activity {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.read_tag_dialog);
 		
-		datasource = new CommentsDataSource(this);
+		datasource = new TagContentDataSource(this);
 	    datasource.open();
 	    
 		dialog.show();
@@ -186,7 +188,7 @@ public class ReadMain extends Activity {
 	    
 	    NdefMessage[] messages = getNdefMessages(intent);
 	    
-	    TagInfo tInfo = new TagInfo(tagFromIntent, intent, this);
+	    tInfo = new TagInfo(tagFromIntent, intent, this);
 	    
 	    Log.d("debug", "Records: " + tInfo.getTagRecords().size());
 	    
@@ -360,15 +362,25 @@ public class ReadMain extends Activity {
 	public void onClick(View view) {
 	    @SuppressWarnings("unchecked")
 	   // ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
-	    Comment comment = null;
+	    TagContent content = null;
 	    switch (view.getId()) {
-	    case R.id.saveButton:
-	      String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
-	      int nextInt = new Random().nextInt(3);
-	      // save the new comment to the database
-	      comment = datasource.createComment(comments[nextInt]);
-	      status =  (TextView) findViewById(R.id.type);
-	      status.setText(comment.toString());
+		    case R.id.saveButton:
+		      
+		     /*FOR DEBUG ONLY - REMOVE ASAP	
+		      String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
+		      int nextInt = new Random().nextInt(3);
+		      */
+		      // save the new tag_content to the database
+		      content = datasource.createContent(tInfo.getTagRecords().get(0).getRecordPayload(),
+		    		  tInfo.getTagRecords().get(0).getRecordPayloadheader(),
+		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
+		      //status =  (TextView) findViewById(R.id.type);
+		      //status.setText(content.toString());
+		      List<TagContent> test = datasource.getAllComments();
+		      Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+		      for (int i = 0; i < test.size(); i++) {
+				Log.d("List element", "tag_content: " + test.get(i));
+			}
 	      //adapter.add(comment);
 	      //datasource.close();
 	      

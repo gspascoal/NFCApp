@@ -14,18 +14,21 @@ import android.widget.Toast;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-	  public static final String TABLE_COMMENTS = "comments";
+	  public static final String TABLE_COMMENTS = "tag_content";
 	  public static final String COLUMN_ID = "_id";
-	  public static final String COLUMN_COMMENT = "comment";
+	  public static final String COLUMN_PAYLOAD = "payload";
+	  public static final String COLUMN_PLHEADER = "payload_header";
+	  public static final String COLUMN_PLTYPE = "payload_tipo";
 
-	  private static final String DATABASE_NAME = "commments.db";
+	  private static final String DATABASE_NAME = "tag_content.db";
 	  private static final int DATABASE_VERSION = 1;
 
 	  // Database creation sql statement
 	  private static final String DATABASE_CREATE = "create table "
-	      + TABLE_COMMENTS + "(" + COLUMN_ID
-	      + " integer primary key autoincrement, " + COLUMN_COMMENT
-	      + " text not null);";
+	      + TABLE_COMMENTS + " (" + COLUMN_ID
+	      + " integer primary key autoincrement, " 
+	      + COLUMN_PAYLOAD  +  " text not null, " 
+	      + COLUMN_PLHEADER + " text not null, "+ COLUMN_PLTYPE +" text not null);";
 
 	  public MySQLiteHelper(Context context) {
 	    super(context, DATABASE_NAME, null, DATABASE_VERSION);
