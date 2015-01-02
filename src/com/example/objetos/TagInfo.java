@@ -227,43 +227,43 @@ public class TagInfo {
 		/*Assign ID Feature*/
 		tagFeature.setFeatureName(R.string.f_SerialNumber); // Cambiar por un string del sistema 
 		tagFeature.setFeatureValue(getTagId());
-		//tagFeature.setFeatureIcon("ID");
+		tagFeature.setFeatureIcon("ID");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 
 		/*Assign NFC Forum Class Feature*/
 		tagFeature.setFeatureName(R.string.f_DataFormat); // Cambiar por un string del sistema 
 		tagFeature.setFeatureValue(getTagType());
-		//tagFeature.setFeatureIcon("Class");
+		tagFeature.setFeatureIcon("Class");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign CBMRO Feature*/
 		tagFeature.setFeatureName(R.string.f_CBMRO); // Cambiar por un string del sistema 
-		tagFeature.setFeatureValue(getCanBeReadOnly() ? "Yes" : "No");
-		//tagFeature.setFeatureIcon("CBMRO");
+		tagFeature.setFeatureValue(getCanBeReadOnly() ? context.getString(R.string.affirmation) : context.getString(R.string.negation));
+		tagFeature.setFeatureIcon("CBMRO");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Memory Feature*/
 		tagFeature.setFeatureName(R.string.f_Storage); // Cambiar por un string del sistema 
-		String mUse = "T:" + getTagSize() + " F:" + Integer.valueOf(getTagSize() - getInUse()) ;
+		String mUse = context.getString(R.string.f_Storage_T) +":" + getTagSize() + " " +context.getString(R.string.f_Storage_F)+":" + Integer.valueOf(getTagSize() - getInUse()) ;
 		tagFeature.setFeatureValue(mUse);
-		//tagFeature.setFeatureIcon("Size");
+		tagFeature.setFeatureIcon("Size");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Writable Feature*/
 		tagFeature.setFeatureName(R.string.f_WRTBL); // Cambiar por un string del sistema 
-		tagFeature.setFeatureValue(getIsWritable() ? "Yes" : "No");
-		//tagFeature.setFeatureIcon("WRTBL");
+		tagFeature.setFeatureValue(getIsWritable() ? context.getString(R.string.affirmation) : context.getString(R.string.negation));
+		tagFeature.setFeatureIcon("WRTBL");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Supported Technologies Feature*/
 		tagFeature.setFeatureName(R.string.f_TechList); // Cambiar por un string del sistema 
 		tagFeature.setFeatureValue(getTagTechList());
-		//tagFeature.setFeatureIcon("TechList");
+		tagFeature.setFeatureIcon("TechList");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 	}

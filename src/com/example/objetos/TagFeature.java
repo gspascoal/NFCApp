@@ -23,13 +23,13 @@ public class TagFeature extends RelativeLayout{
 		super(context);
 		
 		/*Initialize associative array of Feature icons id*/
-		featureIcons.put("N/A", R.drawable.logo_app);
-		featureIcons.put("ID", R.drawable.logo_app);
-		featureIcons.put("Class", R.drawable.logo_app);
-		featureIcons.put("CBMRO", R.drawable.logo_app);
-		featureIcons.put("Size", R.drawable.logo_app);
-		featureIcons.put("WRTBL", R.drawable.logo_app);
-		featureIcons.put("TechList", R.drawable.logo_app);
+		featureIcons.put("N/A", R.drawable.linkb48);
+		featureIcons.put("ID", R.drawable.id64);
+		featureIcons.put("Class", R.drawable.class64);
+		featureIcons.put("CBMRO", R.drawable.readonly64);
+		featureIcons.put("Size", R.drawable.storage64);
+		featureIcons.put("WRTBL", R.drawable.wrtbl64);
+		featureIcons.put("TechList", R.drawable.techlist64);
 		
 		
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.tag_feature,this);

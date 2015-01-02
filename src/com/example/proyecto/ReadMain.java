@@ -1,5 +1,6 @@
 package com.example.proyecto;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,7 +10,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -49,6 +49,7 @@ public class ReadMain extends Activity {
 	private TextView status;
 	private TextView Type;
 	private TextView Content;
+	private TextView featureList;
 	private ImageView payloadTypeIcon;
 	private Button launchButton;
 	private Button saveButton;
@@ -180,6 +181,7 @@ public class ReadMain extends Activity {
 		payloadTypeIcon =  (ImageView) findViewById(R.id.payloadTypeIcon);
 		Type = (TextView) findViewById(R.id.type);
 		Content = (TextView) findViewById(R.id.content);
+		featureList = (TextView) findViewById(R.id.featuresText);
 		launchButton = (Button) findViewById(R.id.launchButton);
 		saveButton = (Button) findViewById(R.id.saveButton);
 		
@@ -234,6 +236,8 @@ public class ReadMain extends Activity {
 	    payloadTypeIcon.setVisibility(View.VISIBLE);
 	    Type.setVisibility(View.VISIBLE);
 	    Content.setVisibility(View.VISIBLE);
+	    featureList.setVisibility(View.VISIBLE);
+	    
 
 	    LaunchButtonVisibility = tInfo.getTagRecords().size() > 1 ? View.VISIBLE : View.INVISIBLE;
 	    
@@ -407,6 +411,7 @@ public class ReadMain extends Activity {
 	      input.close();*/
 	      datasource.close();
 	      datasource.exportDB();
+	      datasource.open();
 	      break;
 	      
 	      /*

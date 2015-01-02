@@ -6,6 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="saveButton">Save</string>
     <string name="launchButton">Launch</string>
+    <string name="affirmation">Yes</string>
+    <string name="negation">No</string>
     
     <!-- Main activity strings -->
     <string name="read">Read tag</string>
@@ -34,6 +36,7 @@
     <string name="f_Storage">Storage</string>
     <string name="f_WRTBL">Is writable?</string>
     <string name="f_TechList">Supported technologies</string>
-    
+     <string name="f_Storage_T">Total</string>
+    <string name="f_Storage_F">Free</string>
     
 </resources>

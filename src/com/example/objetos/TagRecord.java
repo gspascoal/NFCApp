@@ -52,7 +52,7 @@ public class TagRecord {
 		URIPFXMap.put("4", "Secure Link"); //https://
 		URIPFXMap.put("5", "Telephone number"); // tel: 
 		URIPFXMap.put("6", "Email"); // mailto:
-		URIPFXMap.put("66", "Bussiness card");
+		URIPFXMap.put("66", "Business card");
 		URIPFXMap.put("99", "App launcher");
 		
 		/*Initialize associative array of record's types*/
@@ -74,11 +74,13 @@ public class TagRecord {
 		
 		/*Initialize associative array of URI prefixes icons id*/
 		
-		PLTI.put("N/A", R.drawable.launch);
-		PLTI.put("Link", R.drawable.link);
-		PLTI.put("Secure Link", R.drawable.link);
-		PLTI.put("Telephone number", R.drawable.telephone);
-		PLTI.put("Email", R.drawable.mail);
+		PLTI.put("N/A", R.drawable.tagb72);
+		PLTI.put("Link", R.drawable.linkb48);
+		PLTI.put("Secure Link", R.drawable.linkb24);
+		PLTI.put("Telephone number", R.drawable.contactb24);
+		PLTI.put("Email", R.drawable.mailb24);
+		PLTI.put("Business card", R.drawable.business_cardb24);
+		
 		
 		
 		

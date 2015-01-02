@@ -5,7 +5,10 @@
     <string name="app_name">Proyecto</string>
     <string name="action_settings">Ajustes</string>
     <string name="saveButton">Guardar</string>
-    <string name="launchButton">Lanzar aplicación</string>
+    <string name="launchButton">Ejecutar</string>
+    <string name="affirmation">Si</string>
+    <string name="negation">No</string>
+    
     
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -33,6 +36,9 @@
     <string name="f_Storage">Almacenamiento</string>
     <string name="f_WRTBL">¿Puede ser sobrescrita?</string>
     <string name="f_TechList">Tecnologías soportadas</string>
+    <string name="f_Storage_T">Total</string>
+    <string name="f_Storage_F">Libre</string>
+    
    
   
 </resources>
