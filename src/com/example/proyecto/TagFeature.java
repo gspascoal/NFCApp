@@ -1,4 +1,4 @@
-package com.example.objetos;
+package com.example.proyecto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

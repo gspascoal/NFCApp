@@ -39,6 +39,13 @@
     <string name="f_Storage_T">Total</string>
     <string name="f_Storage_F">Libre</string>
     
+   <!-- Tag Records Strings -->
    
-  
+  	<string name="title_record_list">Lista de registros</string>
+  	<string name="r_number">Registro #</string>
+  	<string name="r_TNF">TNF:</string>
+  	<string name="r_Type">Tipo de registro:</string>
+  	<string name="r_Protocol">Protocolo:</string>
+  	<string name="r_Payload">Contenido:</string>
+  	
 </resources>
