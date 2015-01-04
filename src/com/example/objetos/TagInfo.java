@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import com.example.proyecto.R;
+import com.example.proyecto.TagFeature;
+import com.example.proyecto.R.string;
 
 import android.R.bool;
 import android.R.integer;
@@ -33,6 +35,7 @@ public class TagInfo {
 	private int Messages = 0;
 	private ArrayList<TagFeature> tagFeatures = new ArrayList<TagFeature>();
 	private ArrayList<TagRecord> tagRecords = new ArrayList<TagRecord>();
+	private ArrayList<com.example.proyecto.TagRecord> tagUIRecords = new ArrayList<com.example.proyecto.TagRecord>();
 	
 	public TagInfo(Tag t, Intent intent, Context context){
 		
@@ -49,6 +52,7 @@ public class TagInfo {
 		setTagFeatures(context);
 		
 		processNdefMessages();
+		setTagUIRecords(context);
 	}
 	
 	public String getTagId() {
@@ -219,53 +223,76 @@ public class TagInfo {
 		return tagFeatures;
 	}
 
-	
 	public void setTagFeatures(Context context) {
 		
 		TagFeature tagFeature = new TagFeature(context);
 		
 		/*Assign ID Feature*/
-		tagFeature.setFeatureName(R.string.f_SerialNumber); // Cambiar por un string del sistema 
+		tagFeature.setFeatureName(R.string.f_SerialNumber);
 		tagFeature.setFeatureValue(getTagId());
 		tagFeature.setFeatureIcon("ID");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 
 		/*Assign NFC Forum Class Feature*/
-		tagFeature.setFeatureName(R.string.f_DataFormat); // Cambiar por un string del sistema 
+		tagFeature.setFeatureName(R.string.f_DataFormat); 
 		tagFeature.setFeatureValue(getTagType());
 		tagFeature.setFeatureIcon("Class");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign CBMRO Feature*/
-		tagFeature.setFeatureName(R.string.f_CBMRO); // Cambiar por un string del sistema 
+		tagFeature.setFeatureName(R.string.f_CBMRO);  
 		tagFeature.setFeatureValue(getCanBeReadOnly() ? context.getString(R.string.affirmation) : context.getString(R.string.negation));
 		tagFeature.setFeatureIcon("CBMRO");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Memory Feature*/
-		tagFeature.setFeatureName(R.string.f_Storage); // Cambiar por un string del sistema 
-		String mUse = context.getString(R.string.f_Storage_T) +":" + getTagSize() + " " +context.getString(R.string.f_Storage_F)+":" + Integer.valueOf(getTagSize() - getInUse()) ;
+		tagFeature.setFeatureName(R.string.f_Storage);
+		String mUse = context.getString(R.string.f_Storage_T) +":" + getTagSize() + " bytes " +context.getString(R.string.f_Storage_F)+":" + Integer.valueOf(getTagSize() - getInUse()) + " bytes" ;
 		tagFeature.setFeatureValue(mUse);
 		tagFeature.setFeatureIcon("Size");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Writable Feature*/
-		tagFeature.setFeatureName(R.string.f_WRTBL); // Cambiar por un string del sistema 
+		tagFeature.setFeatureName(R.string.f_WRTBL); 
 		tagFeature.setFeatureValue(getIsWritable() ? context.getString(R.string.affirmation) : context.getString(R.string.negation));
 		tagFeature.setFeatureIcon("WRTBL");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
 		
 		/*Assign Supported Technologies Feature*/
-		tagFeature.setFeatureName(R.string.f_TechList); // Cambiar por un string del sistema 
+		tagFeature.setFeatureName(R.string.f_TechList); 
 		tagFeature.setFeatureValue(getTagTechList());
 		tagFeature.setFeatureIcon("TechList");
 		tagFeatures.add(tagFeature);
 		tagFeature = new TagFeature(context);
+	}
+
+	public ArrayList<com.example.proyecto.TagRecord> getTagUIRecords() {
+		return tagUIRecords;
+	}
+
+	public void setTagUIRecords(Context context) {
+		
+		com.example.proyecto.TagRecord tagRecord = new com.example.proyecto.TagRecord(context);
+		for (int i = 0; i < tagRecords.size(); i++) {
+			tagRecord.getR_Number().setText(tagRecord.getR_Number().getText()+" "+String.valueOf(i+1));
+			tagRecord.getR_TNF().setText(tagRecord.getR_TNF().getText()+" "+tagRecords.get(i).getRecordTNFDesc());
+			tagRecord.getR_Type().setText(tagRecord.getR_Type().getText()+" "+tagRecords.get(i).getRecordType());
+			if (tagRecords.get(i).isWOP()) {
+				tagRecord.getR_PLHeader().setText("none");
+			}else {
+				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+tagRecords.get(i).getRecordPayloadHeaderDesc()); //Protocol
+			}
+			tagRecord.getR_PLType().setText(tagRecord.getR_PLType().getText()+" "+tagRecords.get(i).getRecordPayloadTypeDesc());
+			tagRecord.getR_Payload().setText(tagRecord.getR_Payload().getText()+" "+tagRecords.get(i).getRecordPayload());
+			tagRecord.setRecordIcon(i == 0 ? tagRecords.get(i).getRecordPayloadTypeDesc() : "N/A");
+			tagUIRecords.add(tagRecord);
+			tagRecord = new com.example.proyecto.TagRecord(context);
+		}
 	}
 
 	

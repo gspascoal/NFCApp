@@ -61,6 +61,7 @@ android:layout_height="wrap_content"
         android:text="@string/launchButton"
         android:visibility="invisible" 
         android:layout_marginTop="15dp"
+        android:onClick="onClick"
         />
 
     <Button
@@ -99,6 +100,30 @@ android:layout_height="wrap_content"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/featuresText"
+	    android:layout_marginTop="15dp"
+     >
+    
+	</LinearLayout>
+    
+    <TextView 
+        android:id="@+id/recordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/featureList"
+        android:paddingLeft="10dp"
+        android:visibility="invisible"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+      	android:layout_centerHorizontal="true"
+      	android:text="@string/title_record_list"
+        />
+    
+    <LinearLayout 
+	    android:id="@+id/recordsList"
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/recordText"
 	    android:layout_marginTop="15dp"
      >
     

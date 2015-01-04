@@ -987,29 +987,36 @@ containing a value of this type.
         public static final int class64=0x7f02005a;
         public static final int class_2_64=0x7f02005b;
         public static final int contactb24=0x7f02005c;
-        public static final int destination=0x7f02005d;
-        public static final int ic_launcher=0x7f02005e;
-        public static final int id64=0x7f02005f;
-        public static final int launch=0x7f020060;
-        public static final int launch16=0x7f020061;
-        public static final int link=0x7f020062;
-        public static final int linkb24=0x7f020063;
-        public static final int linkb48=0x7f020064;
-        public static final int mail=0x7f020065;
-        public static final int mailb24=0x7f020066;
-        public static final int map15=0x7f020067;
-        public static final int mapb24=0x7f020068;
-        public static final int opened4=0x7f020069;
-        public static final int readonly64=0x7f02006a;
-        public static final int save=0x7f02006b;
-        public static final int save16=0x7f02006c;
-        public static final int storage64=0x7f02006d;
-        public static final int tagb128=0x7f02006e;
-        public static final int tagb72=0x7f02006f;
-        public static final int tagread=0x7f020070;
-        public static final int techlist64=0x7f020071;
-        public static final int telephone=0x7f020072;
-        public static final int wrtbl64=0x7f020073;
+        public static final int default64=0x7f02005d;
+        public static final int destination=0x7f02005e;
+        public static final int geo64=0x7f02005f;
+        public static final int ic_launcher=0x7f020060;
+        public static final int id64=0x7f020061;
+        public static final int launch=0x7f020062;
+        public static final int launch16=0x7f020063;
+        public static final int link=0x7f020064;
+        public static final int link64=0x7f020065;
+        public static final int linkb24=0x7f020066;
+        public static final int linkb48=0x7f020067;
+        public static final int mail=0x7f020068;
+        public static final int mail64=0x7f020069;
+        public static final int mail_2_64=0x7f02006a;
+        public static final int mailb24=0x7f02006b;
+        public static final int map15=0x7f02006c;
+        public static final int mapb24=0x7f02006d;
+        public static final int opened4=0x7f02006e;
+        public static final int readonly64=0x7f02006f;
+        public static final int save=0x7f020070;
+        public static final int save16=0x7f020071;
+        public static final int sms64=0x7f020072;
+        public static final int storage64=0x7f020073;
+        public static final int tagb128=0x7f020074;
+        public static final int tagb72=0x7f020075;
+        public static final int tagread=0x7f020076;
+        public static final int techlist64=0x7f020077;
+        public static final int tel64=0x7f020078;
+        public static final int telephone=0x7f020079;
+        public static final int wrtbl64=0x7f02007a;
     }
     public static final class id {
         public static final int action_bar=0x7f06001c;
@@ -1023,7 +1030,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060050;
+        public static final int action_settings=0x7f06005a;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1042,7 +1049,8 @@ containing a value of this type.
         public static final int extras=0x7f060040;
         public static final int featureList=0x7f060047;
         public static final int featuresText=0x7f060046;
-        public static final int firstLine=0x7f06004f;
+        public static final int fieldList=0x7f060053;
+        public static final int firstLine=0x7f060051;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int icon=0x7f06002a;
@@ -1050,9 +1058,9 @@ containing a value of this type.
         public static final int image=0x7f060027;
         public static final int launchButton=0x7f060044;
         public static final int listMode=0x7f060001;
-        public static final int listView1=0x7f060049;
+        public static final int listView1=0x7f06004b;
         public static final int list_item=0x7f060029;
-        public static final int mainimage=0x7f06004b;
+        public static final int mainimage=0x7f06004d;
         public static final int middle=0x7f060012;
         public static final int my_tag=0x7f06003f;
         public static final int never=0x7f060009;
@@ -1063,9 +1071,18 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
         public static final int read=0x7f06003d;
-        public static final int readIntent=0x7f06004d;
-        public static final int readIntent1=0x7f06004a;
-        public static final int readIntent2=0x7f06004c;
+        public static final int readIntent=0x7f06004f;
+        public static final int readIntent1=0x7f06004c;
+        public static final int readIntent2=0x7f06004e;
+        public static final int recordHeaderDesc=0x7f060057;
+        public static final int recordIcon=0x7f060052;
+        public static final int recordNumber=0x7f060054;
+        public static final int recordPayload=0x7f060059;
+        public static final int recordPayloadType=0x7f060058;
+        public static final int recordTNF=0x7f060055;
+        public static final int recordText=0x7f060048;
+        public static final int recordType=0x7f060056;
+        public static final int recordsList=0x7f060049;
         public static final int saveButton=0x7f060045;
         public static final int search_badge=0x7f060032;
         public static final int search_bar=0x7f060031;
@@ -1077,13 +1094,13 @@ containing a value of this type.
         public static final int search_plate=0x7f060036;
         public static final int search_src_text=0x7f060037;
         public static final int search_voice_btn=0x7f06003b;
-        public static final int secondLine=0x7f06004e;
+        public static final int secondLine=0x7f060050;
         public static final int shortcut=0x7f06002e;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
         public static final int split_action_bar=0x7f06001e;
-        public static final int status=0x7f060048;
+        public static final int status=0x7f06004a;
         public static final int submit_area=0x7f060039;
         public static final int tabMode=0x7f060002;
         public static final int title=0x7f06002b;
@@ -1154,6 +1171,7 @@ containing a value of this type.
         public static final int show_tag_content=0x7f03001f;
         public static final int support_simple_spinner_dropdown_item=0x7f030020;
         public static final int tag_feature=0x7f030021;
+        public static final int tag_record=0x7f030022;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
@@ -1224,6 +1242,11 @@ containing a value of this type.
         public static final int launchButton=0x7f0b0010;
         public static final int my_tags=0x7f0b0015;
         public static final int negation=0x7f0b0012;
+        public static final int r_Payload=0x7f0b002d;
+        public static final int r_Protocol=0x7f0b002c;
+        public static final int r_TNF=0x7f0b002a;
+        public static final int r_Type=0x7f0b002b;
+        public static final int r_number=0x7f0b0029;
         /**  Main activity strings 
  Main activity strings 
          */
@@ -1242,6 +1265,10 @@ containing a value of this type.
          */
         public static final int title_activity_write_main=0x7f0b001f;
         public static final int title_feature_list=0x7f0b001c;
+        /**  Tag Records Strings 
+ Tag Records Strings 
+         */
+        public static final int title_record_list=0x7f0b0028;
         public static final int write=0x7f0b0014;
     }
     public static final class style {

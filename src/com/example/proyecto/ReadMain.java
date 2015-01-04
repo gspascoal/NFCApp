@@ -1,20 +1,17 @@
 package com.example.proyecto;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -40,7 +37,6 @@ import android.widget.Toast;
 
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
-import com.example.objetos.TagFeature;
 import com.example.objetos.TagInfo;
 
 public class ReadMain extends Activity {
@@ -50,6 +46,7 @@ public class ReadMain extends Activity {
 	private TextView Type;
 	private TextView Content;
 	private TextView featureList;
+	private TextView recordList;
 	private ImageView payloadTypeIcon;
 	private Button launchButton;
 	private Button saveButton;
@@ -60,7 +57,8 @@ public class ReadMain extends Activity {
 	private int LaunchButtonVisibility;
 	private int SaveButtonVisibility;
 	private TagFeature tagFeature;
-	private LinearLayout linearLayout;
+	private LinearLayout featuresListLayout;
+	private LinearLayout recordsListLayout;
 	private String cntn;
 	private TagContentDataSource datasource;
 	private TagInfo tInfo;
@@ -185,6 +183,8 @@ public class ReadMain extends Activity {
 		launchButton = (Button) findViewById(R.id.launchButton);
 		saveButton = (Button) findViewById(R.id.saveButton);
 		
+		recordList = (TextView) findViewById(R.id.recordText);
+		
 		Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    Ndef ndef = Ndef.get(tagFromIntent);
 	    
@@ -201,7 +201,12 @@ public class ReadMain extends Activity {
 	    	{
 	    		payloadTypeIcon.setBackgroundResource(tInfo.getTagRecords().get(0).getIconId());
 			    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
-			    cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();
+			    if (tInfo.getTagRecords().get(0).isWOP()) {
+			    	cntn = tInfo.getTagRecords().get(0).getRecordPayload();
+				}
+			    else {
+			    	cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();
+				}
 			    Content.setText(cntn);
 			    SaveButtonVisibility = View.VISIBLE;
 			    
@@ -230,6 +235,14 @@ public class ReadMain extends Activity {
 	    Log.d("TagInfo", "First Record's Payload Type: "+tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 	    Log.d("TagInfo", "First Record's Payload: "+tInfo.getTagRecords().get(0).getRecordPayload());
 	    Log.d("TagInfo", "First Record's Payload Header Desc: "+tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc());
+	    Log.d("TagInfo", "First Record's Type Desc: "+tInfo.getTagRecords().get(0).getRecordType());
+	    if ( tInfo.getTagRecords().size() > 1) {
+		    Log.d("TagInfo", "Second Record's Payload Type: "+tInfo.getTagRecords().get(1).getRecordPayloadTypeDesc());
+		    Log.d("TagInfo", "Second Record's Payload: "+tInfo.getTagRecords().get(1).getRecordPayload());
+		    Log.d("TagInfo", "Second Record's Payload Header Desc: "+tInfo.getTagRecords().get(1).getRecordPayloadHeaderDesc());
+		    Log.d("TagInfo", "Second Record's Type Desc: "+tInfo.getTagRecords().get(1).getRecordType());
+		}
+
 	    /*FOR DEBUG - ERASE ASAP*/
 	    
 	
@@ -237,23 +250,37 @@ public class ReadMain extends Activity {
 	    Type.setVisibility(View.VISIBLE);
 	    Content.setVisibility(View.VISIBLE);
 	    featureList.setVisibility(View.VISIBLE);
+	    recordList.setVisibility(View.VISIBLE);
 	    
 
 	    LaunchButtonVisibility = tInfo.getTagRecords().size() > 1 ? View.VISIBLE : View.INVISIBLE;
 	    
 	    launchButton.setVisibility(LaunchButtonVisibility);
 	    saveButton.setVisibility(SaveButtonVisibility);
-	    linearLayout = (LinearLayout) findViewById(R.id.featureList);
+	    featuresListLayout = (LinearLayout) findViewById(R.id.featureList);
+	    recordsListLayout = (LinearLayout) findViewById(R.id.recordsList);
 	   
 	    /*Add the tag's feature list*/
 	    ArrayList<TagFeature> tagFeatures =  tInfo.getTagFeatures();
 	    Log.d("debug", "Features length "+tagFeatures.size() );
-	    if (linearLayout.getChildCount() > 0) {
-			linearLayout.removeAllViews();
+	    if (featuresListLayout.getChildCount() > 0) {
+			featuresListLayout.removeAllViews();
 		}
 	  
 	    for (int i = 0; i < tagFeatures.size(); i++) {
-	    	linearLayout.addView(tagFeatures.get(i));
+	    	featuresListLayout.addView(tagFeatures.get(i));
+		}
+	    
+	    
+	    /*Add the tag's feature list*/
+	    ArrayList<TagRecord> recordArrayList =  tInfo.getTagUIRecords();
+	    Log.d("debug", "Features length "+recordArrayList.size() );
+	    if (recordsListLayout.getChildCount() > 0) {
+			recordsListLayout.removeAllViews();
+		}
+	  
+	    for (int i = 0; i < recordArrayList.size(); i++) {
+	    	recordsListLayout.addView(recordArrayList.get(i));
 		}
 	    
 	    //do something with tagFromIntent
@@ -414,6 +441,15 @@ public class ReadMain extends Activity {
 	      datasource.open();
 	      break;
 	      
+		  case R.id.launchButton:
+			  Log.d("debug", "Launch  button clicked");
+			  Log.d("debug", "Second Record's Payload Type: "+tInfo.getTagRecords().get(1).getRecordPayloadTypeDesc());
+			 if (tInfo.getTagRecords().get(1).getRecordPayloadTypeDesc().equalsIgnoreCase("App launcher")) {
+			  String appString = tInfo.getTagRecords().get(1).getRecordPayload();
+			  startNewActivity(this, appString);
+			 }
+			  
+			  
 	      /*
 	    case R.id.delete:
 	      if (getListAdapter().getCount() > 0) {
@@ -469,6 +505,32 @@ public class ReadMain extends Activity {
 		return message;
 	}
 
+	public void startNewActivity(Context context, String packageName) {
+	    //Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+		Intent intent = createIntent(context, tInfo.getTagRecords().get(0).getRecordPayload(), packageName);
+	    if (intent != null) {
+	        /* We found the activity now start the activity */
+	    	
+	        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        /*Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("sms", "04267145067",null));
+	        		 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "This is my subject text");
+	        		 context.startActivity(Intent.createChooser(emailIntent, null));
+	        /*
+	        intent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+	        intent.putExtra(Intent.EXTRA_EMAIL,"test@mail.com");
+		    intent.putExtra(Intent.EXTRA_SUBJECT, "test");
+		    intent.putExtra(Intent.EXTRA_TEXT, "Is a test");
+		    */
+	       context.startActivity(Intent.createChooser(intent, null));
+	       //startActivity(intent);
+	    } else {
+	        /* Bring user to the market or let them choose an app? */
+	        intent = new Intent(Intent.ACTION_VIEW);
+	        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        intent.setData(Uri.parse("market://details?id=" + packageName));
+	        startActivity(intent);
+	    }
+	}
 	
 	/*Return amount of bytes in use*/
 	/*
@@ -484,5 +546,52 @@ public class ReadMain extends Activity {
 		return total;
 	} */
 	
+	public Intent createIntent(Context context, String payload, String packageName){
 
+		Intent actIntent = null;
+		String protocol;
+		Log.d("intent", "recordPayloadHeaderDesc: " + tInfo.getTagRecords().get(0).getRecordType());
+		if (tInfo.getTagRecords().get(0).getRecordType().equalsIgnoreCase("URI")) {
+			protocol = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc();
+			//parameters[0] 
+			
+			
+			switch (protocol) {
+			case "tel:":
+				/*The telephone number is the whole payload */
+				Log.d("intent", "telephone_number: " + payload);
+				actIntent = new Intent(Intent.ACTION_DIAL, Uri.fromParts(protocol.substring(0, protocol.length()-1), payload ,null));
+				break;
+				
+			case "sms:":
+				String number = payload.substring(payload.indexOf(":"), payload.indexOf("?"));
+				String text = payload.substring(payload.lastIndexOf("body=")+5, payload.length());
+				Log.d("intent", "sms_number: " + number);
+				Log.d("intent", "sms_text: " + text);
+				actIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(protocol.substring(0, protocol.length()-1), number,null));
+				actIntent.putExtra(Intent.EXTRA_TEXT, text);
+				break;
+				
+			case "mailto:":
+				/*payload syntax = mail@server.com?subject=text&body=text*/
+				String to = payload.substring(0, payload.indexOf("?"));
+				String subject = payload.substring(payload.indexOf("subject=")+8, payload.indexOf("&"));
+				String body = payload.substring(payload.lastIndexOf("body=")+5, payload.length());
+				Log.d("intent", "email_to: " + to);
+				Log.d("intent", "email_subject: " + subject);
+				Log.d("intent", "email_body: " + body);
+				actIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(protocol.substring(0, protocol.length()-1), to ,null));
+				actIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+				actIntent.putExtra(Intent.EXTRA_TEXT, body);
+				break;
+
+			default:
+				actIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+				actIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				break;
+			}
+		}
+		
+		return actIntent;
+	}
 }

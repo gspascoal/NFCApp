@@ -36,7 +36,15 @@
     <string name="f_Storage">Storage</string>
     <string name="f_WRTBL">Is writable?</string>
     <string name="f_TechList">Supported technologies</string>
-     <string name="f_Storage_T">Total</string>
+    <string name="f_Storage_T">Total</string>
     <string name="f_Storage_F">Free</string>
     
+    
+       <!-- Tag Records Strings -->
+    <string name="title_record_list">Records</string>
+  	<string name="r_number">Record #</string>
+  	<string name="r_TNF">TNF:</string>
+  	<string name="r_Type">Type:</string>
+  	<string name="r_Protocol">Protocol:</string>
+  	<string name="r_Payload">Payload:</string>
 </resources>

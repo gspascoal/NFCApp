@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:padding="6dp">
+    
+	<ImageView
+	    android:id="@+id/recordIcon"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginRight="6dip"
+	    android:contentDescription="@string/cntnt_desc_tagicon"
+	    />
+	
+    <LinearLayout 
+        android:id="@+id/fieldList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/recordIcon"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentTop="true"
+        >
+	    <TextView
+	        android:id="@+id/recordNumber"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="@string/r_number"
+	        android:textSize="12sp" />
+	    <TextView
+	        android:id="@+id/recordTNF"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="@string/r_TNF"
+	        android:textSize="12sp" />
+	      <TextView
+	        android:id="@+id/recordType"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="@string/r_Type"
+	        android:textSize="12sp" />
+	      <TextView
+	        android:id="@+id/recordHeaderDesc"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="@string/r_Protocol"
+	        android:textSize="12sp" />
+	      <TextView
+	        android:id="@+id/recordPayloadType"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="Payload's type:"
+	        android:textSize="12sp" />
+	       <TextView
+	        android:id="@+id/recordPayload"
+	        android:layout_width="fill_parent"
+	        android:layout_height="26dip"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="@string/r_Payload"
+	        android:textSize="12sp" />
+    </LinearLayout>
+   
+</RelativeLayout>
