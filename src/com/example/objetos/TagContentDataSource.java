@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.proyecto.TagUIContent;
-import com.example.proyecto.R.color;
 
 
 import android.content.ContentValues;

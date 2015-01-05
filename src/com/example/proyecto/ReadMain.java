@@ -584,7 +584,11 @@ public class ReadMain extends Activity {
 				actIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 				actIntent.putExtra(Intent.EXTRA_TEXT, body);
 				break;
-
+			case "geo:":
+				Log.d("intent", "geo_location: " + payload);
+				 actIntent = new Intent(Intent.ACTION_VIEW);
+				 actIntent.setData(Uri.parse(payload));
+				break;
 			default:
 				actIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
 				actIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

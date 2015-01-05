@@ -33,6 +33,7 @@ public class TagRecord extends RelativeLayout {
 		recordIcon.put("Telephone number", R.drawable.tel64);
 		recordIcon.put("Email", R.drawable.mail64);
 		recordIcon.put("sms:", R.drawable.sms64);
+		recordIcon.put("geo:", R.drawable.geo64);
 		recordIcon.put("Business card", R.drawable.business_cardb24);
 		
 		// TODO Auto-generated constructor stub

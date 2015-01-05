@@ -28,6 +28,7 @@ public class TagUIContent extends RelativeLayout {
 		PLTI.put("Telephone number", R.drawable.tel64);
 		PLTI.put("Email", R.drawable.mail64);
 		PLTI.put("sms:", R.drawable.sms64);
+		PLTI.put("geo:", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
 		
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.recent_content,this);
