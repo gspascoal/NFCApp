@@ -7,6 +7,10 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.proyecto.TagUIContent;
+import com.example.proyecto.R.color;
+
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,8 +28,10 @@ public class TagContentDataSource {
   private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_PAYLOAD, MySQLiteHelper.COLUMN_PLHEADER, MySQLiteHelper.COLUMN_PLTYPE};
   private FileInputStream fileInputStream;
   private FileOutputStream fileOutputStream;
+  private Context context;
 
   public TagContentDataSource(Context context) {
+	this.context = context;
     dbHelper = new MySQLiteHelper(context);
     
     Log.d("debug DB", "DB name: "+dbHelper.getDatabaseName());
@@ -41,7 +47,7 @@ public class TagContentDataSource {
     dbHelper.close();
   }
 
-  public TagContent createContent(String payload, Byte plHeader, String plType) {
+  public TagContent createContent(String payload,String plHeader, String plType) {
     ContentValues values = new ContentValues();
     values.put(MySQLiteHelper.COLUMN_PAYLOAD, payload);
     values.put(MySQLiteHelper.COLUMN_PLHEADER, plHeader);
@@ -119,7 +125,7 @@ public class TagContentDataSource {
   }
 }
 
-	public void exportDB() {
+  public void exportDB() {
 	  try {
 	      File sd = Environment.getExternalStorageDirectory();
 	      File data = Environment.getDataDirectory();
@@ -156,4 +162,23 @@ public class TagContentDataSource {
 	
 	  }
 	}
+
+  public List<TagUIContent> getTagUIContents(){
+	  
+	  List<TagContent> tagContents = this.getAllComments();
+	  List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
+	  
+	  
+	  for (TagContent tagContent : tagContents) {
+		  TagUIContent nTagUIContent = new TagUIContent(context);
+		  nTagUIContent.setPayload(tagContent.getPayloadHeader()+tagContent.getPayload());
+		  nTagUIContent.setContentDesc(tagContent.getPayloadType());
+		  nTagUIContent.setContentIcon(tagContent.getPayloadType());
+		  tagUIContents.add(nTagUIContent);
+	}
+	  
+	  return tagUIContents;
+	  
+	  
+  }
 } 

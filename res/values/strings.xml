@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <!-- Commons Strings-->
+
+    <!-- Commons Strings -->
     <string name="app_name">Proyecto</string>
     <string name="action_settings">Ajustes</string>
     <string name="saveButton">Guardar</string>
     <string name="launchButton">Ejecutar</string>
     <string name="affirmation">Si</string>
     <string name="negation">No</string>
-    
-    
+
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
     <string name="write">Escribir etiqueta</string>
     <string name="my_tags">Mis etiquetas</string>
     <string name="extras">Extras</string>
-    
+
     <!-- Read(Main) activity strings -->
     <string name="title_activity_read_main">Leer etiqueta</string>
     <string name="readIntenta">"Listo para leer el contenido"</string>
@@ -25,10 +24,20 @@
     <string name="title_feature_list">"Carácteristicas"</string>
     <string name="cntnt_desc_tagicon">"Icono del contenido"</string>
     <string name="readIntent_Empty">"Etiqueta vacia"</string>
-    
+
     <!-- Write(Main) activity strings -->
     <string name="title_activity_write_main">Escribir etiqueta</string>
-        
+    <string name="title_recent_content">Contenido reciente</string>
+    <string name="newContentButton">Crear nuevo contenido</string>
+    <string-array name="kinds_array">
+        <item>Link</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <item>Telephone Number</item>
+        <item>Geo Location</item>
+        <item>Plain Text</item>
+    </string-array>
+
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Número de serie</string>
     <string name="f_DataFormat">Clasificación del NFC Forum</string>
@@ -38,14 +47,16 @@
     <string name="f_TechList">Tecnologías soportadas</string>
     <string name="f_Storage_T">Total</string>
     <string name="f_Storage_F">Libre</string>
-    
-   <!-- Tag Records Strings -->
-   
-  	<string name="title_record_list">Lista de registros</string>
-  	<string name="r_number">Registro #</string>
-  	<string name="r_TNF">TNF:</string>
-  	<string name="r_Type">Tipo de registro:</string>
-  	<string name="r_Protocol">Protocolo:</string>
-  	<string name="r_Payload">Contenido:</string>
-  	
+
+    <!-- Tag Records Strings -->
+
+    <string name="title_record_list">Lista de registros</string>
+    <string name="r_number">Registro #</string>
+    <string name="r_TNF">TNF:</string>
+    <string name="r_Type">Tipo de registro:</string>
+    <string name="r_Protocol">Protocolo:</string>
+    <string name="r_Payload">Contenido:</string>
+    <string name="title_activity_create_tag_content">CreateTagContent</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

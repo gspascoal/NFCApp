@@ -80,7 +80,7 @@ public class ReadMain extends Activity {
 		dialog.show();
 		
 		/*Checking if the device support NFC*/
-		status = (TextView) findViewById(R.id.status);
+		//status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
 		if (myNfcAdapter == null) {
@@ -403,7 +403,7 @@ public class ReadMain extends Activity {
 		      */
 		      // save the new tag_content to the database
 		      content = datasource.createContent(tInfo.getTagRecords().get(0).getRecordPayload(),
-		    		  tInfo.getTagRecords().get(0).getRecordPayloadheader(),
+		    		  tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc(),
 		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 		      //status =  (TextView) findViewById(R.id.type);
 		      //status.setText(content.toString());

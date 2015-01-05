@@ -1,16 +1,15 @@
 package com.example.proyecto;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -26,20 +25,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.objetos.TagContent;
+import com.example.objetos.TagContentDataSource;
 
 public class WriteMain extends Activity {
 	
 	private NfcAdapter myNfcAdapter;
 	private TextView status;
+	private LinearLayout contentList;
 	private String[][] techListsArray;
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
+	private TagContentDataSource datasource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_write_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -48,14 +54,17 @@ public class WriteMain extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		status = (TextView) findViewById(R.id.status);
+		//status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
+		contentList = (LinearLayout)findViewById(R.id.recentList);
+		
+		/*
 		if (myNfcAdapter == null) {
 			status.setText("NFC isn't available for the device");
 		} else {
 			status.setText("NFC is available for the device");
-		}
+		}*/
 		
 		/*
 		
@@ -97,17 +106,41 @@ public class WriteMain extends Activity {
 	    techListsArray = new String[][] { new String[] { NfcA.class.getName() , 
 	    		Ndef.class.getName(), 
 	    		MifareUltralight.class.getName() } };
+	    
+	    datasource = new TagContentDataSource(this);
+	    datasource.open();
+	    
+	    List<TagContent> test = datasource.getAllComments();
+	      //Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+	      for (int i = 0; i < test.size(); i++) {
+			Log.d("List element", "tag_content: " + test.get(i));
+		}
+	    
+	    
+	    List<TagUIContent> tagUIContents = datasource.getTagUIContents();
+	    
+	    Log.d("debug", "Features length "+tagUIContents.size() );
+	    if (contentList.getChildCount() > 0) {
+			contentList.removeAllViews();
+		}
+	  
+	    for (int i = 0; i < tagUIContents.size(); i++) {
+	    	contentList.addView(tagUIContents.get(i));
+		}
 		
+	    //datasource.close();
 	}
 	
 	public void onPause() {
 	    super.onPause();
 	   myNfcAdapter.disableForegroundDispatch(this);
+	   datasource.open();
 	}
 
 	public void onResume() {
 	    super.onResume();
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
+	   datasource.open();
 	}
 
 	private boolean writeNdefMessageToTag(NdefMessage message, Tag detectedTag) {
@@ -204,6 +237,19 @@ public class WriteMain extends Activity {
 	  
 	}
 	
+	public void	onClick(View view) {
+		
+		switch (view.getId()) {
+		case R.id.newContentButton:
+			Intent intent = new Intent(this, CreateTagContent.class);
+			startActivity(intent);
+			break;
+
+		default:
+			break;
+		}
+		
+	}
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

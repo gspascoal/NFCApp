@@ -18,7 +18,7 @@ public class TagRecord {
 	private Map<String, String> TNFMap =  new LinkedHashMap<String,String>();
 	private Map<String, String> URIPFXMap =  new LinkedHashMap<String,String>();
 	private Map<String, String> PLH =  new LinkedHashMap<String,String>();
-	private Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
+	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
 	private ArrayList<String> WOP = new ArrayList<String>(); 
 		
 	private int messageId = 0;
