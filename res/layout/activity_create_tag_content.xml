@@ -36,8 +36,43 @@
             />
             
         </LinearLayout>
-
+		
+        <RelativeLayout android:id="@+id/formContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#777"
+        android:layout_below="@+id/createTagHeader" 
+         >
+            
+        </RelativeLayout>
     
+        <LinearLayout android:id="@+id/createTagFooter"
+            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:background="#FFF"
+            android:orientation="horizontal"
+            android:layout_below="@+id/formContainer"
+            android:gravity="center_horizontal"
+            >
+            
+            <Button 
+            	android:id="@+id/wsaveButton"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="@string/saveButton"
+            	android:layout_margin="10dp"
+            	android:onClick="onClick"
+            />
+            
+            <Button 
+            	android:id="@+id/wsaveWriteButton"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Save  write"
+            	android:layout_margin="10dp"
+            	android:onClick="onClick"
+            />
+        </LinearLayout>
 </RelativeLayout>
 
 </ScrollView>

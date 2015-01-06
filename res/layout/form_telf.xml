@@ -5,7 +5,7 @@
 
     <EditText
         android:id="@+id/fieldPhone"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_marginTop="47dp"
@@ -21,15 +21,25 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldPhone"
         android:layout_marginTop="18dp"
-        android:text="Telphone number" />
+        android:text="Telephone number" />
 
-    
     <TextView
         android:id="@+id/labelSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fieldPhone"
-        android:layout_marginTop="18dp"
+        android:layout_alignRight="@+id/fieldPhone"
+        android:layout_below="@+id/fieldPhone"
         android:text="Message size: 0" />
+
+    <Button
+        android:id="@+id/contactButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fieldPhone"
+        android:layout_alignBottom="@+id/fieldPhone"
+        android:text="C"
+        android:onClick="onClick"
+         />
     
 </RelativeLayout>

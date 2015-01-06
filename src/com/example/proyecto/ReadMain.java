@@ -588,6 +588,7 @@ public class ReadMain extends Activity {
 				Log.d("intent", "geo_location: " + payload);
 				 actIntent = new Intent(Intent.ACTION_VIEW);
 				 actIntent.setData(Uri.parse(payload));
+				 
 				break;
 			default:
 				actIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
