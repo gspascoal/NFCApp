@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/labelTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldTo"
+        android:layout_marginTop="18dp"
+        android:text="Mail address" />
+
+    <EditText
+        android:id="@+id/fieldBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelBody"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Mail body"
+        android:layout_margin="15dp"
+         />
+
+    <TextView
+        android:id="@+id/labelSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/fieldBody"
+        android:layout_below="@+id/fieldBody"
+        android:layout_marginTop="12dp"
+        android:text="Message size: 0" />
+
+    <TextView
+        android:id="@+id/labelBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/labelSubject"
+        android:layout_below="@+id/fieldSubject"
+        android:layout_marginTop="18dp"
+        android:text="Mail message" />
+
+    <EditText
+        android:id="@+id/fieldSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelSubject"
+        android:layout_marginTop="18dp"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Subject"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/labelSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/labelTo"
+        android:layout_below="@+id/fieldTo"
+        android:layout_marginTop="18dp"
+        android:text="Mail subject" />
+
+    <EditText
+        android:id="@+id/fieldTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelTo"
+        android:layout_marginTop="18dp"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Destination mail"
+        android:inputType="textEmailAddress" />
+
+</RelativeLayout>

@@ -158,7 +158,7 @@ public class TagInfo {
 		// TODO Auto-generated method stub
 		NdefMessage[] message = null;
 		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-			Log.d("debug", "I found some shit.");
+			Log.d("debug", "TECH_DISCOVERED.");
 			Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 			if (rawMessages != null) {
 				message = new NdefMessage[rawMessages.length];
@@ -174,7 +174,7 @@ public class TagInfo {
 			}
 		}
 		else if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-			Log.d("debug", "NDEF intent.");
+			Log.d("debug", "NDEF?DISCOVERED.");
 			Log.d("debug", "I found some shit.");
 			Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 			if (rawMessages != null) {

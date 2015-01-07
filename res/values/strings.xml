@@ -29,6 +29,7 @@
     <string name="title_activity_write_main">Escribir etiqueta</string>
     <string name="title_recent_content">Contenido reciente</string>
     <string name="newContentButton">Crear nuevo contenido</string>
+
     <string-array name="kinds_array">
         <item>Link</item>
         <item>Email</item>
@@ -58,5 +59,6 @@
     <string name="r_Payload">Contenido:</string>
     <string name="title_activity_create_tag_content">CreateTagContent</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_transfer_content">TransferContent</string>
 
 </resources>

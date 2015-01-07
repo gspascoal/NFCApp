@@ -104,9 +104,9 @@ public class WriteMain extends Activity {
 	    }
 	    intentFiltersArray = new IntentFilter[] {ndef, };
 	   
-	    techListsArray = new String[][] { new String[] { NfcA.class.getName() , 
-	    		Ndef.class.getName(), 
-	    		MifareUltralight.class.getName() } };
+	    techListsArray = new String[][] { new String[] {  NfcA.class.getName() , 
+	    		Ndef.class.getName()}, 
+	    		{MifareUltralight.class.getName() } };
 	    
 	    datasource = new TagContentDataSource(this);
 	    datasource.open();

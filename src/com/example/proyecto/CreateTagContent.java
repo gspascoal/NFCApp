@@ -2,20 +2,25 @@ package com.example.proyecto;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentFilter.MalformedMimeTypeException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
+import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -52,13 +57,24 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
 	private final static int PICK_CONTACT = 1;
+	public Map<String, String> PLH =  new LinkedHashMap<String,String>();
 	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_tag_content);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		
+		PLH.put("1", "http://www."); 
+		PLH.put("2", "https://www."); 
+		PLH.put("3", "http://"); 
+		PLH.put("4", "https://");
+		PLH.put("5", "tel:"); 
+		PLH.put("6", "mailto:");
+		PLH.put("66", "Bussiness card");
+		PLH.put("99", "App launcher");
+		
 		formContainer = (RelativeLayout)findViewById(R.id.formContainer);
 		f_Telephone =  new FormTel(this);
 		kindSelector = (Spinner)findViewById(R.id.kindSelector);
@@ -66,6 +82,29 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
+		pendingIntent = PendingIntent.getActivity(
+			    this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		
+		IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+	   
+		
+		
+		
+		try {
+	       ndef.addDataType("*/*");    /* Handles all MIME based dispatches.
+	         //                             You should specify only the ones that you need. */
+	       // ndef.addDataScheme("http");
+	       //ndef.addAction(Intent.ACTION_VIEW);
+	    }
+	                                       
+	    catch (MalformedMimeTypeException e) {
+	        throw new RuntimeException("fail", e);
+	    }
+	    intentFiltersArray = new IntentFilter[] {ndef, };
+	   
+	    techListsArray = new String[][] { new String[] { NfcA.class.getName() , 
+	    		Ndef.class.getName(), 
+	    		MifareUltralight.class.getName() } };
 		datasource = new TagContentDataSource(this);
 	    datasource.open();
 	    
@@ -155,8 +194,10 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 
 			break;	
 		case R.id.wsaveWriteButton:
-			String cntnt = f_Telephone.getFieldPhone().getText().toString();
-			createTagContent(cntnt);
+			intent = new Intent(this, TransferContent.class);
+		    String kind = kindSelector.getSelectedItem().toString();
+			intent.putExtra("TAG_CONTENT", createTagContent(kind));
+			startActivity(intent);
 			break;	
 		default:
 			break;
@@ -224,7 +265,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
+		//myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
 		datasource.open();
 	}
 	
@@ -232,14 +273,29 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		myNfcAdapter.disableForegroundDispatch(this);
+		//myNfcAdapter.disableForegroundDispatch(this);
 		datasource.open();
 	}
 	
-	public void createTagContent(String cntnt){
-		
-		
-	    
+	public NdefMessage createTagContent(String kind){
+
+		NdefMessage newMessage =  null;
+	    switch (kind) {
+		case "Telephone Number":
+			EditText fieldPhone =  (EditText)findViewById(R.id.fieldPhone);
+			String telNumber = fieldPhone.getText().toString();
+			byte[] uriField =  telNumber.getBytes();
+			byte[] payload = new byte[uriField.length + 1];
+			payload[0] = 0x05; //Code for tel:
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
+			NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
+			newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
+			break;
+
+		default:
+			break;
+		}
+	    /*
 	    //do something with tagFromIntent
 	    byte[] uriField =  "dell.com".getBytes(Charset.forName("UTF-8"));
 		byte[] payload = new byte[uriField.length + 1];
@@ -248,77 +304,14 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
 		NdefMessage newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
 		
-		
+		*/
 		// WRITE DATA TO TAG
 		Log.d("debug", "Starting writing process");
-		writeNdefMessageToTag(newMessage );
-		
+		//writeNdefMessageToTag(newMessage );
+		return newMessage; 
 		
 	}
 	
-	private boolean writeNdefMessageToTag(NdefMessage message) {
-		// TODO Auto-generated method stub
-		
-		int size = message.toByteArray().length;
-		
-		Log.d("debug", "Before TRY");
-		try {
-			Ndef ndef = Ndef.get(detectedTag);
-			if (ndef != null) {
-				ndef.connect();
-				Log.d("debug", "After Connect");
-				if (!ndef.isWritable()) {
-					Toast.makeText(this, "Tag is read-only", Toast.LENGTH_SHORT).show();
-					return false;
-				}
-				if (ndef.getMaxSize() < size) {
-					Toast.makeText(this, "Tag data can't written to tag, Tag capacity is "+ ndef.getMaxSize() + "bytes, message is"
-							+ size + " bytes."
-				, Toast.LENGTH_SHORT).show();
-					return false;
-				}
-				ndef.writeNdefMessage(message);
-				ndef.close();
-				Toast.makeText(this, "Message is written tag", Toast.LENGTH_SHORT).show();
-				return true;
-			} else {
-				NdefFormatable ndefFormat = NdefFormatable.get(detectedTag);
-				if (ndefFormat != null) {
-					try {
-						ndefFormat.connect();
-						ndefFormat.format(message);
-						ndefFormat.close();
-						Toast.makeText(this, "The data is written to teh tag", Toast.LENGTH_SHORT).show();
-						return true;
-					} catch (Exception e) {
-						// TODO: handle exception
-						Toast.makeText(this, "Failed to format tag", Toast.LENGTH_SHORT).show();
-						return false;
-					}
-					
-				} else {
-					Toast.makeText(this, "NDEF is not supported", Toast.LENGTH_SHORT).show();
-					return false;
-				}
-				
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			Log.d("debug", "Exception: "+e.toString());
-			Toast.makeText(this, "Write operation is failed", Toast.LENGTH_SHORT).show();
-			return false;
-		}
-		
-	
-	}
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-		// TODO Auto-generated method stub
-		super.onNewIntent(intent);
-		
-		detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-	}
 	/*
 	private class 
  extends ArrayAdapter<String> {

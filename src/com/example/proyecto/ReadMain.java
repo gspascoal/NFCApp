@@ -252,7 +252,7 @@ public class ReadMain extends Activity {
 	    featureList.setVisibility(View.VISIBLE);
 	    recordList.setVisibility(View.VISIBLE);
 	    
-
+	    /*CHANGE VALIDATION ASAP*/
 	    LaunchButtonVisibility = tInfo.getTagRecords().size() > 1 ? View.VISIBLE : View.INVISIBLE;
 	    
 	    launchButton.setVisibility(LaunchButtonVisibility);

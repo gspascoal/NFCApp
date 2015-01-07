@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/labelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldText"
+        android:layout_marginTop="18dp"
+        android:text="Plain text" />
+
+    <EditText
+        android:id="@+id/fieldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelText"
+        android:layout_marginTop="18dp"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Plain text"
+        android:inputType="text" />
+
+</RelativeLayout>
