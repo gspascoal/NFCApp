@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/fieldLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/prtclSelector"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/prtclSelector"
+        android:hint="Enter the URI/URL"
+        android:inputType="text" />
+
+	<Spinner
+	    android:id="@+id/prtclSelector"
+	    android:layout_width="75dp"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/labelLink"
+	    android:layout_margin="15dp"
+	     />
+
+	<TextView
+	    android:id="@+id/labelLink"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignLeft="@+id/prtclSelector"
+	    android:layout_marginTop="21dp"
+	    android:text="URI / URL" />
+
+</RelativeLayout>

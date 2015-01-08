@@ -50,7 +50,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	private RelativeLayout formContainer;
 	private CustomDialog dialog;
 	private TagContentDataSource datasource;
-	private FormTel f_Telephone;
+	private Form form;
 	private Tag detectedTag;
 	private NfcAdapter myNfcAdapter;
 	private String[][] techListsArray;
@@ -58,6 +58,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	private PendingIntent pendingIntent;
 	private final static int PICK_CONTACT = 1;
 	public Map<String, String> PLH =  new LinkedHashMap<String,String>();
+	public Map<String, Integer> LNI =  new LinkedHashMap<String,Integer>();
 	
 
 	@Override
@@ -75,8 +76,15 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		PLH.put("66", "Bussiness card");
 		PLH.put("99", "App launcher");
 		
+		LNI.put("Link", R.layout.form_link);
+		LNI.put("Telephone Number", R.layout.form_telf);
+		LNI.put("Email", R.layout.form_mail);
+		LNI.put("SMS", R.layout.form_sms);
+		LNI.put("Geo Location", R.layout.form_geo);
+		LNI.put("Plain Text", R.layout.form_text);
+		
 		formContainer = (RelativeLayout)findViewById(R.id.formContainer);
-		f_Telephone =  new FormTel(this);
+		
 		kindSelector = (Spinner)findViewById(R.id.kindSelector);
 		kindSelector.setOnItemSelectedListener(this);
 		
@@ -165,16 +173,10 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		// TODO Auto-generated method stub
 		String kind = parent.getItemAtPosition(position).toString();
 		Log.d("debug", "item selected: "+ kind);
-		switch (kind) {
-		case "Telephone Number":
-			//formFragment = (RelativeLayout)findViewById(R.layout.form_telf);
-			//f_Telephone =  new FormTel(this);
-			formContainer.addView(f_Telephone);
-			break;
-
-		default:
-			break;
-		}
+		int layoutId = LNI.get(kind);
+		form =  new Form(this, layoutId);
+		formContainer.removeAllViews();
+		formContainer.addView(form);
 	}
 
 	@Override

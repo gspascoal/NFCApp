@@ -7,14 +7,14 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="171dp"
+        android:layout_height="wrap_content"
         android:background="#FFF"
         tools:context="com.example.proyecto.CreateTagContent"
         tools:ignore="MergeRootFrame" >
         
         <LinearLayout 
             android:id="@+id/createTagHeader"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_width="match_parent"
             android:background="#FFF"
             android:orientation="vertical"
@@ -40,12 +40,29 @@
         <RelativeLayout android:id="@+id/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#777"
-        android:layout_below="@+id/createTagHeader" 
+        android:background="#FFF"
+        android:layout_below="@+id/createTagContentSize" 
          >
             
         </RelativeLayout>
     
+        
+        <RelativeLayout android:id="@+id/createTagContentSize"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:background="#FFF"
+            android:layout_below="@+id/createTagHeader"
+             >
+            
+            <TextView android:id="@+id/labelSize"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="12dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_margin="15dp"
+	        android:text="Message size: 0" />
+        </RelativeLayout>
+        
         <LinearLayout android:id="@+id/createTagFooter"
             android:layout_height="100dp"
             android:layout_width="match_parent"
