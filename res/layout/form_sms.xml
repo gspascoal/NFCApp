@@ -7,12 +7,12 @@
         android:id="@+id/labelReceiver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fieldReceiver"
+        android:layout_alignLeft="@+id/fieldPhone"
         android:layout_marginTop="18dp"
         android:text="Telephone number" />
 
     <EditText
-        android:id="@+id/fieldReceiver"
+        android:id="@+id/fieldPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/labelReceiver"
@@ -30,8 +30,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/fieldReceiver"
-        android:layout_alignBottom="@+id/fieldReceiver"
+        android:layout_toRightOf="@+id/fieldPhone"
+        android:layout_alignBottom="@+id/fieldPhone"
         android:text="C"
         android:onClick="onClick"
          />
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldMessage"
-        android:layout_below="@+id/fieldReceiver"
+        android:layout_below="@+id/fieldPhone"
         android:layout_marginTop="18dp"
         android:text="Message" />
 
