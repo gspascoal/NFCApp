@@ -57,4 +57,7 @@
   	<string name="r_Type">Type:</string>
   	<string name="r_Protocol">Protocol:</string>
   	<string name="r_Payload">Payload:</string>
+  	
+  	<string name="title_activity_create_tag_content">Create tag content</string>
+    <string name="title_activity_transfer_content">Transfer content</string>
 </resources>

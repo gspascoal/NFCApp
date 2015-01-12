@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.R.integer;
 import android.nfc.NdefRecord;
 import android.util.Log;
+
 
 
 import com.example.proyecto.R;
@@ -32,8 +34,11 @@ public class TagRecord {
 	private String recordPayloadHeaderDesc;
 	private Integer iconId;
 	private boolean isWOP =  false;
+	private String recordLanguageCode = "";
 	
 	
+	
+
 	public TagRecord(NdefRecord r, int messsageId){
 		
 		/*Initialize array of URI prefixes without protocol field*/
@@ -79,6 +84,7 @@ public class TagRecord {
 		PLH.put("66", "Bussiness card");
 		PLH.put("99", "App launcher");
 		
+		
 		/*Initialize associative array of URI prefixes icons id*/
 		
 		PLTI.put("N/A", R.drawable.default64);
@@ -89,6 +95,7 @@ public class TagRecord {
 		PLTI.put("sms:", R.drawable.sms64);
 		PLTI.put("geo:", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
+		PLTI.put("Text", R.drawable.default64);
 
 		this.record = r;
 		
@@ -151,11 +158,32 @@ public class TagRecord {
 			if (recordType.equalsIgnoreCase("Android Aplication record")) {
 				//Log.d("debug","Is an AAR");
 				payload = new String(record.getPayload(), 0, record.getPayload().length, Charset.forName("UTF-8"));
-			} else {
-				payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
+				payloadHeader = record.getPayload()[0];
+			} else 
+			{
+				if (recordType.equalsIgnoreCase("Text")) {
+					int statusByte=record.getPayload()[0];
+					int languageCodeLength = statusByte & 0x3F;
+					Log.d("text debug","Language Code Length:" + languageCodeLength+"\n");
+					recordLanguageCode = new String( record.getPayload(), 1,languageCodeLength, Charset.forName("UTF-8"));
+					Log.d("text debug","Language Code:" + recordLanguageCode+"\n");
+					int isUTF8 = statusByte-languageCodeLength;
+					if(isUTF8 == 0x00){
+						Log.d("text debug","Record is UTF-8");
+					payload = new String( record.getPayload(), 1+languageCodeLength, record.getPayload().length-1-languageCodeLength,Charset.forName("UTF-8"));
+					} else if (isUTF8==-0x80){
+						Log.d("text debug","Record is UTF-16");
+					payload = new String( record.getPayload(), 1+languageCodeLength,record.getPayload().length-1-languageCodeLength,Charset.forName("UTF-16"));
+					}
+					payloadHeader = 0x00;
+				} else {
+					payload = new String(record.getPayload(), 1, record.getPayload().length-1, Charset.forName("UTF-8"));
+					payloadHeader = record.getPayload()[0];
+				}
+				
 			}
  			recordPayload = payload;
-	 		payloadHeader = record.getPayload()[0]; 
+	 		//payloadHeader = record.getPayload()[0]; 
 	 		setRecordPayloadheader(payloadHeader);
 		} catch (StringIndexOutOfBoundsException e) {
 			// TODO: handle exception
@@ -181,6 +209,9 @@ public class TagRecord {
 		Log.d("TagInfo", "Payload Header:" + getRecordPayloadheader());
 		int i = 0;
 		if (getRecordPayloadheader() == 0) {
+			if (recordType.equalsIgnoreCase("Text")) {
+				this.recordPayloadTypeDesc = "Plain text";
+			}
 			while (i < WOP.size()) {
 				if (getRecordPayload().contains(WOP.get(i))) {
 					this.recordPayloadTypeDesc = WOP.get(i);
@@ -236,6 +267,12 @@ public class TagRecord {
 		
 		int i=0;
 		if (getRecordPayloadheader() == 0) {
+			if (recordType.equalsIgnoreCase("Text")) {
+				this.recordPayloadHeaderDesc = "Plain text";
+				this.setWOP(true);
+			}
+			
+			
 			while (i < WOP.size()) {
 				if (getRecordPayload().contains(WOP.get(i))) {
 					this.recordPayloadHeaderDesc = WOP.get(i);
@@ -279,6 +316,15 @@ public class TagRecord {
 
 	public void setWOP(boolean isWOP) {
 		this.isWOP = isWOP;
+	}
+
+	public String getRecordLanguageCode() {
+		return recordLanguageCode;
+	}
+
+
+	public void setRecordLanguageCode(String recordLanguageCode) {
+		this.recordLanguageCode = recordLanguageCode;
 	}
 
 }

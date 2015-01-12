@@ -3,8 +3,10 @@ package com.example.proyecto;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import android.R.anim;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.PendingIntent;
@@ -19,7 +21,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
-import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -47,6 +48,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 
 	
 	private Spinner kindSelector;
+	private Spinner protocolSelector;
 	private RelativeLayout formContainer;
 	private CustomDialog dialog;
 	private TagContentDataSource datasource;
@@ -59,8 +61,10 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	private final static int PICK_CONTACT = 1;
 	public Map<String, String> PLH =  new LinkedHashMap<String,String>();
 	public Map<String, Integer> LNI =  new LinkedHashMap<String,Integer>();
+	public Map<String, Byte> UP =  new LinkedHashMap<String,Byte>();
 	private String currentSelection;
-
+	private String currentPSelection;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,10 +87,25 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		LNI.put("Geo Location", R.layout.form_geo);
 		LNI.put("Plain Text", R.layout.form_text);
 		
+		UP.put("http://www.",(byte) 0x01);
+		UP.put("https://www.",(byte)0x02);
+		UP.put("http://",(byte)0x03);
+		UP.put("https://",(byte)0x04);
+		UP.put("ftp://",(byte)0x0D);
+		UP.put("sftp://",(byte)0x0A);
+		UP.put("file://",(byte)0x1D);
+		UP.put("telnet://",(byte)0x10);
+		
+		
 		formContainer = (RelativeLayout)findViewById(R.id.formContainer);
 		
 		kindSelector = (Spinner)findViewById(R.id.kindSelector);
 		kindSelector.setOnItemSelectedListener(this);
+		
+		/*
+		protocolSelector = (Spinner)findViewById(R.id.prtclSelector);
+		protocolSelector.setOnItemSelectedListener(this);
+		*/
 		
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
@@ -117,12 +136,20 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	    datasource.open();
 	    
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> Selectoradapter = ArrayAdapter.createFromResource(this,
-		        R.array.kinds_array, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> kSelectoradapter = ArrayAdapter.createFromResource(this,R.array.kinds_array, android.R.layout.simple_spinner_item);
 		// Specify the layout to use when the list of choices appears
-		Selectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		kSelectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		kindSelector.setAdapter(Selectoradapter);
+		kindSelector.setAdapter(kSelectoradapter);
+		
+		/*
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<CharSequence> pSelectoradapter = ArrayAdapter.createFromResource(this,R.array.protocols_array, android.R.layout.simple_spinner_item);
+	    // Specify the layout to use when the list of choices appears
+		pSelectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		protocolSelector.setAdapter(pSelectoradapter);
+		*/
 		
 		
 		if (savedInstanceState == null) {
@@ -178,6 +205,31 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		form =  new Form(this, layoutId);
 		formContainer.removeAllViews();
 		formContainer.addView(form);
+		if(layoutId == R.layout.form_link){
+			protocolSelector = (Spinner)findViewById(R.id.prtclSelector);
+			protocolSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
+				
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int position,long id) {
+					String protocol = parent.getItemAtPosition(position).toString();
+					currentPSelection = protocol;
+					Log.d("debug", "protocol selected: "+ protocol);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			// Create an ArrayAdapter using the string array and a default spinner layout
+			ArrayAdapter<CharSequence> pSelectoradapter = ArrayAdapter.createFromResource(this,R.array.protocols_array, android.R.layout.simple_spinner_item);
+		    // Specify the layout to use when the list of choices appears
+			pSelectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// Apply the adapter to the spinner
+			protocolSelector.setAdapter(pSelectoradapter);
+			
+		}
 	}
 
 	@Override
@@ -329,6 +381,45 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			uriField =  content.getBytes();
 			payload = new byte[uriField.length + 1];
 			payload[0] = 0x00; // Code for sms:
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
+			uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
+			newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
+			break;
+		case "Geo Location":
+			EditText fieldLatitude =  (EditText)findViewById(R.id.fieldLatitude);
+			EditText fieldLongitude =  (EditText)findViewById(R.id.fieldLongitude);
+			content = "geo:"+fieldLatitude.getText().toString() + ","+fieldLongitude.getText().toString();
+			uriField =  content.getBytes();
+			payload = new byte[uriField.length + 1];
+			payload[0] = 0x00; // Code for sms:
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
+			uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
+			newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
+			break;
+		case "Plain Text":
+			EditText fieldText =  (EditText)findViewById(R.id.fieldText);
+			//Locale locale= new Locale("en","US");
+			Locale locale = Locale.getDefault();
+			byte[] langBytes = locale.getLanguage().getBytes(Charset.forName("UTF-8"));
+			boolean encodeInUtf8=true;
+			Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") :
+			Charset.forName("UTF-16");
+			int utfBit = encodeInUtf8 ? 0 : (1 << 7);
+			char status = (char) (utfBit + langBytes.length);
+			String RTD_TEXT= fieldText.getText().toString();
+			byte[] textBytes = RTD_TEXT.getBytes(utfEncoding);
+			byte[] data = new byte[1 + langBytes.length + textBytes.length];
+			data[0] = (byte) status;
+			System.arraycopy(langBytes, 0, data, 1, langBytes.length);
+			System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
+			NdefRecord textRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], data);
+			newMessage= new NdefMessage(new NdefRecord[] { textRecord });
+			break;
+		case "Link":
+			EditText fieldLink =  (EditText)findViewById(R.id.fieldLink);
+			uriField =  fieldLink.getText().toString().getBytes();
+			payload = new byte[uriField.length + 1];
+			payload[0] = (Byte) UP.get(currentPSelection);
 			System.arraycopy(uriField, 0, payload, 1, uriField.length);
 			uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] {uriRecord});

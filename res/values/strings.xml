@@ -57,8 +57,20 @@
     <string name="r_Type">Tipo de registro:</string>
     <string name="r_Protocol">Protocolo:</string>
     <string name="r_Payload">Contenido:</string>
-    <string name="title_activity_create_tag_content">CreateTagContent</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_transfer_content">TransferContent</string>
+    
+    
+    <string name="title_activity_create_tag_content">Crear nuevo contenido</string>
+    <string name="title_activity_transfer_content">Transferencia</string>
 
+    <!-- URI/URL protocol Strings -->
+      <string-array name="protocols_array">
+        <item>http://</item>
+        <item>https://</item>
+        <item>http://www.</item>
+        <item>https://www.</item>
+        <item>ftp://</item>
+        <item>sftp://</item>
+        <item>file://</item>
+        <item>telnet://</item>
+    </string-array>
 </resources>
