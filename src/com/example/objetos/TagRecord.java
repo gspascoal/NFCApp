@@ -95,7 +95,7 @@ public class TagRecord {
 		PLTI.put("sms:", R.drawable.sms64);
 		PLTI.put("geo:", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
-		PLTI.put("Text", R.drawable.default64);
+		PLTI.put("Text", R.drawable.text64);
 
 		this.record = r;
 		

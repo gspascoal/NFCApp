@@ -35,6 +35,7 @@ public class TagRecord extends RelativeLayout {
 		recordIcon.put("sms:", R.drawable.sms64);
 		recordIcon.put("geo:", R.drawable.geo64);
 		recordIcon.put("Business card", R.drawable.business_cardb24);
+		recordIcon.put("Plain Text", R.drawable.text64);
 		
 		// TODO Auto-generated constructor stub
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.tag_record,this);

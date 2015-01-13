@@ -41,6 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 
 
@@ -64,6 +65,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	public Map<String, Byte> UP =  new LinkedHashMap<String,Byte>();
 	private String currentSelection;
 	private String currentPSelection;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -246,13 +248,18 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			startActivityForResult(intent, PICK_CONTACT);
 			break;
 		case R.id.wsaveButton:
-
+			saveContent(currentSelection);
+			
 			break;	
 		case R.id.wsaveWriteButton:
-			intent = new Intent(this, TransferContent.class);
-		    String kind = kindSelector.getSelectedItem().toString();
-			intent.putExtra("TAG_CONTENT", createTagContent(kind));
-			startActivity(intent);
+			boolean s = saveContent(currentSelection);
+			if(s){
+				intent = new Intent(this, TransferContent.class);
+			    String kind = kindSelector.getSelectedItem().toString();
+				intent.putExtra("TAG_CONTENT", createTagContent(kind));
+				startActivity(intent);
+			}
+			
 			break;	
 		default:
 			break;
@@ -443,6 +450,99 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		return newMessage; 
 		
 	}
+	
+	private boolean saveContent(String kind){
+		String payload;
+		String payloadHeaderDesc;
+		String payloadTypeDesc;
+		TagContent content  = null;
+		boolean saved =  false;
+	    switch (kind) {
+		case "Telephone Number":
+			EditText fieldPhone =  (EditText)findViewById(R.id.fieldPhone);
+			if(!fieldPhone.getText().toString().trim().equals("")){
+				payload  = fieldPhone.getText().toString();
+				payloadHeaderDesc = "tel:"; 
+				payloadTypeDesc = kind; 
+				content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+				saved = true;
+			}
+
+			break;
+		case "Email":
+			EditText fieldTo =  (EditText)findViewById(R.id.fieldTo);
+			EditText fieldSubject =  (EditText)findViewById(R.id.fieldSubject);
+			EditText fieldBody =  (EditText)findViewById(R.id.fieldBody);
+			if (!fieldTo.getText().toString().trim().equals("") &&
+					!fieldSubject.getText().toString().trim().equals("") &&
+					!fieldBody.getText().toString().trim().equals("")) {
+				payload = fieldTo.getText().toString() + "?subject="+fieldSubject.getText().toString()+"&body="+fieldBody.getText().toString();
+				payloadHeaderDesc = "mailto:"; 
+				payloadTypeDesc = kind; 
+				content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+				saved = true;
+			}
+
+			break;
+		case "SMS":
+			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
+			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
+			if (!fieldReceiver.getText().toString().trim().equals("") &&
+					fieldMessage.getText().toString().trim().equals("")) {
+				payload = "sms:"+fieldReceiver.getText().toString() + "?body="+fieldMessage.getText().toString();
+				payloadHeaderDesc = "sms:";
+				payloadTypeDesc = kind; 
+				content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+				saved=true;
+			}			
+			break;
+		case "Geo Location":
+			EditText fieldLatitude =  (EditText)findViewById(R.id.fieldLatitude);
+			EditText fieldLongitude =  (EditText)findViewById(R.id.fieldLongitude);
+			if (!fieldLatitude.getText().toString().trim().equals("") &&
+				!fieldLongitude.getText().toString().trim().equals("") ) {
+				payload = "geo:"+fieldLatitude.getText().toString() + ","+fieldLongitude.getText().toString();
+				payloadHeaderDesc = "geo:";
+				payloadTypeDesc = kind; 
+			    content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+			    saved = true;
+			}
+			
+			break;
+		case "Plain Text":
+			EditText fieldText =  (EditText)findViewById(R.id.fieldText);
+			if(!fieldText.getText().toString().trim().equals("")){
+				payload = fieldText.getText().toString();
+				payloadHeaderDesc = "("+Locale.getDefault().getLanguage().toUpperCase()+")";
+				payloadTypeDesc = kind; 
+			    content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+			    saved=true;
+			}
+		
+			break;
+		case "Link":
+			EditText fieldLink =  (EditText)findViewById(R.id.fieldLink);
+			if(!fieldLink.getText().toString().trim().equals("")){
+				payload =  fieldLink.getText().toString();
+				payloadHeaderDesc = currentPSelection;
+				payloadTypeDesc = kind; 
+			    content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
+			    saved=true;
+			}
+
+			break;
+		default:
+			break;
+		}	
+	    if (saved) {
+	    	Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "Enter your data first, please", Toast.LENGTH_SHORT).show(); 
+		}
+	    
+		return saved;
+	}
+	
 	
 	/*
 	private class 

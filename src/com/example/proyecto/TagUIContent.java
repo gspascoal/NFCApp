@@ -30,6 +30,8 @@ public class TagUIContent extends RelativeLayout {
 		PLTI.put("sms:", R.drawable.sms64);
 		PLTI.put("geo:", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
+		PLTI.put("Plain Text", R.drawable.text64);
+		
 		
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.recent_content,this);
 		payload = (TextView)findViewById(R.id.contentPayload);
