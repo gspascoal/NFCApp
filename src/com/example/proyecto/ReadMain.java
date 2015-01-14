@@ -220,7 +220,7 @@ public class ReadMain extends Activity {
 			{
 				Content.setText(""); // change for a system string
 		    	Type.setText(R.string.readIntent_Empty);
-		    	payloadTypeIcon.setBackgroundResource(R.drawable.launch);// Assign default icon
+		    	payloadTypeIcon.setBackgroundResource(R.drawable.default64);// Assign default icon
 		    	Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();
 		    	SaveButtonVisibility = View.INVISIBLE;
 			}

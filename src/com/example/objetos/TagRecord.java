@@ -95,7 +95,7 @@ public class TagRecord {
 		PLTI.put("sms:", R.drawable.sms64);
 		PLTI.put("geo:", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
-		PLTI.put("Text", R.drawable.text64);
+		PLTI.put("Plain Text", R.drawable.text64);
 
 		this.record = r;
 		
@@ -210,7 +210,7 @@ public class TagRecord {
 		int i = 0;
 		if (getRecordPayloadheader() == 0) {
 			if (recordType.equalsIgnoreCase("Text")) {
-				this.recordPayloadTypeDesc = "Plain text";
+				this.recordPayloadTypeDesc = "Plain Text";
 			}
 			while (i < WOP.size()) {
 				if (getRecordPayload().contains(WOP.get(i))) {

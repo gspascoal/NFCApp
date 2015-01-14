@@ -283,7 +283,7 @@ public class TagInfo {
 			tagRecord.getR_TNF().setText(tagRecord.getR_TNF().getText()+" "+tagRecords.get(i).getRecordTNFDesc());
 			tagRecord.getR_Type().setText(tagRecord.getR_Type().getText()+" "+tagRecords.get(i).getRecordType());
 			if (tagRecords.get(i).isWOP()) {
-				tagRecord.getR_PLHeader().setText("none");
+				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+"none");
 			}else {
 				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+tagRecords.get(i).getRecordPayloadHeaderDesc()); //Protocol
 			}
