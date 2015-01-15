@@ -4,10 +4,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 
 
 public class TagUIContent extends RelativeLayout {
@@ -15,11 +18,14 @@ public class TagUIContent extends RelativeLayout {
 	private ImageView contentIcon;
 	private TextView payload;
 	private TextView contentDesc;
+	private TextView contentId;
+	private Context context;
 	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
 	
 	public TagUIContent(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
+		//this.context = context;
 		
 		/*Initialize associative array of URI prefixes icons id*/
 		PLTI.put("N/A", R.drawable.default64);
@@ -37,6 +43,33 @@ public class TagUIContent extends RelativeLayout {
 		payload = (TextView)findViewById(R.id.contentPayload);
 		contentDesc = (TextView)findViewById(R.id.contentDescription);
 		contentIcon = (ImageView)findViewById(R.id.contentIcon);
+		contentId = (TextView)findViewById(R.id.contentId);
+		
+		
+		rLayout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getContext(), CreateTagContent.class);
+			    String kind = getContentDesc().getText().toString();
+			    String payload = getPayload().getText().toString();
+			    Log.d("debug extra",payload);
+				intent.putExtra("CONTENT_KIND", kind);
+				intent.putExtra("CONTENT_PAYLOAD", payload);
+				
+				getContext().startActivity(intent);
+			}
+			
+		});
+	}
+
+	public TextView getContentId() {
+		return contentId;
+	}
+
+	public void setContentId(String id) {
+		this.contentId.setText(id);
 	}
 
 	public ImageView getContentIcon() {
@@ -73,4 +106,6 @@ public class TagUIContent extends RelativeLayout {
 			contentIcon.setBackgroundResource(PLTI.get("N/A"));
 		}
 	}
+	
+	
 }

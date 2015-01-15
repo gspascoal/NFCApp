@@ -173,6 +173,7 @@ public class TagContentDataSource {
 		  nTagUIContent.setPayload(tagContent.getPayloadHeader()+tagContent.getPayload());
 		  nTagUIContent.setContentDesc(tagContent.getPayloadType());
 		  nTagUIContent.setContentIcon(tagContent.getPayloadType());
+		  nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
 		  tagUIContents.add(nTagUIContent);
 	}
 	  

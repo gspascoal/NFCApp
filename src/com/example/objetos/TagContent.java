@@ -25,7 +25,7 @@ public class TagContent {
 	  // Will be used by the ArrayAdapter in the ListView
 	  @Override
 	  public String toString() {
-	    return payload+" - "+ payloadHeader+" - "+ payloadType;
+	    return id+" - "+payload+" - "+ payloadHeader+" - "+ payloadType;
 	  }
 
 	public String getPayloadHeader() {

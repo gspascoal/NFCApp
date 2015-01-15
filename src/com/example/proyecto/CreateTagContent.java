@@ -65,6 +65,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	public Map<String, Byte> UP =  new LinkedHashMap<String,Byte>();
 	private String currentSelection;
 	private String currentPSelection;
+	private String extraPayload;
 
 	
 	@Override
@@ -143,21 +144,90 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		kSelectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		kindSelector.setAdapter(kSelectoradapter);
-		
-		/*
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> pSelectoradapter = ArrayAdapter.createFromResource(this,R.array.protocols_array, android.R.layout.simple_spinner_item);
-	    // Specify the layout to use when the list of choices appears
-		pSelectoradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		protocolSelector.setAdapter(pSelectoradapter);
-		*/
+
+		//Log.d("debug extra",getIntent().getStringExtra("CONTENT_PAYLOAD").toString());
+		if (getIntent().getStringExtra("CONTENT_KIND") != null && getIntent().getStringExtra("CONTENT_PAYLOAD") != null) {
+			String kind = getIntent().getStringExtra("CONTENT_KIND");
+			extraPayload = getIntent().getStringExtra("CONTENT_PAYLOAD");
+			String[] kindsArray = getResources().getStringArray(R.array.kinds_array);
+			int selected = 0;
+			for (int i = 0; i < kindsArray.length; i++) {
+				if (kindsArray[i].equalsIgnoreCase(getIntent().getStringExtra("CONTENT_KIND"))) {
+					selected = i; break;
+				}
+			}
+			kindSelector.setSelection(selected);
+			kindSelector.setEnabled(false);
+			Log.d("debug extra",kind+" - "+extraPayload);
+			//Log.d("debug extra",getIntent().getStringExtra("CONTENT_PAYLAOD")/);
+			
+		}
 		
 		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+	}
+
+	private void fillFields(String kind, String payload) {
+		// TODO Auto-generated method stub
+		switch (kind) {
+		case "Plain Text":
+			EditText fieldText =  (EditText)findViewById(R.id.fieldText);
+			String text = payload.substring(payload.indexOf(")")+1, payload.length());	
+			fieldText.setText(text);
+			break;
+		case "Geo Location":
+			EditText fieldLatitude =  (EditText)findViewById(R.id.fieldLatitude);
+			EditText fieldLongitude =  (EditText)findViewById(R.id.fieldLongitude);
+			String latitude = payload.substring(payload.indexOf(":")+1, payload.indexOf(",")-1);
+			String longitude = payload.substring(payload.indexOf(",")+1, payload.length());
+			fieldLatitude.setText(latitude);
+			fieldLongitude.setText(longitude);
+			break;
+		case "Email":
+			EditText fieldTo =  (EditText)findViewById(R.id.fieldTo);
+			EditText fieldSubject =  (EditText)findViewById(R.id.fieldSubject);
+			EditText fieldBody =  (EditText)findViewById(R.id.fieldBody);
+			String  to = payload.substring(payload.indexOf(":")+1, payload.indexOf("?"));
+			String  subject = payload.substring(payload.indexOf("t=")+2, payload.indexOf("&"));
+			String  body = payload.substring(payload.indexOf("y=")+2, payload.length());
+			fieldTo.setText(to);
+			fieldSubject.setText(subject);
+			fieldBody.setText(body);
+		case "SMS":
+			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
+			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
+			String receiver = payload.substring(payload.indexOf(":")+1, payload.indexOf("?"));
+			String message =payload.substring(payload.indexOf("y=")+2, payload.length());
+			fieldReceiver.setText(receiver);
+			fieldMessage.setText(message);
+			break;
+		case "Telephone Number":
+			EditText fieldPhone =  (EditText)findViewById(R.id.fieldPhone);
+			String phone = payload.substring(payload.indexOf(":")+1, payload.length());
+			fieldPhone.setText(phone);
+			break;
+		case "Link":
+			EditText fieldLink =  (EditText)findViewById(R.id.fieldLink);
+			String link;
+			String prtcl="";
+			fieldLink.setText(payload);
+			
+			
+			String[] protocolsArray = getResources().getStringArray(R.array.protocols_array);
+			int selected = 0;
+			for (int i = 0; i < protocolsArray.length; i++) {
+				if (protocolsArray[i].equalsIgnoreCase(prtcl)) {
+					selected = i; break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		
 	}
 
 	@Override
@@ -232,6 +302,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			protocolSelector.setAdapter(pSelectoradapter);
 			
 		}
+		if (getIntent().getStringExtra("CONTENT_KIND") != null && getIntent().getStringExtra("CONTENT_PAYLOAD") != null) {fillFields(kind,extraPayload);}
 	}
 
 	@Override

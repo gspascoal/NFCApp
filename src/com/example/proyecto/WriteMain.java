@@ -113,7 +113,7 @@ public class WriteMain extends Activity {
 	    
 	    List<TagContent> test = datasource.getAllComments();
 	      //Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
-	      for (int i = 0; i < test.size(); i++) {
+	      for (int i = test.size()-1; i > 0; i--) {
 			Log.d("List element", "tag_content: " + test.get(i));
 		}
 	    
@@ -125,8 +125,9 @@ public class WriteMain extends Activity {
 			contentList.removeAllViews();
 		}
 	  
-	    for (int i = 0; i < tagUIContents.size(); i++) {
+	    for (int i = tagUIContents.size()-1; i > 0; i--) {
 	    	contentList.addView(tagUIContents.get(i));
+	    	
 		}
 		
 	    //datasource.close();
