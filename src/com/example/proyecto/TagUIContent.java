@@ -1,15 +1,23 @@
 package com.example.proyecto;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.example.objetos.TagContentDataSource;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -20,6 +28,7 @@ public class TagUIContent extends RelativeLayout {
 	private TextView contentDesc;
 	private TextView contentId;
 	private Context context;
+	private TagContentDataSource datasource;
 	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
 	
 	public TagUIContent(Context context) {
@@ -31,10 +40,10 @@ public class TagUIContent extends RelativeLayout {
 		PLTI.put("N/A", R.drawable.default64);
 		PLTI.put("Link", R.drawable.link64);
 		PLTI.put("Secure Link", R.drawable.link64);
-		PLTI.put("Telephone number", R.drawable.tel64);
+		PLTI.put("Telephone Number", R.drawable.tel64);
 		PLTI.put("Email", R.drawable.mail64);
-		PLTI.put("sms:", R.drawable.sms64);
-		PLTI.put("geo:", R.drawable.geo64);
+		PLTI.put("SMS", R.drawable.sms64);
+		PLTI.put("Geo Location", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
 		PLTI.put("Plain Text", R.drawable.text64);
 		
@@ -44,7 +53,10 @@ public class TagUIContent extends RelativeLayout {
 		contentDesc = (TextView)findViewById(R.id.contentDescription);
 		contentIcon = (ImageView)findViewById(R.id.contentIcon);
 		contentId = (TextView)findViewById(R.id.contentId);
-		
+		 
+		datasource = new TagContentDataSource(getContext());
+	    datasource.open();
+	    
 		
 		rLayout.setOnClickListener(new View.OnClickListener() {
 			
@@ -57,10 +69,64 @@ public class TagUIContent extends RelativeLayout {
 			    Log.d("debug extra",payload);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", payload);
+				intent.putExtra("CONTENT_ID", getContentId().getText().toString());
 				
 				getContext().startActivity(intent);
 			}
 			
+		});
+		
+		rLayout.setOnLongClickListener(new View.OnLongClickListener() {
+			
+			private ListView optionDialog;
+			private CustomDialog dialog;
+
+			@Override
+			public boolean onLongClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				
+				optionDialog = new ListView(getContext());
+				String[] cOptionsArrayStrings = getResources().getStringArray(R.array.cOptions_array);
+				
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, cOptionsArrayStrings);
+				
+				optionDialog.setAdapter(adapter);
+				optionDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+		            @Override
+		            public void onItemClick(AdapterView<?> parent, final View view,
+		                int position, long id) {
+		              final String item = (String) parent.getItemAtPosition(position);
+		              
+		              
+		              switch (position) {
+					case 0:
+						Toast.makeText(getContext(), "Delete!", Toast.LENGTH_LONG).show();
+						datasource.deleteComment(Long.valueOf((String) getContentId().getText()));
+						
+						break;
+					
+					default:
+						break;
+					}
+		              
+		              dialog.dismiss();
+		            }
+
+		          });
+				
+				dialog = new CustomDialog(getContext());
+				//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+				dialog.setTitle("Options");
+				dialog.setContentView(optionDialog);
+				
+				dialog.show();
+				
+				
+				
+				return true;
+			}
 		});
 	}
 

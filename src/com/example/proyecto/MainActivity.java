@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
@@ -52,16 +53,28 @@ public class MainActivity extends Activity {
 		
 		return super.onOptionsItemSelected(item);
 	}
-
-	public void startRead(View v) {
-		Intent intent = new Intent(MainActivity.this, ReadMain.class);
-		startActivity(intent);
-	}
 	
-	public void startWrite(View v) {
-		Intent intent = new Intent(MainActivity.this, WriteMain.class);
-		startActivity(intent);
+	public void onClick(View view){
+		Intent intent;
+		switch (view.getId()) {
+		case R.id.read:
+			intent = new Intent(MainActivity.this, ReadMain.class);
+			startActivity(intent);
+			break;
+		case R.id.write:
+			intent = new Intent(MainActivity.this, WriteMain.class);
+			startActivity(intent);
+			break;
+		case R.id.my_tag:
+			intent = new Intent(MainActivity.this, TagsMain.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
+		
 	}
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

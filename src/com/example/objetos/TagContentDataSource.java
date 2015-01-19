@@ -62,8 +62,8 @@ public class TagContentDataSource {
     return newComment;
   }
 
-  public void deleteComment(TagContent comment) {
-    long id = comment.getId();
+  public void deleteComment(Long id) {
+    //long id = comment.getId();
     System.out.println("Comment deleted with id: " + id);
     database.delete(MySQLiteHelper.TABLE_COMMENTS, MySQLiteHelper.COLUMN_ID
         + " = " + id, null);
@@ -180,5 +180,21 @@ public class TagContentDataSource {
 	  return tagUIContents;
 	  
 	  
+  }
+
+  public TagContent getContentById(String id){
+	  TagContent nTagContent = null;
+	  String[] argumentsString = {String.valueOf(id)};
+	  Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS, allColumns,"_id=?", argumentsString, null, null, null);
+	  
+	  cursor.moveToFirst();
+	    while (!cursor.isAfterLast()) {
+	      nTagContent = cursorToComment(cursor);
+	      cursor.moveToNext();
+	    }
+	    // make sure to close the cursor
+	    cursor.close();
+	  
+	  return nTagContent;
   }
 } 

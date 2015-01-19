@@ -19,12 +19,14 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R.layout;
 
 public class WriteMain extends Activity {
 	
@@ -42,6 +45,8 @@ public class WriteMain extends Activity {
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
 	private TagContentDataSource datasource;
+	private TextView emptyDB;
+	private Button moreButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,22 +118,35 @@ public class WriteMain extends Activity {
 	    
 	    List<TagContent> test = datasource.getAllComments();
 	      //Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
-	      for (int i = test.size()-1; i > 0; i--) {
+	      for (int i = test.size()-1; i >= 0; i--) {
 			Log.d("List element", "tag_content: " + test.get(i));
 		}
 	    
 	    
 	    List<TagUIContent> tagUIContents = datasource.getTagUIContents();
 	    
-	    Log.d("debug", "Features length "+tagUIContents.size() );
+	    if (tagUIContents.size() > 10) {
+	    	tagUIContents = datasource.getTagUIContents().subList(0, 10);
+	    	moreButton = (Button)findViewById(R.id.moreButton);
+	    	moreButton.setVisibility(View.VISIBLE);
+		}
+	    
+	    Log.d("debug", "Content length "+tagUIContents.size() );
 	    if (contentList.getChildCount() > 0) {
 			contentList.removeAllViews();
 		}
 	  
-	    for (int i = tagUIContents.size()-1; i > 0; i--) {
-	    	contentList.addView(tagUIContents.get(i));
-	    	
+	    if (tagUIContents.size() > 0) {
+	    	for (int i = tagUIContents.size()-1; i >= 0; i--) {
+		    	contentList.addView(tagUIContents.get(i));
+			}
+		} else {
+			emptyDB = new TextView(this);
+			emptyDB.setText("No recent tag content found!");
+			emptyDB.setGravity(1);
+			contentList.addView(emptyDB);
 		}
+	    
 		
 	    //datasource.close();
 	}
@@ -240,13 +258,16 @@ public class WriteMain extends Activity {
 	}
 	
 	public void	onClick(View view) {
-		
+		Intent  intent;
 		switch (view.getId()) {
 		case R.id.newContentButton:
-			Intent intent = new Intent(this, CreateTagContent.class);
+			intent = new Intent(this, CreateTagContent.class);
 			startActivity(intent);
 			break;
-
+		case R.id.moreButton:
+			intent = new Intent(this, TagsMain.class);
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}

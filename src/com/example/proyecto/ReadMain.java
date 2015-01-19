@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
+import com.example.proyecto.R.string;
 
 public class ReadMain extends Activity {
 
@@ -406,8 +407,9 @@ public class ReadMain extends Activity {
 		      int nextInt = new Random().nextInt(3);
 		      */
 		      // save the new tag_content to the database
+		    String payloadHeaderDesc = tInfo.getTagRecords().get(0).isWOP() ? " " : tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc();
 		      content = datasource.createContent(tInfo.getTagRecords().get(0).getRecordPayload(),
-		    		  tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc(),
+		    		  payloadHeaderDesc,
 		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 		      //status =  (TextView) findViewById(R.id.type);
 		      //status.setText(content.toString());

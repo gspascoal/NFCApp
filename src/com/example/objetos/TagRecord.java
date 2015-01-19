@@ -11,6 +11,7 @@ import android.util.Log;
 
 
 
+
 import com.example.proyecto.R;
 
 public class TagRecord {
@@ -21,7 +22,7 @@ public class TagRecord {
 	private Map<String, String> URIPFXMap =  new LinkedHashMap<String,String>();
 	private Map<String, String> PLH =  new LinkedHashMap<String,String>();
 	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
-	private ArrayList<String> WOP = new ArrayList<String>(); 
+	private Map<String, String> WOP = new LinkedHashMap<String,String>(); 
 		
 	private int messageId = 0;
 	private NdefRecord record;
@@ -42,8 +43,8 @@ public class TagRecord {
 	public TagRecord(NdefRecord r, int messsageId){
 		
 		/*Initialize array of URI prefixes without protocol field*/
-		WOP.add("sms:");
-		WOP.add("geo:");	
+		WOP.put("sms:","SMS");
+		WOP.put("geo:","Geo Location");	
 		
 		/*Initialize associative array of TNF values*/
 		TNFMap.put("0", "Empty");
@@ -90,10 +91,10 @@ public class TagRecord {
 		PLTI.put("N/A", R.drawable.default64);
 		PLTI.put("Link", R.drawable.link64);
 		PLTI.put("Secure Link", R.drawable.link64);
-		PLTI.put("Telephone number", R.drawable.tel64);
+		PLTI.put("Telephone Number", R.drawable.tel64);
 		PLTI.put("Email", R.drawable.mail64);
-		PLTI.put("sms:", R.drawable.sms64);
-		PLTI.put("geo:", R.drawable.geo64);
+		PLTI.put("SMS", R.drawable.sms64);
+		PLTI.put("Geo Location", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
 		PLTI.put("Plain Text", R.drawable.text64);
 
@@ -208,13 +209,15 @@ public class TagRecord {
 		
 		Log.d("TagInfo", "Payload Header:" + getRecordPayloadheader());
 		int i = 0;
+		Object[] wopArray = WOP.keySet().toArray();
 		if (getRecordPayloadheader() == 0) {
 			if (recordType.equalsIgnoreCase("Text")) {
 				this.recordPayloadTypeDesc = "Plain Text";
 			}
-			while (i < WOP.size()) {
-				if (getRecordPayload().contains(WOP.get(i))) {
-					this.recordPayloadTypeDesc = WOP.get(i);
+			while (i < wopArray.length) {
+				if (getRecordPayload().contains((String)wopArray[i])) {
+					this.recordPayloadTypeDesc = WOP.get(wopArray[i]);
+					this.setWOP(true);
 					break;
 				}
 			 i++;	
@@ -266,16 +269,18 @@ public class TagRecord {
 	public void setRecordPayloadHeaderDesc() {
 		
 		int i=0;
+		Object[] wopArray  = WOP.keySet().toArray();
+		
 		if (getRecordPayloadheader() == 0) {
 			if (recordType.equalsIgnoreCase("Text")) {
 				this.recordPayloadHeaderDesc = "Plain text";
 				this.setWOP(true);
 			}
+
 			
-			
-			while (i < WOP.size()) {
-				if (getRecordPayload().contains(WOP.get(i))) {
-					this.recordPayloadHeaderDesc = WOP.get(i);
+			while (i < wopArray.length) {
+				if (getRecordPayload().contains((String)wopArray[i])) {
+					this.recordPayloadHeaderDesc = WOP.get(wopArray[i]);
 					this.setWOP(true);
 					break;
 				}

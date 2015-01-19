@@ -181,7 +181,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		case "Geo Location":
 			EditText fieldLatitude =  (EditText)findViewById(R.id.fieldLatitude);
 			EditText fieldLongitude =  (EditText)findViewById(R.id.fieldLongitude);
-			String latitude = payload.substring(payload.indexOf(":")+1, payload.indexOf(",")-1);
+			String latitude = payload.substring(payload.indexOf(":")+1, payload.indexOf(","));
 			String longitude = payload.substring(payload.indexOf(",")+1, payload.length());
 			fieldLatitude.setText(latitude);
 			fieldLongitude.setText(longitude);
@@ -211,17 +211,23 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			break;
 		case "Link":
 			EditText fieldLink =  (EditText)findViewById(R.id.fieldLink);
-			String link;
-			String prtcl="";
-			fieldLink.setText(payload);
+			if(getIntent().getStringExtra("CONTENT_ID") != null){
+				Log.d("debug bd", getIntent().getStringExtra("CONTENT_ID") );
+				Log.d("debug bd", datasource.getContentById(getIntent().getStringExtra("CONTENT_ID") ).toString() );
 			
-			
-			String[] protocolsArray = getResources().getStringArray(R.array.protocols_array);
-			int selected = 0;
-			for (int i = 0; i < protocolsArray.length; i++) {
-				if (protocolsArray[i].equalsIgnoreCase(prtcl)) {
-					selected = i; break;
+				String link =  datasource.getContentById(getIntent().getStringExtra("CONTENT_ID")).getPayload();
+				String prtcl= datasource.getContentById(getIntent().getStringExtra("CONTENT_ID")).getPayloadHeader();
+				
+				
+				String[] protocolsArray = getResources().getStringArray(R.array.protocols_array);
+				int selected = 0;
+				for (int i = 0; i < protocolsArray.length; i++) {
+					if (protocolsArray[i].equalsIgnoreCase(prtcl)) {
+						selected = i; break;
+					}
 				}
+				protocolSelector.setSelection(selected);
+				fieldLink.setText(link);
 			}
 			break;
 		default:
@@ -320,7 +326,6 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			break;
 		case R.id.wsaveButton:
 			saveContent(currentSelection);
-			
 			break;	
 		case R.id.wsaveWriteButton:
 			boolean s = saveContent(currentSelection);
@@ -559,9 +564,9 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
 			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
 			if (!fieldReceiver.getText().toString().trim().equals("") &&
-					fieldMessage.getText().toString().trim().equals("")) {
+					!fieldMessage.getText().toString().trim().equals("")) {
 				payload = "sms:"+fieldReceiver.getText().toString() + "?body="+fieldMessage.getText().toString();
-				payloadHeaderDesc = "sms:";
+				payloadHeaderDesc = "";
 				payloadTypeDesc = kind; 
 				content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
 				saved=true;
@@ -573,7 +578,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			if (!fieldLatitude.getText().toString().trim().equals("") &&
 				!fieldLongitude.getText().toString().trim().equals("") ) {
 				payload = "geo:"+fieldLatitude.getText().toString() + ","+fieldLongitude.getText().toString();
-				payloadHeaderDesc = "geo:";
+				payloadHeaderDesc = "";
 				payloadTypeDesc = kind; 
 			    content = datasource.createContent(payload,payloadHeaderDesc,payloadTypeDesc);
 			    saved = true;

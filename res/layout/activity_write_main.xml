@@ -64,8 +64,20 @@
 		    android:layout_below="@+id/writeHeader"
 		    android:background="#FFF">
            </LinearLayout>
+           
+           <Button 
+	        android:id="@+id/moreButton"
+	        android:layout_height="wrap_content"
+	        android:layout_width="wrap_content"
+			android:layout_centerHorizontal="true"
+	        android:text="More"
+	        android:onClick="onClick"
+	        android:visibility="invisible"
+	        android:layout_below="@+id/recentList"
+	        android:layout_marginTop="15dp"
+        />
+           
     </RelativeLayout>
     
     
-
 </ScrollView>

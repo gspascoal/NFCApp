@@ -1,28 +1,78 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.proyecto.TransferContent" >
+    tools:context="com.example.proyecto.TransferContent"
+    android:visibility="invisible"
+     >
 
     <TextView
         android:id="@+id/writeResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        
         />
-   <TextView
+   <RelativeLayout
+       android:id="@+id/resultContainer"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/writeResult"
+        android:visibility="invisible"
+        >
+       <TextView
         android:id="@+id/currentContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Current content"
+        
+        
         />
+   <RelativeLayout 
+       android:id="@+id/cContent_container"
+       android:layout_height="wrap_content"
+	     android:layout_width="match_parent"
+	     android:background="#357"
+	     android:layout_below="@+id/currentContent"
+	     
+       >
+       
+   </RelativeLayout>
    
    <TextView
         android:id="@+id/previousContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Previous Content"
+        android:layout_below="@+id/cContent_container"
+        
         />
-
+	
+	<RelativeLayout 
+	    android:id="@+id/pContent_container"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:background="#777"
+	    android:layout_below="@+id/previousContent"
+	    
+	>       
+	
+   </RelativeLayout>
+   	<Button 
+	    android:id="@+id/doneButton"
+	    android:layout_height="wrap_content"
+	    android:layout_width="wrap_content"
+	    android:layout_below="@+id/pContent_container"
+	    android:text="Done"
+	    android:layout_centerHorizontal="true"
+	    android:onClick="onClick"
+	    />
+   </RelativeLayout>
+   
+   	
+   	
 </RelativeLayout>
