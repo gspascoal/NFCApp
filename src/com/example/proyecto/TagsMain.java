@@ -4,16 +4,15 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -58,6 +57,7 @@ public class TagsMain extends Activity {
 	    CustomAdapater adapterAdapater = new CustomAdapater(this, arrayContents);
 	    contentList.setAdapter(adapterAdapater);
 	    
+	    setListViewHeightBasedOnChildren(contentList);
 	    Log.d("debug", "Content length "+tagUIContents.size() );
 	    /*
 	    if (contentList.getChildCount() > 0) {
@@ -134,4 +134,23 @@ public class TagsMain extends Activity {
 		}
 	}
 
+	public static void setListViewHeightBasedOnChildren(ListView listView) {
+
+	    ListAdapter listAdapter = listView.getAdapter(); 
+	    if (listAdapter == null) {
+	        return;
+	    }
+
+	    int totalHeight = 0;
+	    for (int i = 0; i < listAdapter.getCount(); i++) {
+	        View listItem = listAdapter.getView(i, null, listView);
+	        listItem.measure(0, MeasureSpec.UNSPECIFIED);
+	        totalHeight += listItem.getMeasuredHeight();
+	    }
+
+	    ViewGroup.LayoutParams params = listView.getLayoutParams();
+	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+	    listView.setLayoutParams(params);
+	    listView.requestLayout();
+	} 
 }

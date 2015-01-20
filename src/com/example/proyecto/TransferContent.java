@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
-import com.example.proyecto.R.color;
+
 
 import android.app.Activity;
 import android.app.PendingIntent;
