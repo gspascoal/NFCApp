@@ -1,5 +1,7 @@
 package com.example.objetos;
 
+import java.util.List;
+
 import android.R;
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +24,11 @@ import com.example.proyecto.TagUIContent;
 public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 	private final Activity context;
-	private TagUIContent[] objects;
+	private List<TagUIContent> objects;
+	private TagContentDataSource datasource; 
+	
 
-	public CustomAdapater(Activity context,  TagUIContent[] objects) {
+	public CustomAdapater(Activity context,  List<TagUIContent> objects) {
 		super(context, com.example.proyecto.R.layout.recent_content, objects);
 		// TODO Auto-generated constructor stub
 		this.context = context;
@@ -56,11 +60,11 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		 
 		 //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);		 
 		 
-		 Log.d("debug extra",objects[position].getContentDesc().getText().toString());
-		 holder.payloadIconContent.setBackground(objects[position].getContentIcon().getBackground());
-		 holder.payloadContent.setText(objects[position].getPayload().getText());
-		 holder.payloadDescContent.setText(objects[position].getContentDesc().getText());
-		 holder.payloadContentId.setText(objects[position].getContentId().getText());
+		 //Log.d("debug extra ID",objects[position].getContentId().getText().toString());
+		 holder.payloadIconContent.setBackground(objects.get(position).getContentIcon().getBackground());
+		 holder.payloadContent.setText(objects.get(position).getPayload().getText());
+		 holder.payloadDescContent.setText(objects.get(position).getContentDesc().getText());
+		 holder.payloadContentId.setText(objects.get(position).getContentId().getText());
 		 
 		 rowView.setOnClickListener(new View.OnClickListener() {
 				
@@ -92,13 +96,17 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				private CustomDialog dialog;
 				private TagContentDataSource datasource;
 				
-				//datasource = new TagContentDataSource(getContext());
-			    //datasource.open();
+				
 
 				@Override
 				public boolean onLongClick(View arg0) {
 					// TODO Auto-generated method stub
 					
+					datasource = new TagContentDataSource(getContext());
+				    datasource.open();
+				    
+				    
+					Log.d("debug extra ID",itemId.toString());
 					optionDialog = new ListView(getContext());
 					String[] cOptionsArrayStrings =  getContext().getResources().getStringArray(com.example.proyecto.R.array.cOptions_array);
 					
@@ -115,15 +123,28 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 			              
 			              switch (position) {
 						case 0:
-							Toast.makeText(getContext(), "Delete!", Toast.LENGTH_LONG).show();
+							int i = 0;
+							
+							while (i < objects.size()){
+								Log.d("deleting", "i value: "+i);
+								if(objects.get(i).getContentId().getText().toString().equals(itemId.toString())){
+									break;
+								}
+								i++;
+							}
+							Log.d("deleting", "Item id: "+itemId);
+							Log.d("deleting", "Item row: "+i);
+							objects.remove(i);
 							datasource.deleteComment(itemId);
+							notifyDataSetChanged();
+							Toast.makeText(getContext(), "Item "+itemId+" deleted!", Toast.LENGTH_LONG).show();
 							
 							break;
 						
 						default:
 							break;
 						}
-			              
+			              //notifyDataSetChanged();
 			              dialog.dismiss();
 			            }
 
@@ -135,7 +156,6 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 					dialog.setContentView(optionDialog);
 					
 					dialog.show();
-					
 					
 					
 					return true;

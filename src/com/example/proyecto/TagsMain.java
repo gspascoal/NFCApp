@@ -28,6 +28,8 @@ public class TagsMain extends Activity {
 	private TextView emptyDB;
 	private ListView contentList;
 	private TagUIContent[] arrayContents;
+	private CustomAdapater adapterAdapater;
+	private List<TagUIContent> tagUIContents;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +49,18 @@ public class TagsMain extends Activity {
 		}
 	    
 	    
-	    List<TagUIContent> tagUIContents = datasource.getTagUIContents();
+	    tagUIContents = datasource.getTagUIContents();
 	    arrayContents = new TagUIContent[tagUIContents.size()];
 	    
 		   for (int i = 0; i < tagUIContents.size(); i++) {
 			arrayContents[i] = tagUIContents.get(i);
 		}
 		    
-	    CustomAdapater adapterAdapater = new CustomAdapater(this, arrayContents);
+	    adapterAdapater = new CustomAdapater(this,tagUIContents);
 	    contentList.setAdapter(adapterAdapater);
+	    //adapterAdapater.notifyDataSetChanged();
 	    
-	    setListViewHeightBasedOnChildren(contentList);
+	    //setListViewHeightBasedOnChildren(contentList);
 	    Log.d("debug", "Content length "+tagUIContents.size() );
 	    /*
 	    if (contentList.getChildCount() > 0) {
@@ -107,7 +110,12 @@ public class TagsMain extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		
 		 datasource.open();
+		 Log.d("debug resumed", "Content length "+tagUIContents.size() );
+		 adapterAdapater.clear();
+		 adapterAdapater.addAll(datasource.getTagUIContents());
+		 adapterAdapater.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -115,6 +123,9 @@ public class TagsMain extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		 datasource.open();
+
+		 tagUIContents = datasource.getTagUIContents();
+		 adapterAdapater.notifyDataSetChanged();
 	}
 	
 	/**
