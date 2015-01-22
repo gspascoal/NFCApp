@@ -1,5 +1,6 @@
 package com.example.proyecto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,13 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.objetos.CustomAdapater;
+import com.example.objetos.FilterAdapter;
+import com.example.objetos.FilterLayout;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.objetos.FilterKind;
 
 
 
@@ -30,6 +36,9 @@ public class TagsMain extends Activity {
 	private TagUIContent[] arrayContents;
 	private CustomAdapater adapterAdapater;
 	private List<TagUIContent> tagUIContents;
+	private CustomDialog dialog;
+	private FilterAdapter filterListAdapter;
+	private FilterLayout filterLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +87,11 @@ public class TagsMain extends Activity {
 			emptyDB.setGravity(1);
 			contentList.addView(emptyDB);
 		}*/
-	    
+	    List<FilterKind> filterList = getContentFilter();
+		filterLayout =  new FilterLayout(this);
+		//ListView filterListView = (ListView)findViewById(R.id.filterList);
+		filterListAdapter = new FilterAdapter(this, filterList);
+		filterLayout.getFilterList().setAdapter(filterListAdapter);
 		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -101,6 +114,25 @@ public class TagsMain extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}
+		if (id == R.id.action_filter) {
+			
+			
+			List<FilterKind> filterList = getContentFilter();
+			filterLayout =  new FilterLayout(this);
+			//ListView filterListView = (ListView)findViewById(R.id.filterList);
+			filterListAdapter = new FilterAdapter(this, filterList);
+			filterLayout.getFilterList().setAdapter(filterListAdapter);
+			
+	
+			dialog = new CustomDialog(this);
+			dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			dialog.setContentView(filterLayout);
+			
+			dialog.show();
+			
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -128,6 +160,23 @@ public class TagsMain extends Activity {
 		 adapterAdapater.notifyDataSetChanged();
 	}
 	
+	public void onClick(View view){
+		switch (view.getId()) {
+		case R.id.filterButton:
+			String filters = "";
+			for (int i = 0; i < filterListAdapter.getCount(); i++) {
+				if (filterListAdapter.getItem(i).getContentCheck().isChecked()) { 
+					filters += filterListAdapter.getItem(i).getContentDesc().getText()+",";
+				}
+				
+			}
+			Log.d("debug filters list ",filters.substring(0, filters.length()-1));
+			break;
+
+		default:
+			break;
+		}
+	} 
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -164,4 +213,21 @@ public class TagsMain extends Activity {
 	    listView.setLayoutParams(params);
 	    listView.requestLayout();
 	} 
+	
+	public List<FilterKind> getContentFilter(){
+		
+		String[] kind = getResources().getStringArray(R.array.kinds_array);
+		List<FilterKind> contentFilters = new ArrayList<FilterKind>();
+		int id = 1;
+		for (String kindString : kind) {
+			FilterKind nContentFilter = new FilterKind(this);
+			nContentFilter.getContentDesc().setText(kindString);
+			nContentFilter.getContentId().setText(String.valueOf(id));
+			//SET CONTENT FILTER ICON
+			contentFilters.add(nContentFilter);
+			id++;
+		}
+		
+		return contentFilters;
+	}
 }

@@ -1,7 +1,7 @@
 package com.example.proyecto;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,7 +19,6 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,25 +27,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.objetos.CustomAdapater;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
-import com.example.proyecto.R.layout;
 
 public class WriteMain extends Activity {
 	
 	private NfcAdapter myNfcAdapter;
 	private TextView status;
-	private LinearLayout contentList;
+	private ListView contentList;
 	private String[][] techListsArray;
 	private IntentFilter[] intentFiltersArray;
 	private PendingIntent pendingIntent;
 	private TagContentDataSource datasource;
 	private TextView emptyDB;
 	private Button moreButton;
+	private LinearLayout writeFooter;
+	private CustomAdapater adapterAdapater;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class WriteMain extends Activity {
 		//status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
-		contentList = (LinearLayout)findViewById(R.id.recentList);
+		contentList = (ListView)findViewById(R.id.recentList);
 		
 		/*
 		if (myNfcAdapter == null) {
@@ -124,13 +125,23 @@ public class WriteMain extends Activity {
 	    
 	    
 	    List<TagUIContent> tagUIContents = datasource.getTagUIContents();
+	    Log.d("debug list write", ""+tagUIContents.size()+"");
+	    Collections.reverse(tagUIContents);
 	    
-	    if (tagUIContents.size() > 10) {
-	    	tagUIContents = datasource.getTagUIContents().subList(0, 10);
+	    if (tagUIContents.size() >= 10) {
+	    	tagUIContents = tagUIContents.subList(0, 10);
 	    	moreButton = (Button)findViewById(R.id.moreButton);
-	    	moreButton.setVisibility(View.VISIBLE);
+	    	writeFooter = (LinearLayout)findViewById(R.id.writeFooter);
+	    	writeFooter.setVisibility(View.VISIBLE);
 		}
 	    
+	    adapterAdapater = new CustomAdapater(this,tagUIContents);
+	    if (adapterAdapater == null) {
+	    	Log.d("debug list write", "adapter is null");
+		}
+	    contentList.setAdapter(adapterAdapater);
+	    
+	    /*
 	    Log.d("debug", "Content length "+tagUIContents.size() );
 	    if (contentList.getChildCount() > 0) {
 			contentList.removeAllViews();
@@ -145,7 +156,7 @@ public class WriteMain extends Activity {
 			emptyDB.setText("No recent tag content found!");
 			emptyDB.setGravity(1);
 			contentList.addView(emptyDB);
-		}
+		}*/
 	    
 		
 	    //datasource.close();

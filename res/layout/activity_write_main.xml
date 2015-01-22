@@ -16,15 +16,17 @@
 
 </LinearLayout>
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content">  -->
     
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="#FFF"
         tools:context="com.example.proyecto.WriteMain"
     	tools:ignore="MergeRootFrame" >
@@ -56,28 +58,45 @@
 
 		</LinearLayout>
            
-           
+           <!-- 
            <LinearLayout android:id="@+id/recentList"
 		    android:orientation="vertical"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/writeHeader"
 		    android:background="#FFF">
-           </LinearLayout>
+           </LinearLayout> -->
            
-           <Button 
-	        android:id="@+id/moreButton"
-	        android:layout_height="wrap_content"
-	        android:layout_width="wrap_content"
-			android:layout_centerHorizontal="true"
-	        android:text="More"
-	        android:onClick="onClick"
-	        android:visibility="invisible"
-	        android:layout_below="@+id/recentList"
-	        android:layout_marginTop="15dp"
-        />
+           <ListView
+               android:id="@+id/recentList"
+               android:layout_width="wrap_content"
+               android:layout_height="300dp"
+               android:layout_below="@+id/writeHeader"
+               android:background="#FFF"
+               android:orientation="vertical" >
+ 			</ListView>
+
+           <LinearLayout
+               android:id="@+id/writeFooter"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:layout_centerHorizontal="true"
+               android:layout_margin="15dp"
+               android:orientation="vertical"
+               android:visibility="invisible" >
+
+               <Button
+                   android:id="@+id/moreButton"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:onClick="onClick"
+                   android:text="More" />
+           </LinearLayout>
            
     </RelativeLayout>
     
     
-</ScrollView>
+<!-- </ScrollView>  -->
+

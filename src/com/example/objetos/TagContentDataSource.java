@@ -69,7 +69,7 @@ public class TagContentDataSource {
         + " = " + id, null);
   }
 
-  public List<TagContent> getAllComments() {
+	public List<TagContent> getAllComments() {
     List<TagContent> comments = new ArrayList<TagContent>();
 
     Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
