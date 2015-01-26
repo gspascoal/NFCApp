@@ -6,14 +6,17 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import android.R.anim;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -39,8 +42,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.objetos.GPSTracker;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 
@@ -66,6 +71,9 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 	private String currentSelection;
 	private String currentPSelection;
 	private String extraPayload;
+	private TextView latitudeText;
+	private TextView longitudeText;
+	private GPSTracker gps;
 
 	
 	@Override
@@ -337,6 +345,22 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			}
 			
 			break;	
+		case R.id.locationButton:
+			Log.d("debug","GCL clicked");
+			latitudeText = (TextView)findViewById(R.id.fieldLatitude);
+			longitudeText = (TextView)findViewById(R.id.fieldLongitude);
+			
+			gps = new GPSTracker(CreateTagContent.this);
+			
+			if (gps.canGetLocation()) {
+				latitudeText.setText(Double.toString(gps.getLatitude()));
+				longitudeText.setText(Double.toString(gps.getLongitude()));
+			}
+			else{
+				gps.showSettingsAlert();
+			}
+			
+			break;
 		default:
 			break;
 		}
@@ -619,6 +643,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		return saved;
 	}
 	
+
 	
 	/*
 	private class 
