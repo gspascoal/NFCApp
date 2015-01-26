@@ -12,12 +12,19 @@
         >
         
         <ListView
-        android:id="@+id/contentList"
+        android:id="@android:id/list"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="vertical"
         ></ListView>
         
+        <TextView 
+        android:id="@android:id/empty"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="There isn't data"
+        android:textStyle="bold"    
+        />
         
     </RelativeLayout>
     

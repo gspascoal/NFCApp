@@ -30,7 +30,7 @@ public class TagRecord extends RelativeLayout {
 		recordIcon.put("N/A", R.drawable.default64);
 		recordIcon.put("Link", R.drawable.link64);
 		recordIcon.put("Secure Link", R.drawable.link64);
-		recordIcon.put("Telephone number", R.drawable.tel64);
+		recordIcon.put("Telephone Number", R.drawable.tel64);
 		recordIcon.put("Email", R.drawable.mail64);
 		recordIcon.put("SMS", R.drawable.sms64);
 		recordIcon.put("Geo Location", R.drawable.geo64);

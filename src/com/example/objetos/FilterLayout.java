@@ -5,8 +5,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.proyecto.R;
 
@@ -14,6 +16,9 @@ public class FilterLayout extends RelativeLayout{
 
 	private ListView filterList;
 	private Button filterButton;
+	private ImageView filterImageView;
+	private RelativeLayout filterHeaderLayout;
+	private TextView filterTextView;
 	
 	public FilterLayout(Context context) {
 		super(context);
@@ -21,31 +26,10 @@ public class FilterLayout extends RelativeLayout{
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.filter_dialog,this);
 		filterList = (ListView)findViewById(R.id.filterList);
 		setFilterButton((Button)findViewById(R.id.filterButton));
-		
-		getFilterList().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		getFilterList().getChildCount();
-		/*
-		getFilterButton().setOnClickListener(new OnClickListener() {
+		setFilterImageView((ImageView)findViewById(R.id.filterImage));
+		setFilterHeaderLayout((RelativeLayout)findViewById(R.id.filterHeader));
+		setFilterTextView((TextView)findViewById(R.id.filterText));
 			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (getFilterList() != null) {
-					Log.d("debug click filter",getFilterList().getChildCount()+"");
-				
-				for (int j = 0; j < getFilterList().getChildCount(); j++) {
-					View nFilterKind = getFilterList().getChildAt(j);
-					
-					/*
-					if (nFilterKind.getContentCheck().isChecked()) {
-						Log.d("debug checking test",nFilterKind.getContentDesc().getText().toString());
-					}
-				}
-			}
-				else{Log.d("debug click filter","Try again");}
-				
-			}
-		});*/
 	}
 
 	public ListView getFilterList() {
@@ -62,6 +46,30 @@ public class FilterLayout extends RelativeLayout{
 
 	public void setFilterButton(Button filterButton) {
 		this.filterButton = filterButton;
+	}
+
+	public ImageView getFilterImageView() {
+		return filterImageView;
+	}
+
+	public void setFilterImageView(ImageView filterImageView) {
+		this.filterImageView = filterImageView;
+	}
+
+	public RelativeLayout getFilterHeaderLayout() {
+		return filterHeaderLayout;
+	}
+
+	public void setFilterHeaderLayout(RelativeLayout filterHeaderLayout) {
+		this.filterHeaderLayout = filterHeaderLayout;
+	}
+
+	public TextView getFilterTextView() {
+		return filterTextView;
+	}
+
+	public void setFilterTextView(TextView filterTextView) {
+		this.filterTextView = filterTextView;
 	}
 
 	

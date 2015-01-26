@@ -62,7 +62,7 @@ public class TagRecord {
 		URIPFXMap.put("2", "Secure Link"); //https://www.
 		URIPFXMap.put("3", "Link"); // http://
 		URIPFXMap.put("4", "Secure Link"); //https://
-		URIPFXMap.put("5", "Telephone number"); // tel: 
+		URIPFXMap.put("5", "Telephone Number"); // tel: 
 		URIPFXMap.put("6", "Email"); // mailto:
 		URIPFXMap.put("66", "Business card");
 		URIPFXMap.put("99", "App launcher");

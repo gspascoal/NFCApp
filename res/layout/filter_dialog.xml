@@ -2,15 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="400dp"
-     >
+    android:gravity="center_horizontal" >
 
-    <ListView
+    <RelativeLayout
+        android:id="@+id/filterHeader"
+        android:layout_width="match_parent"
+    	android:layout_height="400dp"
+         >
+        <ListView
         android:id="@+id/filterList"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
     </ListView>
-
+	
+    <ImageView 
+      android:id="@+id/filterImage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"      
+      android:background="@drawable/filter_v2" 
+      android:visibility="invisible"  
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="50dp"  
+     />
+        
+    <TextView
+        android:id="@+id/filterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filterImage"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:lines="3"
+        android:visibility="invisible" 
+        android:textAlignment="center"
+        />
+     
+    </RelativeLayout>
+    
+    
     <LinearLayout
         android:id="@+id/filterFooter"
         android:layout_width="wrap_content"
@@ -19,16 +49,20 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
         android:orientation="vertical"
-        android:layout_below="@+id/filterList"
+        android:layout_below="@+id/filterH"
          >
-
+         
+        
+        
         <Button
             android:id="@+id/filterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
             android:onClick="onClick"
             android:text="Filter" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,8 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 	private final Activity context;
 	private List<FilterKind> objects;
 	private TagContentDataSource datasource;
-	private String filters; 
+	private String filters;
+	private int posCheck; 
 	
 	public FilterAdapter(Activity context, List<FilterKind> objects) {
 		super(context, com.example.proyecto.R.layout.filter_kind, objects);
@@ -28,18 +31,9 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		View rowView = convertView;
-		/*
-		 * final TextView payload =
-		 * (TextView)convertView.findViewById(com.example
-		 * .proyecto.R.id.contentPayload); final TextView payloadDesc =
-		 * (TextView
-		 * )convertView.findViewById(com.example.proyecto.R.id.contentDescription
-		 * ); final TextView id =
-		 * (TextView)convertView.findViewById(com.example.
-		 * proyecto.R.id.contentId);
-		 */
+
 		if (rowView == null) {
 			LayoutInflater inflater = context.getLayoutInflater();
 			rowView = inflater.inflate(
@@ -47,26 +41,24 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 
 			ViewHolder viewHolder = new ViewHolder();
 			viewHolder.contentDesc = (TextView) rowView
-					.findViewById(com.example.proyecto.R.id.contentDescription);
+					.findViewById(com.example.proyecto.R.id.kindDescription);
 			viewHolder.contentId = (TextView) rowView
-					.findViewById(com.example.proyecto.R.id.contentId);
+					.findViewById(com.example.proyecto.R.id.kindId);
 			viewHolder.contentIcon = (ImageView) rowView
-					.findViewById(com.example.proyecto.R.id.contentIcon);
+					.findViewById(com.example.proyecto.R.id.kindIcon);
 			rowView.setTag(viewHolder);
 			viewHolder.contentCheck = (CheckBox) rowView
-					.findViewById(com.example.proyecto.R.id.checkContent);
-			rowView.setTag(viewHolder);
+					.findViewById(com.example.proyecto.R.id.kindCheck);
+			rowView.setTag(viewHolder);			
+			
+			/*
 			viewHolder.contentCheck.setEnabled(false);
 			viewHolder.contentCheck.setFocusable(false);
-			viewHolder.contentCheck.setFocusableInTouchMode(false);
+			viewHolder.contentCheck.setFocusableInTouchMode(false);*/
 		}
 
 		final ViewHolder holder = (ViewHolder) rowView.getTag();
 
-		// LayoutInflater inflater = (LayoutInflater)
-		// context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		Log.d("debug list write", "views");
-		// Log.d("debug extra ID",objects[position].getContentId().getText().toString());
 		holder.contentIcon.setBackground(objects.get(position)
 				.getContentIcon().getBackground());
 		holder.contentDesc.setText(objects.get(position)
@@ -74,6 +66,62 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 		holder.contentId.setText(objects.get(position)
 				.getContentId().getText());
 		
+		/*
+		holder.contentCheck.setChecked(false);
+		holder.contentCheck.setEnabled(true);
+		
+		for (int i = 0; i < objects.size(); i++) {
+			if (objects.get(i).getContentDesc().getText().toString() == holder.contentDesc.getText().toString()) {
+				posCheck = i;
+			}
+			
+		}
+		
+		if(objects.get(posCheck).getContentCheck().isChecked()){
+			Log.d("debug getView holder IF", holder.contentDesc.getText().toString()+" Checked");
+			Log.d("debug getView holder IF 2",objects.get(posCheck).getContentDesc().getText().toString()+" Checked");
+			for (FilterKind filterKind : objects) {
+				if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
+					filterKind.getContentCheck().setChecked(true);
+					holder.contentCheck.setEnabled(false);
+					holder.contentCheck.setChecked(true);
+				}
+				filterKind.getContentCheck().setEnabled(false);
+			}
+			
+		}*/
+		
+		holder.contentCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			
+			@Override
+			public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+				// TODO Auto-generated method stub
+				if(isChecked){
+					Log.d("debug onchekedchangelistener IF1", holder.contentDesc.getText().toString()+" Checked");
+					holder.contentCheck.setChecked(true);
+					Log.d("debug onchekedchangelistener IF2", objects.get(posCheck).getContentDesc().getText().toString()+" Checked");
+					for (FilterKind filterKind : objects) {
+						if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
+							filterKind.getContentCheck().setChecked(true);
+						}
+					}
+				}
+				else {
+					Log.d("debug onchekedchangelistener ELSE1", objects.get(posCheck).getContentDesc().getText().toString()+" unChecked");
+					for (FilterKind filterKind : objects) {
+						if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
+							filterKind.getContentCheck().setChecked(false);
+						}
+					}
+					Log.d("debug onchekedchangelistener ELSE 2", holder.contentDesc.getText().toString()+" unChecked");
+					holder.contentCheck.setChecked(false);
+					Log.d("debug onchekedchangelistener", "unChecked");
+				}
+			}
+		});
+		
+		/*
 		rowView.setOnClickListener(new OnClickListener() {
 			
 			int objectId = Integer.valueOf(holder.contentId.getText().toString());
@@ -93,7 +141,7 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 				notifyDataSetChanged();
 			}
 		});
-		
+		*/
 		
 		return rowView;
 	}

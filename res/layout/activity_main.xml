@@ -11,40 +11,64 @@
         android:id="@+id/read"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        style="?android:attr/buttonStyleSmall"
         android:layout_gravity="center"
         android:onClick="onClick"
         android:text="@string/read"
         android:layout_marginTop="50dp"
-         />
+        android:drawableLeft="@drawable/read_tag64" 
+        android:drawablePadding="10dp"
+         android:background="@android:color/holo_blue_light"
+         android:padding="5dp"
+        />
     
     <Button
         android:id="@+id/write"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        style="?android:attr/buttonStyleSmall"
         android:text="@string/write" 
         android:onClick="onClick"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
+        android:drawableRight="@drawable/write_tag64"
+        android:drawablePadding="10dp"
+        android:background="@android:color/holo_green_light"
+        android:padding="5dp"
         />
     
     <Button
         android:id="@+id/my_tag"
+        android:gravity="left|center_vertical"
+        style="?android:attr/buttonStyleSmall"  
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/my_tags"
         android:onClick="onClick" 
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/tags_v264"
+        android:drawablePadding="10dp"
+         android:background="@android:color/holo_red_light"
+         android:padding="5dp"
         />
     
     <Button
         android:id="@+id/extras"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:gravity="right|center_vertical"
         android:text="@string/extras"
         android:onClick="onClick"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
+        android:drawableRight="@drawable/extras64"
+        android:drawablePadding="10dp"
+        android:background="@android:color/holo_purple"
+        android:padding="5dp"
          />
 
 </LinearLayout>

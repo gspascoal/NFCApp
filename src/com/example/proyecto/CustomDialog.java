@@ -35,6 +35,7 @@ public class CustomDialog extends Dialog{
 			intent = new Intent(getContext(), CreateTagContent.class);
 			 getContext().startActivity(intent);
 			break;
+		
 		default:
 			break;
 		}

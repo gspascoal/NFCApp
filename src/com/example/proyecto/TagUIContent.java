@@ -159,7 +159,7 @@ public class TagUIContent extends RelativeLayout {
 	}
 
 	public void setContentDesc(String text) {
-		this.contentDesc.setText(text);;
+		this.contentDesc.setText(text);
 	}
 
 	public void setContentIcon(String text) {
