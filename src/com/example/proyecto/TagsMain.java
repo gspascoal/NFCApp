@@ -8,6 +8,8 @@ import android.R.integer;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListActivity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.objetos.CustomAdapater;
@@ -103,6 +106,12 @@ public class TagsMain extends ListActivity {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tags_main, menu);
+		/*
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+	    SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+	    // Assumes current activity is the searchable activity
+	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+	    searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default*/
 		return true;
 	}
 
@@ -173,6 +182,11 @@ public class TagsMain extends ListActivity {
 			dialog.show();
 
 			return true;
+		}
+		
+		if (id == R.id.action_search) {
+			// Get the SearchView and set the searchable configuration
+		    onSearchRequested();
 		}
 		return super.onOptionsItemSelected(item);
 	}

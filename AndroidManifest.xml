@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.NFC" />
     <!--
      If the next instruction is omitted, anybody could download the app from the market 
-     regardless that is not a NFC compatible device
+     regardless that is not a NFC compatible device
     -->
     <uses-feature
         android:name="android.hardware.nfc"
@@ -20,8 +20,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -55,7 +55,7 @@
                     android:scheme="http"
                     android:host="*"
                     android:pathPrefix="" />
-            </intent-filter>  
+            </intent-filter>  
             -->
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
@@ -108,6 +108,13 @@
             android:name="com.example.proyecto.TagsMain"
             android:label="@string/title_activity_tags_main"
             android:parentActivityName="com.example.proyecto.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.proyecto.MainActivity" />

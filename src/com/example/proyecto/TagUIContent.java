@@ -106,7 +106,13 @@ public class TagUIContent extends RelativeLayout {
 						datasource.deleteComment(Long.valueOf((String) getContentId().getText()));
 						
 						break;
-					
+					case 1:
+						Intent sendIntent = new Intent();
+						sendIntent.setAction(Intent.ACTION_SEND);
+						sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+						sendIntent.setType("text/plain");
+						getContext().startActivity(sendIntent);
+					break;
 					default:
 						break;
 					}

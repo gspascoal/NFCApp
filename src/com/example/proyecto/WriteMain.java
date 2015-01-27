@@ -251,6 +251,8 @@ public class WriteMain extends Activity {
 
 	public void onNewIntent(Intent intent)
 	{
+		
+		/*
 		Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    
 	    //do something with tagFromIntent
@@ -264,7 +266,7 @@ public class WriteMain extends Activity {
 		
 		// WRITE DATA TO TAG
 		Log.d("debug", "Starting writing process");
-		writeNdefMessageToTag(newMessage, detectedTag );
+		writeNdefMessageToTag(newMessage, detectedTag );*/
 	  
 	}
 	

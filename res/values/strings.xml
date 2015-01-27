@@ -75,8 +75,12 @@
     <string name="title_activity_tags_main">TagsMain</string>
     <string name="hello_world">Hello world!</string>
     
+    <string name="search_hint">Tag content</string>
+    <string name="search_label">Search</string>
+    
     <string-array name="cOptions_array">
-        <item>Delete</item>        
+        <item>Eliminar</item>   
+        <item>Compartir</item>      
     </string-array>
 
 </resources>

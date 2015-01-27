@@ -105,9 +105,9 @@ public final class R {
         public static final int wrtbl64=0x7f020049;
     }
     public static final class id {
-        public static final int action_filter=0x7f0a0060;
+        public static final int action_filter=0x7f0a005f;
+        public static final int action_search=0x7f0a0060;
         public static final int action_settings=0x7f0a005e;
-        public static final int action_share=0x7f0a005f;
         public static final int cContent_container=0x7f0a001b;
         public static final int contactButton=0x7f0a0040;
         public static final int container=0x7f0a0000;
@@ -280,6 +280,8 @@ public final class R {
         public static final int readIntentb=0x7f06000c;
         public static final int readIntentc=0x7f06000d;
         public static final int saveButton=0x7f060002;
+        public static final int search_hint=0x7f060027;
+        public static final int search_label=0x7f060028;
         public static final int title_activity_create_tag_content=0x7f060023;
         /**  Read(Main) activity strings 
  Read(Main) activity strings 
@@ -329,5 +331,6 @@ public final class R {
     }
     public static final class xml {
         public static final int nfc_tech_list=0x7f040000;
+        public static final int searchable=0x7f040001;
     }
 }

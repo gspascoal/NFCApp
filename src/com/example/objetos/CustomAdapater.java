@@ -57,8 +57,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 					.findViewById(com.example.proyecto.R.id.contentPayload);
 			viewHolder.payloadDescContent = (TextView) rowView
 					.findViewById(com.example.proyecto.R.id.contentDescription);
-			/*viewHolder.payloadContentId = (TextView) rowView
-					.findViewById(com.example.proyecto.R.id.contentId);*/
+			viewHolder.payloadContentId = (TextView) rowView
+					.findViewById(com.example.proyecto.R.id.contentId);
 			viewHolder.payloadIconContent = (ImageView) rowView
 					.findViewById(com.example.proyecto.R.id.contentIcon);
 			rowView.setTag(viewHolder);
@@ -76,9 +76,9 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				.getText());
 		holder.payloadDescContent.setText(objects.get(position)
 				.getContentDesc().getText());
-		/*holder.payloadContentId.setText(objects.get(position).getContentId()
-				.getText());*/
-		/*
+		holder.payloadContentId.setText(objects.get(position).getContentId()
+				.getText());
+		
 		rowView.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -86,7 +86,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				// TODO Auto-generated method stub
 
 				Intent intent = new Intent(getContext(), CreateTagContent.class);
-				//String itemId = holder.payloadContentId.getText().toString();
+				String itemId = holder.payloadContentId.getText().toString();
 				String kind = holder.payloadDescContent.getText().toString();
 				String pLoad = holder.payloadContent.getText().toString();
 				Log.d("debug extra", kind);
@@ -101,8 +101,9 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 		rowView.setOnLongClickListener(new View.OnLongClickListener() {
 
-			Long itemId = Long.valueOf(holder.payloadContentId.getText()
-					.toString());
+			Long itemId = Long.valueOf(holder.payloadContentId.getText().toString());
+			String kind = holder.payloadDescContent.getText().toString();
+			String pLoad = holder.payloadContent.getText().toString();
 			private ListView optionDialog;
 			private CustomDialog dialog;
 			private TagContentDataSource datasource;
@@ -157,6 +158,13 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 											Toast.LENGTH_LONG).show();
 
 									break;
+								case 1:
+									Intent sendIntent = new Intent();
+									sendIntent.setAction(Intent.ACTION_SEND);
+									sendIntent.putExtra(Intent.EXTRA_TEXT, pLoad);
+									sendIntent.setType("text/plain");
+									getContext().startActivity(sendIntent);
+								break;
 
 								default:
 									break;
@@ -176,7 +184,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 				return true;
 			}
-		});*/
+		});
 
 		return rowView;
 	}

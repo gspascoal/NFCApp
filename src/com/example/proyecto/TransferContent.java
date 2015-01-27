@@ -212,7 +212,7 @@ public class TransferContent extends Activity {
 						ndefFormat.connect();
 						ndefFormat.format(message);
 						ndefFormat.close();
-						Toast.makeText(this, "The data is written to teh tag", Toast.LENGTH_SHORT).show();
+						Toast.makeText(this, "The data is written to the tag", Toast.LENGTH_SHORT).show();
 						return true;
 					} catch (Exception e) {
 						// TODO: handle exception

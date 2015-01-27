@@ -8,24 +8,20 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     
-    
-    <item
-        android:id="@+id/action_share"
-        android:orderInCategory="99"
-        android:showAsAction="always"
-        android:title="Share"
-        android:icon="@android:drawable/ic_menu_share"
-        />
-    
     <item
         android:id="@+id/action_filter"
-        android:orderInCategory="98"
+        android:orderInCategory="99"
         android:showAsAction="always"
         android:title="Filter"
         
         />
     
-    
+    <item android:id="@+id/action_search"
+          android:title="Search"
+          android:orderInCategory="98"
+          android:icon="@android:drawable/ic_menu_search"
+          android:showAsAction="always"
+          android:actionViewClass="android.support.v7.widget.SearchView" />
     
 
 </menu>

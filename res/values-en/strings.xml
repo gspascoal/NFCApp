@@ -60,4 +60,9 @@
   	
   	<string name="title_activity_create_tag_content">Create tag content</string>
     <string name="title_activity_transfer_content">Transfer content</string>
+
+      <string-array name="cOptions_array">
+        <item>Delete</item>   
+        <item>Share</item> 
+      </string-array>     
 </resources>
