@@ -66,7 +66,7 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 		holder.contentId.setText(objects.get(position)
 				.getContentId().getText());
 		
-		/*
+		
 		holder.contentCheck.setChecked(false);
 		holder.contentCheck.setEnabled(true);
 		
@@ -76,7 +76,7 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 			}
 			
 		}
-		
+		/*
 		if(objects.get(posCheck).getContentCheck().isChecked()){
 			Log.d("debug getView holder IF", holder.contentDesc.getText().toString()+" Checked");
 			Log.d("debug getView holder IF 2",objects.get(posCheck).getContentDesc().getText().toString()+" Checked");
@@ -98,25 +98,27 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 			public void onCheckedChanged(CompoundButton button, boolean isChecked) {
 				// TODO Auto-generated method stub
 				if(isChecked){
-					Log.d("debug onchekedchangelistener IF1", holder.contentDesc.getText().toString()+" Checked");
-					holder.contentCheck.setChecked(true);
-					Log.d("debug onchekedchangelistener IF2", objects.get(posCheck).getContentDesc().getText().toString()+" Checked");
+					/*Log.d("debug onchekedchangelistener IF1", holder.contentDesc.getText().toString()+" Checked");
+					holder.contentCheck.setChecked(true);*/
+					
 					for (FilterKind filterKind : objects) {
 						if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
 							filterKind.getContentCheck().setChecked(true);
+							Log.d("debug onchekedchangelistener IF", filterKind.getContentDesc().getText().toString()+" Checked");
 						}
 					}
 				}
 				else {
-					Log.d("debug onchekedchangelistener ELSE1", objects.get(posCheck).getContentDesc().getText().toString()+" unChecked");
+					
 					for (FilterKind filterKind : objects) {
 						if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
 							filterKind.getContentCheck().setChecked(false);
+							Log.d("debug onchekedchangelistener ELSE1", filterKind.getContentDesc().getText().toString()+" unChecked");
 						}
 					}
-					Log.d("debug onchekedchangelistener ELSE 2", holder.contentDesc.getText().toString()+" unChecked");
-					holder.contentCheck.setChecked(false);
-					Log.d("debug onchekedchangelistener", "unChecked");
+					/*Log.d("debug onchekedchangelistener ELSE 2", holder.contentDesc.getText().toString()+" unChecked");
+					holder.contentCheck.setChecked(false);*/
+					//Log.d("debug onchekedchangelistener", "unChecked");
 				}
 			}
 		});

@@ -204,8 +204,9 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			fieldTo.setText(to);
 			fieldSubject.setText(subject);
 			fieldBody.setText(body);
+			break;
 		case "SMS":
-			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
+			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldReceiver);
 			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
 			String receiver = payload.substring(payload.indexOf(":")+1, payload.indexOf("?"));
 			String message =payload.substring(payload.indexOf("y=")+2, payload.length());
@@ -372,6 +373,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 		
 		ListView numberListView;
 		final EditText fieldPhone = (EditText)findViewById(R.id.fieldPhone);
+		final EditText fieldReceiver = (EditText)findViewById(R.id.fieldReceiver);
 		final ArrayList<String> numbers = new ArrayList<String>();
 		
 		if(reqCode == PICK_CONTACT){
@@ -401,18 +403,18 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 				            public void onItemClick(AdapterView<?> parent, final View view,
 				                int position, long id) {
 				              final String item = (String) parent.getItemAtPosition(position);
-				              fieldPhone.setText(item);
-				              /*
+				              //
+				              
 				              switch (currentSelection) {
 							case "Telephone Number":
-								
+								fieldPhone.setText(item);
 								break;
 							case "SMS":
-								fieldR.setText(item);
+								fieldReceiver.setText(item);
 								break;	
 							default:
 								break;
-							}*/
+							}
 				              
 				              dialog.dismiss();
 				            }
@@ -482,7 +484,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			newMessage = new NdefMessage(new NdefRecord[] {uriRecord});
 			break;
 		case "SMS":
-			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
+			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldReceiver);
 			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
 			content = "sms:"+fieldReceiver.getText().toString() + "?body="+fieldMessage.getText().toString();
 			uriField =  content.getBytes();
@@ -585,7 +587,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 
 			break;
 		case "SMS":
-			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldPhone);
+			EditText fieldReceiver =  (EditText)findViewById(R.id.fieldReceiver);
 			EditText fieldMessage =  (EditText)findViewById(R.id.fieldMessage);
 			if (!fieldReceiver.getText().toString().trim().equals("") &&
 					!fieldMessage.getText().toString().trim().equals("")) {

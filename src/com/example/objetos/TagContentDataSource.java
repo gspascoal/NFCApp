@@ -241,4 +241,44 @@ public class TagContentDataSource {
 		return tagUIContents;
 		
 	}
+	
+public List<TagUIContent> getContentbySearch(String query){
+		
+		String condition = "";
+		
+		if (query != "") {
+			condition =  "WHERE payload LIKE '%"+query+"%'" +
+					" OR payload_tipo LIKE '%"+query+"%'";
+		}
+		
+		String sqlSentence = "SELECT * FROM tag_content "+condition;
+		Log.d("debug query", sqlSentence);
+		List<TagContent> tagContents = new ArrayList<TagContent>();
+		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
+		
+		Cursor cursor = database.rawQuery(sqlSentence, null);
+		
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			TagContent comment = cursorToComment(cursor);
+			tagContents.add(comment);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		
+		
+		for (TagContent tagContent : tagContents) {
+			TagUIContent nTagUIContent = new TagUIContent(context);
+			nTagUIContent.setPayload(tagContent.getPayloadHeader()
+					+ tagContent.getPayload());
+			nTagUIContent.setContentDesc(tagContent.getPayloadType());
+			nTagUIContent.setContentIcon(tagContent.getPayloadType());
+			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
+			tagUIContents.add(nTagUIContent);
+		}
+		
+		return tagUIContents;
+		
+	}
 }

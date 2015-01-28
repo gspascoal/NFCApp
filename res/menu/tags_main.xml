@@ -13,6 +13,7 @@
         android:orderInCategory="99"
         android:showAsAction="always"
         android:title="Filter"
+        android:icon="@drawable/ic_action_filter_off"
         
         />
     
