@@ -41,16 +41,19 @@ public class TagsMain extends ListActivity {
 	private String[] selectedFilters = new String[6];
 	private int selectedCount = 0;
 	private String fromSearch;
+	private Menu actionsMenu;
+	private boolean filtered = false;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tags_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		datasource = new TagContentDataSource(this);
 		datasource.open();
-		
+
 		// contentList = (ListView)findViewById(R.id.contentList);
 		/* FOR DEBUG ONLY - ERASE ASAP */
 		List<TagContent> test = datasource.getAllComments();
@@ -60,20 +63,19 @@ public class TagsMain extends ListActivity {
 			Log.d("List element", "tag_content: " + test.get(i));
 		}
 		/**/
-		
-		
 
 		if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
 			String query = getIntent().getStringExtra(SearchManager.QUERY);
-			Log.d("debug search", "OC called by search widget . Query: "+ query);
-			
-			tagUIContents = datasource.getContentFiltered(String.valueOf("'"+query+"'"));
-		}
-		else{
+			Log.d("debug search", "OC called by search widget . Query: "
+					+ query);
+
+			tagUIContents = datasource.getContentFiltered(String.valueOf("'"
+					+ query + "'"));
+		} else {
 			tagUIContents = datasource.getTagUIContents();
-			
+
 		}
-		
+
 		arrayContents = new TagUIContent[tagUIContents.size()];
 		for (int i = 0; i < tagUIContents.size(); i++) {
 			arrayContents[i] = tagUIContents.get(i);
@@ -81,8 +83,7 @@ public class TagsMain extends ListActivity {
 
 		adapterAdapater = new CustomAdapater(this, tagUIContents);
 		setListAdapter(adapterAdapater);
-		
-		
+
 		// adapterAdapater.notifyDataSetChanged();
 
 		// setListViewHeightBasedOnChildren(contentList);
@@ -118,6 +119,7 @@ public class TagsMain extends ListActivity {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tags_main, menu);
+		actionsMenu = menu;
 		/*
 		 * SearchManager searchManager = (SearchManager)
 		 * getSystemService(Context.SEARCH_SERVICE); SearchView searchView =
@@ -152,8 +154,9 @@ public class TagsMain extends ListActivity {
 
 			int selectedC = selectedCount;
 			Log.d("debug filter button", filterTextView.getText().toString());
-
-			if (filterTextView.getText().toString() == "ON") {
+			
+			//filterTextView.getText().toString() == "ON"
+			if (filtered ) {
 				/*
 				 * for (int k = 0; k < filterListAdapter.getCount();k++) {
 				 * Log.d("debug adapterselection before setadapter", "is "+
@@ -226,15 +229,14 @@ public class TagsMain extends ListActivity {
 		datasource.open();
 		if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
 			String query = getIntent().getStringExtra(SearchManager.QUERY);
-			Log.d("debug search", "OR called by search widget. Query: "+ query);
+			Log.d("debug search", "OR called by search widget. Query: " + query);
 			fromSearch = query;
 			tagUIContents = datasource.getContentbySearch(query);
+		} else {
+			tagUIContents = datasource.getTagUIContents();
 		}
-		else{ tagUIContents = datasource.getTagUIContents();}
 		Log.d("debug resumed", "Content length " + tagUIContents.size());
-		
-		
-		
+
 		adapterAdapater.clear();
 		adapterAdapater.addAll(tagUIContents);
 		adapterAdapater.notifyDataSetChanged();
@@ -260,6 +262,7 @@ public class TagsMain extends ListActivity {
 			selectedCount = 0;
 			boolean removeFilter = false;
 			TextView filterTextView = (TextView) findViewById(R.id.action_filter);
+			
 
 			String filters = "";
 			for (int i = 0; i < filterListAdapter.getCount(); i++) {
@@ -304,20 +307,30 @@ public class TagsMain extends ListActivity {
 			if (filters == "") {
 				removeFilter = true;
 			}
-			
+
 			adapterAdapater.addAll(getFilteredList(removeFilter));
 			adapterAdapater.notifyDataSetChanged();
 
 			if (filters != "") {
-				filterTextView.setText("ON");
+				
+				//filterTextView.setText("ON");
+				if (actionsMenu != null) {
+					Log.d("debug filters button ", "Menu found");
+					actionsMenu.getItem(1).setTitle("ON");
+					actionsMenu.getItem(1).setIcon(R.drawable.ic_action_filter_on);
+					filtered  = true;
+				}
+				//menuTags.findItem(R.id.action_filter);
 			}
 
 			dialog.dismiss();
 
 			if (filterLayout.getFilterButton().getText().toString().toString() == "Remove filter") {
-				filterTextView.setText("Filter");
+				//filterTextView.setText("Filter");
 				filterLayout.getFilterButton().setText("Filter");
 				selectedCount = 0;
+				filtered = false;
+				actionsMenu.getItem(1).setIcon(R.drawable.ic_action_filter_off);
 			}
 			datasource.close();
 			break;
@@ -384,40 +397,47 @@ public class TagsMain extends ListActivity {
 		return contentFilters;
 	}
 
-	public List<TagUIContent> getFilteredList(Boolean rFilters){
-		
+	public List<TagUIContent> getFilteredList(Boolean rFilters) {
+
 		datasource.open();
-		Log.d("debug filters list NF ","selectedFilters Size: "+selectedFilters.length);
+		Log.d("debug filters list NF ", "selectedFilters Size: "
+				+ selectedFilters.length);
 		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
 		int j;
-		
-		
+
 		if (rFilters) {
 			if (fromSearch != null) {
 				tagUIContents = datasource.getContentbySearch(fromSearch);
-			}else{
+			} else {
 				tagUIContents = datasource.getTagUIContents();
 			}
-			
-			
+
 		} else {
 			for (int i = 0; i < selectedFilters.length; i++) {
-				j =0;
+				j = 0;
 				while (j < adapterAdapater.getCount()) {
-					Log.d("debug filters list NF ",adapterAdapater.getItem(j).getContentDesc().getText().toString()+" :: "+selectedFilters[i]);
-					if (adapterAdapater.getItem(j).getContentDesc().getText().toString().equals(selectedFilters[i])) {
+					Log.d("debug filters list NF ", adapterAdapater.getItem(j)
+							.getContentDesc().getText().toString()
+							+ " :: " + selectedFilters[i]);
+					if (adapterAdapater.getItem(j).getContentDesc().getText()
+							.toString().equals(selectedFilters[i])) {
 						tagUIContents.add(adapterAdapater.getItem(j));
 					}
 					j++;
 				}
 			}
 		}
-		
-		
-		
-		Log.d("debug filters list NF ","Size: "+tagUIContents.size());
+
+		Log.d("debug filters list NF ", "Size: " + tagUIContents.size());
 		adapterAdapater.clear();
 		datasource.close();
 		return tagUIContents;
 	}
+	
+	@Override
+	public void invalidateOptionsMenu() {
+		// TODO Auto-generated method stub
+		super.invalidateOptionsMenu();
+	}
+	
 }

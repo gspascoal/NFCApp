@@ -28,7 +28,7 @@
         android:id="@+id/currentContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current content"
+        android:text="@string/currentText"
         
         
         />
@@ -47,7 +47,7 @@
         android:id="@+id/previousContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Previous Content"
+        android:text="@string/previousText"
         android:layout_below="@+id/cContent_container"
         
         />
@@ -67,7 +67,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_width="wrap_content"
 	    android:layout_below="@+id/pContent_container"
-	    android:text="Done"
+	    android:text="@string/doneButton"
 	    android:layout_centerHorizontal="true"
 	    android:onClick="onClick"
 	    />

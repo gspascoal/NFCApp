@@ -335,6 +335,7 @@ public class CreateTagContent extends Activity implements OnItemSelectedListener
 			break;
 		case R.id.wsaveButton:
 			saveContent(currentSelection);
+			/*OPEN A NEW ACTIVITY*/
 			break;	
 		case R.id.wsaveWriteButton:
 			boolean s = saveContent(currentSelection);

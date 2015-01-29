@@ -1,44 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Commons Strings-->
+    <!-- Commons Strings -->
     <string name="app_name">Proyecto</string>
     <string name="action_settings">Settings</string>
     <string name="saveButton">Save</string>
     <string name="launchButton">Launch</string>
     <string name="affirmation">Yes</string>
     <string name="negation">No</string>
-    
+
     <!-- Main activity strings -->
     <string name="read">Read tag</string>
     <string name="write">Write tag</string>
     <string name="my_tags">My tags</string>
     <string name="extras">Extras</string>
-    
+
     <!-- Read(Main) activity strings -->
     <string name="title_activity_read_main">Read tag</string>
     <string name="readIntenta">"Ready to read content"</string>
     <string name="readIntentb">"Reading will begin when you tap an NFC compatible item with the back of your device"</string>
-	<string name="readIntentc">"Approach a NFC tag"</string>
-	<string name="cntnt_desc_tagread">"Tag and magnifying glass"</string>
-	<string name="title_feature_list">"Features"</string>
-	<string name="cntnt_desc_tagicon">"Content's Icon"</string>
-	<string name="readIntent_Empty">"Empty tag"</string>
-	
-    
+    <string name="readIntentc">"Approach a NFC tag"</string>
+    <string name="cntnt_desc_tagread">"Tag and magnifying glass"</string>
+    <string name="title_feature_list">"Features"</string>
+    <string name="cntnt_desc_tagicon">"Content's Icon"</string>
+    <string name="readIntent_Empty">"Empty tag"</string>
+
     <!-- Write(Main) activity strings -->
     <string name="title_activity_write_main">Write tag</string>
     <string name="title_recent_content">Recent content</string>
     <string name="newContentButton">Add new tag content</string>
-        <string-array name="kinds_array">
-        <item>Link</item>
-        <item>Email</item>
-        <item>SMS</item>
-        <item>Telephone Number</item>
-        <item>Geo Location</item>
-        <item>Plain Text</item>
-    </string-array>
-        
+    <string name="showMoreButton">Show more</string>
+
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Serial Number</string>
     <string name="f_DataFormat">NFC Forum Classification</string>
@@ -48,21 +40,46 @@
     <string name="f_TechList">Supported technologies</string>
     <string name="f_Storage_T">Total</string>
     <string name="f_Storage_F">Free</string>
-    
-    
-       <!-- Tag Records Strings -->
-    <string name="title_record_list">Records</string>
-  	<string name="r_number">Record #</string>
-  	<string name="r_TNF">TNF:</string>
-  	<string name="r_Type">Type:</string>
-  	<string name="r_Protocol">Protocol:</string>
-  	<string name="r_Payload">Payload:</string>
-  	
-  	<string name="title_activity_create_tag_content">Create tag content</string>
-    <string name="title_activity_transfer_content">Transfer content</string>
 
-      <string-array name="cOptions_array">
-        <item>Delete</item>   
-        <item>Share</item> 
-      </string-array>     
+    <!-- Tag Records Strings -->
+    <string name="title_record_list">Records</string>
+    <string name="r_number">Record #</string>
+    <string name="r_TNF">TNF:</string>
+    <string name="r_Type">Type:</string>
+    <string name="r_Protocol">Protocol:</string>
+    <string name="r_Payload">Payload:</string>
+
+    <!-- Tags (Main) activity strings -->
+    <string name="title_activity_tags_main">My tags</string>
+    
+    <!-- CreateTagContent (Main) activity strings -->
+    <string name="title_activity_create_tag_content">Create tag content</string>
+    <string name="wSaveWriteButton">Save \'n write</string>
+     <string name="wSelectorText">Select the kind of content that you wish create</string>
+    
+     <!-- TransferContent(Main) activity strings -->
+    <string name="title_activity_transfer_content">Transfer content</string>
+     <string name="doneButton">Done</string>
+     <string name="previousText">Previous content</string>
+     <string name="currentText">Current content</string>
+
+    <!-- Search widget strings -->
+    <string name="search_hint">Contenido de la etiqueta</string>
+    <string name="search_label">Buscar</string>
+
+    <!-- String arrays -->
+    <string-array name="cOptions_array">
+        <item>Delete</item>
+        <item>Share</item>
+    </string-array>
+
+    <string-array name="kinds_array">
+        <item>Link</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <item>Telephone Number</item>
+        <item>Geo Location</item>
+        <item>Plain Text</item>
+    </string-array>
+
 </resources>

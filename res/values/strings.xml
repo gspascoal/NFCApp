@@ -29,15 +29,7 @@
     <string name="title_activity_write_main">Escribir etiqueta</string>
     <string name="title_recent_content">Contenido reciente</string>
     <string name="newContentButton">Crear nuevo contenido</string>
-
-    <string-array name="kinds_array">
-        <item>Link</item>
-        <item>Email</item>
-        <item>SMS</item>
-        <item>Telephone Number</item>
-        <item>Geo Location</item>
-        <item>Plain Text</item>
-    </string-array>
+    <string name="showMoreButton">Mostrar más</string>
 
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Número de serie</string>
@@ -50,15 +42,24 @@
     <string name="f_Storage_F">Libre</string>
 
     <!-- Tag Records Strings -->
-
     <string name="title_record_list">Lista de registros</string>
     <string name="r_number">Registro #</string>
     <string name="r_TNF">TNF:</string>
     <string name="r_Type">Tipo de registro:</string>
     <string name="r_Protocol">Protocolo:</string>
     <string name="r_Payload">Contenido:</string>
+    
+     
+     <!-- CreateTagContent (Main) activity strings -->
     <string name="title_activity_create_tag_content">Crear nuevo contenido</string>
+    <string name="wSaveWriteButton">Guardar y escribir</string>
+    <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
+   
+    <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
+    <string name="doneButton">Listo</string>
+        <string name="previousText">Contenido previo</string>
+     <string name="currentText">Contenido actual</string>
 
     <!-- URI/URL protocol Strings -->
     <string-array name="protocols_array">
@@ -71,16 +72,27 @@
         <item>file://</item>
         <item>telnet://</item>
     </string-array>
+	
+    <!-- Tags (Main) activity strings -->
+    <string name="title_activity_tags_main">Mis etiquetas</string>
+    
+    <!-- Search widget strings -->
+    <string name="search_hint">Contenido de la etiqueta</string>
+    <string name="search_label">Buscar</string>
 
-    <string name="title_activity_tags_main">TagsMain</string>
-    <string name="hello_world">Hello world!</string>
-    
-    <string name="search_hint">Tag content</string>
-    <string name="search_label">Search</string>
-    
+    <!-- String arrays -->
     <string-array name="cOptions_array">
-        <item>Eliminar</item>   
-        <item>Compartir</item>      
+        <item>Eliminar</item>
+        <item>Compartir</item>
+    </string-array>
+    
+    <string-array name="kinds_array">
+        <item>Link</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <item>Telephone Number</item>
+        <item>Geo Location</item>
+        <item>Plain Text</item>
     </string-array>
 
 </resources>

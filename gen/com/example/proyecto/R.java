@@ -9,11 +9,14 @@ package com.example.proyecto;
 
 public final class R {
     public static final class array {
-        public static final int cOptions_array=0x7f070002;
-        public static final int kinds_array=0x7f070000;
+        /**  String arrays 
+ String arrays 
+         */
+        public static final int cOptions_array=0x7f070001;
+        public static final int kinds_array=0x7f070002;
         /**  URI/URL protocol Strings 
          */
-        public static final int protocols_array=0x7f070001;
+        public static final int protocols_array=0x7f070000;
     }
     public static final class attr {
     }
@@ -49,66 +52,62 @@ public final class R {
         public static final int geo24=0x7f020011;
         public static final int geo32=0x7f020012;
         public static final int geo64=0x7f020013;
-        public static final int ic_action=0x7f020014;
-        public static final int ic_action_filter=0x7f020015;
-        public static final int ic_action_filter_off=0x7f020016;
-        public static final int ic_action_filter_on=0x7f020017;
-        public static final int ic_filter_off=0x7f020018;
-        public static final int ic_filter_on=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int id64=0x7f02001b;
-        public static final int launch=0x7f02001c;
-        public static final int launch16=0x7f02001d;
-        public static final int link=0x7f02001e;
-        public static final int link24=0x7f02001f;
-        public static final int link32=0x7f020020;
-        public static final int link64=0x7f020021;
-        public static final int linkb24=0x7f020022;
-        public static final int linkb48=0x7f020023;
-        public static final int logo_app=0x7f020024;
-        public static final int logo_app_v2=0x7f020025;
-        public static final int logo_app_v3=0x7f020026;
-        public static final int mail=0x7f020027;
-        public static final int mail24=0x7f020028;
-        public static final int mail32=0x7f020029;
-        public static final int mail64=0x7f02002a;
-        public static final int mail_2_64=0x7f02002b;
-        public static final int mailb24=0x7f02002c;
-        public static final int map15=0x7f02002d;
-        public static final int mapb24=0x7f02002e;
-        public static final int move24=0x7f02002f;
-        public static final int opened4=0x7f020030;
-        public static final int read_tag32=0x7f020031;
-        public static final int read_tag64=0x7f020032;
-        public static final int readonly64=0x7f020033;
-        public static final int save=0x7f020034;
-        public static final int save16=0x7f020035;
-        public static final int sms24=0x7f020036;
-        public static final int sms32=0x7f020037;
-        public static final int sms64=0x7f020038;
-        public static final int storage64=0x7f020039;
-        public static final int tagb128=0x7f02003a;
-        public static final int tagb72=0x7f02003b;
-        public static final int tagread=0x7f02003c;
-        public static final int tags_v1=0x7f02003d;
-        public static final int tags_v164=0x7f02003e;
-        public static final int tags_v2=0x7f02003f;
-        public static final int tags_v264=0x7f020040;
-        public static final int tagwrite140=0x7f020041;
-        public static final int tagwrite200=0x7f020042;
-        public static final int techlist64=0x7f020043;
-        public static final int tel24=0x7f020044;
-        public static final int tel32=0x7f020045;
-        public static final int tel64=0x7f020046;
-        public static final int telephone=0x7f020047;
-        public static final int text24=0x7f020048;
-        public static final int text32=0x7f020049;
-        public static final int text64=0x7f02004a;
-        public static final int two292=0x7f02004b;
-        public static final int write_tag264=0x7f02004c;
-        public static final int write_tag32=0x7f02004d;
-        public static final int write_tag64=0x7f02004e;
-        public static final int wrtbl64=0x7f02004f;
+        public static final int ic_action_filter_off=0x7f020014;
+        public static final int ic_action_filter_on=0x7f020015;
+        public static final int ic_launcher=0x7f020016;
+        public static final int id64=0x7f020017;
+        public static final int launch=0x7f020018;
+        public static final int launch16=0x7f020019;
+        public static final int link=0x7f02001a;
+        public static final int link24=0x7f02001b;
+        public static final int link32=0x7f02001c;
+        public static final int link64=0x7f02001d;
+        public static final int linkb24=0x7f02001e;
+        public static final int linkb48=0x7f02001f;
+        public static final int logo_app=0x7f020020;
+        public static final int logo_app_v2=0x7f020021;
+        public static final int logo_app_v3=0x7f020022;
+        public static final int mail=0x7f020023;
+        public static final int mail24=0x7f020024;
+        public static final int mail32=0x7f020025;
+        public static final int mail64=0x7f020026;
+        public static final int mail_2_64=0x7f020027;
+        public static final int mailb24=0x7f020028;
+        public static final int map15=0x7f020029;
+        public static final int mapb24=0x7f02002a;
+        public static final int move24=0x7f02002b;
+        public static final int opened4=0x7f02002c;
+        public static final int read_tag32=0x7f02002d;
+        public static final int read_tag64=0x7f02002e;
+        public static final int readonly64=0x7f02002f;
+        public static final int save=0x7f020030;
+        public static final int save16=0x7f020031;
+        public static final int sms24=0x7f020032;
+        public static final int sms32=0x7f020033;
+        public static final int sms64=0x7f020034;
+        public static final int storage64=0x7f020035;
+        public static final int tagb128=0x7f020036;
+        public static final int tagb72=0x7f020037;
+        public static final int tagread=0x7f020038;
+        public static final int tags_v1=0x7f020039;
+        public static final int tags_v164=0x7f02003a;
+        public static final int tags_v2=0x7f02003b;
+        public static final int tags_v264=0x7f02003c;
+        public static final int tagwrite140=0x7f02003d;
+        public static final int tagwrite200=0x7f02003e;
+        public static final int techlist64=0x7f02003f;
+        public static final int tel24=0x7f020040;
+        public static final int tel32=0x7f020041;
+        public static final int tel64=0x7f020042;
+        public static final int telephone=0x7f020043;
+        public static final int text24=0x7f020044;
+        public static final int text32=0x7f020045;
+        public static final int text64=0x7f020046;
+        public static final int two292=0x7f020047;
+        public static final int write_tag264=0x7f020048;
+        public static final int write_tag32=0x7f020049;
+        public static final int write_tag64=0x7f02004a;
+        public static final int wrtbl64=0x7f02004b;
     }
     public static final class id {
         public static final int action_filter=0x7f0a0060;
@@ -251,33 +250,35 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int affirmation=0x7f060004;
         /**  Commons Strings 
- Commons Strings
+ Commons Strings 
          */
         public static final int app_name=0x7f060000;
         public static final int cntnt_desc_tagicon=0x7f060010;
         public static final int cntnt_desc_tagread=0x7f06000e;
+        public static final int currentText=0x7f06002a;
+        public static final int doneButton=0x7f060028;
         public static final int extras=0x7f060009;
-        public static final int f_CBMRO=0x7f060017;
-        public static final int f_DataFormat=0x7f060016;
+        public static final int f_CBMRO=0x7f060018;
+        public static final int f_DataFormat=0x7f060017;
         /**  Tag features Strings 
  Tag features Strings 
          */
-        public static final int f_SerialNumber=0x7f060015;
-        public static final int f_Storage=0x7f060018;
-        public static final int f_Storage_F=0x7f06001c;
-        public static final int f_Storage_T=0x7f06001b;
-        public static final int f_TechList=0x7f06001a;
-        public static final int f_WRTBL=0x7f060019;
-        public static final int hello_world=0x7f060026;
+        public static final int f_SerialNumber=0x7f060016;
+        public static final int f_Storage=0x7f060019;
+        public static final int f_Storage_F=0x7f06001d;
+        public static final int f_Storage_T=0x7f06001c;
+        public static final int f_TechList=0x7f06001b;
+        public static final int f_WRTBL=0x7f06001a;
         public static final int launchButton=0x7f060003;
         public static final int my_tags=0x7f060008;
         public static final int negation=0x7f060005;
         public static final int newContentButton=0x7f060014;
-        public static final int r_Payload=0x7f060022;
-        public static final int r_Protocol=0x7f060021;
-        public static final int r_TNF=0x7f06001f;
-        public static final int r_Type=0x7f060020;
-        public static final int r_number=0x7f06001e;
+        public static final int previousText=0x7f060029;
+        public static final int r_Payload=0x7f060023;
+        public static final int r_Protocol=0x7f060022;
+        public static final int r_TNF=0x7f060020;
+        public static final int r_Type=0x7f060021;
+        public static final int r_number=0x7f06001f;
         /**  Main activity strings 
  Main activity strings 
          */
@@ -287,15 +288,28 @@ public final class R {
         public static final int readIntentb=0x7f06000c;
         public static final int readIntentc=0x7f06000d;
         public static final int saveButton=0x7f060002;
-        public static final int search_hint=0x7f060027;
-        public static final int search_label=0x7f060028;
-        public static final int title_activity_create_tag_content=0x7f060023;
+        /**  Search widget strings 
+ Search widget strings 
+         */
+        public static final int search_hint=0x7f06002c;
+        public static final int search_label=0x7f06002d;
+        public static final int showMoreButton=0x7f060015;
+        /**  CreateTagContent (Main) activity strings 
+ CreateTagContent (Main) activity strings 
+         */
+        public static final int title_activity_create_tag_content=0x7f060024;
         /**  Read(Main) activity strings 
  Read(Main) activity strings 
          */
         public static final int title_activity_read_main=0x7f06000a;
-        public static final int title_activity_tags_main=0x7f060025;
-        public static final int title_activity_transfer_content=0x7f060024;
+        /**  Tags (Main) activity strings 
+ Tags (Main) activity strings 
+         */
+        public static final int title_activity_tags_main=0x7f06002b;
+        /**  TransferContent(Main) activity strings 
+ TransferContent(Main) activity strings 
+         */
+        public static final int title_activity_transfer_content=0x7f060027;
         /**  Write(Main) activity strings 
  Write(Main) activity strings 
          */
@@ -305,7 +319,9 @@ public final class R {
         /**  Tag Records Strings 
  Tag Records Strings 
          */
-        public static final int title_record_list=0x7f06001d;
+        public static final int title_record_list=0x7f06001e;
+        public static final int wSaveWriteButton=0x7f060025;
+        public static final int wSelectorText=0x7f060026;
         public static final int write=0x7f060007;
     }
     public static final class style {
