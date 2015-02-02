@@ -10,7 +10,7 @@
         android:id="@+id/writeIntent1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ready to store the selected content"
+        android:text="@string/writeDialogTop"
         android:padding="5dp"
          />  
     
@@ -28,7 +28,7 @@
         android:id="@+id/writeIntent2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Storing will begin when you tap an NFC compatible item with the back of your device"
+        android:text="@string/writeDialogBottom"
         android:layout_below="@+id/mainimage"
         android:padding="5dp"
          />  

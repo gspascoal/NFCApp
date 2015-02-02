@@ -31,6 +31,8 @@
     <string name="title_recent_content">Contenido reciente</string>
     <string name="newContentButton">Crear nuevo contenido</string>
     <string name="showMoreButton">Mostrar más</string>
+    <string name="writeDialogTop">Listo para almacenar el contenido seleccionado</string>
+    <string name="writeDialogBottom">La escritura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo</string>
 
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Número de serie</string>
