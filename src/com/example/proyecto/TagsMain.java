@@ -434,10 +434,5 @@ public class TagsMain extends ListActivity {
 		return tagUIContents;
 	}
 	
-	@Override
-	public void invalidateOptionsMenu() {
-		// TODO Auto-generated method stub
-		super.invalidateOptionsMenu();
-	}
 	
 }

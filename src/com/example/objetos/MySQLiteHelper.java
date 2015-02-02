@@ -18,7 +18,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	  public static final String COLUMN_ID = "_id";
 	  public static final String COLUMN_PAYLOAD = "payload";
 	  public static final String COLUMN_PLHEADER = "payload_header";
-	  public static final String COLUMN_PLTYPE = "payload_tipo";
+	  public static final String COLUMN_PLTYPE = "payload_type";
+	  public static final String COLUMN_TAGS = "content_tags";
 
 	  private static final String DATABASE_NAME = "tag_content.db";
 	  private static final int DATABASE_VERSION = 1;

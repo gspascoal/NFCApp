@@ -10,7 +10,7 @@
         android:layout_margin="15dp"
         android:layout_marginTop="47dp"
         android:ems="10"
-        android:hint="Type destination number"
+        android:hint="@string/phoneHint"
         android:inputType="phone" 
         android:layout_below="@+id/labelPhone"
         />
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldPhone"
         android:layout_marginTop="18dp"
-        android:text="Telephone number" />
+        android:text="@string/phoneLabel" />
 
     <Button
         android:id="@+id/contactButton"

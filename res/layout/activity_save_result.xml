@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.proyecto.SaveResult"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/saveResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/saveResultText"
+        android:text="@string/resultLabel" />
+
+    <TextView
+        android:id="@+id/saveResultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveResultLabel"
+        android:layout_margin="5dp"
+        android:text="@string/resultText" />
+
+    <TextView
+        android:id="@+id/savedContentLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveResultText"
+        android:labelFor="@+id/savedContent"
+        android:text="@string/savedContentLabel" />
+
+    <include 
+        android:id="@+id/savedContent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="#469"
+        android:layout_below="@+id/savedContentLabel"
+        layout="@layout/recent_content"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/savedContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:text="@string/doneButton" />
+    </RelativeLayout>

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldLatitude"
         android:layout_marginTop="18dp"
-        android:text="Latitude" />
+        android:text="@string/latitudeLabel" />
 
     <EditText
         android:id="@+id/fieldLatitude"
@@ -19,7 +19,7 @@
         android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="number"
-        android:hint="Enter latitude"
+        android:hint="@string/latitudeHint"
         android:layout_margin="15dp"
          />
    
@@ -30,7 +30,7 @@
         android:layout_alignLeft="@+id/fieldLongitude"
         android:layout_marginTop="18dp"
         android:layout_below="@+id/fieldLatitude"
-        android:text="Longitude" />
+        android:text="@string/longitudeLabel" />
 
     <EditText
         android:id="@+id/fieldLongitude"
@@ -40,7 +40,7 @@
         android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="number"
-        android:hint="Enter longitude"
+        android:hint="@string/longitudeHint"
         android:layout_margin="15dp"
          />
 
@@ -52,7 +52,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/labelLongitude"
-        android:text="Get current location" 
+        android:text="@string/locationButton" 
         android:onClick="onClick"
         />
     

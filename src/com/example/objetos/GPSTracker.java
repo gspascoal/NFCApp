@@ -1,5 +1,7 @@
 package com.example.objetos;
 
+import com.example.proyecto.R;
+
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -124,11 +126,11 @@ public class GPSTracker extends Service implements LocationListener{
 	public void showSettingsAlert() {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 		
-		alertDialog.setTitle("GPS is settings");
+		alertDialog.setTitle(getResources().getString(R.string.dialogTitle));
 		
-		alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+		alertDialog.setMessage(getResources().getString(R.string.dialogMessage));
 		
-		alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+		alertDialog.setPositiveButton(getResources().getString(R.string.dialogOkButton), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -137,7 +139,7 @@ public class GPSTracker extends Service implements LocationListener{
 			}
 		});
 		
-		alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alertDialog.setNegativeButton(getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

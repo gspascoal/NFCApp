@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldText"
         android:layout_marginTop="18dp"
-        android:text="Plain text" />
+        android:text="@string/textLabel" />
 
     <EditText
         android:id="@+id/fieldText"
@@ -21,7 +21,7 @@
         android:layout_marginTop="18dp"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="Plain text"
+        android:hint="@string/textHint"
         android:inputType="text" />
 
 </RelativeLayout>

@@ -68,7 +68,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 		// LayoutInflater inflater = (LayoutInflater)
 		// context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		Log.d("debug list write", "views");
+		//Log.d("debug list write", "views");
 		// Log.d("debug extra ID",objects[position].getContentId().getText().toString());
 		holder.payloadIconContent.setBackground(objects.get(position)
 				.getContentIcon().getBackground());
@@ -89,10 +89,13 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				String itemId = holder.payloadContentId.getText().toString();
 				String kind = holder.payloadDescContent.getText().toString();
 				String pLoad = holder.payloadContent.getText().toString();
+				String activityName = getContext().getClass().getSimpleName();
+				Log.d("debug", "activity name?: "+activityName);
 				Log.d("debug extra", kind);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", pLoad);
 				intent.putExtra("CONTENT_ID", itemId);
+				intent.putExtra("CONTENT_EDIT", "EDIT");
 
 				getContext().startActivity(intent);
 			}
@@ -115,7 +118,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				datasource = new TagContentDataSource(getContext());
 				datasource.open();
 
-				Log.d("debug extra ID", itemId.toString());
+				//Log.d("debug extra ID", itemId.toString());
 				optionDialog = new ListView(getContext());
 				String[] cOptionsArrayStrings = getContext().getResources()
 						.getStringArray(
@@ -181,7 +184,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				dialog.setContentView(optionDialog);
 
 				dialog.show();
-
+				datasource.close();
 				return true;
 			}
 		});

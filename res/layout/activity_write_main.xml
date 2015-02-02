@@ -1,4 +1,5 @@
-<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -14,89 +15,96 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-</LinearLayout>
+</LinearLayout>
 -->
-<!-- <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">  -->
-    
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
+	android:layout_height="wrap_content">
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    tools:context="com.example.proyecto.WriteMain"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:id="@+id/writeHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:background="#FFF"
-        tools:context="com.example.proyecto.WriteMain"
-    	tools:ignore="MergeRootFrame" >
-        
-		<LinearLayout android:id="@+id/writeHeader"
-		    android:orientation="vertical"
-		    android:layout_width="match_parent"
-		    android:layout_height="150dp"
-		    android:background="#FFF" >
-		    
-		    <Button 
+        android:orientation="vertical" >
+
+        <Button
             android:id="@+id/newContentButton"
             android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:layout_margin="20dp"
-			android:text="@string/newContentButton"
-			android:onClick="onClick"
-         	/> 
-			
-           <TextView 
-           android:id="@+id/recentText"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="@string/title_recent_content"
-           android:gravity="center_horizontal" 
-           android:layout_marginTop="25dp"   
-           />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:onClick="onClick"
+            android:text="@string/newContentButton" />
 
-		</LinearLayout>
-           
-           <!-- 
+        <TextView
+            android:id="@+id/recentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center_horizontal"
+            android:text="@string/title_recent_content" />
+    </LinearLayout>
+
+    <!--
            <LinearLayout android:id="@+id/recentList"
 		    android:orientation="vertical"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/writeHeader"
 		    android:background="#FFF">
-           </LinearLayout> -->
-           
-           <ListView
-               android:id="@+id/recentList"
-               android:layout_width="wrap_content"
-               android:layout_height="300dp"
-               android:layout_below="@+id/writeHeader"
-               android:background="#FFF"
-               android:orientation="vertical" >
- 			</ListView>
-
-           <LinearLayout
-               android:id="@+id/writeFooter"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentBottom="true"
-               android:layout_centerHorizontal="true"
-               android:layout_margin="15dp"
-               android:orientation="vertical"
-               android:visibility="invisible" >
-
-               <Button
-                   android:id="@+id/moreButton"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   android:onClick="onClick"
-                   android:text="@string/showMoreButton" />
            </LinearLayout>
-           
-    </RelativeLayout>
-    
-    
-<!-- </ScrollView>  -->
+    -->
+
+    <ListView
+        android:id="@+id/recentList"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_below="@+id/writeHeader"
+        android:background="#FFF"
+        android:orientation="vertical" >
+    </ListView>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:text="@string/emptyList"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/writeFooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:text="@string/showMoreButton" />
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- </ScrollView> -->
 

@@ -203,11 +203,11 @@ public class ReadMain extends Activity {
 	    		payloadTypeIcon.setBackgroundResource(tInfo.getTagRecords().get(0).getIconId());
 			    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 			    if (tInfo.getTagRecords().get(0).isWOP()) {
-			    	
-			    	cntn = tInfo.getTagRecords().get(0).getRecordPayload();
 			    	if (tInfo.getTagRecords().get(0).getRecordType().equalsIgnoreCase("Text")) {
-						cntn += " ("+tInfo.getTagRecords().get(0).getRecordLanguageCode().toUpperCase()+")";
+						cntn = "("+tInfo.getTagRecords().get(0).getRecordLanguageCode().toUpperCase()+")";
 					}
+			    	cntn += tInfo.getTagRecords().get(0).getRecordPayload();
+			    	
 				}
 			    else {
 			    	cntn = tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc() + tInfo.getTagRecords().get(0).getRecordPayload();

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldTo"
         android:layout_marginTop="18dp"
-        android:text="Mail address" />
+        android:text="@string/mailLabel" />
 
     <EditText
         android:id="@+id/fieldBody"
@@ -21,7 +21,7 @@
         android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:hint="Mail body"
+        android:hint="@string/bodyHint"
         android:layout_margin="15dp"
          />
 
@@ -34,7 +34,7 @@
         android:layout_alignLeft="@+id/labelSubject"
         android:layout_below="@+id/fieldSubject"
         android:layout_marginTop="18dp"
-        android:text="Mail message" />
+        android:text="@string/bodyLabel" />
 
     <EditText
         android:id="@+id/fieldSubject"
@@ -45,7 +45,7 @@
         android:layout_marginTop="18dp"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="Subject"
+        android:hint="@string/subjectHint"
         android:inputType="textEmailSubject" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_alignRight="@+id/labelTo"
         android:layout_below="@+id/fieldTo"
         android:layout_marginTop="18dp"
-        android:text="Mail subject" />
+        android:text="@string/subjectLabel" />
 
     <EditText
         android:id="@+id/fieldTo"
@@ -66,7 +66,7 @@
         android:layout_marginTop="18dp"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="Destination mail"
+        android:hint="@string/mailHint"
         android:inputType="textEmailAddress" />
 
 </RelativeLayout>

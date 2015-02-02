@@ -18,7 +18,7 @@
     <!-- Read(Main) activity strings -->
     <string name="title_activity_read_main">Read tag</string>
     <string name="readIntenta">"Ready to read content"</string>
-    <string name="readIntentb">"Reading will begin when you tap an NFC compatible item with the back of your device"</string>
+    <string name="readIntentb">"Reading will begin when you tap a NFC compatible item with the back of your device"</string>
     <string name="readIntentc">"Approach a NFC tag"</string>
     <string name="cntnt_desc_tagread">"Tag and magnifying glass"</string>
     <string name="title_feature_list">"Features"</string>

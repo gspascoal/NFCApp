@@ -66,10 +66,12 @@ public class TagUIContent extends RelativeLayout {
 				Intent intent = new Intent(getContext(), CreateTagContent.class);
 			    String kind = getContentDesc().getText().toString();
 			    String payload = getPayload().getText().toString();
-			    Log.d("debug extra",payload);
+				Log.d("debug extra",payload);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", payload);
 				intent.putExtra("CONTENT_ID", getContentId().getText().toString());
+				intent.putExtra("CONTENT_KIND", kind);
+				intent.putExtra("CONTENT_EDIT", "EDIT");
 				
 				getContext().startActivity(intent);
 			}

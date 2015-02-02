@@ -8,6 +8,7 @@
     <string name="launchButton">Ejecutar</string>
     <string name="affirmation">Si</string>
     <string name="negation">No</string>
+    <string name="emptyList">No hay elementos</string>
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -48,18 +49,17 @@
     <string name="r_Type">Tipo de registro:</string>
     <string name="r_Protocol">Protocolo:</string>
     <string name="r_Payload">Contenido:</string>
-    
-     
-     <!-- CreateTagContent (Main) activity strings -->
+
+    <!-- CreateTagContent (Main) activity strings -->
     <string name="title_activity_create_tag_content">Crear nuevo contenido</string>
     <string name="wSaveWriteButton">Guardar y escribir</string>
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
-   
+
     <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
     <string name="doneButton">Listo</string>
-        <string name="previousText">Contenido previo</string>
-     <string name="currentText">Contenido actual</string>
+    <string name="previousText">Contenido previo</string>
+    <string name="currentText">Contenido actual</string>
 
     <!-- URI/URL protocol Strings -->
     <string-array name="protocols_array">
@@ -72,10 +72,10 @@
         <item>file://</item>
         <item>telnet://</item>
     </string-array>
-	
+
     <!-- Tags (Main) activity strings -->
     <string name="title_activity_tags_main">Mis etiquetas</string>
-    
+
     <!-- Search widget strings -->
     <string name="search_hint">Contenido de la etiqueta</string>
     <string name="search_label">Buscar</string>
@@ -85,7 +85,6 @@
         <item>Eliminar</item>
         <item>Compartir</item>
     </string-array>
-    
     <string-array name="kinds_array">
         <item>Link</item>
         <item>Email</item>
@@ -95,4 +94,51 @@
         <item>Plain Text</item>
     </string-array>
 
+    <!-- SavedContent activity strings -->
+    <string name="title_activity_save_result">Contenido guardado</string>
+    <string name="resultLabel">Resultado </string>
+    <string name="resultText">El contenido ha sido guardado.</string>
+    <string name="savedContentLabel">Contenido guardado</string>
+    
+    
+    <!-- GPSTracker Alter Dialog strings -->
+    <string name="dialogTitle">Configuración de GPS</string>
+    <string name="dialogMessage">El GPS no está activado. ¿Desea ir al menú de Ajustes?</string>
+    <string name="dialogOkButton">Ajustes</string>
+    <string name="dialogCancelButton">Cancelar</string>
+    
+	<!-- Forms string -->
+	
+	<!-- Geo Location strings -->
+	<string name="latitudeLabel">Latitud</string>
+	<string name="latitudeHint">Latitude</string>
+	<string name="longitudeLabel">Longitud</string>
+	<string name="longitudeHint">Longitude</string>
+	<string name="locationButton">Ubicación actual</string>
+	
+	<!-- Link strings -->
+	<string name="linkHint">URI/URL</string>
+	<string name="linkLabel">Escriba el URI/URL</string>
+	
+	<!-- Mail strings -->
+	<string name="mailLabel">Correo del destinatario</string>
+	<string name="mailHint">Destinatario</string>
+	<string name="bodyLabel">Mensaje del correo</string>
+	<string name="bodyHint">Mensaje</string>
+	<string name="subjectLabel">Asunto del correo</string>
+	<string name="subjectHint">Asunto</string>
+	
+	<!-- SMS strings -->
+	<string name="receiverLabel">Número de teléfono</string>
+	<string name="receiverHint">Escriba el número</string>
+	<string name="messageLabel">Mensaje</string>
+	<string name="messageHint">Escriba el mensaje</string>
+	
+	<!-- Telephone Number strings -->
+	<string name="phoneLabel">Número de teléfono</string>
+	<string name="phoneHint">Escriba el número</string>
+	
+	<!-- Plain text strings-->
+	<string name="textLabel">Texto plano</string>
+	<string name="textHint">Escriba el texto</string>
 </resources>

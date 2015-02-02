@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldReceiver"
         android:layout_marginTop="18dp"
-        android:text="Telephone number" />
+        android:text="@string/receiverLabel" />
 
     <EditText
         android:id="@+id/fieldReceiver"
@@ -19,7 +19,7 @@
         android:layout_marginTop="18dp"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="Type destination number"
+        android:hint="@string/receiverHint"
         android:inputType="phone" >
 
         <requestFocus />
@@ -43,7 +43,7 @@
         android:layout_alignLeft="@+id/fieldMessage"
         android:layout_below="@+id/fieldReceiver"
         android:layout_marginTop="18dp"
-        android:text="Message" />
+        android:text="@string/messageLabel" />
 
     <EditText
         android:id="@+id/fieldMessage"
@@ -53,7 +53,7 @@
         android:layout_marginTop="18dp"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="Type message"
+        android:hint="@string/messageHint"
         android:inputType="text" >
 
         <requestFocus />

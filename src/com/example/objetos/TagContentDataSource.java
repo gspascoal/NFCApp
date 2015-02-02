@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.example.proyecto.TagUIContent;
 
+import android.R.bool;
+import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -175,7 +177,8 @@ public class TagContentDataSource {
 
 		for (TagContent tagContent : tagContents) {
 			TagUIContent nTagUIContent = new TagUIContent(context);
-			nTagUIContent.setPayload(tagContent.getPayloadHeader()+tagContent.getPayload());
+			nTagUIContent.setPayload(tagContent.getPayloadHeader()
+					+ tagContent.getPayload());
 			nTagUIContent.setContentDesc(tagContent.getPayloadType());
 			nTagUIContent.setContentIcon(tagContent.getPayloadType());
 			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
@@ -202,62 +205,38 @@ public class TagContentDataSource {
 
 		return nTagContent;
 	}
-	
-	public List<TagUIContent> getContentFiltered(String filters){
-		
-		String condition = "";
-		
-		if (filters != "") {
-			condition =  "WHERE payload_tipo IN ("+filters+")";
-		}
-		
-		String sqlSentence = "SELECT * FROM tag_content "+condition;
-		Log.d("debug query", sqlSentence);
-		List<TagContent> tagContents = new ArrayList<TagContent>();
-		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
-		
-		Cursor cursor = database.rawQuery(sqlSentence, null);
-		
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			TagContent comment = cursorToComment(cursor);
-			tagContents.add(comment);
-			cursor.moveToNext();
-		}
-		// make sure to close the cursor
-		cursor.close();
-		
-		
-		for (TagContent tagContent : tagContents) {
-			TagUIContent nTagUIContent = new TagUIContent(context);
-			nTagUIContent.setPayload(tagContent.getPayloadHeader()
-					+ tagContent.getPayload());
-			nTagUIContent.setContentDesc(tagContent.getPayloadType());
-			nTagUIContent.setContentIcon(tagContent.getPayloadType());
-			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
-			tagUIContents.add(nTagUIContent);
-		}
-		
-		return tagUIContents;
-		
+
+	public int updateById(String id, String payload, String header, String type) {
+
+		String whereClause = MySQLiteHelper.COLUMN_ID + "=?";
+		String[] whereArgs = { id };
+
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_PAYLOAD, payload);
+		values.put(MySQLiteHelper.COLUMN_PLHEADER, header);
+		values.put(MySQLiteHelper.COLUMN_PLTYPE, type);
+		int result = database.update(MySQLiteHelper.TABLE_COMMENTS, values,
+				whereClause, whereArgs);
+
+		return result;
+
 	}
-	
-public List<TagUIContent> getContentbySearch(String query){
-		
+
+	public List<TagUIContent> getContentFiltered(String filters) {
+
 		String condition = "";
-		
-		if (query != "") {
-			condition =  "WHERE payload LIKE '%"+query+"%'" +
-					" OR payload_tipo LIKE '%"+query+"%'";
+
+		if (filters != "") {
+			condition = "WHERE payload_type IN (" + filters + ")";
 		}
-		
-		String sqlSentence = "SELECT * FROM tag_content "+condition;
+
+		String sqlSentence = "SELECT * FROM tag_content " + condition;
 		Log.d("debug query", sqlSentence);
 		List<TagContent> tagContents = new ArrayList<TagContent>();
 		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
-		
+
 		Cursor cursor = database.rawQuery(sqlSentence, null);
-		
+
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			TagContent comment = cursorToComment(cursor);
@@ -266,8 +245,7 @@ public List<TagUIContent> getContentbySearch(String query){
 		}
 		// make sure to close the cursor
 		cursor.close();
-		
-		
+
 		for (TagContent tagContent : tagContents) {
 			TagUIContent nTagUIContent = new TagUIContent(context);
 			nTagUIContent.setPayload(tagContent.getPayloadHeader()
@@ -277,8 +255,47 @@ public List<TagUIContent> getContentbySearch(String query){
 			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
 			tagUIContents.add(nTagUIContent);
 		}
-		
+
 		return tagUIContents;
-		
+
+	}
+
+	public List<TagUIContent> getContentbySearch(String query) {
+
+		String condition = "";
+
+		if (query != "") {
+			condition = "WHERE payload LIKE '%" + query + "%'"
+					+ " OR payload_type LIKE '%" + query + "%'";
+		}
+
+		String sqlSentence = "SELECT * FROM tag_content " + condition;
+		Log.d("debug query", sqlSentence);
+		List<TagContent> tagContents = new ArrayList<TagContent>();
+		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
+
+		Cursor cursor = database.rawQuery(sqlSentence, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			TagContent comment = cursorToComment(cursor);
+			tagContents.add(comment);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+
+		for (TagContent tagContent : tagContents) {
+			TagUIContent nTagUIContent = new TagUIContent(context);
+			nTagUIContent.setPayload(tagContent.getPayloadHeader()
+					+ tagContent.getPayload());
+			nTagUIContent.setContentDesc(tagContent.getPayloadType());
+			nTagUIContent.setContentIcon(tagContent.getPayloadType());
+			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
+			tagUIContents.add(nTagUIContent);
+		}
+
+		return tagUIContents;
+
 	}
 }
