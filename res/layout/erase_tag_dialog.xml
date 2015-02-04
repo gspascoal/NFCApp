@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp" 
+    android:background="#FFF"
+    >
+    
+     <TextView
+        android:id="@+id/readIntent1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reday to erase the content"
+        android:padding="5dp"
+         />  
+    
+	  <ImageView 
+     	android:id="@+id/mainimage"
+     	android:src="@drawable/tagread"
+     	android:contentDescription="@string/cntnt_desc_tagread"
+     	android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+     	android:layout_centerInParent="true"
+     	android:layout_below="@+id/readIntent1"       
+     />
+	  
+    <TextView
+        android:id="@+id/readIntent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erasing will begin when you tap an NFC compatible item with the back of your device"
+        android:layout_below="@+id/mainimage"
+        android:padding="5dp"
+         />  
+
+</RelativeLayout>

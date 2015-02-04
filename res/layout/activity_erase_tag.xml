@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.proyecto.EraseTag" >
+
+    <RelativeLayout
+        android:id="@+id/eraseContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        
+         >
+
+        <Button
+            android:id="@+id/eraseDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="@string/doneButton" 
+            android:layout_below="@+id/eraseResult"
+            android:layout_centerHorizontal="true"
+            android:onClick="onClick"
+            />
+        
+        <TextView
+            android:id="@+id/eraseResultLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resultLabel" />
+
+        <TextView
+            android:id="@+id/eraseResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eraseResultLabel"
+            android:layout_margin="15dp"
+            android:layout_marginRight="18dp"
+            android:layout_toLeftOf="@+id/eraseDone"
+            android:text="Erase successful" />
+	
+	</RelativeLayout>
+
+    
+    
+</RelativeLayout>

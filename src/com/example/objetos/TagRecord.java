@@ -210,29 +210,40 @@ public class TagRecord {
 		Log.d("TagInfo", "Payload Header:" + getRecordPayloadheader());
 		int i = 0;
 		Object[] wopArray = WOP.keySet().toArray();
-		if (getRecordPayloadheader() == 0) {
-			if (recordType.equalsIgnoreCase("Text")) {
-				this.recordPayloadTypeDesc = "Plain Text";
-			}
-			while (i < wopArray.length) {
-				if (getRecordPayload().contains((String)wopArray[i])) {
-					this.recordPayloadTypeDesc = WOP.get(wopArray[i]);
-					this.setWOP(true);
-					break;
+		if(getRecordTNF() != 0){
+			
+			if (getRecordPayloadheader() == 0) {
+				if (recordType.equalsIgnoreCase("Text")) {
+					this.recordPayloadTypeDesc = "Plain Text";
 				}
-			 i++;	
-			}
-		} else {
-			if ( URIPFXMap.containsKey( String.valueOf(getRecordPayloadheader())  ) ) {
-				this.recordPayloadTypeDesc =  URIPFXMap.get(String.valueOf(getRecordPayloadheader()) );
+				while (i < wopArray.length) {
+					if (getRecordPayload().contains((String)wopArray[i])) {
+						this.recordPayloadTypeDesc = WOP.get(wopArray[i]);
+						this.setWOP(true);
+						break;
+					}
+				 i++;	
+				}
+			} else {
+				if ( URIPFXMap.containsKey( String.valueOf(getRecordPayloadheader())  ) ) {
+					this.recordPayloadTypeDesc =  URIPFXMap.get(String.valueOf(getRecordPayloadheader()) );
+				}
+				
+				else {
+					Log.d("TagInfo", "It not contains");
+					this.recordPayloadTypeDesc = "N/A";
+				}
+				
 			}
 			
-			else {
-				Log.d("TagInfo", "It not contains");
-				this.recordPayloadTypeDesc = "N/A";
-			}
 			
 		}
+		else {
+			Log.d("TagInfo", "It not contains");
+			this.recordPayloadTypeDesc = "N/A";
+		}
+		
+		
 		
 		
 		

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.NFC" />
     <!--
      If the next instruction is omitted, anybody could download the app from the market 
-     regardless that is not a NFC compatible device
+     regardless that is not a NFC compatible device
     -->
     <uses-feature
         android:name="android.hardware.nfc"
@@ -30,7 +30,7 @@
         android:logo="@drawable/app_icon_v1"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.proyecto.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +39,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.proyecto.ReadMain"
+            android:name=".ReadMain"
             android:label="@string/title_activity_read_main"
-            android:parentActivityName="com.example.proyecto.MainActivity" >
+            android:parentActivityName=".MainActivity" >
 
             <!-- Parent activity meta-data o support and lower -->
             <meta-data
@@ -55,7 +55,7 @@
                     android:scheme="http"
                     android:host="*"
                     android:pathPrefix="" />
-            </intent-filter>  
+            </intent-filter>  
             -->
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
@@ -66,9 +66,9 @@
                 android:resource="@xml/nfc_tech_list" />
         </activity>
         <activity
-            android:name="com.example.proyecto.WriteMain"
+            android:name=".WriteMain"
             android:label="@string/title_activity_write_main"
-            android:parentActivityName="com.example.proyecto.MainActivity" >
+            android:parentActivityName=".MainActivity" >
 
             <!-- Parent activity meta-data o support and lower -->
             <meta-data
@@ -84,10 +84,10 @@
                 android:resource="@xml/nfc_tech_list" />
         </activity>
         <activity
-            android:name="com.example.proyecto.CreateTagContent"
+            android:name=".CreateTagContent"
             android:label="@string/title_activity_create_tag_content"
             android:launchMode="singleTop"
-            android:parentActivityName="com.example.proyecto.WriteMain" >
+            android:parentActivityName=".WriteMain" >
 
             <!-- Parent activity meta-data o support and lower -->
             <meta-data
@@ -98,17 +98,17 @@
                 android:resource="@xml/nfc_tech_list" />
         </activity>
         <activity
-            android:name="com.example.proyecto.TransferContent"
+            android:name=".TransferContent"
             android:label="@string/title_activity_transfer_content"
-            android:parentActivityName="com.example.proyecto.CreateTagContent" >
+            android:parentActivityName=".CreateTagContent" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.proyecto.CreateTagContent" />
         </activity>
         <activity
-            android:name="com.example.proyecto.TagsMain"
+            android:name=".TagsMain"
             android:label="@string/title_activity_tags_main"
-            android:parentActivityName="com.example.proyecto.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -121,8 +121,16 @@
                 android:value="com.example.proyecto.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.proyecto.SaveResult"
+            android:name=".SaveResult"
             android:label="@string/title_activity_save_result" >
+        </activity>
+        <activity
+            android:name=".ExtrasMain"
+            android:label="@string/title_activity_extras_main" >
+        </activity>
+        <activity
+            android:name=".EraseTag"
+            android:label="@string/title_activity_erase_tag" >
         </activity>
     </application>
 

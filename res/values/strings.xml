@@ -101,46 +101,50 @@
     <string name="resultLabel">Resultado </string>
     <string name="resultText">El contenido ha sido guardado.</string>
     <string name="savedContentLabel">Contenido guardado</string>
-    
-    
+
     <!-- GPSTracker Alter Dialog strings -->
     <string name="dialogTitle">Configuración de GPS</string>
     <string name="dialogMessage">El GPS no está activado. ¿Desea ir al menú de Ajustes?</string>
     <string name="dialogOkButton">Ajustes</string>
     <string name="dialogCancelButton">Cancelar</string>
-    
-	<!-- Forms string -->
-	
-	<!-- Geo Location strings -->
-	<string name="latitudeLabel">Latitud</string>
-	<string name="latitudeHint">Latitude</string>
-	<string name="longitudeLabel">Longitud</string>
-	<string name="longitudeHint">Longitude</string>
-	<string name="locationButton">Ubicación actual</string>
-	
-	<!-- Link strings -->
-	<string name="linkHint">URI/URL</string>
-	<string name="linkLabel">Escriba el URI/URL</string>
-	
-	<!-- Mail strings -->
-	<string name="mailLabel">Correo del destinatario</string>
-	<string name="mailHint">Destinatario</string>
-	<string name="bodyLabel">Mensaje del correo</string>
-	<string name="bodyHint">Mensaje</string>
-	<string name="subjectLabel">Asunto del correo</string>
-	<string name="subjectHint">Asunto</string>
-	
-	<!-- SMS strings -->
-	<string name="receiverLabel">Número de teléfono</string>
-	<string name="receiverHint">Escriba el número</string>
-	<string name="messageLabel">Mensaje</string>
-	<string name="messageHint">Escriba el mensaje</string>
-	
-	<!-- Telephone Number strings -->
-	<string name="phoneLabel">Número de teléfono</string>
-	<string name="phoneHint">Escriba el número</string>
-	
-	<!-- Plain text strings-->
-	<string name="textLabel">Texto plano</string>
-	<string name="textHint">Escriba el texto</string>
+
+    <!-- Forms string -->
+
+
+    <!-- Geo Location strings -->
+    <string name="latitudeLabel">Latitud</string>
+    <string name="latitudeHint">Latitude</string>
+    <string name="longitudeLabel">Longitud</string>
+    <string name="longitudeHint">Longitude</string>
+    <string name="locationButton">Ubicación actual</string>
+
+    <!-- Link strings -->
+    <string name="linkHint">URI/URL</string>
+    <string name="linkLabel">Escriba el URI/URL</string>
+
+    <!-- Mail strings -->
+    <string name="mailLabel">Correo del destinatario</string>
+    <string name="mailHint">Destinatario</string>
+    <string name="bodyLabel">Mensaje del correo</string>
+    <string name="bodyHint">Mensaje</string>
+    <string name="subjectLabel">Asunto del correo</string>
+    <string name="subjectHint">Asunto</string>
+
+    <!-- SMS strings -->
+    <string name="receiverLabel">Número de teléfono</string>
+    <string name="receiverHint">Escriba el número</string>
+    <string name="messageLabel">Mensaje</string>
+    <string name="messageHint">Escriba el mensaje</string>
+
+    <!-- Telephone Number strings -->
+    <string name="phoneLabel">Número de teléfono</string>
+    <string name="phoneHint">Escriba el número</string>
+
+    <!-- Plain text strings -->
+    <string name="textLabel">Texto plano</string>
+    <string name="textHint">Escriba el texto</string>
+    <string name="title_activity_extras_main">ExtrasMain</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_erase_tag">EraseTag</string>
+
 </resources>

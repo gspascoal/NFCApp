@@ -69,6 +69,10 @@ public class MainActivity extends Activity {
 			intent = new Intent(MainActivity.this, TagsMain.class);
 			startActivity(intent);
 			break;
+		case R.id.extras:
+			intent = new Intent(MainActivity.this, ExtrasMain.class);
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}
