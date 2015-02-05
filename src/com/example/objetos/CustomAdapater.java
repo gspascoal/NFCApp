@@ -116,7 +116,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				// TODO Auto-generated method stub
 
 				datasource = new TagContentDataSource(getContext());
-				datasource.open();
+				
 
 				//Log.d("debug extra ID", itemId.toString());
 				optionDialog = new ListView(getContext());
@@ -141,7 +141,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 								switch (position) {
 								case 0:
 									int i = 0;
-
+									datasource.open();
 									while (i < objects.size()) {
 										Log.d("deleting", "i value: " + i);
 										if (objects.get(i).getContentId()
@@ -159,7 +159,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 									Toast.makeText(getContext(),
 											"Item " + itemId + " deleted!",
 											Toast.LENGTH_LONG).show();
-
+									datasource.close();
 									break;
 								case 1:
 									Intent sendIntent = new Intent();
@@ -184,7 +184,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				dialog.setContentView(optionDialog);
 
 				dialog.show();
-				datasource.close();
+				
 				return true;
 			}
 		});
