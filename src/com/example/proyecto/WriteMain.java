@@ -139,6 +139,7 @@ public class WriteMain extends Activity {
 	    if (adapterAdapater == null) {
 	    	Log.d("debug list write", "adapter is null");
 		}
+	    
 	    contentList.setAdapter(adapterAdapater);
 	    
 	    /*
