@@ -5,6 +5,7 @@ public class TagContent {
 	  private String payload;
 	  private String payloadHeader;
 	  private String payloadType;
+	  private String createdAt;
 
 	  public long getId() {
 	    return id;
@@ -25,7 +26,7 @@ public class TagContent {
 	  // Will be used by the ArrayAdapter in the ListView
 	  @Override
 	  public String toString() {
-	    return id+" - "+payload+" - "+ payloadHeader+" - "+ payloadType;
+	    return id+" - "+payload+" - "+ payloadHeader+" - "+ payloadType + " - " + createdAt ;
 	  }
 
 	public String getPayloadHeader() {
@@ -42,6 +43,14 @@ public class TagContent {
 
 	public void setPayloadType(String payloadType) {
 		this.payloadType = payloadType;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	} 

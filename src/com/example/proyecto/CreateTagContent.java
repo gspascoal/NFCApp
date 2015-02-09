@@ -725,7 +725,7 @@ public class CreateTagContent extends Activity implements
 		}
 		if (valid) {
 			if (editMode.equals("EDIT")) {
-				updateResult = datasource.updateById(contenId, payload, payloadHeaderDesc, payloadTypeDesc);
+				updateResult = datasource.updateContent(contenId, payload, payloadHeaderDesc, payloadTypeDesc);
 				Log.d("debug update",updateResult+"");
 				saved = true;
 				

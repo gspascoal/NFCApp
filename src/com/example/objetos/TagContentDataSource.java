@@ -4,30 +4,33 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-import com.example.proyecto.TagUIContent;
-
-import android.R.bool;
-import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.provider.SyncStateContract.Columns;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.proyecto.TagUIContent;
 
 public class TagContentDataSource {
 
 	// Database fields
 	private SQLiteDatabase database;
 	private MySQLiteHelper dbHelper;
-	private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
+	private String[] contentColumns = { MySQLiteHelper.COLUMN_ID,
 			MySQLiteHelper.COLUMN_PAYLOAD, MySQLiteHelper.COLUMN_PLHEADER,
-			MySQLiteHelper.COLUMN_PLTYPE };
+			MySQLiteHelper.COLUMN_PLTYPE, MySQLiteHelper.COLUMN_CREATED_AT };
+	private String[] tagColumns = { MySQLiteHelper.COLUMN_ID,
+			MySQLiteHelper.COLUMN_NAME };
 	private FileInputStream fileInputStream;
 	private FileOutputStream fileOutputStream;
 	private Context context;
@@ -40,6 +43,14 @@ public class TagContentDataSource {
 		// Log.d("debug DB", "DB name: "+dbHelper.);
 	}
 
+	private String getDateTime() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
+
+	// DATABASE methods
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
 		Log.d("debug", "DB path: " + database.getPath());
@@ -47,56 +58,6 @@ public class TagContentDataSource {
 
 	public void close() {
 		dbHelper.close();
-	}
-
-	public TagContent createContent(String payload, String plHeader,
-			String plType) {
-		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COLUMN_PAYLOAD, payload);
-		values.put(MySQLiteHelper.COLUMN_PLHEADER, plHeader);
-		values.put(MySQLiteHelper.COLUMN_PLTYPE, plType);
-		long insertId = database.insert(MySQLiteHelper.TABLE_COMMENTS, null,
-				values);
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
-				allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-				null, null, null);
-		cursor.moveToFirst();
-		TagContent newComment = cursorToComment(cursor);
-		cursor.close();
-		return newComment;
-	}
-
-	public void deleteComment(Long id) {
-		// long id = comment.getId();
-		System.out.println("Comment deleted with id: " + id);
-		database.delete(MySQLiteHelper.TABLE_COMMENTS, MySQLiteHelper.COLUMN_ID
-				+ " = " + id, null);
-	}
-
-	public List<TagContent> getAllComments() {
-		List<TagContent> comments = new ArrayList<TagContent>();
-
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
-				allColumns, null, null, null, null, null);
-
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			TagContent comment = cursorToComment(cursor);
-			comments.add(comment);
-			cursor.moveToNext();
-		}
-		// make sure to close the cursor
-		cursor.close();
-		return comments;
-	}
-
-	private TagContent cursorToComment(Cursor cursor) {
-		TagContent comment = new TagContent();
-		comment.setId(cursor.getLong(0));
-		comment.setPayload(cursor.getString(1));
-		comment.setPayloadHeader(cursor.getString(2));
-		comment.setPayloadType(cursor.getString(3));
-		return comment;
 	}
 
 	private void importDB() {
@@ -170,6 +131,59 @@ public class TagContentDataSource {
 		}
 	}
 
+	// TAG_CONTENT table methods
+	public TagContent createContent(String payload, String plHeader,
+			String plType) {
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_PAYLOAD, payload);
+		values.put(MySQLiteHelper.COLUMN_PLHEADER, plHeader);
+		values.put(MySQLiteHelper.COLUMN_PLTYPE, plType);
+		values.put(MySQLiteHelper.COLUMN_CREATED_AT, getDateTime());
+		long insertId = database.insert(MySQLiteHelper.TABLE_CONTENT, null,
+				values);
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				contentColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId,
+				null, null, null, null);
+		cursor.moveToFirst();
+		TagContent newComment = cursorToComment(cursor);
+		cursor.close();
+		return newComment;
+	}
+
+	public void deleteContent(Long id) {
+		// long id = comment.getId();
+		System.out.println("Comment deleted with id: " + id);
+		database.delete(MySQLiteHelper.TABLE_CONTENT, MySQLiteHelper.COLUMN_ID
+				+ " = " + id, null);
+	}
+
+	public List<TagContent> getAllComments() {
+		List<TagContent> comments = new ArrayList<TagContent>();
+
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				contentColumns, null, null, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			TagContent comment = cursorToComment(cursor);
+			comments.add(comment);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		return comments;
+	}
+
+	private TagContent cursorToComment(Cursor cursor) {
+		TagContent comment = new TagContent();
+		comment.setId(cursor.getLong(0));
+		comment.setPayload(cursor.getString(1));
+		comment.setPayloadHeader(cursor.getString(2));
+		comment.setPayloadType(cursor.getString(3));
+		comment.setCreatedAt(cursor.getString(4));
+		return comment;
+	}
+
 	public List<TagUIContent> getTagUIContents() {
 
 		List<TagContent> tagContents = this.getAllComments();
@@ -192,8 +206,8 @@ public class TagContentDataSource {
 	public TagContent getContentById(String id) {
 		TagContent nTagContent = null;
 		String[] argumentsString = { String.valueOf(id) };
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
-				allColumns, "_id=?", argumentsString, null, null, null);
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				contentColumns, "_id=?", argumentsString, null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
@@ -206,7 +220,8 @@ public class TagContentDataSource {
 		return nTagContent;
 	}
 
-	public int updateById(String id, String payload, String header, String type) {
+	public int updateContent(String id, String payload, String header,
+			String type) {
 
 		String whereClause = MySQLiteHelper.COLUMN_ID + "=?";
 		String[] whereArgs = { id };
@@ -215,7 +230,7 @@ public class TagContentDataSource {
 		values.put(MySQLiteHelper.COLUMN_PAYLOAD, payload);
 		values.put(MySQLiteHelper.COLUMN_PLHEADER, header);
 		values.put(MySQLiteHelper.COLUMN_PLTYPE, type);
-		int result = database.update(MySQLiteHelper.TABLE_COMMENTS, values,
+		int result = database.update(MySQLiteHelper.TABLE_CONTENT, values,
 				whereClause, whereArgs);
 
 		return result;
@@ -298,4 +313,85 @@ public class TagContentDataSource {
 		return tagUIContents;
 
 	}
+
+	// CONTENT_TAG table methods
+	public ContentTag createTag(String name) {
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_NAME, name);
+		long insertId = database.insert(MySQLiteHelper.TABLE_TAG, null, values);
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				tagColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+				null, null, null);
+		cursor.moveToFirst();
+		ContentTag newComment = cursorToTag(cursor);
+		cursor.close();
+		return newComment;
+	}
+
+	public void deleteTag(Long id) {
+		// long id = comment.getId();
+		System.out.println("Tag deleted with id: " + id);
+		database.delete(MySQLiteHelper.TABLE_TAG, MySQLiteHelper.COLUMN_ID
+				+ " = " + id, null);
+	}
+
+	private ContentTag cursorToTag(Cursor cursor) {
+		ContentTag comment = new ContentTag();
+		comment.setId(cursor.getLong(0));
+		comment.setName(cursor.getString(1));
+		return comment;
+	}
+
+	public int updateTag(String id, String name) {
+
+		String whereClause = MySQLiteHelper.COLUMN_ID + "=?";
+		String[] whereArgs = { id };
+
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_NAME, name);
+		int result = database.update(MySQLiteHelper.TABLE_TAG, values,
+				whereClause, whereArgs);
+
+		return result;
+
+	}
+
+	public List<ContentTag> getAllTags() {
+		List<ContentTag> tags = new ArrayList<ContentTag>();
+
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_TAG, tagColumns,
+				null, null, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			ContentTag tag = cursorToTag(cursor);
+			tags.add(tag);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		return tags;
+	}
+
+	public ContentTag getTagById(String id) {
+		ContentTag nTagContent = null;
+		String[] argumentsString = { String.valueOf(id) };
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				tagColumns, "_id=?", argumentsString, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			nTagContent = cursorToTag(cursor);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+
+		return nTagContent;
+	}
+
+	
+	// CONTENT_TAGS table methods
+	
+	
 }

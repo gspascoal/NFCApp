@@ -154,7 +154,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 									Log.d("deleting", "Item id: " + itemId);
 									Log.d("deleting", "Item row: " + i);
 									objects.remove(i);
-									datasource.deleteComment(itemId);
+									datasource.deleteContent(itemId);
 									notifyDataSetChanged();
 									Toast.makeText(getContext(),
 											"Item " + itemId + " deleted!",

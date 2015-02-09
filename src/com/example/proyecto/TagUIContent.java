@@ -105,7 +105,7 @@ public class TagUIContent extends RelativeLayout {
 		              switch (position) {
 					case 0:
 						Toast.makeText(getContext(), "Delete!", Toast.LENGTH_LONG).show();
-						datasource.deleteComment(Long.valueOf((String) getContentId().getText()));
+						datasource.deleteContent(Long.valueOf((String) getContentId().getText()));
 						
 						break;
 					case 1:
