@@ -86,6 +86,7 @@
     <string-array name="cOptions_array">
         <item>Eliminar</item>
         <item>Compartir</item>
+        <item>Añadir etiqueta</item>
     </string-array>
     <string-array name="kinds_array">
         <item>Link</item>

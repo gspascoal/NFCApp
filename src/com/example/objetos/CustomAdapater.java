@@ -2,14 +2,13 @@ package com.example.objetos;
 
 import java.util.List;
 
-import android.R;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -132,6 +131,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				optionDialog
 						.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+							private CustomDialog dialogAddTag;
+
 							@Override
 							public void onItemClick(AdapterView<?> parent,
 									final View view, int position, long id) {
@@ -139,7 +140,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 										.getItemAtPosition(position);
 
 								switch (position) {
-								case 0:
+								case 0: // Delete
 									int i = 0;
 									datasource.open();
 									while (i < objects.size()) {
@@ -160,13 +161,40 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 											"Item " + itemId + " deleted!",
 											Toast.LENGTH_LONG).show();
 									datasource.close();
+									dialog.dismiss();
 									break;
-								case 1:
+								case 1: // Share
 									Intent sendIntent = new Intent();
 									sendIntent.setAction(Intent.ACTION_SEND);
 									sendIntent.putExtra(Intent.EXTRA_TEXT, pLoad);
 									sendIntent.setType("text/plain");
 									getContext().startActivity(sendIntent);
+								break;
+								case 2: // Add Tag
+									AddTagLayout addTagLayout = new AddTagLayout(getContext());
+									addTagLayout.getNegative().setOnClickListener(new View.OnClickListener() {
+										
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											dialogAddTag.dismiss();
+										}
+									});
+									addTagLayout.getPositive().setOnClickListener(new View.OnClickListener() {
+										
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											dialogAddTag.dismiss();
+										}
+									});
+									dialogAddTag = new CustomDialog(getContext());
+									//dialogAddTag.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+									dialogAddTag.setTitle("Add tags");
+									dialogAddTag.setContentView(addTagLayout);
+									dialogAddTag.show();
+									
+									
 								break;
 
 								default:

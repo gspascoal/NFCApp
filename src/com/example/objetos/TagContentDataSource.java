@@ -15,6 +15,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.Tag;
 import android.os.Environment;
 import android.provider.SyncStateContract.Columns;
 import android.util.Log;
@@ -152,7 +153,7 @@ public class TagContentDataSource {
 
 	public void deleteContent(Long id) {
 		// long id = comment.getId();
-		System.out.println("Comment deleted with id: " + id);
+		System.out.println("Content deleted with id: " + id);
 		database.delete(MySQLiteHelper.TABLE_CONTENT, MySQLiteHelper.COLUMN_ID
 				+ " = " + id, null);
 	}
@@ -328,8 +329,19 @@ public class TagContentDataSource {
 		return newComment;
 	}
 
-	public void deleteTag(Long id) {
+	public void deleteTag(Long id, boolean deleteAll) {
 		// long id = comment.getId();
+		if (deleteAll) {
+			List<TagContent> contentsByTag = new ArrayList<TagContent>();
+
+			ContentTag nContentTag = getTagById(String.valueOf(id));
+			contentsByTag = getContentByTag(nContentTag.getName());
+
+			for (TagContent tagContent : contentsByTag) {
+				deleteContent(tagContent.getId());
+			}
+		}
+
 		System.out.println("Tag deleted with id: " + id);
 		database.delete(MySQLiteHelper.TABLE_TAG, MySQLiteHelper.COLUMN_ID
 				+ " = " + id, null);
@@ -390,8 +402,88 @@ public class TagContentDataSource {
 		return nTagContent;
 	}
 
-	
 	// CONTENT_TAGS table methods
-	
-	
+	public long assignTag(long cId, long tId) {
+
+		ContentValues values = new ContentValues();
+
+		values.put(MySQLiteHelper.COLUMN_CONTENT_ID, cId);
+		values.put(MySQLiteHelper.COLUMN_TAG_ID, tId);
+
+		long id = database.insert(MySQLiteHelper.TABLE_CONTENT_TAG, null,
+				values);
+
+		return id;
+	}
+
+	public List<TagContent> getContentByTag(String tagName) {
+		List<TagContent> contentsByTag = new ArrayList<TagContent>();
+		TagContent nTagContent = null;
+		String contentsByTags = "SELECT * " + "FROM "
+				+ MySQLiteHelper.TABLE_CONTENT + " c, "
+				+ MySQLiteHelper.TABLE_TAG + " t, "
+				+ MySQLiteHelper.TABLE_CONTENT_TAG + " ct " + "WHERE t."
+				+ MySQLiteHelper.COLUMN_NAME + " = " + tagName + " AND c."
+				+ MySQLiteHelper.COLUMN_ID + " = ct."
+				+ MySQLiteHelper.COLUMN_CONTENT_ID + " AND t."
+				+ MySQLiteHelper.COLUMN_ID + " = ct."
+				+ MySQLiteHelper.COLUMN_TAG_ID;
+
+		Log.d("debug getting by Tag", contentsByTags);
+		Cursor cursor = database.rawQuery(contentsByTags, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			nTagContent = cursorToComment(cursor);
+			contentsByTag.add(nTagContent);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+
+		return contentsByTag;
+	}
+
+	public int updateContentTag(long id, long tag_id) {
+
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_TAG_ID, tag_id);
+
+		// updating row
+		return database.update(MySQLiteHelper.TABLE_CONTENT_TAG, values,
+				MySQLiteHelper.COLUMN_ID + " = ?",
+				new String[] { String.valueOf(id) });
+	}
+
+	public void deleteContentTag(long id) {
+
+		database.delete(MySQLiteHelper.TABLE_CONTENT, MySQLiteHelper.COLUMN_ID
+				+ " = ?", new String[] { String.valueOf(id) });
+	}
+
+	public List<ContentTag> getTagsOfContent(String content_id) {
+		List<ContentTag> contentsByTag = new ArrayList<ContentTag>();
+		ContentTag nContentTag = null;
+		String contentsByTags = "SELECT * " + "FROM "
+				+ MySQLiteHelper.TABLE_CONTENT + " c, "
+				+ MySQLiteHelper.TABLE_TAG + " t, "
+				+ MySQLiteHelper.TABLE_CONTENT_TAG + " ct " + "WHERE c."
+				+ MySQLiteHelper.COLUMN_ID + " = " + content_id + " AND c."
+				+ MySQLiteHelper.COLUMN_ID + " = ct."
+				+ MySQLiteHelper.COLUMN_CONTENT_ID + " AND t."
+				+ MySQLiteHelper.COLUMN_ID + " = ct."
+				+ MySQLiteHelper.COLUMN_TAG_ID;
+
+		Log.d("debug getting Tags", contentsByTags);
+		Cursor cursor = database.rawQuery(contentsByTags, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			nContentTag = cursorToTag(cursor);
+			contentsByTag.add(nContentTag);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+
+		return contentsByTag;
+	}
 }

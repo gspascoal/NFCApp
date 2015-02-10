@@ -5,10 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class CustomDialog extends Dialog{
 	
 	private String activityName;
+	private Button positive, negative;
+	
 	public CustomDialog(Context context) {
 		super(context);
 		if (context instanceof Activity) {
@@ -17,7 +21,6 @@ public class CustomDialog extends Dialog{
 		activityName = this.getOwnerActivity().getLocalClassName();
 		Log.d("debug", "activity name?: "+this.getOwnerActivity().getLocalClassName());
 		setCanceledOnTouchOutside(false);
-		// TODO Auto-generated constructor stub
 	}
 	
 
@@ -44,5 +47,17 @@ public class CustomDialog extends Dialog{
 		
 		
 	}
+	
+	  public void setPositiveButton(String buttonText, View.OnClickListener listener) {
+	        positive.setText(buttonText);
+	        positive.setOnClickListener(listener);
+	        positive.setVisibility(View.VISIBLE);
+	    }
+
+	    public void setNegativeButton(String buttonText, View.OnClickListener listener) {
+	        negative.setText(buttonText);
+	        negative.setOnClickListener(listener);
+	        negative.setVisibility(View.VISIBLE);
+	    }
 
 }
