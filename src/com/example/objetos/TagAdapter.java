@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,7 +16,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FilterAdapter extends ArrayAdapter<FilterKind> {
+public class TagAdapter extends ArrayAdapter<FilterKind> {
 
 	private final Activity context;
 	private List<FilterKind> objects;
@@ -23,7 +24,7 @@ public class FilterAdapter extends ArrayAdapter<FilterKind> {
 	private String filters;
 	private int posCheck; 
 	
-	public FilterAdapter(Activity context, List<FilterKind> objects) {
+	public TagAdapter(Activity context, List<FilterKind> objects) {
 		super(context, com.example.proyecto.R.layout.filter_kind, objects);
 		// TODO Auto-generated constructor stub
 		this.context = context;

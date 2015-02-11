@@ -1,5 +1,6 @@
 package com.example.objetos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.objects = objects;
+		datasource = new TagContentDataSource(getContext());
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		}
 
 		final ViewHolder holder = (ViewHolder) rowView.getTag();
-
+		
 		// LayoutInflater inflater = (LayoutInflater)
 		// context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		//Log.d("debug list write", "views");
@@ -77,6 +79,16 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				.getContentDesc().getText());
 		holder.payloadContentId.setText(objects.get(position).getContentId()
 				.getText());
+		
+		/*
+		datasource.open();
+		List<ContentTag> tagList = datasource.getTagsOfContent(holder.payloadContentId.getText().toString());
+		for (ContentTag contentTag : tagList) {
+			contentTag.toString();
+		}
+		Log.d("debug tags", "");
+		datasource.close();
+		*/
 		
 		rowView.setOnClickListener(new View.OnClickListener() {
 
@@ -108,13 +120,13 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 			String pLoad = holder.payloadContent.getText().toString();
 			private ListView optionDialog;
 			private CustomDialog dialog;
-			private TagContentDataSource datasource;
+			//private TagContentDataSource datasource;
 
 			@Override
 			public boolean onLongClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				datasource = new TagContentDataSource(getContext());
+				
 				
 
 				//Log.d("debug extra ID", itemId.toString());
@@ -132,6 +144,9 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 						.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 							private CustomDialog dialogAddTag;
+							private FilterLayout filterLayout;
+							private List<FilterKind> filterList;
+							private TagAdapter filterListAdapter;
 
 							@Override
 							public void onItemClick(AdapterView<?> parent,
@@ -171,7 +186,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 									getContext().startActivity(sendIntent);
 								break;
 								case 2: // Add Tag
-									AddTagLayout addTagLayout = new AddTagLayout(getContext());
+									datasource.open();
+									final AddTagLayout addTagLayout = new AddTagLayout(getContext());
 									addTagLayout.getNegative().setOnClickListener(new View.OnClickListener() {
 										
 										@Override
@@ -185,15 +201,32 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 										@Override
 										public void onClick(View v) {
 											// TODO Auto-generated method stub
+											datasource.open();
+											if (addTagLayout.getAddTagField().getText().length() > 0) {
+												ContentTag nContentTag = datasource.createTag(addTagLayout.getAddTagField().getText().toString());
+												datasource.assignTag(itemId, nContentTag.getId());
+											}
+											else{}
+											datasource.close();
 											dialogAddTag.dismiss();
 										}
 									});
 									dialogAddTag = new CustomDialog(getContext());
+									List<FilterKind> filterList = getContentFilter();
+									if (filterList.size() != 0) {
+										filterListAdapter = new TagAdapter(context, filterList);
+										addTagLayout.getTagList().setAdapter(filterListAdapter);
+										addTagLayout.getTagList().setVisibility(View.VISIBLE);
+									}
+									else{
+										Log.d("debug tag list", "Empty List");
+									}
+									
 									//dialogAddTag.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 									dialogAddTag.setTitle("Add tags");
 									dialogAddTag.setContentView(addTagLayout);
 									dialogAddTag.show();
-									
+									datasource.close();
 									
 								break;
 
@@ -225,5 +258,23 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		public TextView payloadDescContent;
 		public ImageView payloadIconContent;
 		public TextView payloadContentId;
+	}
+	
+	public List<FilterKind> getContentFilter() {
+
+		
+		
+		List<ContentTag> kind = datasource.getAllTags();
+		List<FilterKind> contentFilters = new ArrayList<FilterKind>();
+		for (ContentTag contentTag : kind) {
+			FilterKind nContentFilter = new FilterKind(getContext());
+			nContentFilter.getContentDesc().setText(contentTag.getName());
+			nContentFilter.getContentId().setText(String.valueOf(contentTag.getId()));
+			nContentFilter.getContentCheck().setChecked(false);
+			//nContentFilter.setKindIcon(contentTag);
+			contentFilters.add(nContentFilter);
+		}
+		//datasource.close();
+		return contentFilters;
 	}
 }

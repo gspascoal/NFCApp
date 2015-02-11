@@ -320,7 +320,7 @@ public class TagContentDataSource {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_NAME, name);
 		long insertId = database.insert(MySQLiteHelper.TABLE_TAG, null, values);
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_TAG,
 				tagColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
 				null, null, null);
 		cursor.moveToFirst();

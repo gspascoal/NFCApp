@@ -12,6 +12,7 @@ public class CustomDialog extends Dialog{
 	
 	private String activityName;
 	private Button positive, negative;
+
 	
 	public CustomDialog(Context context) {
 		super(context);
