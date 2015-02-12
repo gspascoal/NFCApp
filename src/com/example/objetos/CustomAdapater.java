@@ -80,15 +80,16 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		holder.payloadContentId.setText(objects.get(position).getContentId()
 				.getText());
 		
-		/*
+		
 		datasource.open();
 		List<ContentTag> tagList = datasource.getTagsOfContent(holder.payloadContentId.getText().toString());
 		for (ContentTag contentTag : tagList) {
-			contentTag.toString();
+			Log.d("debug tags", contentTag.toString());
 		}
-		Log.d("debug tags", "");
+		
+		datasource.describeTable();
 		datasource.close();
-		*/
+		
 		
 		rowView.setOnClickListener(new View.OnClickListener() {
 
@@ -198,10 +199,25 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 									});
 									addTagLayout.getPositive().setOnClickListener(new View.OnClickListener() {
 										
+										private int selectedCount;
+
 										@Override
 										public void onClick(View v) {
 											// TODO Auto-generated method stub
+											
+											selectedCount = 0;
 											datasource.open();
+											for (int i = 0; i < filterListAdapter.getCount(); i++) {
+												if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
+													selectedCount ++;
+												}
+											}
+											
+											Log.d("debug select tag","selectedCount: "+selectedCount);
+											if(selectedCount != 0){
+												
+											}
+											
 											if (addTagLayout.getAddTagField().getText().length() > 0) {
 												ContentTag nContentTag = datasource.createTag(addTagLayout.getAddTagField().getText().toString());
 												datasource.assignTag(itemId, nContentTag.getId());
@@ -215,6 +231,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 									List<FilterKind> filterList = getContentFilter();
 									if (filterList.size() != 0) {
 										filterListAdapter = new TagAdapter(context, filterList);
+										filterListAdapter.setCurrentItemId(itemId);
 										addTagLayout.getTagList().setAdapter(filterListAdapter);
 										addTagLayout.getTagList().setVisibility(View.VISIBLE);
 									}

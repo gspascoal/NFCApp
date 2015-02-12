@@ -22,11 +22,13 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 	private List<FilterKind> objects;
 	private TagContentDataSource datasource;
 	private String filters;
-	private int posCheck; 
+	private int posCheck;
+	private long currentItemId;
 	
 	public TagAdapter(Activity context, List<FilterKind> objects) {
 		super(context, com.example.proyecto.R.layout.filter_kind, objects);
 		// TODO Auto-generated constructor stub
+		datasource = new TagContentDataSource(getContext());
 		this.context = context;
 		this.objects = objects;
 	}
@@ -100,6 +102,8 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 			@Override
 			public void onCheckedChanged(CompoundButton button, boolean isChecked) {
 				// TODO Auto-generated method stub
+				
+				datasource.open();
 				if(isChecked){
 					/*Log.d("debug onchekedchangelistener IF1", holder.contentDesc.getText().toString()+" Checked");
 					holder.contentCheck.setChecked(true);*/
@@ -108,6 +112,7 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 						if (filterKind.getContentDesc().getText().toString() == holder.contentDesc.getText().toString() ) {
 							filterKind.getContentCheck().setChecked(true);
 							Log.d("debug onchekedchangelistener IF", filterKind.getContentDesc().getText().toString()+" Checked");
+							datasource.assignTag(currentItemId, Long.valueOf(holder.contentId.getText().toString() ));
 						}
 					}
 				}
@@ -123,7 +128,9 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 					holder.contentCheck.setChecked(false);*/
 					//Log.d("debug onchekedchangelistener", "unChecked");
 				}
+				datasource.close();
 			}
+			
 		});
 		
 		/*
@@ -149,6 +156,14 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 		*/
 		
 		return rowView;
+	}
+
+	public long getCurrentItemId() {
+		return currentItemId;
+	}
+
+	public void setCurrentItemId(long currentItemId) {
+		this.currentItemId = currentItemId;
 	}
 
 	static class ViewHolder {

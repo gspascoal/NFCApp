@@ -56,9 +56,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	
 	private static final String CREATE_CONTENT_TAGS = "create table "
 			+ TABLE_CONTENT_TAG + " (" + COLUMN_ID + " integer primary key autoincrement, " 
-			+ COLUMN_CONTENT_ID+ " integer," 
-			+ COLUMN_TAG_ID + "integer "
-			+ ");";
+			+ COLUMN_CONTENT_ID+ " integer, " + COLUMN_TAG_ID + " integer "+ ");";
 	
 
 	public MySQLiteHelper(Context context) {

@@ -21,6 +21,7 @@ public class FilterKind extends RelativeLayout {
 	private CheckBox contentCheck;
 	private TextView contentDesc;
 	private TextView contentId;
+	private long currentItemId;
 	private Map<String, Integer> kindIcons =  new LinkedHashMap<String,Integer>();
 	
 	
@@ -97,5 +98,15 @@ public class FilterKind extends RelativeLayout {
 			Log.d("TagInfo", "It not contains");
 			contentIcon.setBackgroundResource(kindIcons.get("N/A"));
 		}
+	}
+
+
+	public long getCurrentItemId() {
+		return currentItemId;
+	}
+
+
+	public void setCurrentItemId(long currentItemId) {
+		this.currentItemId = currentItemId;
 	}
 }

@@ -486,4 +486,16 @@ public class TagContentDataSource {
 
 		return contentsByTag;
 	}
+	
+	public void describeTable(){
+		
+		String sqlString = "PRAGMA table_info("+MySQLiteHelper.TABLE_CONTENT_TAG+");";
+		Cursor cursor = database.rawQuery(sqlString, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Log.d("debug describe",cursor.getString(1));
+			cursor.moveToNext();
+		}
+		cursor.close();
+	}
 }
