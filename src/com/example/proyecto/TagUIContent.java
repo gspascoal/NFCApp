@@ -26,6 +26,7 @@ public class TagUIContent extends RelativeLayout {
 	private ImageView contentIcon;
 	private TextView payload;
 	private TextView contentDesc;
+	private TextView contentTags;
 	private TextView contentId;
 	private Context context;
 	private TagContentDataSource datasource;
@@ -53,7 +54,7 @@ public class TagUIContent extends RelativeLayout {
 		contentDesc = (TextView)findViewById(R.id.contentDescription);
 		contentIcon = (ImageView)findViewById(R.id.contentIcon);
 		contentId = (TextView)findViewById(R.id.contentId);
-		 
+		contentTags = (TextView)findViewById(R.id.contentTags); 
 		datasource = new TagContentDataSource(getContext());
 	    datasource.open();
 	    
@@ -179,6 +180,14 @@ public class TagUIContent extends RelativeLayout {
 			Log.d("TagInfo", "It not contains");
 			contentIcon.setBackgroundResource(PLTI.get("N/A"));
 		}
+	}
+
+	public TextView getContentTags() {
+		return contentTags;
+	}
+
+	public void setContentTags(TextView contentTags) {
+		this.contentTags = contentTags;
 	}
 	
 	

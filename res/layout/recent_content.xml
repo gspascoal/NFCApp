@@ -54,10 +54,12 @@
     <LinearLayout android:id="@+id/linearLayout1" android:layout_width="wrap_content" android:orientation="vertical"
         android:layout_height="wrap_content">
         <TextView android:layout_height="wrap_content" android:gravity="center_vertical" android:id="@+id/contentDescription"
-            android:layout_width="fill_parent" android:singleLine="true" android:text="Description"></TextView>
+            android:layout_width="fill_parent" android:singleLine="true" android:text="Description" android:textStyle="bold"></TextView>
         <TextView android:singleLine="true"  android:layout_height="wrap_content"
-            android:ellipsize="marquee" android:id="@+id/contentPayload" android:layout_width="fill_parent"></TextView>
+            android:ellipsize="marquee" android:id="@+id/contentPayload" android:layout_width="fill_parent" android:text="payload" android:textStyle="italic"></TextView>
         <TextView android:singleLine="true" android:layout_height="wrap_content"
-            android:ellipsize="marquee" android:id="@+id/contentId" android:layout_width="fill_parent" android:visibility="invisible"></TextView>
+            android:ellipsize="marquee" android:id="@+id/contentId" android:layout_width="fill_parent" android:visibility="gone"></TextView>
+        <TextView android:singleLine="true" android:layout_height="wrap_content"
+            android:ellipsize="marquee" android:id="@+id/contentTags" android:layout_width="fill_parent" android:visibility="gone" android:text="Tags: "></TextView>
     </LinearLayout>
 </LinearLayout>

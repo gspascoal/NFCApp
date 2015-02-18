@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.proyecto.MainActivity"
+    android:background="@android:color/white"
     tools:ignore="MergeRootFrame" >
 
     <Button
@@ -12,14 +13,14 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/button"
         android:layout_gravity="center"
         android:onClick="onClick"
         android:text="@string/read"
         android:layout_marginTop="50dp"
-        android:drawableLeft="@drawable/read_tag64" 
+        android:drawableLeft="@drawable/search71" 
         android:drawablePadding="10dp"
-         android:background="@android:color/holo_blue_light"
+         android:background="@drawable/button"
          android:padding="5dp"
         />
     
@@ -27,31 +28,32 @@
         android:id="@+id/write"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:gravity="right|center_vertical"
-        style="?android:attr/buttonStyleSmall"
+        android:gravity="left|center_vertical"
+        style="@style/button"
         android:text="@string/write" 
         android:onClick="onClick"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:drawableRight="@drawable/write_tag64"
+        android:drawableLeft="@drawable/pencil79"
         android:drawablePadding="10dp"
-        android:background="@android:color/holo_green_light"
+
+        android:background="@drawable/button"
         android:padding="5dp"
         />
     
     <Button
         android:id="@+id/my_tag"
         android:gravity="left|center_vertical"
-        style="?android:attr/buttonStyleSmall"  
+        style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/my_tags"
         android:onClick="onClick" 
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:drawableLeft="@drawable/tags_v264"
+        android:drawableLeft="@drawable/folder162"
         android:drawablePadding="10dp"
-         android:background="@android:color/holo_red_light"
+         android:background="@drawable/button"
          android:padding="5dp"
         />
     
@@ -59,15 +61,15 @@
         android:id="@+id/extras"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        style="?android:attr/buttonStyleSmall"
-        android:gravity="right|center_vertical"
+        style="@style/button"
+        android:gravity="left|center_vertical"
         android:text="@string/extras"
         android:onClick="onClick"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:drawableRight="@drawable/extras64"
+        android:drawableLeft="@drawable/star150"
         android:drawablePadding="10dp"
-        android:background="@android:color/holo_purple"
+        android:background="@drawable/button"
         android:padding="5dp"
          />
 

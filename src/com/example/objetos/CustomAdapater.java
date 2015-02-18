@@ -3,7 +3,11 @@ package com.example.objetos;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,13 +23,16 @@ import android.widget.Toast;
 
 import com.example.proyecto.CreateTagContent;
 import com.example.proyecto.CustomDialog;
+import com.example.proyecto.R;
 import com.example.proyecto.TagUIContent;
 
+@SuppressLint("NewApi")
 public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 	private final Activity context;
 	private List<TagUIContent> objects;
 	private TagContentDataSource datasource;
+	private CustomAdapater tAdapater;
 
 	public CustomAdapater(Activity context, List<TagUIContent> objects) {
 		super(context, com.example.proyecto.R.layout.recent_content, objects);
@@ -33,6 +40,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		this.context = context;
 		this.objects = objects;
 		datasource = new TagContentDataSource(getContext());
+		tAdapater = this;
+	
 	}
 
 	@Override
@@ -60,6 +69,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 					.findViewById(com.example.proyecto.R.id.contentDescription);
 			viewHolder.payloadContentId = (TextView) rowView
 					.findViewById(com.example.proyecto.R.id.contentId);
+			viewHolder.payloadContentTags = (TextView) rowView
+					.findViewById(com.example.proyecto.R.id.contentTags);
 			viewHolder.payloadIconContent = (ImageView) rowView
 					.findViewById(com.example.proyecto.R.id.contentIcon);
 			rowView.setTag(viewHolder);
@@ -77,6 +88,12 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				.getText());
 		holder.payloadDescContent.setText(objects.get(position)
 				.getContentDesc().getText());
+		holder.payloadContentTags.setText(objects.get(position)
+				.getContentTags().getText());
+		if (!holder.payloadContentTags.getText().toString().equalsIgnoreCase("Tags: ")) {
+			holder.payloadContentTags.setVisibility(View.VISIBLE);
+		}
+		
 		holder.payloadContentId.setText(objects.get(position).getContentId()
 				.getText());
 		
@@ -85,9 +102,10 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		List<ContentTag> tagList = datasource.getTagsOfContent(holder.payloadContentId.getText().toString());
 		for (ContentTag contentTag : tagList) {
 			Log.d("debug tags", contentTag.toString());
+			//holder.payloadContentTags.setText(objects.get(position).getContentTags().getText());
 		}
 		
-		datasource.describeTable();
+		//datasource.describeTable();
 		datasource.close();
 		
 		
@@ -127,9 +145,6 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 			public boolean onLongClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				
-				
-
 				//Log.d("debug extra ID", itemId.toString());
 				optionDialog = new ListView(getContext());
 				String[] cOptionsArrayStrings = getContext().getResources()
@@ -157,27 +172,54 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 								switch (position) {
 								case 0: // Delete
-									int i = 0;
-									datasource.open();
-									while (i < objects.size()) {
-										Log.d("deleting", "i value: " + i);
-										if (objects.get(i).getContentId()
-												.getText().toString()
-												.equals(itemId.toString())) {
-											break;
+									AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+									
+									alertDialog.setTitle(getContext().getResources().getString(R.string.cDelete_dialog_title)); //
+									
+									alertDialog.setMessage(getContext().getResources().getString(R.string.cDelete_dialog_msg)); 
+									
+									//getContext().getResources().getString(R.string.dialogOkButton)
+									alertDialog.setPositiveButton(getContext().getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialogC, int which) {
+											int i = 0;
+											datasource.open();
+											while (i < objects.size()) {
+												Log.d("deleting", "i value: " + i);
+												if (objects.get(i).getContentId()
+														.getText().toString()
+														.equals(itemId.toString())) {
+													break;
+												}
+												i++;
+											}
+											Log.d("deleting", "Item id: " + itemId);
+											Log.d("deleting", "Item row: " + i);
+											objects.remove(i);
+											datasource.deleteContent(itemId);
+											notifyDataSetChanged();
+											/*Toast.makeText(getContext(),
+													"Item " + itemId + " deleted!",
+													Toast.LENGTH_LONG).show();*/
+											datasource.close();
+											dialogC.dismiss();
+											dialog.dismiss();
+											
 										}
-										i++;
-									}
-									Log.d("deleting", "Item id: " + itemId);
-									Log.d("deleting", "Item row: " + i);
-									objects.remove(i);
-									datasource.deleteContent(itemId);
-									notifyDataSetChanged();
-									Toast.makeText(getContext(),
-											"Item " + itemId + " deleted!",
-											Toast.LENGTH_LONG).show();
-									datasource.close();
-									dialog.dismiss();
+									});
+									
+									alertDialog.setNegativeButton(getContext().getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											dialog.cancel();
+										}
+									});
+									
+									alertDialog.show();
+									
+									
 									break;
 								case 1: // Share
 									Intent sendIntent = new Intent();
@@ -189,46 +231,8 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 								case 2: // Add Tag
 									datasource.open();
 									final AddTagLayout addTagLayout = new AddTagLayout(getContext());
-									addTagLayout.getNegative().setOnClickListener(new View.OnClickListener() {
-										
-										@Override
-										public void onClick(View v) {
-											// TODO Auto-generated method stub
-											dialogAddTag.dismiss();
-										}
-									});
-									addTagLayout.getPositive().setOnClickListener(new View.OnClickListener() {
-										
-										private int selectedCount;
-
-										@Override
-										public void onClick(View v) {
-											// TODO Auto-generated method stub
-											
-											selectedCount = 0;
-											datasource.open();
-											for (int i = 0; i < filterListAdapter.getCount(); i++) {
-												if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
-													selectedCount ++;
-												}
-											}
-											
-											Log.d("debug select tag","selectedCount: "+selectedCount);
-											if(selectedCount != 0){
-												
-											}
-											
-											if (addTagLayout.getAddTagField().getText().length() > 0) {
-												ContentTag nContentTag = datasource.createTag(addTagLayout.getAddTagField().getText().toString());
-												datasource.assignTag(itemId, nContentTag.getId());
-											}
-											else{}
-											datasource.close();
-											dialogAddTag.dismiss();
-										}
-									});
 									dialogAddTag = new CustomDialog(getContext());
-									List<FilterKind> filterList = getContentFilter();
+									List<FilterKind> filterList = getContentFilter(String.valueOf(itemId));
 									if (filterList.size() != 0) {
 										filterListAdapter = new TagAdapter(context, filterList);
 										filterListAdapter.setCurrentItemId(itemId);
@@ -239,9 +243,62 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 										Log.d("debug tag list", "Empty List");
 									}
 									
+									
+									addTagLayout.getNegative().setOnClickListener(new View.OnClickListener() {
+										
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											dialogAddTag.dismiss();
+										}
+									});
+																		
+									addTagLayout.getPositive().setOnClickListener(new View.OnClickListener() {
+										
+										private int selectedCount;
+
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											
+											selectedCount = 0;
+											datasource.open();
+											/*
+											for (int i = 0; i < filterListAdapter.getCount(); i++) {
+												if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
+													selectedCount ++;
+												}
+											}
+											
+											Log.d("debug select tag","selectedCount: "+selectedCount);
+											if(selectedCount != 0){
+												
+											}*/
+											
+											if (addTagLayout.getAddTagField().getText().length() > 0) {
+												ContentTag nContentTag = datasource.createTag(addTagLayout.getAddTagField().getText().toString());
+												datasource.assignTag(itemId, nContentTag.getId());
+												//objects.clear();
+												//
+												notifyDataSetChanged();
+											}
+											else{}
+											objects.clear();
+											objects.addAll(datasource.getTagUIContents());
+											notifyDataSetChanged();
+											datasource.close();
+											
+											
+											dialogAddTag.dismiss();
+											
+										}
+									});
+									
+									//notifyDataSetChanged();
 									//dialogAddTag.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-									dialogAddTag.setTitle("Add tags");
+									dialogAddTag.setTitle(getContext().getResources().getString(R.string.tChoose_dialog_title));
 									dialogAddTag.setContentView(addTagLayout);
+									//tAdapater.notifyDataSetChanged();
 									dialogAddTag.show();
 									datasource.close();
 									
@@ -250,17 +307,16 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 								default:
 									break;
 								}
-								// notifyDataSetChanged();
+								//notifyDataSetChanged();
 								dialog.dismiss();
 							}
-
+							
 						});
 
 				dialog = new CustomDialog(getContext());
 				// dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-				dialog.setTitle("Options");
+				dialog.setTitle(getContext().getResources().getString(R.string.options));
 				dialog.setContentView(optionDialog);
-
 				dialog.show();
 				
 				return true;
@@ -275,20 +331,27 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		public TextView payloadDescContent;
 		public ImageView payloadIconContent;
 		public TextView payloadContentId;
+		public TextView payloadContentTags;
 	}
 	
-	public List<FilterKind> getContentFilter() {
+	public List<FilterKind> getContentFilter(String itemId) {
 
-		
-		
 		List<ContentTag> kind = datasource.getAllTags();
+		List<ContentTag> checkedContentTags = datasource.getTagsOfContent(itemId);
 		List<FilterKind> contentFilters = new ArrayList<FilterKind>();
 		for (ContentTag contentTag : kind) {
 			FilterKind nContentFilter = new FilterKind(getContext());
 			nContentFilter.getContentDesc().setText(contentTag.getName());
-			nContentFilter.getContentId().setText(String.valueOf(contentTag.getId()));
+			nContentFilter.getContentId().setText(String.valueOf(contentTag.getId()));			
 			nContentFilter.getContentCheck().setChecked(false);
-			//nContentFilter.setKindIcon(contentTag);
+			for (ContentTag contentTag2 : checkedContentTags) {
+				if (contentTag2.getId() == contentTag.getId()) {
+					nContentFilter.getContentCheck().setChecked(true);
+					Log.d("debug getContentFilterChecked -->", nContentFilter.getContentDesc().getText().toString() + " checked");
+				}
+
+			}			
+			nContentFilter.setKindIcon("Tag");
 			contentFilters.add(nContentFilter);
 		}
 		//datasource.close();

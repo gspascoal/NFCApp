@@ -3,6 +3,7 @@ package com.example.proyecto;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -20,10 +21,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.objetos.ContentTag;
 import com.example.objetos.CustomAdapater;
 import com.example.objetos.FilterAdapter;
 import com.example.objetos.FilterKind;
 import com.example.objetos.FilterLayout;
+import com.example.objetos.TagAdapter;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 
@@ -39,11 +42,19 @@ public class TagsMain extends ListActivity {
 	private FilterAdapter filterListAdapter;
 	private FilterLayout filterLayout;
 	private String[] selectedFilters = new String[6];
+	private ArrayList<String> selectedTagFilters;
 	private int selectedCount = 0;
 	private String fromSearch;
 	private Menu actionsMenu;
-	private boolean filtered = false;
+	private boolean filtered = false; // Filtered by type
+	private FilterLayout filterTagLayout;
+	private FilterAdapter filterTagListAdapter;
+	private int FilteredBy; // 1 - Type | 2 - Tag
+	private boolean tagfiltered = false; // Filtered by tag
+	private String dialogTitle;
+	private int TypeFilter; // Tag Filter On
 	
+	private int TagFilter ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,7 @@ public class TagsMain extends ListActivity {
 		setContentView(R.layout.activity_tags_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		selectedTagFilters = new ArrayList<String>();
 		datasource = new TagContentDataSource(this);
 		datasource.open();
 
@@ -145,18 +157,20 @@ public class TagsMain extends ListActivity {
 		}
 		if (id == R.id.action_filter) {
 
+			FilteredBy = 1;
+			TypeFilter = 1;
 			String filterText = "";
 			TextView filterTextView = (TextView) findViewById(R.id.action_filter);
 			List<FilterKind> filterList = getContentFilter();
 			Log.d("debug filters list size", filterList.size() + "");
 			Log.d("debug filterAdapter size", filterListAdapter.getCount() + "");
 			filterLayout = new FilterLayout(this);
-
+			dialogTitle = "Filter by type";
 			int selectedC = selectedCount;
 			Log.d("debug filter button", filterTextView.getText().toString());
-			
-			//filterTextView.getText().toString() == "ON"
-			if (filtered ) {
+
+			// filterTextView.getText().toString() == "ON"
+			if (filtered) {
 				/*
 				 * for (int k = 0; k < filterListAdapter.getCount();k++) {
 				 * Log.d("debug adapterselection before setadapter", "is "+
@@ -185,6 +199,7 @@ public class TagsMain extends ListActivity {
 										filterText.length() - 1));
 				filterLayout.getFilterTextView().setVisibility(View.VISIBLE);
 				filterLayout.getFilterButton().setText("Remove filter");
+				dialogTitle = "Filtered by type";
 			}
 
 			/*
@@ -207,7 +222,8 @@ public class TagsMain extends ListActivity {
 			// (ListView)findViewById(R.id.filterList);
 
 			dialog = new CustomDialog(this);
-			dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			dialog.setTitle(dialogTitle);
 			dialog.setContentView(filterLayout);
 			dialog.show();
 
@@ -217,6 +233,56 @@ public class TagsMain extends ListActivity {
 		if (id == R.id.action_search) {
 			// Get the SearchView and set the searchable configuration
 			onSearchRequested();
+		}
+
+		if (id == R.id.action_filterTag) {
+
+			FilteredBy = 2;
+			TagFilter = 1;
+			datasource.open();
+			String filterText = "";
+			TextView filterTextView = (TextView) findViewById(R.id.action_filterTag);
+			List<FilterKind> filterTagList = getContentTagFilter();
+			// Log.d("debug filters list size", filterList.size() + "");
+			// Log.d("debug filterAdapter size", filterListAdapter.getCount() +
+			// "");
+			filterTagLayout = new FilterLayout(this);
+			dialogTitle = "Filter by tag";
+			// int selectedC = selectedCount;
+			// Log.d("debug filter button",
+			// filterTextView.getText().toString());
+
+			// filterTextView.getText().toString() == "ON"
+			
+			  if (tagfiltered) {
+				  filterTagLayout.getFilterList().setVisibility(View.INVISIBLE);
+				  filterTagLayout.getFilterImageView().setBackgroundResource(R.drawable.filter_v3);
+				  filterTagLayout.getFilterImageView().setVisibility(View.VISIBLE);
+				  for (String filterKind : selectedTagFilters) { 
+					  if (filterKind != "" && filterKind != null) {
+					  filterText += filterKind + ","; 
+				  }
+					  dialogTitle = "Filtered by tag";
+			  } 
+				  
+			filterTagLayout.getFilterTextView().setText( "Filtered by: " + filterText.substring(0, filterText.length() - 1));
+			filterTagLayout.getFilterTextView().setVisibility(View.VISIBLE);
+			filterTagLayout.getFilterButton().setText("Remove filter"); }
+		
+			filterTagListAdapter = new FilterAdapter(this, filterTagList);
+			filterTagLayout.getFilterList().setAdapter(filterTagListAdapter);
+			filterTagListAdapter.notifyDataSetChanged();
+
+			// ListView filterListView =
+			// (ListView)findViewById(R.id.filterList);
+
+			dialog = new CustomDialog(this);
+			//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			dialog.setTitle(dialogTitle);
+			dialog.setContentView(filterTagLayout);
+			dialog.show();
+			datasource.close();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -257,87 +323,184 @@ public class TagsMain extends ListActivity {
 	public void onClick(View view) {
 
 		switch (view.getId()) {
-		case R.id.filterButton:
-			datasource.open();
-			selectedCount = 0;
-			boolean removeFilter = false;
-			TextView filterTextView = (TextView) findViewById(R.id.action_filter);
-			
-
-			String filters = "";
-			for (int i = 0; i < filterListAdapter.getCount(); i++) {
-				if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
-					selectedCount++;
-				}
-			}
-
-			int c = 0;
-			for (int i = 0; i < filterListAdapter.getCount(); i++) {
-				if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
-					filters += "'"
-							+ filterListAdapter.getItem(i).getContentDesc()
-									.getText() + "'";
-					selectedFilters[c] = filterListAdapter.getItem(i)
-							.getContentDesc().getText().toString();
-					Log.d("debug filters list ", selectedFilters[c]);
-
-					if (c < selectedCount - 1) {
-						filters += ",";
-						c++;
-					}
-				}
-
-			}
-
-			// Log.d("debug filters list ", filters);
-			// Log.d("debug filters list ",
-			// filterListAdapter.getItem(0).getContentCheck().isChecked()+ "");
-
-			if (filterLayout.getFilterButton().getText().toString().toString() == "Remove filter") {
-				filters = "";
-				for (int i = 0; i < selectedFilters.length; i++) {
-					selectedFilters[i] = "";
-				}
-				for (int j = 0; j < filterListAdapter.getCount(); j++) {
-					filterListAdapter.getItem(j).getContentCheck()
-							.setChecked(false);
-				}
-				removeFilter = true;
-			}
-			if (filters == "") {
-				removeFilter = true;
-			}
-
-			adapterAdapater.addAll(getFilteredList(removeFilter));
-			adapterAdapater.notifyDataSetChanged();
-
-			if (filters != "") {
-				
-				//filterTextView.setText("ON");
-				if (actionsMenu != null) {
-					Log.d("debug filters button ", "Menu found");
-					actionsMenu.getItem(1).setTitle("ON");
-					actionsMenu.getItem(1).setIcon(R.drawable.ic_action_filter_on);
-					filtered  = true;
-				}
-				//menuTags.findItem(R.id.action_filter);
-			}
-
-			dialog.dismiss();
-
-			if (filterLayout.getFilterButton().getText().toString().toString() == "Remove filter") {
-				//filterTextView.setText("Filter");
-				filterLayout.getFilterButton().setText("Filter");
-				selectedCount = 0;
-				filtered = false;
-				actionsMenu.getItem(1).setIcon(R.drawable.ic_action_filter_off);
-			}
-			datasource.close();
+			case R.id.filterButton:
+				datasource.open();
+				switch (FilteredBy) {
+					case 1:
+						selectedCount = 0;
+						boolean removeFilter = false;
+						TextView filterTextView = (TextView) findViewById(R.id.action_filter);
+		
+						String filters = "";
+						for (int i = 0; i < filterListAdapter.getCount(); i++) {
+							if (filterListAdapter.getItem(i).getContentCheck()
+									.isChecked()) {
+								selectedCount++;
+							}
+						}
+		
+						int c = 0;
+						for (int i = 0; i < filterListAdapter.getCount(); i++) {
+							if (filterListAdapter.getItem(i).getContentCheck()
+									.isChecked()) {
+								filters += "'"
+										+ filterListAdapter.getItem(i).getContentDesc()
+												.getText() + "'";
+								selectedFilters[c] = filterListAdapter.getItem(i)
+										.getContentDesc().getText().toString();
+								Log.d("debug filters list ", selectedFilters[c]);
+		
+								if (c < selectedCount - 1) {
+									filters += ",";
+									c++;
+								}
+							}
+		
+						}
+		
+						// Log.d("debug filters list ", filters);
+						// Log.d("debug filters list ",
+						// filterListAdapter.getItem(0).getContentCheck().isChecked()+
+						// "");
+		
+						if (filterLayout.getFilterButton().getText().toString()
+								.toString() == "Remove filter") {
+							filters = "";
+							for (int i = 0; i < selectedFilters.length; i++) {
+								selectedFilters[i] = "";
+							}
+							for (int j = 0; j < filterListAdapter.getCount(); j++) {
+								filterListAdapter.getItem(j).getContentCheck()
+										.setChecked(false);
+							}
+							removeFilter = true;
+						}
+						if (filters == "") {
+							removeFilter = true;
+						}
+						TypeFilter = 0;
+						adapterAdapater.addAll(getFilteredList(removeFilter));
+						adapterAdapater.notifyDataSetChanged();
+		
+						if (filters != "") {
+		
+							// filterTextView.setText("ON");
+							if (actionsMenu != null) {
+								Log.d("debug filters button ", "Menu found");
+								actionsMenu.findItem(R.id.action_filter).setTitle("ON");
+								actionsMenu.findItem(R.id.action_filter).setIcon(
+										R.drawable.ic_action_filter_on);
+								filtered = true;
+								TypeFilter = 1;
+							}
+							// menuTags.findItem(R.id.action_filter);
+						}
+		
+						dialog.dismiss();
+		
+						if (filterLayout.getFilterButton().getText().toString()
+								.toString() == "Remove filter") {
+							// filterTextView.setText("Filter");
+							filterLayout.getFilterButton().setText("Filter");
+							selectedCount = 0;
+							filtered = false;
+							
+							actionsMenu.findItem(R.id.action_filter).setIcon(
+									R.drawable.ic_action_filter_off);
+						}
+		
+						break; // END CASE FILTERED BY = 1
+					case 2:
+						selectedCount = 0;
+						boolean removeTagFilter = false;
+								
+						String tagfilters = "";
+						for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
+							if (filterTagListAdapter.getItem(i).getContentCheck()
+									.isChecked()) {
+								selectedCount++;
+							}
+						}
+		
+						int count = 0;
+						for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
+							if (filterTagListAdapter.getItem(i).getContentCheck()
+									.isChecked()) {
+								tagfilters += "'"
+										+ filterTagListAdapter.getItem(i).getContentDesc()
+												.getText() + "'";
+								selectedTagFilters.add(filterTagListAdapter.getItem(i).getContentDesc().getText().toString());
+								
+								Log.d("debug filters list ", selectedTagFilters.get(count).toString());
+		
+								if (count < selectedCount - 1) {
+									tagfilters += ",";
+									count++;
+								}
+							}
+		
+						}
+		
+						// Log.d("debug filters list ", filters);
+						// Log.d("debug filters list ",
+						// filterListAdapter.getItem(0).getContentCheck().isChecked()+
+						// "");
+		
+						if (filterTagLayout.getFilterButton().getText().toString()
+								.toString() == "Remove filter") {
+							tagfilters = "";
+							selectedTagFilters.clear();
+							for (int j = 0; j < filterTagListAdapter.getCount(); j++) {
+								filterTagListAdapter.getItem(j).getContentCheck()
+										.setChecked(false);
+							}
+							removeTagFilter = true;
+						}
+						if (tagfilters == "") {
+							removeTagFilter = true;
+						}
+						TagFilter = 0;
+						adapterAdapater.addAll(getFilteredList(removeTagFilter)); 
+						adapterAdapater.notifyDataSetChanged();
+		
+						if (tagfilters != "") {
+		
+							// filterTextView.setText("ON");
+							if (actionsMenu != null) {
+								//Log.d("debug filters button ", "Menu found");
+								actionsMenu.findItem(R.id.action_filterTag).setTitle("ON");
+								actionsMenu.findItem(R.id.action_filterTag).setIcon(R.drawable.ic_action_filter_on);
+								tagfiltered = true;
+								TagFilter = 1;
+							}
+							// menuTags.findItem(R.id.action_filter);
+						}
+		
+						dialog.dismiss();
+		
+						if (filterTagLayout.getFilterButton().getText().toString()
+								.toString() == "Remove filter") {
+							// filterTextView.setText("Filter");
+							filterTagLayout.getFilterButton().setText("Filter");
+							selectedCount = 0;
+							tagfiltered = false;
+							
+							
+							actionsMenu.findItem(R.id.action_filterTag).setIcon(R.drawable.ic_action_filter_tag);
+						}
+		
+								
+						
+						break; // END CASE FILTERED BY = 2
+				default:
+					break;
+				} // END SWITCH FILTERED BY
+				datasource.close();
 			break;
 
 		default:
 			break;
-		}
+		} // END SWITCH VIEW ID
 	}
 
 	/**
@@ -397,11 +560,31 @@ public class TagsMain extends ListActivity {
 		return contentFilters;
 	}
 
+	public List<FilterKind> getContentTagFilter() {
+
+		List<ContentTag> kind = datasource.getAllTags();
+		List<FilterKind> contentFilters = new ArrayList<FilterKind>();
+		for (ContentTag contentTag : kind) {
+			FilterKind nContentFilter = new FilterKind(this);
+			nContentFilter.getContentDesc().setText(contentTag.getName());
+			nContentFilter.getContentId().setText(
+					String.valueOf(contentTag.getId()));
+			nContentFilter.getContentCheck().setChecked(false);
+			nContentFilter.setKindIcon("Tag");
+			contentFilters.add(nContentFilter);
+		}
+		// datasource.close();
+		return contentFilters;
+	}
+
 	public List<TagUIContent> getFilteredList(Boolean rFilters) {
 
 		datasource.open();
-		Log.d("debug filters list NF ", "selectedFilters Size: "
-				+ selectedFilters.length);
+		/*Log.d("debug filters list NF ", "selectedFilters Size: "+ selectedFilters.length);
+		Log.d("debug filters list NF ", "selectedFilters Size: "+ selectedTagFilters.size());
+		Log.d("debug filters on", rFilters+" <-- rfilters");
+		Log.d("debug filters on","TF: "+TagFilter +" - TpF: "+TypeFilter);
+		Log.d("debug filters on","TF: "+tagfiltered +" - TpF: "+filtered);*/
 		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
 		int j;
 
@@ -409,30 +592,82 @@ public class TagsMain extends ListActivity {
 			if (fromSearch != null) {
 				tagUIContents = datasource.getContentbySearch(fromSearch);
 			} else {
-				tagUIContents = datasource.getTagUIContents();
+				adapterAdapater.clear();
+				adapterAdapater.addAll(datasource.getTagUIContents());
+				
+				if (TagFilter == 1) {
+					//Log.d("debug filters on", selectedTagFilters.size()+" <-- selectedTagFilters Size");
+					for (int i = 0; i < selectedTagFilters.size(); i++) {
+						j = 0;
+						int aas = adapterAdapater.getCount();
+						while (j < aas) {
+							if (adapterAdapater.getItem(j).getContentTags().getText().toString().contains(selectedTagFilters.get(i))) {
+								if (!tagUIContents.contains(adapterAdapater.getItem(j))) {
+									tagUIContents.add(adapterAdapater.getItem(j));
+								}
+							}
+							j++;
+						}
+					}
+				}
+				else if (TypeFilter == 1) {
+					for (int i = 0; i < selectedFilters.length; i++) {
+						j = 0;
+						while (j < adapterAdapater.getCount()) {
+							if (adapterAdapater.getItem(j).getContentDesc().getText()
+									.toString().equals(selectedFilters[i])) {
+								tagUIContents.add(adapterAdapater.getItem(j));
+							}
+							j++;
+						}
+					}
+				}
+				else{
+					tagUIContents = datasource.getTagUIContents();
+				}
+				
 			}
 
 		} else {
-			for (int i = 0; i < selectedFilters.length; i++) {
-				j = 0;
-				while (j < adapterAdapater.getCount()) {
-					Log.d("debug filters list NF ", adapterAdapater.getItem(j)
-							.getContentDesc().getText().toString()
-							+ " :: " + selectedFilters[i]);
-					if (adapterAdapater.getItem(j).getContentDesc().getText()
-							.toString().equals(selectedFilters[i])) {
-						tagUIContents.add(adapterAdapater.getItem(j));
+			if (FilteredBy == 1) {
+				for (int i = 0; i < selectedFilters.length; i++) {
+					j = 0;
+					while (j < adapterAdapater.getCount()) {
+						//Log.d("debug filters list NF ", adapterAdapater.getItem(j).getContentDesc().getText().toString()+ " :: " + selectedFilters[i]);
+						if (adapterAdapater.getItem(j).getContentDesc().getText()
+								.toString().equals(selectedFilters[i])) {
+							tagUIContents.add(adapterAdapater.getItem(j));
+						}
+						j++;
 					}
-					j++;
 				}
 			}
+			if (FilteredBy == 2) {
+				
+				for (int i = 0; i < selectedTagFilters.size(); i++) {
+					j = 0;
+					int aas = adapterAdapater.getCount();
+					while (j < aas) {
+						//Log.d("debug filters list AAS ", "adapterAdapter Size: "+ adapterAdapater.getCount());
+						//Log.d("debug filters list AAS ", adapterAdapater.getItem(j).getContentDesc().getText().toString()+ " :: " + selectedTagFilters.get(i).toString());
+						if (adapterAdapater.getItem(j).getContentTags().getText().toString().contains(selectedTagFilters.get(i))) {
+							if (!tagUIContents.contains(adapterAdapater.getItem(j))) {
+								tagUIContents.add(adapterAdapater.getItem(j));
+								//adapterAdapater.remove(adapterAdapater.getItem(j));
+							}
+							
+						}
+						j++;
+					}
+				}
+			}
+
 		}
 
-		Log.d("debug filters list NF ", "Size: " + tagUIContents.size());
+		//Log.d("debug filters list NF ", "Size: " + tagUIContents.size());
 		adapterAdapater.clear();
 		datasource.close();
 		return tagUIContents;
 	}
-	
-	
+
 }

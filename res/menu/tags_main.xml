@@ -17,9 +17,18 @@
         
         />
     
+    <item
+        android:id="@+id/action_filterTag"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="FilterbyTag"
+        android:icon="@drawable/ic_action_filter_tag"
+        
+        />
+    
     <item android:id="@+id/action_search"
           android:title="Search"
-          android:orderInCategory="98"
+          android:orderInCategory="97"
           android:icon="@android:drawable/ic_menu_search"
           android:showAsAction="always"
           android:actionViewClass="android.support.v7.widget.SearchView" />

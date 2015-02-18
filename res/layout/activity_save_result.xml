@@ -10,8 +10,11 @@
         android:id="@+id/saveResultLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:labelFor="@+id/saveResultText"
-        android:text="@string/resultLabel" />
+        android:text="@string/resultLabel" 
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/saveResultText"
@@ -19,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/saveResultLabel"
         android:layout_margin="5dp"
+        android:layout_marginLeft="15dp"
         android:text="@string/resultText" />
 
     <TextView
@@ -26,16 +30,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/saveResultText"
+        android:layout_margin="5dp"
         android:labelFor="@+id/savedContent"
-        android:text="@string/savedContentLabel" />
+        android:text="@string/savedContentLabel"
+        android:textStyle="bold"
+         />
 
-    <include 
+    <include
         android:id="@+id/savedContent"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:background="#469"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/savedContentLabel"
-        layout="@layout/recent_content"/>
+        android:layout_margin="5dp"
+        layout="@layout/recent_content"
+        android:background="#469" />
 
         <Button
             android:id="@+id/saveButton"

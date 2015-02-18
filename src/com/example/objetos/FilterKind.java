@@ -30,6 +30,7 @@ public class FilterKind extends RelativeLayout {
 		
 		
 		kindIcons.put("N/A", R.drawable.default32);
+		kindIcons.put("Tag", R.drawable.tag32);
 		kindIcons.put("Link", R.drawable.link32);
 		kindIcons.put("Secure Link", R.drawable.link32);
 		kindIcons.put("Telephone Number", R.drawable.tel32);

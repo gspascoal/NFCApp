@@ -7,8 +7,10 @@
     <string name="saveButton">Guardar</string>
     <string name="launchButton">Ejecutar</string>
     <string name="affirmation">Si</string>
+    <string name="accept">Aceptar</string>
     <string name="negation">No</string>
     <string name="emptyList">No hay elementos</string>
+    <string name="options">Opciones</string>
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -86,7 +88,7 @@
     <string-array name="cOptions_array">
         <item>Eliminar</item>
         <item>Compartir</item>
-        <item>Añadir etiqueta</item>
+        <item>Etiquetar</item>
     </string-array>
     <string-array name="kinds_array">
         <item>Link</item>
@@ -95,6 +97,10 @@
         <item>Telephone Number</item>
         <item>Geo Location</item>
         <item>Plain Text</item>
+    </string-array>
+    <string-array name="tOptions_array">
+        <item>Editar</item>
+        <item>Eliminar</item>
     </string-array>
 
     <!-- SavedContent activity strings -->
@@ -114,9 +120,9 @@
 
     <!-- Geo Location strings -->
     <string name="latitudeLabel">Latitud</string>
-    <string name="latitudeHint">Latitude</string>
+    <string name="latitudeHint">Latitud</string>
     <string name="longitudeLabel">Longitud</string>
-    <string name="longitudeHint">Longitude</string>
+    <string name="longitudeHint">Longitud</string>
     <string name="locationButton">Ubicación actual</string>
 
     <!-- Link strings -->
@@ -144,8 +150,19 @@
     <!-- Plain text strings -->
     <string name="textLabel">Texto plano</string>
     <string name="textHint">Escriba el texto</string>
-    <string name="title_activity_extras_main">ExtrasMain</string>
+   
+    <!-- Extras (Main) activity string -->
+    <string name="title_activity_extras_main">Extras</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_erase_tag">EraseTag</string>
+    <string name="title_activity_erase_tag">Borrar tag</string>
+    
+    <!-- Tag CRUD Strings -->
+    <string name="tDelete_dialog_title">Eliminar etiqueta</string>
+    <string name="tDelete_dialog_msg">¿Desea eliminar esta etiqueta?</string>
+    <string name="tEdit_dialog_title">Editar etiqueta</string>
+    <string name="tChoose_dialog_title">Elegir etiqueta</string>
 
+    <!-- Content CRUD strings -->
+    <string name="cDelete_dialog_title">Eliminar contenido</string>
+    <string name="cDelete_dialog_msg">¿Desea eliminar este contenido?</string>
 </resources>
