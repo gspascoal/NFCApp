@@ -13,7 +13,7 @@
 
     <EditText
         android:id="@+id/fieldReceiver"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/labelReceiver"
         android:layout_marginTop="18dp"
@@ -28,11 +28,11 @@
      <Button
         android:id="@+id/contactButton"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_toRightOf="@+id/fieldReceiver"
         android:layout_alignBottom="@+id/fieldReceiver"
-        android:text="C"
+        android:background="@drawable/contacts32"
         android:onClick="onClick"
          />
     
@@ -47,7 +47,7 @@
 
     <EditText
         android:id="@+id/fieldMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/labelMessage"
         android:layout_marginTop="18dp"

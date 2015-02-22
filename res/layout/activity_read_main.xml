@@ -2,7 +2,8 @@
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content"
+android:layout_height="fill_parent"
+android:background="#FFF"
     >    
 
     <RelativeLayout
@@ -21,7 +22,7 @@ android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="31dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:contentDescription="@string/cntnt_desc_tagicon"
         />
 
@@ -30,9 +31,9 @@ android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/payloadTypeIcon"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         android:paddingLeft="10dp"
-        android:text="Type"
+        android:textStyle="bold"
         android:visibility="invisible"
          />
     
@@ -49,15 +50,13 @@ android:layout_height="wrap_content"
 
     <Button
         android:id="@+id/launchButton"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/buttonSS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/content"
         android:layout_alignParentBottom="false"
         android:layout_marginLeft="12dp"
         android:layout_below="@+id/content"
-        android:drawableLeft="@drawable/launch16"
-        android:gravity="left|center_vertical"
         android:text="@string/launchButton"
         android:visibility="invisible" 
         android:layout_marginTop="15dp"
@@ -66,15 +65,13 @@ android:layout_height="wrap_content"
 
     <Button
         android:id="@+id/saveButton"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/buttonS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
         android:layout_marginLeft="35dp"
         android:layout_below="@+id/content"
         android:layout_toRightOf="@+id/launchButton"
-        android:drawableLeft="@drawable/save16"
-        android:gravity="left|center_vertical"
         android:text="@string/saveButton"
         android:visibility="invisible"
         android:layout_marginTop="15dp"
@@ -92,6 +89,7 @@ android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:textSize="16sp"
       	android:layout_centerHorizontal="true"
+      	android:textStyle="bold"
         />
     
     <LinearLayout 
@@ -101,6 +99,7 @@ android:layout_height="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/featuresText"
 	    android:layout_marginTop="15dp"
+	    android:background="#FFF"
      >
     
 	</LinearLayout>
@@ -116,6 +115,7 @@ android:layout_height="wrap_content"
         android:textSize="16sp"
       	android:layout_centerHorizontal="true"
       	android:text="@string/title_record_list"
+      	android:textStyle="bold"
         />
     
     <LinearLayout 
@@ -125,6 +125,7 @@ android:layout_height="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/recordText"
 	    android:layout_marginTop="15dp"
+	    android:background="#FFF"
      >
     
 	</LinearLayout>

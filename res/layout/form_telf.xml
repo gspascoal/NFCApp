@@ -26,12 +26,11 @@
     <Button
         android:id="@+id/contactButton"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/fieldPhone"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_alignBottom="@+id/fieldPhone"
-        android:text="C"
-        android:onClick="onClick"
-         />
+        android:layout_toRightOf="@+id/fieldPhone"
+        android:background="@drawable/contacts32"
+        android:onClick="onClick" />
     
 </RelativeLayout>

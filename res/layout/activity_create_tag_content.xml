@@ -26,7 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
-                android:text="@string/wSelectorText" 
+                android:text="@string/wSelectorText"
+                android:textSize="16sp" 
                 />
             
             <Spinner 
@@ -79,6 +80,7 @@
             	android:text="@string/saveButton"
             	android:layout_margin="10dp"
             	android:onClick="onClick"
+            	style="@style/buttonSS"
             />
             
             <Button 
@@ -88,6 +90,8 @@
             	android:text="@string/wSaveWriteButton"
             	android:layout_margin="10dp"
             	android:onClick="onClick"
+            	style="@style/buttonS"
+            	
             />
         </LinearLayout>
 </RelativeLayout>

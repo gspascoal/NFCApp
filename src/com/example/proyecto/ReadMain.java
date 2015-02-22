@@ -76,7 +76,7 @@ public class ReadMain extends Activity {
 		dialog.setContentView(R.layout.read_tag_dialog);
 		
 		datasource = new TagContentDataSource(this);
-	    datasource.open();
+	    //datasource.open();
 	    
 		dialog.show();
 		
@@ -148,6 +148,8 @@ public class ReadMain extends Activity {
 	    techListsArray = new String[][] { new String[] {  NfcA.class.getName() , 
 	    		Ndef.class.getName()}, 
 	    		{MifareUltralight.class.getName() } };
+	    
+	    
 		
 		/*
 		if (savedInstanceState == null) {
@@ -159,13 +161,13 @@ public class ReadMain extends Activity {
 	public void onPause() {
 	    super.onPause();
 	   myNfcAdapter.disableForegroundDispatch(this);
-	   datasource.open();
+	   //datasource.open();
 	}
 
 	public void onResume() {
 	    super.onResume();
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
-	   datasource.open();
+	   //datasource.open();
 	}
 
 	public void onNewIntent(Intent intent)
@@ -401,7 +403,7 @@ public class ReadMain extends Activity {
 	    TagContent content = null;
 	    switch (view.getId()) {
 		    case R.id.saveButton:
-		      
+		    	 datasource.open();
 		     /*FOR DEBUG ONLY - REMOVE ASAP	
 		      String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
 		      int nextInt = new Random().nextInt(3);
@@ -413,11 +415,18 @@ public class ReadMain extends Activity {
 		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 		      //status =  (TextView) findViewById(R.id.type);
 		      //status.setText(content.toString());
-		      List<TagContent> test = datasource.getAllComments();
+		     // List<TagContent> test = datasource.getAllComments();
 		      Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
-		      for (int i = 0; i < test.size(); i++) {
+		      /*for (int i = 0; i < test.size(); i++) {
 				Log.d("List element", "tag_content: " + test.get(i));
-			}
+			
+			}*/
+		      	Intent intent = new Intent(this, SaveResult.class);
+				intent.putExtra("CONTENT_ID", content.getId());
+				intent.putExtra("CONTENT_EDIT", "NEW");
+				startActivity(intent);
+		      
+		      
 	      //adapter.add(comment);
 	      //datasource.close();
 	      
@@ -444,7 +453,7 @@ public class ReadMain extends Activity {
 	      input.close();*/
 	      datasource.close();
 	      datasource.exportDB();
-	      datasource.open();
+	     
 	      break;
 	      
 		  case R.id.launchButton:
@@ -551,6 +560,13 @@ public class ReadMain extends Activity {
 		
 		return total;
 	} */
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		//this.finish();
+	}
 	
 	public Intent createIntent(Context context, String payload, String packageName){
 

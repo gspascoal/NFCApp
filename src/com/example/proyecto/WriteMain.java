@@ -9,6 +9,7 @@ import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -65,7 +66,8 @@ public class WriteMain extends Activity {
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
 		contentList = (ListView)findViewById(R.id.recentList);
-		
+		moreButton = (Button)findViewById(R.id.moreButton);
+    	writeFooter = (LinearLayout)findViewById(R.id.writeFooter);
 		/*
 		if (myNfcAdapter == null) {
 			status.setText("NFC isn't available for the device");
@@ -128,11 +130,12 @@ public class WriteMain extends Activity {
 	    Log.d("debug list write", ""+tagUIContents.size()+"");
 	    Collections.reverse(tagUIContents);
 	    
+	    if (tagUIContents.size() >= 5) {
+	    	writeFooter.setVisibility(View.VISIBLE);
+		}
+	    
 	    if (tagUIContents.size() >= 10) {
 	    	tagUIContents = tagUIContents.subList(0, 10);
-	    	moreButton = (Button)findViewById(R.id.moreButton);
-	    	writeFooter = (LinearLayout)findViewById(R.id.writeFooter);
-	    	writeFooter.setVisibility(View.VISIBLE);
 		}
 	    
 	    adapterAdapater = new CustomAdapater(this,tagUIContents);
@@ -160,21 +163,38 @@ public class WriteMain extends Activity {
 		}*/
 	    
 		
-	    //datasource.close();
+	    datasource.close();
 	}
 	
 	public void onPause() {
 	    super.onPause();
 	   myNfcAdapter.disableForegroundDispatch(this);
-	   datasource.open();
+	   //datasource.open();
 	}
 
 	public void onResume() {
 	    super.onResume();
+	    Log.d("debug resumed","activity resumed.");
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
 	   datasource.open();
+	   int size = datasource.getTagUIContents().size();
+	   if (size  < 5) {
+		   Log.d("debug resumed","activity resumed. Size: "+ size );
+		   writeFooter.setVisibility(View.GONE);
+	   }
+	   datasource.close();
 	}
-
+	
+	public void showButton() {
+		 datasource.open();
+		   int size = datasource.getTagUIContents().size();
+		   if (size  < 5) {
+			   Log.d("debug resumed","activity resumed. Size: "+ size );
+			   writeFooter.setVisibility(View.GONE);
+		   }
+		   datasource.close();
+	}
+	
 	private boolean writeNdefMessageToTag(NdefMessage message, Tag detectedTag) {
 		// TODO Auto-generated method stub
 		

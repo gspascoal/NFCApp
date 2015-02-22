@@ -75,6 +75,7 @@
 	    android:text="@string/doneButton"
 	    android:layout_centerHorizontal="true"
 	    android:onClick="onClick"
+	    style="@style/buttonS"
 	    />
    </RelativeLayout>
    

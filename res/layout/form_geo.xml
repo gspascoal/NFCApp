@@ -46,14 +46,12 @@
 
     <Button
         android:id="@+id/locationButton"
+        style="@style/buttonSSS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fieldLongitude"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/labelLongitude"
-        android:text="@string/locationButton" 
+        android:layout_centerHorizontal="true"
         android:onClick="onClick"
-        />
+        android:text="@string/locationButton" />
     
 </RelativeLayout>

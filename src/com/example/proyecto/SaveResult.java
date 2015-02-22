@@ -70,10 +70,12 @@ public class SaveResult extends Activity {
 					datasource.getAllComments().size() - 1);
 
 		}
-
+		
+		
+		
 		cIcon.setBackgroundResource(PLTI.get(nTagContent.getPayloadType()));
 		cDescription.setText(nTagContent.getPayloadType());
-		cPayload.setText(nTagContent.getPayload());
+		cPayload.setText(nTagContent.getPayloadHeader()+nTagContent.getPayload());
 		cId.setText(String.valueOf(nTagContent.getId()));
 
 		datasource.close();

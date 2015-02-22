@@ -14,7 +14,7 @@
 
     <EditText
         android:id="@+id/fieldBody"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/labelBody"
@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/labelBody"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/labelSubject"
         android:layout_below="@+id/fieldSubject"
@@ -41,32 +41,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldBody"
         android:layout_below="@+id/labelSubject"
-        android:layout_marginTop="18dp"
         android:layout_margin="15dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="@string/subjectHint"
         android:inputType="textEmailSubject" />
+
+    <EditText
+        android:id="@+id/fieldTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldBody"
+        android:layout_below="@+id/labelTo"
+        android:layout_margin="15dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="@string/mailHint"
+        android:inputType="textEmailAddress" 
+        
+        />
 
     <TextView
         android:id="@+id/labelSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/labelTo"
+        android:layout_alignLeft="@+id/fieldSubject"
         android:layout_below="@+id/fieldTo"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="19dp"
         android:text="@string/subjectLabel" />
-
-    <EditText
-        android:id="@+id/fieldTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/labelTo"
-        android:layout_marginTop="18dp"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="@string/mailHint"
-        android:inputType="textEmailAddress" />
 
 </RelativeLayout>

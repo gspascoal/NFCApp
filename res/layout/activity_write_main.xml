@@ -41,7 +41,7 @@
         android:orientation="vertical" >
 
         <Button
-            style="@style/button"
+            style="@style/buttonS"
             android:id="@+id/newContentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
         android:orientation="vertical"
-        android:visibility="invisible" >
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/moreButton"
@@ -105,7 +105,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
-            android:text="@string/showMoreButton" />
+            android:text="@string/showMoreButton" 
+            style="@style/buttonSS"
+            android:layout_margin="5dp"
+            />
     </LinearLayout>
 
 </RelativeLayout>

@@ -49,6 +49,23 @@ public class CustomDialog extends Dialog{
 		
 	}
 	
+	@Override
+	public void dismiss() {
+		// TODO Auto-generated method stub
+		super.dismiss();
+		if (activityName.equals("WriteMain")) {
+			WriteMain wMain = (WriteMain) getOwnerActivity();
+			if (wMain != null) {
+				Log.d("debug resumed","updating UI");
+				wMain.showButton();
+				
+			}
+			else{
+				Log.d("debug resumed"," HA HA");
+			}
+		}
+	}
+	
 	  public void setPositiveButton(String buttonText, View.OnClickListener listener) {
 	        positive.setText(buttonText);
 	        positive.setOnClickListener(listener);
