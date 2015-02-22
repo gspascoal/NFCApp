@@ -11,11 +11,14 @@
     <string name="negation">No</string>
     <string name="emptyList">No hay elementos</string>
     <string name="options">Opciones</string>
+    <string name="fupdate">Actualizar</string>
+    <string name="fwrite">Escribir</string>
+    
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
     <string name="write">Escribir etiqueta</string>
-    <string name="my_tags">Mis etiquetas</string>
+    <string name="my_tags">Mis contenidos</string>
     <string name="extras">Extras</string>
 
     <!-- Read(Main) activity strings -->
@@ -24,7 +27,7 @@
     <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo"</string>
     <string name="readIntentc">"Acerque una etiqueta NFC "</string>
     <string name="cntnt_desc_tagread">"Etiqueta y lupa"</string>
-    <string name="title_feature_list">"Carácteristicas"</string>
+    <string name="title_feature_list">"Carácteristicas de la etiqueta"</string>
     <string name="cntnt_desc_tagicon">"Icono del contenido"</string>
     <string name="readIntent_Empty">"Etiqueta vacia"</string>
 
@@ -58,6 +61,8 @@
     <string name="title_activity_create_tag_content">Crear nuevo contenido</string>
     <string name="wSaveWriteButton">Guardar y escribir</string>
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
+        <string name="plEmpty">Lista de números vacía</string>
+    <string name="plNumber">Has seleccionado a: </string>
 
     <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
@@ -78,7 +83,15 @@
     </string-array>
 
     <!-- Tags (Main) activity strings -->
-    <string name="title_activity_tags_main">Mis etiquetas</string>
+    <string name="title_activity_tags_main">Mis contenidos</string>
+    <string name="filterButton">Filtrar</string>
+    <string name="title_filterLabelOn">Filtrado por etiqueta</string>
+   <string name="title_filterLabelOff">Filtr por etiqueta</string>
+   <string name="title_filterTypeOn">Filtrar por tipo</string>
+   <string name="title_filterTypeOff">Filtrado por tipo</string>
+   <string name="removeFilterButton">Remover filtro</string>
+   <string name="filterBy">Filtrado por: </string>
+   
 
     <!-- Search widget strings -->
     <string name="search_hint">Contenido de la etiqueta</string>
@@ -161,8 +174,27 @@
     <string name="tDelete_dialog_msg">¿Desea eliminar esta etiqueta?</string>
     <string name="tEdit_dialog_title">Editar etiqueta</string>
     <string name="tChoose_dialog_title">Elegir etiqueta</string>
+    <string name="tagName">Etiquetas: </string>
 
     <!-- Content CRUD strings -->
     <string name="cDelete_dialog_title">Eliminar contenido</string>
     <string name="cDelete_dialog_msg">¿Desea eliminar este contenido?</string>
+    
+    <string name="nA">N/A</string>
+    <string name="link">Enlace</string>
+    <string name="slink">Enlace seguro</string>
+    <string name="tel">Número de télefono</string>
+    <string name="mail">Correo electrónico</string>
+    <string name="appLauncher">Lanzador de aplicación</string>
+    <string name="text">Texto</string>
+    <string name="smartPoster">Póster inteligente</string>
+    <string name="sign">Firma</string>
+    <string name="aar">Registro de Aplicación Android</string>
+    <string name="geoLoc">Ubicación geográfica</string>
+    <string name="plainText">Texto plano</string>
+    <string name="sms">SMS</string>
+    <string name="uri">URI</string>
+    <string name="bussinesCard">Tarjeta de negocios</string>
+    <string name="payloadsType">Tipo del contenido:</string>
+    
 </resources>

@@ -205,7 +205,7 @@ public class ReadMain extends Activity {
 	    		payloadTypeIcon.setBackgroundResource(tInfo.getTagRecords().get(0).getIconId());
 			    Type.setText(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 			    if (tInfo.getTagRecords().get(0).isWOP()) {
-			    	if (tInfo.getTagRecords().get(0).getRecordType().equalsIgnoreCase("Text")) {
+			    	if (tInfo.getTagRecords().get(0).getRecordType().equalsIgnoreCase(getResources().getString(R.string.text))) {
 						cntn = "("+tInfo.getTagRecords().get(0).getRecordLanguageCode().toUpperCase()+")";
 					}
 			    	cntn += tInfo.getTagRecords().get(0).getRecordPayload();

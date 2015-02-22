@@ -11,11 +11,13 @@
     <string name="negation">No</string>
 	 <string name="emptyList">There\'s no elements</string>
     <string name="options">Options</string>
+     <string name="fupdate">Update</string>
+    <string name="fwrite">Write</string>
     
     <!-- Main activity strings -->
     <string name="read">Read tag</string>
     <string name="write">Write tag</string>
-    <string name="my_tags">My tags</string>
+    <string name="my_tags">My contents</string>
     <string name="extras">Extras</string>
 
     <!-- Read(Main) activity strings -->
@@ -24,8 +26,8 @@
     <string name="readIntentb">"Reading will begin when you tap a NFC compatible item with the back of your device"</string>
     <string name="readIntentc">"Approach a NFC tag"</string>
     <string name="cntnt_desc_tagread">"Tag and magnifying glass"</string>
-    <string name="title_feature_list">"Features"</string>
-    <string name="cntnt_desc_tagicon">"Content's Icon"</string>
+    <string name="title_feature_list">"Tag\'s Features"</string>
+    <string name="cntnt_desc_tagicon">"Content\'s Icon"</string>
     <string name="readIntent_Empty">"Empty tag"</string>
 
     <!-- Write(Main) activity strings -->
@@ -45,7 +47,7 @@
     <string name="f_Storage_F">Free</string>
 
     <!-- Tag Records Strings -->
-    <string name="title_record_list">Records</string>
+    <string name="title_record_list">Tag\'s Records</string>
     <string name="r_number">Record #</string>
     <string name="r_TNF">TNF:</string>
     <string name="r_Type">Type:</string>
@@ -53,12 +55,21 @@
     <string name="r_Payload">Payload:</string>
 
     <!-- Tags (Main) activity strings -->
-    <string name="title_activity_tags_main">My tags</string>
+    <string name="title_activity_tags_main">My contents</string>
+     <string name="filterButton">Filter</string>
+     <string name="title_filterLabelOn">Filtered by label</string>
+   <string name="title_filterLabelOff">Filter by label</string>
+   <string name="title_filterTypeOn">Filtered by type</string>
+   <string name="title_filterTypeOff">Filter by type</string>
+   <string name="removeFilterButton">Remove filter</string>
+   <string name="filterBy">Filter by: </string>
     
     <!-- CreateTagContent (Main) activity strings -->
     <string name="title_activity_create_tag_content">Create tag content</string>
-    <string name="wSaveWriteButton">Save \'n write</string>
+    <string name="wSaveWriteButton">Save &amp; write</string>
      <string name="wSelectorText">Select the kind of content that you wish create</string>
+      <string name="plEmpty">Empty number list</string>
+    <string name="plNumber">You\'ve picked </string>
     
      <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transfer content</string>
@@ -67,23 +78,23 @@
      <string name="currentText">Current content</string>
 
     <!-- Search widget strings -->
-    <string name="search_hint">Contenido de la etiqueta</string>
-    <string name="search_label">Buscar</string>
+    <string name="search_hint">Tag\'s content</string>
+    <string name="search_label">Search</string>
 
     <!-- String arrays -->
     <string-array name="cOptions_array">
         <item>Delete</item>
         <item>Share</item>
-        <item>Tag</item>
+        <item>Label</item>
     </string-array>
 
     <string-array name="kinds_array">
-        <item>Link</item>
-        <item>Email</item>
-        <item>SMS</item>
-        <item>Telephone Number</item>
-        <item>Geo Location</item>
-        <item>Plain Text</item>
+        <item>@string/link</item>
+        <item>@string/mail</item>
+        <item>@string/sms</item>
+        <item>@string/tel</item>
+        <item>@string/geoLoc</item>
+        <item>@string/plainText</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Edit</item>
@@ -144,13 +155,31 @@
     <string name="title_activity_erase_tag">Erase tag</string>
     
     <!-- Tag CRUD Strings -->
-    <string name="tDelete_dialog_title">Delete tag</string>
-    <string name="tDelete_dialog_msg">Do you want to delete this tag?</string>
-    <string name="tEdit_dialog_title">Edit tag</string>
-    <string name="tChoose_dialog_title">Choose tag</string>
+    <string name="tDelete_dialog_title">Delete label</string>
+    <string name="tDelete_dialog_msg">Do you want to delete this label?</string>
+    <string name="tEdit_dialog_title">Edit label</string>
+    <string name="tChoose_dialog_title">Choose label</string>
+    <string name="tagName">Labels: </string>
 
     <!-- Content CRUD strings -->
     <string name="cDelete_dialog_title">Delete content</string>
     <string name="cDelete_dialog_msg">Do you want to delete this content?</string>
 
+    <string name="nA">N\/A</string>
+    <string name="link">Link</string>
+    <string name="slink">Secure Link</string>
+    <string name="tel">Telephone Number</string>
+    <string name="mail">Email</string>
+    <string name="appLauncher">App Launcher</string>
+    <string name="text">Text</string>
+    <string name="smartPoster">Smart Poster</string>
+    <string name="sign">Signature</string>
+    <string name="aar">Android Application record</string>
+    <string name="geoLoc">Geo Location</string>
+    <string name="plainText">Plain Text</string>
+    <string name="sms">SMS</string>
+    <string name="uri">URI</string>
+    <string name="bussinesCard">Bussines card</string>
+    <string name="payloadsType">Payload\'s type:</string>
+    
 </resources>

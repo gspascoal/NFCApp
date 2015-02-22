@@ -23,19 +23,21 @@ public class TagRecord extends RelativeLayout {
 	private TextView r_PLHeader; // Protocol
 	private TextView r_PLType;
 	private TextView r_Payload;
+	private Context context;
 	
 	public TagRecord(Context context) {
 		super(context);
+		this.context = context;
 		
-		recordIcon.put("N/A", R.drawable.default64);
-		recordIcon.put("Link", R.drawable.link64);
-		recordIcon.put("Secure Link", R.drawable.link64);
-		recordIcon.put("Telephone Number", R.drawable.tel64);
-		recordIcon.put("Email", R.drawable.mail64);
-		recordIcon.put("SMS", R.drawable.sms64);
-		recordIcon.put("Geo Location", R.drawable.geo64);
-		recordIcon.put("Business card", R.drawable.business_cardb24);
-		recordIcon.put("Plain Text", R.drawable.text64);
+		recordIcon.put(context.getResources().getString(R.string.nA), R.drawable.default64);
+		recordIcon.put(context.getResources().getString(R.string.link), R.drawable.link64);
+		recordIcon.put(context.getResources().getString(R.string.slink), R.drawable.link64);
+		recordIcon.put(context.getResources().getString(R.string.tel), R.drawable.tel64);
+		recordIcon.put(context.getResources().getString(R.string.mail), R.drawable.mail64);
+		recordIcon.put(context.getResources().getString(R.string.sms), R.drawable.sms64);
+		recordIcon.put(context.getResources().getString(R.string.geoLoc), R.drawable.geo64);
+		recordIcon.put(context.getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
+		recordIcon.put(context.getResources().getString(R.string.plainText), R.drawable.text64);
 		
 		// TODO Auto-generated constructor stub
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.tag_record,this);
@@ -129,7 +131,7 @@ public class TagRecord extends RelativeLayout {
 		
 		else {
 			Log.d("TagInfo", "It not contains");
-			r_Icon.setBackgroundResource(recordIcon.get("N/A"));
+			r_Icon.setBackgroundResource(recordIcon.get(context.getResources().getString(R.string.nA)));
 		}
 	}
 

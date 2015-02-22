@@ -60,6 +60,6 @@
         <TextView android:singleLine="true" android:layout_height="wrap_content"
             android:ellipsize="marquee" android:id="@+id/contentId" android:layout_width="fill_parent" android:visibility="gone"></TextView>
         <TextView android:singleLine="true" android:layout_height="wrap_content"
-            android:ellipsize="marquee" android:id="@+id/contentTags" android:layout_width="fill_parent" android:visibility="gone" android:text="Tags: "></TextView>
+            android:ellipsize="marquee" android:id="@+id/contentTags" android:layout_width="fill_parent" android:visibility="gone" android:text="@string/tagName"></TextView>
     </LinearLayout>
 </LinearLayout>

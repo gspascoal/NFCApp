@@ -60,7 +60,7 @@
 	        android:layout_height="26dip"
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
-	        android:text="Payload's type:"
+	        android:text="@string/payloadsType"
 	        android:textSize="12sp" />
 	       <TextView
 	        android:id="@+id/recordPayload"

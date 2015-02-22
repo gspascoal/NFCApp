@@ -36,12 +36,14 @@ public class TagInfo {
 	private ArrayList<TagFeature> tagFeatures = new ArrayList<TagFeature>();
 	private ArrayList<TagRecord> tagRecords = new ArrayList<TagRecord>();
 	private ArrayList<com.example.proyecto.TagRecord> tagUIRecords = new ArrayList<com.example.proyecto.TagRecord>();
+	private Context context;
 	
 	public TagInfo(Tag t, Intent intent, Context context){
 		
 		this.tag =  t;
 		this.ndef =  Ndef.get(tag);
 		this.mssgs = getNdefMessages(intent);
+		this.context = context;
 		setTagId();
 		setTagSize();
 		setInUse();
@@ -207,7 +209,7 @@ public class TagInfo {
 				 		//Log.d("TagInfo","inner loop. j: "+j);
 				 		NdefRecord record = mssgs[i].getRecords()[j];
 				 		//Log.d("TagInfo","Record check!");
-				 		TagRecord tRecord = new TagRecord(record, i);
+				 		TagRecord tRecord = new TagRecord(record, i,context);
 				 		//Log.d("TagInfo","tRecord check!");
 				 		tagRecords.add(tRecord);		 		
 				 	}
@@ -283,13 +285,13 @@ public class TagInfo {
 			tagRecord.getR_TNF().setText(tagRecord.getR_TNF().getText()+" "+tagRecords.get(i).getRecordTNFDesc());
 			tagRecord.getR_Type().setText(tagRecord.getR_Type().getText()+" "+tagRecords.get(i).getRecordType());
 			if (tagRecords.get(i).isWOP()) {
-				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+"none");
+				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+context.getResources().getString(R.string.nA));
 			}else {
 				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+tagRecords.get(i).getRecordPayloadHeaderDesc()); //Protocol
 			}
 			tagRecord.getR_PLType().setText(tagRecord.getR_PLType().getText()+" "+tagRecords.get(i).getRecordPayloadTypeDesc());
 			tagRecord.getR_Payload().setText(tagRecord.getR_Payload().getText()+" "+tagRecords.get(i).getRecordPayload());
-			tagRecord.setRecordIcon(i == 0 ? tagRecords.get(i).getRecordPayloadTypeDesc() : "N/A");
+			tagRecord.setRecordIcon(i == 0 ? tagRecords.get(i).getRecordPayloadTypeDesc() : context.getResources().getString(R.string.nA));
 			tagUIRecords.add(tagRecord);
 			tagRecord = new com.example.proyecto.TagRecord(context);
 		}

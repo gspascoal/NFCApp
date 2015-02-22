@@ -6,8 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.R.integer;
+import android.content.Context;
 import android.nfc.NdefRecord;
 import android.util.Log;
+
 
 
 
@@ -36,15 +38,17 @@ public class TagRecord {
 	private Integer iconId;
 	private boolean isWOP =  false;
 	private String recordLanguageCode = "";
+	private Context context;
 	
 	
 	
 
-	public TagRecord(NdefRecord r, int messsageId){
+	public TagRecord(NdefRecord r, int messsageId, Context context){
 		
+		this.context = context;
 		/*Initialize array of URI prefixes without protocol field*/
-		WOP.put("sms:","SMS");
-		WOP.put("geo:","Geo Location");	
+		WOP.put("sms:",context.getResources().getString(R.string.sms));
+		WOP.put("geo:",context.getResources().getString(R.string.geoLoc));	
 		
 		/*Initialize associative array of TNF values*/
 		TNFMap.put("0", "Empty");
@@ -57,22 +61,22 @@ public class TagRecord {
 		TNFMap.put("7", "Reserved");
 		
 		/*Initialize associative array of URI prefixes descriptions*/
-		URIPFXMap.put("0", "N/A");
-		URIPFXMap.put("1", "Link"); // http://www.
-		URIPFXMap.put("2", "Secure Link"); //https://www.
-		URIPFXMap.put("3", "Link"); // http://
-		URIPFXMap.put("4", "Secure Link"); //https://
-		URIPFXMap.put("5", "Telephone Number"); // tel: 
-		URIPFXMap.put("6", "Email"); // mailto:
-		URIPFXMap.put("66", "Business card");
-		URIPFXMap.put("99", "App launcher");
+		URIPFXMap.put("0", context.getResources().getString(R.string.nA));
+		URIPFXMap.put("1", context.getResources().getString(R.string.link)); // http://www.
+		URIPFXMap.put("2", context.getResources().getString(R.string.slink)); //https://www.
+		URIPFXMap.put("3", context.getResources().getString(R.string.link)); // http://
+		URIPFXMap.put("4", context.getResources().getString(R.string.slink)); //https://
+		URIPFXMap.put("5", context.getResources().getString(R.string.tel)); // tel: 
+		URIPFXMap.put("6", context.getResources().getString(R.string.mail)); // mailto:
+		URIPFXMap.put("66", context.getResources().getString(R.string.bussinesCard));
+		URIPFXMap.put("99", context.getResources().getString(R.string.appLauncher));
 		
 		/*Initialize associative array of record's types*/
-		NRTD.put("U", "URI");
-		NRTD.put("T", "Text");
-		NRTD.put("Sp", "Smart poster");
-		NRTD.put("Sig", "Signature");
-		NRTD.put("android.com:pkg", "Android Aplication record");
+		NRTD.put("U", context.getResources().getString(R.string.uri));
+		NRTD.put("T", context.getResources().getString(R.string.text));
+		NRTD.put("Sp", context.getResources().getString(R.string.smartPoster));
+		NRTD.put("Sig", context.getResources().getString(R.string.sign));
+		NRTD.put("android.com:pkg", context.getResources().getString(R.string.aar));
 		
 		/*Initialize associative array of URI prefixes values*/
 		//PLH.put("0", "N/A");
@@ -82,21 +86,21 @@ public class TagRecord {
 		PLH.put("4", "https://");
 		PLH.put("5", "tel:"); 
 		PLH.put("6", "mailto:");
-		PLH.put("66", "Bussiness card");
-		PLH.put("99", "App launcher");
+		PLH.put("66", context.getResources().getString(R.string.bussinesCard));
+		PLH.put("99", context.getResources().getString(R.string.appLauncher));
 		
 		
 		/*Initialize associative array of URI prefixes icons id*/
 		
-		PLTI.put("N/A", R.drawable.default64);
-		PLTI.put("Link", R.drawable.link64);
-		PLTI.put("Secure Link", R.drawable.link64);
-		PLTI.put("Telephone Number", R.drawable.tel64);
-		PLTI.put("Email", R.drawable.mail64);
-		PLTI.put("SMS", R.drawable.sms64);
-		PLTI.put("Geo Location", R.drawable.geo64);
-		PLTI.put("Business card", R.drawable.business_cardb24);
-		PLTI.put("Plain Text", R.drawable.text64);
+		PLTI.put(context.getResources().getString(R.string.nA), R.drawable.default64);
+		PLTI.put(context.getResources().getString(R.string.link), R.drawable.link64);
+		PLTI.put(context.getResources().getString(R.string.slink), R.drawable.link64);
+		PLTI.put(context.getResources().getString(R.string.tel), R.drawable.tel64);
+		PLTI.put(context.getResources().getString(R.string.mail), R.drawable.mail64);
+		PLTI.put(context.getResources().getString(R.string.sms), R.drawable.sms64);
+		PLTI.put(context.getResources().getString(R.string.geoLoc), R.drawable.geo64);
+		PLTI.put(context.getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
+		PLTI.put(context.getResources().getString(R.string.plainText), R.drawable.text64);
 
 		this.record = r;
 		
@@ -156,13 +160,13 @@ public class TagRecord {
 		try {
 			Log.d("debug", "RAW payload: "+ new String(record.getPayload(), 0, record.getPayload().length, Charset.forName("UTF-8")));
 			//Log.d("debug", "Record's type: " + recordType );
-			if (recordType.equalsIgnoreCase("Android Aplication record")) {
+			if (recordType.equalsIgnoreCase(context.getResources().getString(R.string.aar))) {
 				//Log.d("debug","Is an AAR");
 				payload = new String(record.getPayload(), 0, record.getPayload().length, Charset.forName("UTF-8"));
 				payloadHeader = record.getPayload()[0];
 			} else 
 			{
-				if (recordType.equalsIgnoreCase("Text")) {
+				if (recordType.equalsIgnoreCase(context.getResources().getString(R.string.text))) {
 					int statusByte=record.getPayload()[0];
 					int languageCodeLength = statusByte & 0x3F;
 					Log.d("text debug","Language Code Length:" + languageCodeLength+"\n");
@@ -213,8 +217,8 @@ public class TagRecord {
 		if(getRecordTNF() != 0){
 			
 			if (getRecordPayloadheader() == 0) {
-				if (recordType.equalsIgnoreCase("Text")) {
-					this.recordPayloadTypeDesc = "Plain Text";
+				if (recordType.equalsIgnoreCase(context.getResources().getString(R.string.text))) {
+					this.recordPayloadTypeDesc = context.getResources().getString(R.string.plainText);
 				}
 				while (i < wopArray.length) {
 					if (getRecordPayload().contains((String)wopArray[i])) {
@@ -231,7 +235,7 @@ public class TagRecord {
 				
 				else {
 					Log.d("TagInfo", "It not contains");
-					this.recordPayloadTypeDesc = "N/A";
+					this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);
 				}
 				
 			}
@@ -240,7 +244,7 @@ public class TagRecord {
 		}
 		else {
 			Log.d("TagInfo", "It not contains");
-			this.recordPayloadTypeDesc = "N/A";
+			this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);;
 		}
 		
 		
@@ -261,7 +265,7 @@ public class TagRecord {
 		}
 		
 		else {
-			this.recordTNFDesc = "N/A";
+			this.recordTNFDesc = context.getResources().getString(R.string.nA);
 		}
 	}
 
@@ -283,8 +287,8 @@ public class TagRecord {
 		Object[] wopArray  = WOP.keySet().toArray();
 		
 		if (getRecordPayloadheader() == 0) {
-			if (recordType.equalsIgnoreCase("Text")) {
-				this.recordPayloadHeaderDesc = "Plain text";
+			if (recordType.equalsIgnoreCase(context.getResources().getString(R.string.text))) {
+				this.recordPayloadHeaderDesc = context.getResources().getString(R.string.plainText);
 				this.setWOP(true);
 			}
 
@@ -303,7 +307,7 @@ public class TagRecord {
 			}
 			else {
 				Log.d("TagInfo", "It not contains");
-				this.recordPayloadHeaderDesc = "N/A";
+				this.recordPayloadHeaderDesc = context.getResources().getString(R.string.nA);
 			}
 		}
 
@@ -322,7 +326,7 @@ public class TagRecord {
 		
 		else {
 			Log.d("TagInfo", "It not contains");
-			this.iconId =PLTI.get("N/A");
+			this.iconId =PLTI.get(context.getResources().getString(R.string.nA));
 		}
 	}
 

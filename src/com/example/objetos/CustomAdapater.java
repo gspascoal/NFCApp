@@ -90,7 +90,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				.getContentDesc().getText());
 		holder.payloadContentTags.setText(objects.get(position)
 				.getContentTags().getText());
-		if (!holder.payloadContentTags.getText().toString().equalsIgnoreCase("Tags: ")) {
+		if (!holder.payloadContentTags.getText().toString().equalsIgnoreCase(getContext().getResources().getString(R.string.tagName))) {
 			holder.payloadContentTags.setVisibility(View.VISIBLE);
 		}
 		

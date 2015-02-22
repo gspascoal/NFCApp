@@ -165,7 +165,7 @@ public class TagsMain extends ListActivity {
 			Log.d("debug filters list size", filterList.size() + "");
 			Log.d("debug filterAdapter size", filterListAdapter.getCount() + "");
 			filterLayout = new FilterLayout(this);
-			dialogTitle = "Filter by type";
+			dialogTitle = getResources().getString(R.string.title_filterTypeOff);
 			int selectedC = selectedCount;
 			Log.d("debug filter button", filterTextView.getText().toString());
 
@@ -193,13 +193,12 @@ public class TagsMain extends ListActivity {
 					}
 
 				}
-				filterLayout.getFilterTextView().setText(
-						"Filtered by: "
+				filterLayout.getFilterTextView().setText(getResources().getString(R.string.filterBy)
 								+ filterText.substring(0,
 										filterText.length() - 1));
 				filterLayout.getFilterTextView().setVisibility(View.VISIBLE);
-				filterLayout.getFilterButton().setText("Remove filter");
-				dialogTitle = "Filtered by type";
+				filterLayout.getFilterButton().setText(getResources().getString(R.string.removeFilterButton));
+				dialogTitle = getResources().getString(R.string.title_filterTypeOn);
 			}
 
 			/*
@@ -247,7 +246,7 @@ public class TagsMain extends ListActivity {
 			// Log.d("debug filterAdapter size", filterListAdapter.getCount() +
 			// "");
 			filterTagLayout = new FilterLayout(this);
-			dialogTitle = "Filter by tag";
+			dialogTitle = getResources().getString(R.string.title_filterLabelOff);
 			// int selectedC = selectedCount;
 			// Log.d("debug filter button",
 			// filterTextView.getText().toString());
@@ -262,12 +261,12 @@ public class TagsMain extends ListActivity {
 					  if (filterKind != "" && filterKind != null) {
 					  filterText += filterKind + ","; 
 				  }
-					  dialogTitle = "Filtered by tag";
+					  dialogTitle = getResources().getString(R.string.title_filterLabelOn);
 			  } 
 				  
-			filterTagLayout.getFilterTextView().setText( "Filtered by: " + filterText.substring(0, filterText.length() - 1));
+			filterTagLayout.getFilterTextView().setText( getResources().getString(R.string.filterBy) + filterText.substring(0, filterText.length() - 1));
 			filterTagLayout.getFilterTextView().setVisibility(View.VISIBLE);
-			filterTagLayout.getFilterButton().setText("Remove filter"); }
+			filterTagLayout.getFilterButton().setText(getResources().getString(R.string.removeFilterButton)); }
 		
 			filterTagListAdapter = new FilterAdapter(this, filterTagList);
 			filterTagLayout.getFilterList().setAdapter(filterTagListAdapter);
@@ -364,7 +363,7 @@ public class TagsMain extends ListActivity {
 						// "");
 		
 						if (filterLayout.getFilterButton().getText().toString()
-								.toString() == "Remove filter") {
+								.toString() == getResources().getString(R.string.removeFilterButton)) {
 							filters = "";
 							for (int i = 0; i < selectedFilters.length; i++) {
 								selectedFilters[i] = "";
@@ -399,7 +398,7 @@ public class TagsMain extends ListActivity {
 						dialog.dismiss();
 		
 						if (filterLayout.getFilterButton().getText().toString()
-								.toString() == "Remove filter") {
+								.toString() == getResources().getString(R.string.removeFilterButton)) {
 							// filterTextView.setText("Filter");
 							filterLayout.getFilterButton().setText("Filter");
 							selectedCount = 0;
@@ -447,7 +446,7 @@ public class TagsMain extends ListActivity {
 						// "");
 		
 						if (filterTagLayout.getFilterButton().getText().toString()
-								.toString() == "Remove filter") {
+								.toString() == getResources().getString(R.string.removeFilterButton)) {
 							tagfilters = "";
 							selectedTagFilters.clear();
 							for (int j = 0; j < filterTagListAdapter.getCount(); j++) {
@@ -479,7 +478,7 @@ public class TagsMain extends ListActivity {
 						dialog.dismiss();
 		
 						if (filterTagLayout.getFilterButton().getText().toString()
-								.toString() == "Remove filter") {
+								.toString() == getResources().getString(R.string.removeFilterButton)) {
 							// filterTextView.setText("Filter");
 							filterTagLayout.getFilterButton().setText("Filter");
 							selectedCount = 0;

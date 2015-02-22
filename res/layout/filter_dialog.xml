@@ -36,6 +36,7 @@
         android:lines="3"
         android:visibility="invisible" 
         android:textAlignment="center"
+        android:textSize="14sp"
         />
      
     </RelativeLayout>
@@ -49,7 +50,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
         android:orientation="vertical"
-        android:layout_below="@+id/filterH"
+        
          >
          
         
@@ -61,7 +62,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
             android:onClick="onClick"
-            android:text="Filter" />
+            style="@style/buttonS"
+            android:text="@string/filterButton" />
 
     </LinearLayout>
 

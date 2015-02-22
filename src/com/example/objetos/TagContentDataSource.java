@@ -21,6 +21,7 @@ import android.os.Environment;
 import android.provider.SyncStateContract.Columns;
 import android.util.Log;
 
+import com.example.proyecto.R;
 import com.example.proyecto.TagUIContent;
 
 public class TagContentDataSource {
@@ -201,7 +202,7 @@ public class TagContentDataSource {
 			nTagUIContent.getContentTags().setText("");
 			if (getTagsOfContent(String.valueOf(tagContent.getId())).size() > 0) {
 				int i = 0;
-				nTagUIContent.getContentTags().setText("Tags: ");
+				nTagUIContent.getContentTags().setText(context.getResources().getString(R.string.tagName));
 				List<ContentTag> contentTags = getTagsOfContent(String.valueOf(tagContent.getId()));
 				for (ContentTag content : contentTags) {
 					nTagUIContent.getContentTags().append(content.getName());

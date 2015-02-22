@@ -79,6 +79,7 @@ public class CreateTagContent extends Activity implements
 	private GPSTracker gps;
 	private String editMode = "NEW";
 	private String contenId;
+	private int currentPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +125,8 @@ public class CreateTagContent extends Activity implements
 			
 			editMode =  getIntent().getStringExtra("CONTENT_EDIT");
 			Log.d("debug edit",editMode);
-			wsaveButton.setText("Update");
-			wsaveWriteButton.setText("Write");
+			wsaveButton.setText(getResources().getString(R.string.fupdate));
+			wsaveWriteButton.setText(getResources().getString(R.string.fwrite));
 		}
 		
 		kindSelector = (Spinner) findViewById(R.id.kindSelector);
@@ -327,6 +328,7 @@ public class CreateTagContent extends Activity implements
 			long id) {
 		// TODO Auto-generated method stub
 		String kind = parent.getItemAtPosition(position).toString();
+		currentPosition = position;
 		currentSelection = kind;
 		Log.d("debug", "item selected: " + kind);
 		int layoutId = LNI.get(kind);
@@ -499,10 +501,10 @@ public class CreateTagContent extends Activity implements
 					dialog.show();
 
 					Log.d("debug", "Name: " + contactname);
-					Toast.makeText(this, "You've picked " + contactname,
+					Toast.makeText(this, getResources().getString(R.string.plNumber) + contactname,
 							Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(this, "Empty", Toast.LENGTH_LONG).show();
+					Toast.makeText(this, getResources().getString(R.string.plEmpty), Toast.LENGTH_LONG).show();
 				}
 
 				c.close();
