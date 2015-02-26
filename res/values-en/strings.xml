@@ -95,6 +95,7 @@
         <item>@string/tel</item>
         <item>@string/geoLoc</item>
         <item>@string/plainText</item>
+        <item>@string/thesis</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Edit</item>
@@ -177,6 +178,7 @@
     <string name="aar">Android Application record</string>
     <string name="geoLoc">Geo Location</string>
     <string name="plainText">Plain Text</string>
+    <string name="thesis">Thesis</string>
     <string name="sms">SMS</string>
     <string name="uri">URI</string>
     <string name="bussinesCard">Bussines card</string>

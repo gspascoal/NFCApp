@@ -110,6 +110,7 @@
         <item>Telephone Number</item>
         <item>Geo Location</item>
         <item>Plain Text</item>
+         <item>Thesis</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Editar</item>

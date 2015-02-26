@@ -1,13 +1,28 @@
 package com.example.proyecto;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +31,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +40,6 @@ import com.example.objetos.CustomAdapater;
 import com.example.objetos.FilterAdapter;
 import com.example.objetos.FilterKind;
 import com.example.objetos.FilterLayout;
-import com.example.objetos.TagAdapter;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 
@@ -55,6 +68,7 @@ public class TagsMain extends ListActivity {
 	private int TypeFilter; // Tag Filter On
 	
 	private int TagFilter ;
+	private static Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +76,7 @@ public class TagsMain extends ListActivity {
 		setContentView(R.layout.activity_tags_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		context =this;
 		selectedTagFilters = new ArrayList<String>();
 		datasource = new TagContentDataSource(this);
 		datasource.open();
@@ -540,6 +555,53 @@ public class TagsMain extends ListActivity {
 		listView.requestLayout();
 	}
 
+	class ShortenUrlTask extends AsyncTask<String, Void, String> { 
+		private final String GOOGLE_URL = "https://www.googleapis.com/urlshortener/v1/url"; 
+		private String mLongUrl = null; 
+		@Override protected String doInBackground(String... arg) { 
+			mLongUrl = arg[0];
+			try { 
+					// Set connection timeout to 5 secs and socket timeout to 10 secs 
+					HttpParams httpParameters = new BasicHttpParams(); 
+					int timeoutConnection = 5000; 
+					HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection); 
+					int timeoutSocket = 10000; 
+					HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket); 
+					HttpClient hc = new DefaultHttpClient(httpParameters); 
+					HttpPost request = new HttpPost(GOOGLE_URL); 
+					request.setHeader("Content-type", "application/json"); 
+					request.setHeader("Accept", "application/json"); 
+					JSONObject obj = new JSONObject(); obj.put("longUrl", mLongUrl); 
+					request.setEntity(new StringEntity(obj.toString(), "UTF-8")); 
+					HttpResponse response = hc.execute(request); 
+					if ( response.getStatusLine().getStatusCode() == HttpStatus.SC_OK ) { 
+						ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+						response.getEntity().writeTo(out); out.close(); 
+						return out.toString(); 
+					}
+					else{
+						return null; 
+					} 
+				} catch ( Exception e ) { 
+					e.printStackTrace(); 
+				} return null; 
+			} 
+		@Override protected void onPostExecute(String result) {
+			if ( result == null ) 
+				return; 
+			try { 
+				final JSONObject json = new JSONObject(result); 
+				final String id = json.getString("id"); 
+				if ( json.has("id") ) { 
+					//((Activity) mContext).runOnUiThread(new Runnable() { public void run() { mOutput.setText(id); } });
+					Log.d("debug shortened url?", id);
+				} 
+			} catch (JSONException e) {
+				e.printStackTrace(); 
+			} 
+		} 
+		
+	}
 	public List<FilterKind> getContentFilter() {
 
 		String[] kind = getResources().getStringArray(R.array.kinds_array);

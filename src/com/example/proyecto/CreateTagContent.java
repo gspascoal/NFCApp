@@ -1,10 +1,23 @@
 package com.example.proyecto;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,9 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -25,6 +35,7 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -37,9 +48,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.AutoCompleteTextView.Validator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -80,7 +91,8 @@ public class CreateTagContent extends Activity implements
 	private String editMode = "NEW";
 	private String contenId;
 	private int currentPosition;
-
+	private EditText shortened;
+	private static Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,6 +114,7 @@ public class CreateTagContent extends Activity implements
 		LNI.put("SMS", R.layout.form_sms);
 		LNI.put("Geo Location", R.layout.form_geo);
 		LNI.put("Plain Text", R.layout.form_text);
+		LNI.put("Thesis", R.layout.form_thesis);
 
 		UP.put("http://www.", (byte) 0x01);
 		UP.put("https://www.", (byte) 0x02);
@@ -112,7 +125,7 @@ public class CreateTagContent extends Activity implements
 		UP.put("file://", (byte) 0x1D);
 		UP.put("telnet://", (byte) 0x10);
 
-		
+		mContext = this;
 		formContainer = (RelativeLayout) findViewById(R.id.formContainer);
 		wsaveButton = (Button) findViewById(R.id.wsaveButton);
 		wsaveWriteButton = (Button) findViewById(R.id.wsaveWriteButton);
@@ -280,6 +293,26 @@ public class CreateTagContent extends Activity implements
 				fieldLink.setText(link);
 			}
 			break;
+		case "Thesis":
+			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
+			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
+			
+			String title = payload.substring(payload.indexOf(":") + 1,
+					payload.indexOf("?"));
+			String author = payload.substring(payload.indexOf("a=") + 2,
+					payload.indexOf("&"));
+			String ref = payload.substring(payload.indexOf("r=") + 2,
+					payload.lastIndexOf("&"));
+			String url = payload.substring(payload.indexOf("u=") + 2,
+					payload.length());
+			
+			fieldTitle.setText(title);
+			fieldAuthor.setText(author);
+			fieldRef.setText(ref);
+			fieldURL.setText(url);
+			break;
 		default:
 			break;
 		}
@@ -335,6 +368,9 @@ public class CreateTagContent extends Activity implements
 		form = new Form(this, layoutId);
 		formContainer.removeAllViews();
 		formContainer.addView(form);
+		if (layoutId == R.layout.form_thesis) {
+			shortened = (EditText)findViewById(R.id.fieldURL);
+		}
 		if (layoutId == R.layout.form_link) {
 			protocolSelector = (Spinner) findViewById(R.id.prtclSelector);
 			protocolSelector
@@ -390,7 +426,6 @@ public class CreateTagContent extends Activity implements
 		case R.id.wsaveButton:
 
 			if (saveContent(currentSelection)) {
-				/* OPEN A NEW ACTIVITY */
 				intent = new Intent(this, SaveResult.class);
 				intent.putExtra("CONTENT_ID", contenId);
 				intent.putExtra("CONTENT_EDIT", editMode);
@@ -622,6 +657,31 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
+		case "Thesis":
+			String externalType = "com.example:thesis";
+			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
+			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
+			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
+			
+			if (shortUrl.isChecked()) {
+				ShortenUrlTask task = new ShortenUrlTask(); 
+				task.execute(fieldURL.getText().toString());
+			}
+			
+			content = fieldTitle.getText().toString() + "?a="
+					+ fieldAuthor.getText().toString() + "&r="
+					+ fieldRef.getText().toString() + "&u="
+					+ fieldURL.getText().toString();
+			uriField = content.getBytes();
+			payload = new byte[uriField.length + 1];
+			payload[0] = 0x00; // Code for Thesis:
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
+			uriRecord = new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE,
+					externalType.getBytes(), new byte[0], payload);
+			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
+			break;
 		default:
 			break;
 		}
@@ -722,6 +782,33 @@ public class CreateTagContent extends Activity implements
 			}
 
 			break;
+		case "Thesis":
+			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
+			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
+			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
+			if (!fieldTitle.getText().toString().trim().equals("")
+					&& !fieldAuthor.getText().toString().trim().equals("")
+					&& !fieldRef.getText().toString().trim().equals("")
+					&& !fieldURL.getText().toString().trim().equals("") ){
+				if (shortUrl.isChecked()) {
+					Log.d("debug shortened URL", shortUrl.isChecked()+"");
+					ShortenUrlTask task = new ShortenUrlTask(); 
+					task.execute(fieldURL.getText().toString());
+					
+				}
+				
+				payload = fieldTitle.getText().toString() + "?a="
+						+ fieldAuthor.getText().toString() + "&r="
+						+ fieldRef.getText().toString() + "&u="
+						+ fieldURL.getText().toString();
+				payloadHeaderDesc = "thesis:";
+				payloadTypeDesc = kind;
+				valid = true;
+			}
+
+			break;
 		default:
 			break;
 		}
@@ -746,6 +833,57 @@ public class CreateTagContent extends Activity implements
 		return saved;
 	}
 
+	class ShortenUrlTask extends AsyncTask<String, Void, String> { 
+		private final String GOOGLE_URL = "https://www.googleapis.com/urlshortener/v1/url"; 
+		private String mLongUrl = null; 
+		@Override protected String doInBackground(String... arg) { 
+			mLongUrl = arg[0];
+			try { 
+					// Set connection timeout to 5 secs and socket timeout to 10 secs 
+					HttpParams httpParameters = new BasicHttpParams(); 
+					int timeoutConnection = 5000; 
+					HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection); 
+					int timeoutSocket = 10000; 
+					HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket); 
+					HttpClient hc = new DefaultHttpClient(httpParameters); 
+					HttpPost request = new HttpPost(GOOGLE_URL); 
+					request.setHeader("Content-type", "application/json"); 
+					request.setHeader("Accept", "application/json"); 
+					JSONObject obj = new JSONObject(); obj.put("longUrl", mLongUrl); 
+					request.setEntity(new StringEntity(obj.toString(), "UTF-8")); 
+					HttpResponse response = hc.execute(request); 
+					if ( response.getStatusLine().getStatusCode() == HttpStatus.SC_OK ) { 
+						ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+						response.getEntity().writeTo(out); out.close(); 
+						return out.toString(); 
+					}
+					else{
+						return null; 
+					} 
+				} catch ( Exception e ) { 
+					e.printStackTrace(); 
+				} return null; 
+			} 
+		@Override protected void onPostExecute(String result) {
+			if ( result == null ) 
+				return; 
+			try { 
+				final JSONObject json = new JSONObject(result); 
+				final String id = json.getString("id"); 
+				if ( json.has("id") ) { 
+					((Activity) mContext).runOnUiThread(new Runnable() { 
+						public void run() { 
+							shortened.setText(id); 
+						} 
+					});
+					Log.d("debug shortened URL", id);
+				} 
+			} catch (JSONException e) {
+				e.printStackTrace(); 
+			} 
+		} 
+		
+	}
 	/*
 	 * private class extends ArrayAdapter<String> {
 	 * 

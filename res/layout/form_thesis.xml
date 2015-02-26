@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/labelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldTitle"
+        android:layout_marginTop="18dp"
+        android:text="Titulo de la tesis" />
+
+    <EditText
+        android:id="@+id/fieldRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelRef"
+        android:layout_margin="15dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="X.000.000"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/labelRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/labelAuthor"
+        android:layout_alignRight="@+id/labelAuthor"
+        android:layout_below="@+id/fieldAuthor"
+        android:layout_marginTop="18dp"
+        android:text="Cota" />
+
+    <EditText
+        android:id="@+id/fieldAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldRef"
+        android:layout_below="@+id/labelAuthor"
+        android:layout_margin="15dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="X. XXXX"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/fieldTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldRef"
+        android:layout_below="@+id/labelTitle"
+        android:layout_margin="15dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="Titulo"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/labelAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldAuthor"
+        android:layout_below="@+id/fieldTitle"
+        android:layout_marginTop="19dp"
+        android:text="Author" />
+
+
+
+    <TextView
+        android:id="@+id/labelURL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fieldRef"
+        android:layout_alignLeft="@+id/fieldRef"
+        android:layout_marginTop="19dp"
+        android:text="URL" />
+
+        <CheckBox
+            android:id="@+id/shortUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/fieldURL"
+            android:layout_toRightOf="@+id/fieldURL"
+            android:text="Acortar URL"
+            android:checked="true"
+             />
+
+        <EditText
+            android:id="@+id/fieldURL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignLeft="@+id/labelURL"
+            android:layout_below="@+id/labelURL"
+            android:layout_margin="15dp"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:hint="Type the URL"
+            android:inputType="text" />
+
+</RelativeLayout>
