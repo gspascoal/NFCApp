@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -39,7 +41,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +57,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -92,6 +99,8 @@ public class CreateTagContent extends Activity implements
 	private String contenId;
 	private int currentPosition;
 	private EditText shortened;
+	private CheckBox shortUrl;
+	protected String longUrl;
 	private static Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -370,6 +379,63 @@ public class CreateTagContent extends Activity implements
 		formContainer.addView(form);
 		if (layoutId == R.layout.form_thesis) {
 			shortened = (EditText)findViewById(R.id.fieldURL);
+			shortUrl = (CheckBox)findViewById(R.id.shortUrl);
+			shortened.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					// TODO Auto-generated method stub
+					shortUrl.setEnabled(false);
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+						int after) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					// TODO Auto-generated method stub
+					if (s.length() > 0) {
+						shortUrl.setEnabled(true);
+					}
+					else {
+						shortUrl.setEnabled(false);
+						shortUrl.setChecked(false);
+					}
+				}
+			});
+			
+			shortUrl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// TODO Auto-generated method stub
+					  
+					if (isChecked) {
+						longUrl = shortened.getText().toString();
+						Pattern p = Patterns.WEB_URL;
+						Matcher m = p.matcher(longUrl);
+						if (m.matches()) {
+							Log.d("debug shortened URL", longUrl);
+							Log.d("debug shortened URL", shortUrl.isChecked()+"");
+							ShortenUrlTask task = new ShortenUrlTask(); 
+							task.execute(shortened.getText().toString());
+						}
+						else{
+							Toast.makeText(getBaseContext(), "Invalid URL",Toast.LENGTH_LONG).show();
+							shortUrl.setChecked(false);
+						}
+						
+					}
+					else {
+						shortened.setText(longUrl);
+					}
+				}
+			});
+			
+		
 		}
 		if (layoutId == R.layout.form_link) {
 			protocolSelector = (Spinner) findViewById(R.id.prtclSelector);
@@ -792,17 +858,19 @@ public class CreateTagContent extends Activity implements
 					&& !fieldAuthor.getText().toString().trim().equals("")
 					&& !fieldRef.getText().toString().trim().equals("")
 					&& !fieldURL.getText().toString().trim().equals("") ){
-				if (shortUrl.isChecked()) {
+				/*if (shortUrl.isChecked()) {
 					Log.d("debug shortened URL", shortUrl.isChecked()+"");
 					ShortenUrlTask task = new ShortenUrlTask(); 
 					task.execute(fieldURL.getText().toString());
-					
-				}
+				}*/
 				
+				
+				
+				Log.d("debug shortened URL", "shortened text: "+shortened.getText().toString());
 				payload = fieldTitle.getText().toString() + "?a="
 						+ fieldAuthor.getText().toString() + "&r="
 						+ fieldRef.getText().toString() + "&u="
-						+ fieldURL.getText().toString();
+						+ shortened.getText().toString();
 				payloadHeaderDesc = "thesis:";
 				payloadTypeDesc = kind;
 				valid = true;
@@ -877,6 +945,7 @@ public class CreateTagContent extends Activity implements
 						} 
 					});
 					Log.d("debug shortened URL", id);
+					
 				} 
 			} catch (JSONException e) {
 				e.printStackTrace(); 

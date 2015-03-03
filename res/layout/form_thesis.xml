@@ -47,16 +47,20 @@
 
     <EditText
         android:id="@+id/fieldTitle"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/fieldRef"
         android:layout_below="@+id/labelTitle"
         android:layout_margin="15dp"
         android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="Titulo"
-        android:inputType="text" />
+        android:inputType="textCapSentences|textMultiLine"
+        android:singleLine="true"
+        android:lines="4"
+        android:scrollHorizontally="false"
+        android:gravity="left|top"
+        />
 
     <TextView
         android:id="@+id/labelAuthor"
@@ -65,7 +69,7 @@
         android:layout_alignLeft="@+id/fieldAuthor"
         android:layout_below="@+id/fieldTitle"
         android:layout_marginTop="19dp"
-        android:text="Author" />
+        android:text="Autor" />
 
 
 
@@ -85,7 +89,7 @@
             android:layout_alignBottom="@+id/fieldURL"
             android:layout_toRightOf="@+id/fieldURL"
             android:text="Acortar URL"
-            android:checked="true"
+            android:enabled="false"
              />
 
         <EditText
@@ -99,6 +103,6 @@
             android:layout_marginTop="18dp"
             android:ems="10"
             android:hint="Type the URL"
-            android:inputType="text" />
+            android:inputType="textUri" />
 
 </RelativeLayout>
