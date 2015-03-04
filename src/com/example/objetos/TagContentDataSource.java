@@ -142,15 +142,26 @@ public class TagContentDataSource {
 		values.put(MySQLiteHelper.COLUMN_PLHEADER, plHeader);
 		values.put(MySQLiteHelper.COLUMN_PLTYPE, plType);
 		values.put(MySQLiteHelper.COLUMN_CREATED_AT, getDateTime());
-		long insertId = database.insert(MySQLiteHelper.TABLE_CONTENT, null,
-				values);
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
-				contentColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId,
+		
+		Cursor cursorC = database.query(MySQLiteHelper.TABLE_CONTENT,
+				contentColumns, MySQLiteHelper.COLUMN_PAYLOAD + " = '" +payload+"'",
 				null, null, null, null);
-		cursor.moveToFirst();
-		TagContent newComment = cursorToComment(cursor);
-		cursor.close();
-		return newComment;
+		if (cursorC.getCount() == 0) {
+			long insertId = database.insert(MySQLiteHelper.TABLE_CONTENT, null,
+					values);
+			Log.d("debug TEG", insertId+"");
+			Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+					contentColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId,
+					null, null, null, null);
+			cursor.moveToFirst();
+			TagContent newComment = cursorToComment(cursor);
+			cursor.close();
+			return newComment;
+		}
+		else {
+			return null;
+		}
+		
 	}
 
 	public void deleteContent(Long id) {

@@ -46,7 +46,7 @@ public class SaveResult extends Activity {
 		PLTI.put("Geo Location", R.drawable.geo64);
 		PLTI.put("Business card", R.drawable.business_cardb24);
 		PLTI.put("Plain Text", R.drawable.text64);
-		PLTI.put("Thesis", R.drawable.default64);
+		PLTI.put("TEG", R.drawable.default64);
 
 		cDescription = (TextView) findViewById(R.id.contentDescription);
 		cPayload = (TextView) findViewById(R.id.contentPayload);

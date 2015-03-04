@@ -8,15 +8,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldTitle"
-        android:layout_marginTop="18dp"
-        android:text="Titulo de la tesis" />
+        android:layout_marginTop="15dp"
+        android:text="TEG Title" />
 
     <EditText
         android:id="@+id/fieldRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/labelRef"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="X.000.000"
@@ -27,10 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/labelAuthor"
-        android:layout_alignRight="@+id/labelAuthor"
+        android:layout_alignRight="@+id/fieldAuthor"
         android:layout_below="@+id/fieldAuthor"
-        android:layout_marginTop="18dp"
-        android:text="Cota" />
+        android:layout_marginTop="15dp"
+        android:text="Reference" />
 
     <EditText
         android:id="@+id/fieldAuthor"
@@ -39,7 +39,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/fieldRef"
         android:layout_below="@+id/labelAuthor"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="X. XXXX"
@@ -51,16 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/labelTitle"
-        android:layout_margin="15dp"
-        android:layout_marginTop="18dp"
+        android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Titulo"
-        android:inputType="textCapSentences|textMultiLine"
-        android:singleLine="true"
-        android:lines="4"
-        android:scrollHorizontally="false"
         android:gravity="left|top"
-        />
+        android:hint="Type the title here"
+        android:inputType="textCapSentences|textMultiLine"
+        android:scrollHorizontally="false"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/labelAuthor"
@@ -68,18 +65,16 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldAuthor"
         android:layout_below="@+id/fieldTitle"
-        android:layout_marginTop="19dp"
-        android:text="Autor" />
-
-
+        android:layout_marginTop="15dp"
+        android:text="Author" />
 
     <TextView
         android:id="@+id/labelURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fieldRef"
         android:layout_alignLeft="@+id/fieldRef"
-        android:layout_marginTop="19dp"
+        android:layout_below="@+id/fieldRef"
+        android:layout_marginTop="15dp"
         android:text="URL" />
 
         <CheckBox
@@ -88,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/fieldURL"
             android:layout_toRightOf="@+id/fieldURL"
-            android:text="Acortar URL"
+            android:text="Shorten URL"
             android:enabled="false"
              />
 
@@ -96,13 +91,15 @@
             android:id="@+id/fieldURL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignLeft="@+id/labelURL"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/labelURL"
-            android:layout_margin="15dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Type the URL"
+            android:hint="Type the URL here"
             android:inputType="textUri" />
 
 </RelativeLayout>

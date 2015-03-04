@@ -13,7 +13,6 @@
     <string name="options">Opciones</string>
     <string name="fupdate">Actualizar</string>
     <string name="fwrite">Escribir</string>
-    
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -61,7 +60,7 @@
     <string name="title_activity_create_tag_content">Crear nuevo contenido</string>
     <string name="wSaveWriteButton">Guardar y escribir</string>
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
-        <string name="plEmpty">Lista de números vacía</string>
+    <string name="plEmpty">Lista de números vacía</string>
     <string name="plNumber">Has seleccionado a: </string>
 
     <!-- TransferContent(Main) activity strings -->
@@ -86,12 +85,11 @@
     <string name="title_activity_tags_main">Mis contenidos</string>
     <string name="filterButton">Filtrar</string>
     <string name="title_filterLabelOn">Filtrado por etiqueta</string>
-   <string name="title_filterLabelOff">Filtr por etiqueta</string>
-   <string name="title_filterTypeOn">Filtrar por tipo</string>
-   <string name="title_filterTypeOff">Filtrado por tipo</string>
-   <string name="removeFilterButton">Remover filtro</string>
-   <string name="filterBy">Filtrado por: </string>
-   
+    <string name="title_filterLabelOff">Filtr por etiqueta</string>
+    <string name="title_filterTypeOn">Filtrar por tipo</string>
+    <string name="title_filterTypeOff">Filtrado por tipo</string>
+    <string name="removeFilterButton">Remover filtro</string>
+    <string name="filterBy">Filtrado por: </string>
 
     <!-- Search widget strings -->
     <string name="search_hint">Contenido de la etiqueta</string>
@@ -110,7 +108,7 @@
         <item>Telephone Number</item>
         <item>Geo Location</item>
         <item>Plain Text</item>
-         <item>Thesis</item>
+        <item>TEG</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Editar</item>
@@ -164,12 +162,12 @@
     <!-- Plain text strings -->
     <string name="textLabel">Texto plano</string>
     <string name="textHint">Escriba el texto</string>
-   
+
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_erase_tag">Borrar tag</string>
-    
+
     <!-- Tag CRUD Strings -->
     <string name="tDelete_dialog_title">Eliminar etiqueta</string>
     <string name="tDelete_dialog_msg">¿Desea eliminar esta etiqueta?</string>
@@ -180,7 +178,6 @@
     <!-- Content CRUD strings -->
     <string name="cDelete_dialog_title">Eliminar contenido</string>
     <string name="cDelete_dialog_msg">¿Desea eliminar este contenido?</string>
-    
     <string name="nA">N/A</string>
     <string name="link">Enlace</string>
     <string name="slink">Enlace seguro</string>
@@ -197,5 +194,6 @@
     <string name="uri">URI</string>
     <string name="bussinesCard">Tarjeta de negocios</string>
     <string name="payloadsType">Tipo del contenido:</string>
-    
+    <string name="title_activity_read_teg">ReadTEG</string>
+
 </resources>

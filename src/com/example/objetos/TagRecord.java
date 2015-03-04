@@ -48,7 +48,8 @@ public class TagRecord {
 		this.context = context;
 		/*Initialize array of URI prefixes without protocol field*/
 		WOP.put("sms:",context.getResources().getString(R.string.sms));
-		WOP.put("geo:",context.getResources().getString(R.string.geoLoc));	
+		WOP.put("geo:",context.getResources().getString(R.string.geoLoc));
+		WOP.put("thesis:",context.getResources().getString(R.string.thesis));
 		
 		/*Initialize associative array of TNF values*/
 		TNFMap.put("0", "Empty");
@@ -234,7 +235,7 @@ public class TagRecord {
 				}
 				
 				else {
-					Log.d("TagInfo", "It not contains");
+					Log.d("TagInfo", "It not contains Payload Type Desc");
 					this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);
 				}
 				
@@ -243,7 +244,7 @@ public class TagRecord {
 			
 		}
 		else {
-			Log.d("TagInfo", "It not contains");
+			Log.d("TagInfo", "It not contains Payload Type Desc");
 			this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);;
 		}
 		
@@ -306,7 +307,7 @@ public class TagRecord {
 				this.recordPayloadHeaderDesc =  PLH.get(String.valueOf(getRecordPayloadheader()) );
 			}
 			else {
-				Log.d("TagInfo", "It not contains");
+				Log.d("TagInfo", "It not contains Payload Header");
 				this.recordPayloadHeaderDesc = context.getResources().getString(R.string.nA);
 			}
 		}
@@ -325,7 +326,7 @@ public class TagRecord {
 		}
 		
 		else {
-			Log.d("TagInfo", "It not contains");
+			Log.d("TagInfo", "It not contains Icon");
 			this.iconId =PLTI.get(context.getResources().getString(R.string.nA));
 		}
 	}

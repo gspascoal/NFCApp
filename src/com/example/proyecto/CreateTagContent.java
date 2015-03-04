@@ -103,6 +103,7 @@ public class CreateTagContent extends Activity implements
 	protected String longUrl;
 	private static Context mContext;
 	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_tag_content);
@@ -123,7 +124,7 @@ public class CreateTagContent extends Activity implements
 		LNI.put("SMS", R.layout.form_sms);
 		LNI.put("Geo Location", R.layout.form_geo);
 		LNI.put("Plain Text", R.layout.form_text);
-		LNI.put("Thesis", R.layout.form_thesis);
+		LNI.put("TEG", R.layout.form_thesis);
 
 		UP.put("http://www.", (byte) 0x01);
 		UP.put("https://www.", (byte) 0x02);
@@ -302,7 +303,7 @@ public class CreateTagContent extends Activity implements
 				fieldLink.setText(link);
 			}
 			break;
-		case "Thesis":
+		case "TEG":
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
@@ -414,11 +415,11 @@ public class CreateTagContent extends Activity implements
 					// TODO Auto-generated method stub
 					  
 					if (isChecked) {
-						longUrl = shortened.getText().toString();
+						String currentUrl = shortened.getText().toString();
 						Pattern p = Patterns.WEB_URL;
-						Matcher m = p.matcher(longUrl);
+						Matcher m = p.matcher(currentUrl);
 						if (m.matches()) {
-							Log.d("debug shortened URL", longUrl);
+							Log.d("debug shortened URL", currentUrl);
 							Log.d("debug shortened URL", shortUrl.isChecked()+"");
 							ShortenUrlTask task = new ShortenUrlTask(); 
 							task.execute(shortened.getText().toString());
@@ -723,20 +724,14 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "Thesis":
+		case "TEG":
 			String externalType = "com.example:thesis";
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
 			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
-			
-			if (shortUrl.isChecked()) {
-				ShortenUrlTask task = new ShortenUrlTask(); 
-				task.execute(fieldURL.getText().toString());
-			}
-			
-			content = fieldTitle.getText().toString() + "?a="
+			content = "thesis:" + fieldTitle.getText().toString() + "?a="
 					+ fieldAuthor.getText().toString() + "&r="
 					+ fieldRef.getText().toString() + "&u="
 					+ fieldURL.getText().toString();
@@ -848,7 +843,7 @@ public class CreateTagContent extends Activity implements
 			}
 
 			break;
-		case "Thesis":
+		case "TEG":
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
@@ -858,14 +853,7 @@ public class CreateTagContent extends Activity implements
 					&& !fieldAuthor.getText().toString().trim().equals("")
 					&& !fieldRef.getText().toString().trim().equals("")
 					&& !fieldURL.getText().toString().trim().equals("") ){
-				/*if (shortUrl.isChecked()) {
-					Log.d("debug shortened URL", shortUrl.isChecked()+"");
-					ShortenUrlTask task = new ShortenUrlTask(); 
-					task.execute(fieldURL.getText().toString());
-				}*/
-				
-				
-				
+
 				Log.d("debug shortened URL", "shortened text: "+shortened.getText().toString());
 				payload = fieldTitle.getText().toString() + "?a="
 						+ fieldAuthor.getText().toString() + "&r="
@@ -937,11 +925,13 @@ public class CreateTagContent extends Activity implements
 				return; 
 			try { 
 				final JSONObject json = new JSONObject(result); 
-				final String id = json.getString("id"); 
+				final String id = json.getString("id");
+				final String lurl = json.getString("longUrl");
 				if ( json.has("id") ) { 
 					((Activity) mContext).runOnUiThread(new Runnable() { 
 						public void run() { 
-							shortened.setText(id); 
+							shortened.setText(id);
+							longUrl = lurl;
 						} 
 					});
 					Log.d("debug shortened URL", id);
