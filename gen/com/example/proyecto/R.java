@@ -134,11 +134,12 @@ public final class R {
         public static final int text24=0x7f02005e;
         public static final int text32=0x7f02005f;
         public static final int text64=0x7f020060;
-        public static final int two292=0x7f020061;
-        public static final int write_tag264=0x7f020062;
-        public static final int write_tag32=0x7f020063;
-        public static final int write_tag64=0x7f020064;
-        public static final int wrtbl64=0x7f020065;
+        public static final int thesis64=0x7f020061;
+        public static final int two292=0x7f020062;
+        public static final int write_tag264=0x7f020063;
+        public static final int write_tag32=0x7f020064;
+        public static final int write_tag64=0x7f020065;
+        public static final int wrtbl64=0x7f020066;
     }
     public static final class id {
         public static final int action_filter=0x7f0b0082;

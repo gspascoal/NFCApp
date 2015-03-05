@@ -38,6 +38,7 @@ public class TagRecord extends RelativeLayout {
 		recordIcon.put(context.getResources().getString(R.string.geoLoc), R.drawable.geo64);
 		recordIcon.put(context.getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		recordIcon.put(context.getResources().getString(R.string.plainText), R.drawable.text64);
+		recordIcon.put("TEG", R.drawable.thesis64);
 		
 		// TODO Auto-generated constructor stub
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.tag_record,this);

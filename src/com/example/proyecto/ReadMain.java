@@ -416,15 +416,21 @@ public class ReadMain extends Activity {
 		      //status =  (TextView) findViewById(R.id.type);
 		      //status.setText(content.toString());
 		     // List<TagContent> test = datasource.getAllComments();
-		      Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
-		      /*for (int i = 0; i < test.size(); i++) {
-				Log.d("List element", "tag_content: " + test.get(i));
-			
-			}*/
-		      	Intent intent = new Intent(this, SaveResult.class);
-				intent.putExtra("CONTENT_ID", content.getId());
-				intent.putExtra("CONTENT_EDIT", "NEW");
-				startActivity(intent);
+		      
+		      if (content != null) {
+		    	  Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+			      /*for (int i = 0; i < test.size(); i++) {
+					Log.d("List element", "tag_content: " + test.get(i));
+				
+				}*/
+			      	Intent intent = new Intent(this, SaveResult.class);
+					intent.putExtra("CONTENT_ID", content.getId());
+					intent.putExtra("CONTENT_EDIT", "NEW");
+					startActivity(intent);
+			} else {
+				Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();
+			}
+		      
 		      
 		      
 	      //adapter.add(comment);
