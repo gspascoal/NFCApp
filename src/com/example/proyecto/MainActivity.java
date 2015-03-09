@@ -1,21 +1,22 @@
-package com.example.proyecto;
+                                                                                                                                                                                                       package com.example.proyecto;
 
 import android.app.Activity;
-import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
 public class MainActivity extends Activity {
 
+	CustomDialog aboutDialog;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,7 +43,14 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		
 		switch (item.getItemId()) {
-		case R.id.action_settings:
+		case R.id.action_about:
+			aboutDialog = new CustomDialog(this);
+			//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			aboutDialog.setTitle(getResources().getString(R.string.action_about));
+			aboutDialog.setContentView(R.layout.about_dialog);
+			aboutDialog.setCancelable(true);
+			aboutDialog.setCanceledOnTouchOutside(true);
+			aboutDialog.show();
 			return true;
 		/*case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
@@ -59,6 +67,7 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.read:
 			intent = new Intent(MainActivity.this, ReadMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
 			break;
 		case R.id.write:
@@ -78,11 +87,13 @@ public class MainActivity extends Activity {
 		}
 		
 	}
+	
+
 
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+ 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
 		}

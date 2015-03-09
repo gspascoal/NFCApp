@@ -66,8 +66,9 @@ public class CustomDialog extends Dialog{
 		}
 	}
 	
-	  public void setPositiveButton(String buttonText, View.OnClickListener listener) {
-	        positive.setText(buttonText);
+	  public void setPositiveButton(String buttonText, View.OnClickListener listener, int buttonId) {
+	       	positive =  (Button)findViewById(buttonId);
+		  	positive.setText(buttonText);
 	        positive.setOnClickListener(listener);
 	        positive.setVisibility(View.VISIBLE);
 	    }

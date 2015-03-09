@@ -4,6 +4,7 @@
     <!-- Commons Strings -->
     <string name="app_name">Proyecto</string>
     <string name="action_settings">Ajustes</string>
+    <string name="action_about">Acerca</string>
     <string name="saveButton">Guardar</string>
     <string name="launchButton">Ejecutar</string>
     <string name="affirmation">Si</string>
@@ -198,4 +199,6 @@
     <string name="payloadsType">Tipo del contenido:</string>
     <string name="title_activity_read_teg">ReadTEG</string>
 
+    
+    <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a> </string>
 </resources>

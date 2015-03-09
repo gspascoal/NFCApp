@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:background="@android:color/white"
+    >
+	
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"
+	android:layout_margin="5dp"
+	android:background="@android:color/white"
+    >
+    
+    
+    <TextView 
+        android:id="@+id/creditTitle"
+        android:text="Proyecto"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold" 
+        />
+    
+     <TextView
+         android:id="@+id/creditLAuthor"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:text="Autor:"
+         android:textSize="16sp"
+         android:textStyle="bold" />
+    
+    <TextView 
+        android:id="@+id/creditAuthor"
+        android:text="Rafael Alejandro Machado Morales"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="14sp"
+        />
+    
+    
+        <TextView
+         android:id="@+id/creditDescrip"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:gravity="top|center"
+          android:textSize="14sp"
+         android:text="Esta aplicación permite el intercambio de contenido entre el dispositivo y etiquetas NFC." />
+    
+    
+    
+    <TextView
+         android:id="@+id/creditDescripALS"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:gravity="top|center"
+          android:textSize="14sp"
+         android:text="Desarrollada a petición de ALS TELECOM C.A." />
+
+    <ImageView
+        android:id="@+id/logoALS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:src="@drawable/logo_als" />
+    
+     <TextView
+         android:id="@+id/creditDescripTEG"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:gravity="top|center"
+          android:textSize="14sp"
+         android:text="Esta aplicación forma parte del Trabajo Especial de Grado para optar por el título de Licenciado en Computación otorgado por la Universidad Central de Venezuela." />
+
+     
+     <TextView
+         android:id="@+id/creditLIcons"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:text="Iconos:"
+         android:textSize="16sp"
+         android:textStyle="bold" />
+    
+    <TextView 
+        android:id="@+id/credIcons"
+         android:textSize="14sp"
+        android:text="@string/creditIcons"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        />
+
+
+
+</LinearLayout>
+    
+</ScrollView>

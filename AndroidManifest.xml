@@ -33,7 +33,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+             android:noHistory="true"
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +45,9 @@
         <activity
             android:name=".ReadMain"
             android:label="@string/title_activity_read_main"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity" 
+            android:noHistory="true"
+            >
 
             <!-- Parent activity meta-data o support and lower -->
             <meta-data
