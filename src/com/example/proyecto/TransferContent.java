@@ -1,17 +1,14 @@
 package com.example.proyecto;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
-import com.example.objetos.TagContentDataSource;
-import com.example.objetos.TagInfo;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
-import android.net.VpnService;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -22,6 +19,7 @@ import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +28,9 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.objetos.TagContentDataSource;
+import com.example.objetos.TagInfo;
 
 public class TransferContent extends Activity {
 
@@ -54,6 +55,8 @@ public class TransferContent extends Activity {
 		setContentView(R.layout.activity_transfer_content);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		
 		writeResult = (TextView) findViewById(R.id.writeResult);
 		pContent = (RelativeLayout) findViewById(R.id.pContent_container);
 		cContent = (RelativeLayout) findViewById(R.id.cContent_container);
@@ -66,9 +69,7 @@ public class TransferContent extends Activity {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.write_tag_dialog);
 
-		dialog.show();
-
-		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		checkNFCConnection();
 
 		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
 				getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -134,6 +135,13 @@ public class TransferContent extends Activity {
 		datasource.open();
 	}
 
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		checkNFCConnection();
+	}
+	
 	public void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		// super.onNewIntent(intent);
@@ -334,5 +342,47 @@ public class TransferContent extends Activity {
 			finish();
 		}
 		return message;
+	}
+
+	private void checkNFCConnection(){
+		if (myNfcAdapter != null) {
+			Log.d("debug NFC Connection", "NFC is available for the device");
+			if (myNfcAdapter.isEnabled()) {
+				Log.d("debug NFC Connection", "Connected");
+				dialog.show();
+			} else {
+				Log.d("debug NFC Connection", "Disonnected");
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				
+				alertDialog.setTitle(getResources().getString(R.string.dialogNTitle));
+				
+				alertDialog.setMessage(getResources().getString(R.string.dialogNMessage));
+				
+				alertDialog.setPositiveButton(getResources().getString(R.string.dialogOkButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+						startActivity(intent);
+					}
+				});
+				
+				alertDialog.setNegativeButton(getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+				
+				alertDialog.show();
+
+			}
+			
+		} else {
+			Log.d("debug NFC Connection", "NFC is not available for the device");
+			
+		}
+
 	}
 }

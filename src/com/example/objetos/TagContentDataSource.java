@@ -7,18 +7,18 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
-import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.nfc.Tag;
 import android.os.Environment;
-import android.provider.SyncStateContract.Columns;
 import android.util.Log;
 
 import com.example.proyecto.R;
@@ -37,11 +37,21 @@ public class TagContentDataSource {
 	private FileInputStream fileInputStream;
 	private FileOutputStream fileOutputStream;
 	private Context context;
+	public Map<String, String> DBR =  new LinkedHashMap<String,String>();
 
 	public TagContentDataSource(Context context) {
 		this.context = context;
 		dbHelper = new MySQLiteHelper(context);
 
+		DBR.put("0",context.getResources().getString(R.string.link));
+		DBR.put("1",context.getResources().getString(R.string.mail));
+		DBR.put("2",context.getResources().getString(R.string.sms));
+		DBR.put("3",context.getResources().getString(R.string.tel));
+		DBR.put("4",context.getResources().getString(R.string.geoLoc));
+		DBR.put("5",context.getResources().getString(R.string.plainText));
+		DBR.put("6",context.getResources().getString(R.string.thesis));
+		
+		
 		Log.d("debug DB", "DB name: " + dbHelper.getDatabaseName());
 		// Log.d("debug DB", "DB name: "+dbHelper.);
 	}
@@ -207,8 +217,8 @@ public class TagContentDataSource {
 			TagUIContent nTagUIContent = new TagUIContent(context);
 			nTagUIContent.setPayload(tagContent.getPayloadHeader()
 					+ tagContent.getPayload());
-			nTagUIContent.setContentDesc(tagContent.getPayloadType());
-			nTagUIContent.setContentIcon(tagContent.getPayloadType());
+			nTagUIContent.setContentDesc(DBR.get(tagContent.getPayloadType()));
+			nTagUIContent.setContentIcon(DBR.get(tagContent.getPayloadType()));
 			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
 			nTagUIContent.getContentTags().setText("");
 			if (getTagsOfContent(String.valueOf(tagContent.getId())).size() > 0) {
@@ -307,10 +317,20 @@ public class TagContentDataSource {
 
 		String condition = "";
 		String sqlSentence2 = "";
-
+		String typeId = " ";
+		
+		if (DBR.containsValue(query)) {
+			
+			for (String key : DBR.keySet()) {
+				if (DBR.get(key).equals(query)) {
+					typeId = key;
+				}
+			}
+		}
+		
 		if (query != "") {
 			condition = "WHERE "+MySQLiteHelper.COLUMN_PAYLOAD+" LIKE '%" + query + "%'"
-					+ " OR "+MySQLiteHelper.COLUMN_PLTYPE+" LIKE '%" + query + "%'";
+					+ " OR "+MySQLiteHelper.COLUMN_PLTYPE+" LIKE '%" + typeId + "%'";
 			
 			sqlSentence2 = "SELECT * FROM "+MySQLiteHelper.TABLE_CONTENT+" c, "+MySQLiteHelper.TABLE_CONTENT_TAG + " ct"
 					+ " WHERE c."+MySQLiteHelper.COLUMN_ID + " = ct."+MySQLiteHelper.COLUMN_CONTENT_ID
@@ -350,8 +370,8 @@ public class TagContentDataSource {
 			TagUIContent nTagUIContent = new TagUIContent(context);
 			nTagUIContent.setPayload(tagContent.getPayloadHeader()
 					+ tagContent.getPayload());
-			nTagUIContent.setContentDesc(tagContent.getPayloadType());
-			nTagUIContent.setContentIcon(tagContent.getPayloadType());
+			nTagUIContent.setContentDesc(DBR.get(tagContent.getPayloadType()));
+			nTagUIContent.setContentIcon(DBR.get(tagContent.getPayloadType()));
 			nTagUIContent.setContentId(String.valueOf(tagContent.getId()));
 			nTagUIContent.getContentTags().setText("");
 			if (getTagsOfContent(String.valueOf(tagContent.getId())).size() > 0) {

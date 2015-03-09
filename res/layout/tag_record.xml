@@ -29,7 +29,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/r_number"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
 	    <TextView
 	        android:id="@+id/recordTNF"
 	        android:layout_width="fill_parent"
@@ -37,7 +37,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/r_TNF"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
 	      <TextView
 	        android:id="@+id/recordType"
 	        android:layout_width="fill_parent"
@@ -45,7 +45,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/r_Type"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
 	      <TextView
 	        android:id="@+id/recordHeaderDesc"
 	        android:layout_width="fill_parent"
@@ -53,7 +53,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/r_Protocol"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
 	      <TextView
 	        android:id="@+id/recordPayloadType"
 	        android:layout_width="fill_parent"
@@ -61,7 +61,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/payloadsType"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
 	       <TextView
 	        android:id="@+id/recordPayload"
 	        android:layout_width="fill_parent"
@@ -69,7 +69,7 @@
 	        android:ellipsize="marquee"
 	        android:singleLine="true"
 	        android:text="@string/r_Payload"
-	        android:textSize="12sp" />
+	        android:textSize="14sp" />
     </LinearLayout>
    
 </RelativeLayout>

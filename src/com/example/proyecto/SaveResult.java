@@ -30,23 +30,33 @@ public class SaveResult extends Activity {
 	private TextView cId;
 	private ImageView cIcon;
 	public Map<String, Integer> PLTI = new LinkedHashMap<String, Integer>();
+	public Map<String, String> DBR = new LinkedHashMap<String, String>();
 	private TagContent nTagContent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_save_result);
+		
+		DBR.put("-1",getResources().getString(R.string.nA));
+		DBR.put("0",getResources().getString(R.string.link));
+		DBR.put("1",getResources().getString(R.string.mail));
+		DBR.put("2",getResources().getString(R.string.sms));
+		DBR.put("3",getResources().getString(R.string.tel));
+		DBR.put("4",getResources().getString(R.string.geoLoc));
+		DBR.put("5",getResources().getString(R.string.plainText));
+		DBR.put("6",getResources().getString(R.string.thesis));
 
-		PLTI.put("N/A", R.drawable.default64);
-		PLTI.put("Link", R.drawable.link64);
-		PLTI.put("Secure Link", R.drawable.link64);
-		PLTI.put("Telephone Number", R.drawable.tel64);
-		PLTI.put("Email", R.drawable.mail64);
-		PLTI.put("SMS", R.drawable.sms64);
-		PLTI.put("Geo Location", R.drawable.geo64);
-		PLTI.put("Business card", R.drawable.business_cardb24);
-		PLTI.put("Plain Text", R.drawable.text64);
-		PLTI.put("TEG", R.drawable.default64);
+		PLTI.put(getResources().getString(R.string.nA), R.drawable.default64);
+		PLTI.put(getResources().getString(R.string.link), R.drawable.link64);
+		PLTI.put(getResources().getString(R.string.link), R.drawable.link64);
+		PLTI.put(getResources().getString(R.string.tel), R.drawable.tel64);
+		PLTI.put(getResources().getString(R.string.mail), R.drawable.mail64);
+		PLTI.put(getResources().getString(R.string.sms), R.drawable.sms64);
+		PLTI.put(getResources().getString(R.string.geoLoc), R.drawable.geo64);
+		PLTI.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
+		PLTI.put(getResources().getString(R.string.plainText), R.drawable.text64);
+		PLTI.put(getResources().getString(R.string.thesis), R.drawable.thesis64);
 
 		cDescription = (TextView) findViewById(R.id.contentDescription);
 		cPayload = (TextView) findViewById(R.id.contentPayload);
@@ -74,8 +84,8 @@ public class SaveResult extends Activity {
 		
 		
 		
-		cIcon.setBackgroundResource(PLTI.get(nTagContent.getPayloadType()));
-		cDescription.setText(nTagContent.getPayloadType());
+		cIcon.setBackgroundResource(PLTI.get(DBR.get(nTagContent.getPayloadType())));
+		cDescription.setText(DBR.get(nTagContent.getPayloadType()));
 		cPayload.setText(nTagContent.getPayloadHeader()+nTagContent.getPayload());
 		cId.setText(String.valueOf(nTagContent.getId()));
 

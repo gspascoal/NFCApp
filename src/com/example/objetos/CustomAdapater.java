@@ -249,6 +249,13 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 										@Override
 										public void onClick(View v) {
 											// TODO Auto-generated method stub
+											datasource.open();
+											objects.clear();
+											objects.addAll(datasource.getTagUIContents());
+											notifyDataSetChanged();
+											datasource.close();
+											
+											
 											dialogAddTag.dismiss();
 										}
 									});

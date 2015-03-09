@@ -3,11 +3,14 @@ package com.example.proyecto;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
@@ -21,6 +24,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +42,6 @@ import android.widget.Toast;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
-import com.example.proyecto.R.string;
 
 public class ReadMain extends Activity {
 
@@ -63,6 +66,8 @@ public class ReadMain extends Activity {
 	private String cntn;
 	private TagContentDataSource datasource;
 	private TagInfo tInfo;
+	public Map<String, String> DBR = new LinkedHashMap<String, String>();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,27 +75,28 @@ public class ReadMain extends Activity {
 		setContentView(R.layout.activity_read_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		/*Setting up the dialog*/
-		dialog = new CustomDialog(this);
-		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.read_tag_dialog);
-		
-		datasource = new TagContentDataSource(this);
-	    //datasource.open();
-	    
-		dialog.show();
+		DBR.put(getResources().getString(R.string.link),"0");
+		DBR.put(getResources().getString(R.string.mail),"1");
+		DBR.put(getResources().getString(R.string.sms),"2");
+		DBR.put(getResources().getString(R.string.tel),"3");
+		DBR.put(getResources().getString(R.string.geoLoc),"4");
+		DBR.put(getResources().getString(R.string.plainText),"5");
+		DBR.put(getResources().getString(R.string.thesis),"6");
 		
 		/*Checking if the device support NFC*/
 		//status = (TextView) findViewById(R.id.status);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
-		if (myNfcAdapter == null) {
-			//status.setText("NFC isn't available for the device");
-		} else {
-			//status.setText("NFC is available for the device");
-		}
-		
-		
+		/*Setting up the dialog*/
+		dialog = new CustomDialog(this);
+		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.read_tag_dialog);
+	
+		checkNFCConnection();
+
+		datasource = new TagContentDataSource(this);
+	    //datasource.open();
+	    
 		 // CHECK THIS METHOD
 		 //FILTERING INTENT
 		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
@@ -165,7 +171,7 @@ public class ReadMain extends Activity {
 	}
 
 	public void onResume() {
-	    super.onResume();
+	   super.onResume();
 	   myNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
 	   //datasource.open();
 	}
@@ -412,7 +418,7 @@ public class ReadMain extends Activity {
 		    String payloadHeaderDesc = tInfo.getTagRecords().get(0).isWOP() ? " " : tInfo.getTagRecords().get(0).getRecordPayloadHeaderDesc();
 		      content = datasource.createContent(tInfo.getTagRecords().get(0).getRecordPayload(),
 		    		  payloadHeaderDesc,
-		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
+		    		  DBR.get(tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc()));
 		      //status =  (TextView) findViewById(R.id.type);
 		      //status.setText(content.toString());
 		     // List<TagContent> test = datasource.getAllComments();
@@ -574,6 +580,13 @@ public class ReadMain extends Activity {
 		//this.finish();
 	}
 	
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		checkNFCConnection();
+	}
+	
 	public Intent createIntent(Context context, String payload, String packageName){
 
 		Intent actIntent = null;
@@ -626,5 +639,47 @@ public class ReadMain extends Activity {
 		}
 		
 		return actIntent;
+	}
+	
+	private void checkNFCConnection(){
+		if (myNfcAdapter != null) {
+			Log.d("debug NFC Connection", "NFC is available for the device");
+			if (myNfcAdapter.isEnabled()) {
+				Log.d("debug NFC Connection", "Connected");
+				dialog.show();
+			} else {
+				Log.d("debug NFC Connection", "Disonnected");
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				
+				alertDialog.setTitle(getResources().getString(R.string.dialogNTitle));
+				
+				alertDialog.setMessage(getResources().getString(R.string.dialogNMessage));
+				
+				alertDialog.setPositiveButton(getResources().getString(R.string.dialogOkButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+						startActivity(intent);
+					}
+				});
+				
+				alertDialog.setNegativeButton(getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+				
+				alertDialog.show();
+
+			}
+			
+		} else {
+			Log.d("debug NFC Connection", "NFC is not  available for the device");
+			
+		}
+
 	}
 }

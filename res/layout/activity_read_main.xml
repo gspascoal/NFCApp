@@ -35,6 +35,7 @@ android:background="#FFF"
         android:paddingLeft="10dp"
         android:textStyle="bold"
         android:visibility="invisible"
+        android:textSize="16sp"
          />
     
       <TextView
@@ -46,7 +47,9 @@ android:background="#FFF"
         android:layout_marginTop="70dp"
         android:paddingLeft="10dp"
         android:text="Content"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textSize="14sp"
+         />
 
     <Button
         android:id="@+id/launchButton"

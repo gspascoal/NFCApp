@@ -166,8 +166,12 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 						getContext(), android.R.layout.simple_list_item_1,
 						cOptionsArrayStrings);
-
-				optionDialog.setAdapter(adapter);
+				
+				final CustomDialog dialog = new CustomDialog(getContext()); //  Tag Options Dialog 
+				dialog.setTitle(getContext().getResources().getString(R.string.options));
+				dialog.setContentView(optionDialog);
+				
+				optionDialog.setAdapter(adapter);  
 				optionDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 					@Override
@@ -208,6 +212,7 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 									datasource.close();
 									dialogAddTag.dismiss();
 									
+									
 								}
 							});
 							
@@ -217,7 +222,7 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 							dialogAddTag.setContentView(addTagLayout);
 							//tAdapater.notifyDataSetChanged();
 							dialogAddTag.show();
-							
+							dialog.dismiss();
 							
 	
 							break;
@@ -233,21 +238,24 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 							alertDialog.setPositiveButton(getContext().getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
 								
 								@Override
-								public void onClick(DialogInterface dialog, int which) {
+								public void onClick(DialogInterface dlg, int which) {
 									datasource.open();
 									datasource.deleteTag(Long.valueOf(holder.contentId.getText().toString()) , false);
 									objects.clear();
 									objects.addAll(getContentFilter(String.valueOf(currentItemId)));
 									notifyDataSetChanged();
 									datasource.close();
+									dlg.dismiss();
+									dialog.dismiss();
 								}
 							});
 							
 							alertDialog.setNegativeButton(getContext().getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
 								
 								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									dialog.cancel();
+								public void onClick(DialogInterface dlg, int which) {
+									dlg.cancel();
+									dialog.dismiss();
 								}
 							});
 							
@@ -260,9 +268,7 @@ public class TagAdapter extends ArrayAdapter<FilterKind> {
 				});
 				
 				
-				CustomDialog dialog = new CustomDialog(getContext());
-				dialog.setTitle(getContext().getResources().getString(R.string.options));
-				dialog.setContentView(optionDialog);
+				
 				dialog.show();
 				
 				

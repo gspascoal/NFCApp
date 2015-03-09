@@ -102,13 +102,13 @@
         <item>Etiquetar</item>
     </string-array>
     <string-array name="kinds_array">
-        <item>Link</item>
-        <item>Email</item>
-        <item>SMS</item>
-        <item>Telephone Number</item>
-        <item>Geo Location</item>
-        <item>Plain Text</item>
-        <item>TEG</item>
+        <item>@string/link</item>
+        <item>@string/mail</item>
+        <item>@string/sms</item>
+        <item>@string/tel</item>
+        <item>@string/geoLoc</item>
+        <item>@string/plainText</item>
+        <item>@string/thesis</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Editar</item>
@@ -190,6 +190,8 @@
     <string name="aar">Registro de Aplicación Android</string>
     <string name="geoLoc">Ubicación geográfica</string>
     <string name="plainText">Texto plano</string>
+    <string name="tag">Tag</string>
+    <string name="thesis">TEG</string>
     <string name="sms">SMS</string>
     <string name="uri">URI</string>
     <string name="bussinesCard">Tarjeta de negocios</string>

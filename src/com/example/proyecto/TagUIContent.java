@@ -31,23 +31,32 @@ public class TagUIContent extends RelativeLayout {
 	private Context context;
 	private TagContentDataSource datasource;
 	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
+	public Map<String, String> DBR =  new LinkedHashMap<String,String>();
 	
 	public TagUIContent(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		//this.context = context;
 		
+		DBR.put("0",getResources().getString(R.string.link));
+		DBR.put("1",getResources().getString(R.string.mail));
+		DBR.put("2",getResources().getString(R.string.sms));
+		DBR.put("3",getResources().getString(R.string.tel));
+		DBR.put("4",getResources().getString(R.string.geoLoc));
+		DBR.put("5",getResources().getString(R.string.plainText));
+		DBR.put("6",getResources().getString(R.string.thesis));
+		
 		/*Initialize associative array of URI prefixes icons id*/
-		PLTI.put("N/A", R.drawable.default64);
-		PLTI.put("Link", R.drawable.link64);
-		PLTI.put("Secure Link", R.drawable.link64);
-		PLTI.put("Telephone Number", R.drawable.tel64);
-		PLTI.put("Email", R.drawable.mail64);
-		PLTI.put("SMS", R.drawable.sms64);
-		PLTI.put("Geo Location", R.drawable.geo64);
-		PLTI.put("Business card", R.drawable.business_cardb24);
-		PLTI.put("Plain Text", R.drawable.text64);
-		PLTI.put("TEG", R.drawable.thesis64);
+		PLTI.put(getResources().getString(R.string.nA), R.drawable.default64);
+		PLTI.put(getResources().getString(R.string.link), R.drawable.link64);
+		PLTI.put(getResources().getString(R.string.link), R.drawable.link64);
+		PLTI.put(getResources().getString(R.string.tel), R.drawable.tel64);
+		PLTI.put(getResources().getString(R.string.mail), R.drawable.mail64);
+		PLTI.put(getResources().getString(R.string.sms), R.drawable.sms64);
+		PLTI.put(getResources().getString(R.string.geoLoc), R.drawable.geo64);
+		PLTI.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
+		PLTI.put(getResources().getString(R.string.plainText), R.drawable.text64);
+		PLTI.put(getResources().getString(R.string.thesis), R.drawable.thesis64);
 		
 		
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.recent_content,this);
@@ -179,7 +188,7 @@ public class TagUIContent extends RelativeLayout {
 		
 		else {
 			Log.d("TagInfo", "It not contains");
-			contentIcon.setBackgroundResource(PLTI.get("N/A"));
+			contentIcon.setBackgroundResource(PLTI.get(getResources().getString(R.string.nA)));
 		}
 	}
 

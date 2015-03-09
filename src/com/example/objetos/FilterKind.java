@@ -29,16 +29,17 @@ public class FilterKind extends RelativeLayout {
 		super(context);
 		
 		
-		kindIcons.put("N/A", R.drawable.default32);
-		kindIcons.put("Tag", R.drawable.tag32);
-		kindIcons.put("Link", R.drawable.link32);
-		kindIcons.put("Secure Link", R.drawable.link32);
-		kindIcons.put("Telephone Number", R.drawable.tel32);
-		kindIcons.put("Email", R.drawable.mail32);
-		kindIcons.put("SMS", R.drawable.sms32);
-		kindIcons.put("Geo Location", R.drawable.geo32);
-		kindIcons.put("Business card", R.drawable.business_cardb24);
-		kindIcons.put("Plain Text", R.drawable.text32);
+		kindIcons.put(getResources().getString(R.string.nA), R.drawable.default32);
+		kindIcons.put(getResources().getString(R.string.link), R.drawable.link32);
+		kindIcons.put(getResources().getString(R.string.link), R.drawable.link32);
+		kindIcons.put(getResources().getString(R.string.tel), R.drawable.tel32);
+		kindIcons.put(getResources().getString(R.string.mail), R.drawable.mail32);
+		kindIcons.put(getResources().getString(R.string.sms), R.drawable.sms32);
+		kindIcons.put(getResources().getString(R.string.geoLoc), R.drawable.geo32);
+		kindIcons.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
+		kindIcons.put(getResources().getString(R.string.plainText), R.drawable.text32);
+		kindIcons.put(getResources().getString(R.string.thesis), R.drawable.default32);
+		kindIcons.put(getResources().getString(R.string.tag), R.drawable.tag32);
 		
 		
 		// TODO Auto-generated constructor stub
@@ -97,7 +98,7 @@ public class FilterKind extends RelativeLayout {
 		
 		else {
 			Log.d("TagInfo", "It not contains");
-			contentIcon.setBackgroundResource(kindIcons.get("N/A"));
+			contentIcon.setBackgroundResource(kindIcons.get(getResources().getString(R.string.nA)));
 		}
 	}
 

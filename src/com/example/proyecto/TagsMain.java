@@ -602,6 +602,7 @@ public class TagsMain extends ListActivity {
 		} 
 		
 	}
+	
 	public List<FilterKind> getContentFilter() {
 
 		String[] kind = getResources().getStringArray(R.array.kinds_array);
@@ -631,7 +632,7 @@ public class TagsMain extends ListActivity {
 			nContentFilter.getContentId().setText(
 					String.valueOf(contentTag.getId()));
 			nContentFilter.getContentCheck().setChecked(false);
-			nContentFilter.setKindIcon("Tag");
+			nContentFilter.setKindIcon(getResources().getString(R.string.tag));
 			contentFilters.add(nContentFilter);
 		}
 		// datasource.close();
@@ -690,7 +691,7 @@ public class TagsMain extends ListActivity {
 			}
 
 		} else {
-			if (FilteredBy == 1) {
+			if (FilteredBy == 1) { //Kind
 				for (int i = 0; i < selectedFilters.length; i++) {
 					j = 0;
 					while (j < adapterAdapater.getCount()) {
@@ -703,7 +704,7 @@ public class TagsMain extends ListActivity {
 					}
 				}
 			}
-			if (FilteredBy == 2) {
+			if (FilteredBy == 2) {//Tags
 				
 				for (int i = 0; i < selectedTagFilters.size(); i++) {
 					j = 0;

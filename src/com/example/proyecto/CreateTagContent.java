@@ -22,13 +22,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -41,11 +45,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,6 +89,7 @@ public class CreateTagContent extends Activity implements
 	private PendingIntent pendingIntent;
 	private final static int PICK_CONTACT = 1;
 	public Map<String, String> PLH = new LinkedHashMap<String, String>();
+	public Map<String, String> DBR = new LinkedHashMap<String, String>();
 	public Map<String, Integer> LNI = new LinkedHashMap<String, Integer>();
 	public Map<String, Byte> UP = new LinkedHashMap<String, Byte>();
 	private String currentSelection;
@@ -102,7 +107,10 @@ public class CreateTagContent extends Activity implements
 	private CheckBox shortUrl;
 	protected String longUrl;
 	private static Context mContext;
+	
 	@Override
+	
+	
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -118,13 +126,22 @@ public class CreateTagContent extends Activity implements
 		PLH.put("66", "Bussiness card");
 		PLH.put("99", "App launcher");
 
-		LNI.put("Link", R.layout.form_link);
-		LNI.put("Telephone Number", R.layout.form_telf);
-		LNI.put("Email", R.layout.form_mail);
-		LNI.put("SMS", R.layout.form_sms);
-		LNI.put("Geo Location", R.layout.form_geo);
-		LNI.put("Plain Text", R.layout.form_text);
-		LNI.put("TEG", R.layout.form_thesis);
+		DBR.put("0",getResources().getString(R.string.link));
+		DBR.put("1",getResources().getString(R.string.mail));
+		DBR.put("2",getResources().getString(R.string.sms));
+		DBR.put("3",getResources().getString(R.string.tel));
+		DBR.put("4",getResources().getString(R.string.geoLoc));
+		DBR.put("5",getResources().getString(R.string.plainText));
+		DBR.put("6",getResources().getString(R.string.thesis));
+		
+		
+		LNI.put(getResources().getString(R.string.link), R.layout.form_link);
+		LNI.put(getResources().getString(R.string.tel), R.layout.form_telf);
+		LNI.put(getResources().getString(R.string.mail), R.layout.form_mail);
+		LNI.put(getResources().getString(R.string.sms), R.layout.form_sms);
+		LNI.put(getResources().getString(R.string.geoLoc), R.layout.form_geo);
+		LNI.put(getResources().getString(R.string.plainText), R.layout.form_text);
+		LNI.put(getResources().getString(R.string.thesis), R.layout.form_thesis);
 
 		UP.put("http://www.", (byte) 0x01);
 		UP.put("https://www.", (byte) 0x02);
@@ -228,14 +245,14 @@ public class CreateTagContent extends Activity implements
 
 	private void fillFields(String kind, String payload) {
 		// TODO Auto-generated method stub
-		switch (kind) {
-		case "Plain Text":
+		switch (currentPosition) {
+		case 5 : //"Plain Text"
 			EditText fieldText = (EditText) findViewById(R.id.fieldText);
 			String text = payload.substring(payload.indexOf(")") + 1,
 					payload.length());
 			fieldText.setText(text);
 			break;
-		case "Geo Location":
+		case 4 : //"Geo Location"
 			EditText fieldLatitude = (EditText) findViewById(R.id.fieldLatitude);
 			EditText fieldLongitude = (EditText) findViewById(R.id.fieldLongitude);
 			String latitude = payload.substring(payload.indexOf(":") + 1,
@@ -245,7 +262,7 @@ public class CreateTagContent extends Activity implements
 			fieldLatitude.setText(latitude);
 			fieldLongitude.setText(longitude);
 			break;
-		case "Email":
+		case 1 : //"Email"
 			EditText fieldTo = (EditText) findViewById(R.id.fieldTo);
 			EditText fieldSubject = (EditText) findViewById(R.id.fieldSubject);
 			EditText fieldBody = (EditText) findViewById(R.id.fieldBody);
@@ -259,7 +276,7 @@ public class CreateTagContent extends Activity implements
 			fieldSubject.setText(subject);
 			fieldBody.setText(body);
 			break;
-		case "SMS":
+		case 2 : //"SMS"
 			EditText fieldReceiver = (EditText) findViewById(R.id.fieldReceiver);
 			EditText fieldMessage = (EditText) findViewById(R.id.fieldMessage);
 			String receiver = payload.substring(payload.indexOf(":") + 1,
@@ -269,13 +286,13 @@ public class CreateTagContent extends Activity implements
 			fieldReceiver.setText(receiver);
 			fieldMessage.setText(message);
 			break;
-		case "Telephone Number":
+		case 3: // "Telephone Number"
 			EditText fieldPhone = (EditText) findViewById(R.id.fieldPhone);
 			String phone = payload.substring(payload.indexOf(":") + 1,
 					payload.length());
 			fieldPhone.setText(phone);
 			break;
-		case "Link":
+		case 0 : //"Link"
 			EditText fieldLink = (EditText) findViewById(R.id.fieldLink);
 			if (getIntent().getStringExtra("CONTENT_ID") != null) {
 				Log.d("debug bd", getIntent().getStringExtra("CONTENT_ID"));
@@ -303,7 +320,7 @@ public class CreateTagContent extends Activity implements
 				fieldLink.setText(link);
 			}
 			break;
-		case "TEG":
+		case 6 : // "TEG"
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
@@ -374,6 +391,7 @@ public class CreateTagContent extends Activity implements
 		currentPosition = position;
 		currentSelection = kind;
 		Log.d("debug", "item selected: " + kind);
+		Log.d("debug", "cp: " + currentPosition);
 		int layoutId = LNI.get(kind);
 		form = new Form(this, layoutId);
 		formContainer.removeAllViews();
@@ -421,13 +439,47 @@ public class CreateTagContent extends Activity implements
 						if (m.matches()) {
 							Log.d("debug shortened URL", currentUrl);
 							Log.d("debug shortened URL", shortUrl.isChecked()+"");
-							ShortenUrlTask task = new ShortenUrlTask(); 
-							task.execute(shortened.getText().toString());
+							if (!haveNetworkConnection()) {
+								
+								shortUrl.setChecked(false);
+								
+								AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+								
+								alertDialog.setTitle(getResources().getString(R.string.dialogMTitle));
+								
+								alertDialog.setMessage(getResources().getString(R.string.dialogMMessage));
+								
+								alertDialog.setPositiveButton(getResources().getString(R.string.dialogOkButton), new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+										startActivity(intent);
+									}
+								});
+								
+								alertDialog.setNegativeButton(getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										dialog.cancel();
+									}
+								});
+								
+								alertDialog.show();
+							}
+							else {
+								ShortenUrlTask task = new ShortenUrlTask(); 
+								task.execute(shortened.getText().toString());	
+							}
+							
 						}
-						else{
+						else {
 							Toast.makeText(getBaseContext(), "Invalid URL",Toast.LENGTH_LONG).show();
 							shortUrl.setChecked(false);
 						}
+						
+						
 						
 					}
 					else {
@@ -565,7 +617,8 @@ public class CreateTagContent extends Activity implements
 					phones.close();
 					// int type =
 					// phones.getInt(phones.getColumnIndex(Phone.TYPE));
-
+					
+					if(numbers.size() == 0){ numbers.add("0 Numbers found");}
 					numberListView = new ListView(this);
 					final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 							this, android.R.layout.simple_list_item_1, numbers);
@@ -581,11 +634,11 @@ public class CreateTagContent extends Activity implements
 											.getItemAtPosition(position);
 									//
 
-									switch (currentSelection) {
-									case "Telephone Number":
+									switch (currentPosition) {
+									case 3 : //"Telephone Number"
 										fieldPhone.setText(item);
 										break;
-									case "SMS":
+									case 2: // "SMS"
 										fieldReceiver.setText(item);
 										break;
 									default:
@@ -639,8 +692,9 @@ public class CreateTagContent extends Activity implements
 		byte[] payload;
 		NdefRecord uriRecord;
 		String content;
-		switch (kind) {
-		case "Telephone Number":
+		
+		switch (currentPosition) {
+		case 3 : //DBR.put("5",getResources().getString(R.string.text));
 			EditText fieldPhone = (EditText) findViewById(R.id.fieldPhone);
 			String telNumber = fieldPhone.getText().toString();
 			uriField = telNumber.getBytes();
@@ -651,7 +705,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "Email":
+		case 1 : //"Email"
 			EditText fieldTo = (EditText) findViewById(R.id.fieldTo);
 			EditText fieldSubject = (EditText) findViewById(R.id.fieldSubject);
 			EditText fieldBody = (EditText) findViewById(R.id.fieldBody);
@@ -666,7 +720,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "SMS":
+		case 2 : //"SMS"
 			EditText fieldReceiver = (EditText) findViewById(R.id.fieldReceiver);
 			EditText fieldMessage = (EditText) findViewById(R.id.fieldMessage);
 			content = "sms:" + fieldReceiver.getText().toString() + "?body="
@@ -679,7 +733,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "Geo Location":
+		case 4 : //"Geo Location"
 			EditText fieldLatitude = (EditText) findViewById(R.id.fieldLatitude);
 			EditText fieldLongitude = (EditText) findViewById(R.id.fieldLongitude);
 			content = "geo:" + fieldLatitude.getText().toString() + ","
@@ -692,7 +746,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "Plain Text":
+		case 5 : //"Plain Text"
 			EditText fieldText = (EditText) findViewById(R.id.fieldText);
 			// Locale locale= new Locale("en","US");
 			Locale locale = Locale.getDefault();
@@ -714,7 +768,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_TEXT, new byte[0], data);
 			newMessage = new NdefMessage(new NdefRecord[] { textRecord });
 			break;
-		case "Link":
+		case 0 : //"Link"
 			EditText fieldLink = (EditText) findViewById(R.id.fieldLink);
 			uriField = fieldLink.getText().toString().getBytes();
 			payload = new byte[uriField.length + 1];
@@ -724,7 +778,7 @@ public class CreateTagContent extends Activity implements
 					NdefRecord.RTD_URI, new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
-		case "TEG":
+		case 6 : //"TEG"
 			String externalType = "com.example:thesis";
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
@@ -765,23 +819,23 @@ public class CreateTagContent extends Activity implements
 	private boolean saveContent(String kind) {
 		String payload = "";
 		String payloadHeaderDesc = "";
-		String payloadTypeDesc = "";
+		String payloadTypeDesc = String.valueOf(currentPosition);
 		int updateResult;
 		TagContent content = null;
 		boolean valid = false;
 		boolean saved = false;
-		switch (kind) {
-		case "Telephone Number":
+		switch (currentPosition) {
+		case 3 : //"Telephone Number"
 			EditText fieldPhone = (EditText) findViewById(R.id.fieldPhone);
 			if (!fieldPhone.getText().toString().trim().equals("")) {
 				payload = fieldPhone.getText().toString();
 				payloadHeaderDesc = "tel:";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
 			break;
-		case "Email":
+		case 1 : //"Email"
 			EditText fieldTo = (EditText) findViewById(R.id.fieldTo);
 			EditText fieldSubject = (EditText) findViewById(R.id.fieldSubject);
 			EditText fieldBody = (EditText) findViewById(R.id.fieldBody);
@@ -792,12 +846,12 @@ public class CreateTagContent extends Activity implements
 						+ fieldSubject.getText().toString() + "&body="
 						+ fieldBody.getText().toString();
 				payloadHeaderDesc = "mailto:";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
 			break;
-		case "SMS":
+		case 2 : //"SMS"
 			EditText fieldReceiver = (EditText) findViewById(R.id.fieldReceiver);
 			EditText fieldMessage = (EditText) findViewById(R.id.fieldMessage);
 			if (!fieldReceiver.getText().toString().trim().equals("")
@@ -805,11 +859,11 @@ public class CreateTagContent extends Activity implements
 				payload = "sms:" + fieldReceiver.getText().toString()
 						+ "?body=" + fieldMessage.getText().toString();
 				payloadHeaderDesc = "";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 			break;
-		case "Geo Location":
+		case 4: //Geo Location
 			EditText fieldLatitude = (EditText) findViewById(R.id.fieldLatitude);
 			EditText fieldLongitude = (EditText) findViewById(R.id.fieldLongitude);
 			if (!fieldLatitude.getText().toString().trim().equals("")
@@ -817,33 +871,33 @@ public class CreateTagContent extends Activity implements
 				payload = "geo:" + fieldLatitude.getText().toString() + ","
 						+ fieldLongitude.getText().toString();
 				payloadHeaderDesc = "";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
 			break;
-		case "Plain Text":
+		case 5: //"Plain Text"
 			EditText fieldText = (EditText) findViewById(R.id.fieldText);
 			if (!fieldText.getText().toString().trim().equals("")) {
 				payload = fieldText.getText().toString();
 				payloadHeaderDesc = "("
 						+ Locale.getDefault().getLanguage().toUpperCase() + ")";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
 			break;
-		case "Link":
+		case 0 : //"Link"
 			EditText fieldLink = (EditText) findViewById(R.id.fieldLink);
 			if (!fieldLink.getText().toString().trim().equals("")) {
 				payload = fieldLink.getText().toString();
 				payloadHeaderDesc = currentPSelection;
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
 			break;
-		case "TEG":
+		case 6 : //"TEG"
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
@@ -860,7 +914,7 @@ public class CreateTagContent extends Activity implements
 						+ fieldRef.getText().toString() + "&u="
 						+ shortened.getText().toString();
 				payloadHeaderDesc = "thesis:";
-				payloadTypeDesc = kind;
+				//payloadTypeDesc = kind;
 				valid = true;
 			}
 
@@ -914,6 +968,7 @@ public class CreateTagContent extends Activity implements
 						return out.toString(); 
 					}
 					else{
+						Toast.makeText(getBaseContext(), "Connection timed out",Toast.LENGTH_LONG).show();
 						return null; 
 					} 
 				} catch ( Exception e ) { 
@@ -943,6 +998,25 @@ public class CreateTagContent extends Activity implements
 		} 
 		
 	}
+	
+	private boolean haveNetworkConnection() {
+	    boolean haveConnectedWifi = false;
+	    boolean haveConnectedMobile = false;
+
+	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+	    for (NetworkInfo ni : netInfo) {
+	        if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+	            if (ni.isConnected())
+	                haveConnectedWifi = true;
+	        if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+	            if (ni.isConnected())
+	                haveConnectedMobile = true;
+	    }
+	    
+	    return haveConnectedWifi || haveConnectedMobile ;
+	}
+	
 	/*
 	 * private class extends ArrayAdapter<String> {
 	 * 
