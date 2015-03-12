@@ -12,40 +12,6 @@
         android:text="TEG Title" />
 
     <EditText
-        android:id="@+id/fieldRef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelRef"
-        android:layout_margin="10dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="X.000.000"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/labelRef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/labelAuthor"
-        android:layout_alignRight="@+id/fieldAuthor"
-        android:layout_below="@+id/fieldAuthor"
-        android:layout_marginTop="15dp"
-        android:text="Reference" />
-
-    <EditText
-        android:id="@+id/fieldAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/fieldRef"
-        android:layout_below="@+id/labelAuthor"
-        android:layout_margin="10dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="X. XXXX"
-        android:inputType="text" />
-
-    <EditText
         android:id="@+id/fieldTitle"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
@@ -68,38 +34,108 @@
         android:layout_marginTop="15dp"
         android:text="Author" />
 
+    <EditText
+        android:id="@+id/fieldAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldRef"
+        android:layout_below="@+id/labelAuthor"
+        android:layout_margin="10dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="X. XXXX"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/labelTutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldAuthor"
+        android:layout_below="@+id/fieldAuthor"
+        android:layout_marginTop="15dp"
+        android:text="Tutor" />
+
+    <EditText
+        android:id="@+id/fieldTutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fieldRef"
+        android:layout_below="@+id/labelTutor"
+        android:layout_margin="10dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="X. XXXX"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/labelRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldRef"
+        android:layout_below="@+id/fieldTutor"
+        android:text="School" />
+
+    <EditText
+        android:id="@+id/fieldRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelRef"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Computer Science"
+        android:inputType="text" />
+    
+    
+     <TextView
+        android:id="@+id/labelYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fieldRef"
+        android:layout_below="@+id/fieldRef"
+        android:text="Year" />
+
+    <EditText
+        android:id="@+id/fieldYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelYear"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="2000"
+        android:inputType="number" />
+
     <TextView
         android:id="@+id/labelURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldRef"
-        android:layout_below="@+id/fieldRef"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/fieldYear"
+        android:layout_marginBottom="20dp"
         android:text="URL" />
 
-        <CheckBox
-            android:id="@+id/shortUrl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/fieldURL"
-            android:layout_toRightOf="@+id/fieldURL"
-            android:text="Shorten URL"
-            android:enabled="false"
-             />
+    <EditText
+        android:id="@+id/fieldURL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/labelURL"
+        android:layout_below="@+id/labelURL"
+        android:layout_marginBottom="80dp"
+        android:ems="10"
+        android:hint="Type the URL here"
+        android:inputType="textUri" >
 
-        <EditText
-            android:id="@+id/fieldURL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/labelURL"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/labelURL"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="Type the URL here"
-            android:inputType="textUri" />
+        <requestFocus />
+    </EditText>
+
+    <CheckBox
+        android:id="@+id/shortUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fieldURL"
+        android:layout_toRightOf="@+id/fieldURL"
+        android:enabled="false"
+        android:text="Shorten URL" />
 
 </RelativeLayout>

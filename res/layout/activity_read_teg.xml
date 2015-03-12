@@ -15,103 +15,143 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
+        android:text="TEG Title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rfieldTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="TEG Title" />
-    
-     <TextView
-         android:id="@+id/rfieldTitle"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/rlabelTitle"
-         android:layout_marginLeft="10dp"
-         android:layout_marginTop="10dp"
-         android:text="TEG Title" />
-     
-      <TextView
+
+    <TextView
         android:id="@+id/rlabelAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldTitle"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
+        android:text="Author"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rfieldAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelAuthor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="Author" />
-      
-      <TextView
-          android:id="@+id/rfieldAuthor"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/rlabelAuthor"
-          android:layout_marginLeft="10dp"
-          android:layout_marginTop="10dp"
-          android:text="Author" />
-      
-      <TextView
-        android:id="@+id/rlabelRef"
+
+    <TextView
+        android:id="@+id/rlabelTutor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldAuthor"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="Reference" />
-      
-       <TextView
-           android:id="@+id/rfieldRef"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
-           android:layout_below="@+id/rlabelRef"
-           android:layout_marginLeft="10dp"
-           android:layout_marginTop="10dp"
-           android:text="Reference" />
-       
-       <TextView
-        android:id="@+id/rlabelUrl"
+        android:text="Tutor"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rfieldTutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelTutor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Tutor" />
+
+    <TextView
+        android:id="@+id/rlabelRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rfieldTutor"
+        android:layout_marginTop="20dp"
+        android:text="School"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rfieldRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelRef"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Dependence" />
+	
+    
+    <TextView
+        android:id="@+id/rlabelYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldRef"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="For more details visit:" />
-       
-		<TextView
-		    android:id="@+id/rFieldUrl"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_below="@+id/rlabelUrl"
-		    android:layout_marginLeft="10dp"
-		    android:layout_marginTop="10dp"
-		    android:autoLink="web"
-		    android:linksClickable="true"
-		    android:text="www.google.com" />
+        android:text="Year"
+        android:textStyle="bold" />
 
-		<Button
-		    android:id="@+id/shareButton"
-		    style="@style/buttonS"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
-		    android:layout_below="@+id/rFieldUrl"
-		    android:layout_marginRight="74dp"
-		    android:layout_marginTop="50dp"
-		    android:onClick="onClick"
-		    android:text="Share" />
+    <TextView
+        android:id="@+id/rfieldYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelYear"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Year" />
+    <TextView
+        android:id="@+id/rlabelUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rfieldYear"
+        android:layout_marginTop="20dp"
+        android:text="For more details visit:"
+        android:textStyle="bold" />
 
-		<Button
-		    android:id="@+id/rsaveButton"
-		    style="@style/buttonSS"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/shareButton"
-		    android:layout_alignBottom="@+id/shareButton"
-		    android:layout_marginLeft="16dp"
-		    android:layout_toRightOf="@+id/rfieldRef"
-		    android:onClick="onClick"
-		    android:text="Save" />
-       
+    <TextView
+        android:id="@+id/rFieldUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlabelUrl"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:text="www.google.com" />
+
+    <Button
+        android:id="@+id/shareButton"
+        style="@style/buttonS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rFieldUrl"
+        android:layout_marginRight="74dp"
+        android:layout_marginTop="50dp"
+        android:onClick="onClick"
+        android:text="Share" />
+
+    <Button
+        android:id="@+id/rsaveButton"
+        style="@style/buttonSS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/shareButton"
+        android:layout_alignBottom="@+id/shareButton"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/rfieldRef"
+        android:onClick="onClick"
+        android:text="Save" />
+
 </RelativeLayout>

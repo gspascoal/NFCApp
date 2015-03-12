@@ -327,21 +327,29 @@ public class CreateTagContent extends Activity implements
 		case 6 : // "TEG"
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldTutor= (EditText) findViewById(R.id.fieldTutor);
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			EditText fieldYear = (EditText) findViewById(R.id.fieldYear);
 			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
 			
 			String title = payload.substring(payload.indexOf(":") + 1,
 					payload.indexOf("?"));
 			String author = payload.substring(payload.indexOf("a=") + 2,
 					payload.indexOf("&"));
-			String ref = payload.substring(payload.indexOf("r=") + 2,
+			String tutor = payload.substring(payload.indexOf("t=") + 2,
+					payload.indexOf("&s"));
+			String ref = payload.substring(payload.indexOf("s=") + 2,
+					payload.indexOf("&y"));
+			String year = payload.substring(payload.indexOf("y=") + 2,
 					payload.lastIndexOf("&"));
 			String url = payload.substring(payload.indexOf("u=") + 2,
 					payload.length());
 			
 			fieldTitle.setText(title);
 			fieldAuthor.setText(author);
+			fieldTutor.setText(tutor);
 			fieldRef.setText(ref);
+			fieldYear.setText(year);
 			fieldURL.setText(url);
 			break;
 		default:
@@ -789,11 +797,15 @@ public class CreateTagContent extends Activity implements
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldTutor = (EditText) findViewById(R.id.fieldTutor);
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			EditText fieldYear = (EditText) findViewById(R.id.fieldYear);
 			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
 			content = "thesis:" + fieldTitle.getText().toString() + "?a="
-					+ fieldAuthor.getText().toString() + "&r="
-					+ fieldRef.getText().toString() + "&u="
+					+ fieldAuthor.getText().toString() + "&t="
+					+ fieldTutor.getText().toString() + "&s="
+					+ fieldRef.getText().toString() + "&y="
+					+ fieldYear.getText().toString() + "&u="
 					+ fieldURL.getText().toString();
 			uriField = content.getBytes();
 			payload = new byte[uriField.length + 1];
@@ -907,17 +919,24 @@ public class CreateTagContent extends Activity implements
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
 			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
 			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			EditText fieldTutor = (EditText) findViewById(R.id.fieldTutor );
+			EditText fieldYear = (EditText) findViewById(R.id.fieldYear );
 			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
 			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
 			if (!fieldTitle.getText().toString().trim().equals("")
 					&& !fieldAuthor.getText().toString().trim().equals("")
+					&& !fieldTutor.getText().toString().trim().equals("")
+					&& !fieldYear.getText().toString().trim().equals("") 
 					&& !fieldRef.getText().toString().trim().equals("")
-					&& !fieldURL.getText().toString().trim().equals("") ){
+					&& !fieldURL.getText().toString().trim().equals("")
+					){
 
 				Log.d("debug shortened URL", "shortened text: "+shortened.getText().toString());
 				payload = fieldTitle.getText().toString() + "?a="
-						+ fieldAuthor.getText().toString() + "&r="
-						+ fieldRef.getText().toString() + "&u="
+						+ fieldAuthor.getText().toString() + "&t="
+						+ fieldTutor.getText().toString() + "&s="
+						+ fieldRef.getText().toString() + "&y="
+						+ fieldYear.getText().toString() + "&u="
 						+ shortened.getText().toString();
 				payloadHeaderDesc = "thesis:";
 				//payloadTypeDesc = kind;
@@ -1023,41 +1042,9 @@ public class CreateTagContent extends Activity implements
 	    return haveConnectedWifi || haveConnectedMobile ;
 	}
 	
-	private TextWatcher sizeWatcher = new TextWatcher() {
 		
-		
-		
-		@Override
-		public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-				int arg3) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-	};
-	
-	
-	
 	private void setTextWatchwers(){
 		
-		String payload = "";
-		String payloadHeaderDesc = "";
-		String payloadTypeDesc = String.valueOf(currentPosition);
-		int updateResult;
-		TagContent content = null;
-		boolean valid = false;
-		boolean saved = false;
 		switch (currentPosition) {
 		case 3 : //"Telephone Number"
 			EditText fieldPhone = (EditText) findViewById(R.id.fieldPhone);
@@ -1317,20 +1304,95 @@ public class CreateTagContent extends Activity implements
 					
 				}
 			});
-			break;/*
+			break;
 		case 4: //Geo Location
-			EditText fieldLatitude = (EditText) findViewById(R.id.fieldLatitude);
-			EditText fieldLongitude = (EditText) findViewById(R.id.fieldLongitude);
-			if (!fieldLatitude.getText().toString().trim().equals("")
-					&& !fieldLongitude.getText().toString().trim().equals("")) {
-				payload = "geo:" + fieldLatitude.getText().toString() + ","
-						+ fieldLongitude.getText().toString();
-				payloadHeaderDesc = "";
-				//payloadTypeDesc = kind;
-				valid = true;
-			}
-
-			break;*/
+			final EditText fieldLatitude = (EditText) findViewById(R.id.fieldLatitude);
+			final EditText fieldLongitude = (EditText) findViewById(R.id.fieldLongitude);
+			
+			fieldLatitude.addTextChangedListener(new TextWatcher() {
+				int sizeBefore;
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					
+					contentSize.setText("3");
+					int currentSize = Integer.valueOf(contentSize.getText().toString());
+					int longCZ = fieldLongitude.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if (longCZ == 0) {
+							contentSize.setText(String.valueOf(12));
+						}
+						if (longCZ > 0) {
+							contentSize.setText(String.valueOf(3+9+longCZ));
+						}
+					} else {
+						if (longCZ == 0) {
+							contentSize.setText(String.valueOf(3+9+arg0.length()));
+						}
+						if (longCZ > 0) {
+							contentSize.setText(String.valueOf(3+9+longCZ+arg0.length()));
+						}
+					}
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					sizeBefore = Integer.valueOf(contentSize.getText().toString());
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			fieldLongitude.addTextChangedListener(new TextWatcher() {
+				int sizeBefore;
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					
+					contentSize.setText("3");
+					int currentSize = Integer.valueOf(contentSize.getText().toString());
+					int latCZ = fieldLatitude.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if (latCZ == 0) {
+							contentSize.setText(String.valueOf(12));
+						}
+						if (latCZ > 0) {
+							contentSize.setText(String.valueOf(3+9+latCZ));
+						}
+					} else {
+						if (latCZ == 0) {
+							contentSize.setText(String.valueOf(3+9+arg0.length()));
+						}
+						if (latCZ > 0) {
+							contentSize.setText(String.valueOf(3+9+latCZ+arg0.length()));
+						}
+					}
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					sizeBefore = Integer.valueOf(contentSize.getText().toString());
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			break;
 		case 5: //"Plain Text"
 			EditText fieldText = (EditText) findViewById(R.id.fieldText);
 			fieldText.addTextChangedListener(new TextWatcher() {
@@ -1397,29 +1459,324 @@ public class CreateTagContent extends Activity implements
 					
 				}
 			});
-			break;/*
+			break;
 		case 6 : //"TEG"
 			CheckBox shortUrl = (CheckBox)findViewById(R.id.shortUrl);
-			EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
-			EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
-			EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
-			EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
-			if (!fieldTitle.getText().toString().trim().equals("")
-					&& !fieldAuthor.getText().toString().trim().equals("")
-					&& !fieldRef.getText().toString().trim().equals("")
-					&& !fieldURL.getText().toString().trim().equals("") ){
-
-				Log.d("debug shortened URL", "shortened text: "+shortened.getText().toString());
-				payload = fieldTitle.getText().toString() + "?a="
-						+ fieldAuthor.getText().toString() + "&r="
-						+ fieldRef.getText().toString() + "&u="
-						+ shortened.getText().toString();
-				payloadHeaderDesc = "thesis:";
-				//payloadTypeDesc = kind;
-				valid = true;
-			}
-
-			break;*/
+			final EditText fieldTitle = (EditText) findViewById(R.id.fieldTitle);
+			final EditText fieldAuthor = (EditText) findViewById(R.id.fieldAuthor);
+			final EditText fieldTutor = (EditText) findViewById(R.id.fieldTutor);
+			final EditText fieldRef = (EditText) findViewById(R.id.fieldRef);
+			final EditText fieldYear = (EditText) findViewById(R.id.fieldYear);
+			final EditText fieldURL = (EditText) findViewById(R.id.fieldURL);
+			
+			fieldTitle.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int authorCZ = fieldAuthor.getText().toString().length();
+					int tutorCZ = fieldTutor.getText().toString().length();
+					int refCZ = fieldRef.getText().toString().length();
+					int yearCZ = fieldYear.getText().toString().length();
+					int urlCZ = fieldURL.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( authorCZ == 0 &&  tutorCZ == 0 &&  refCZ == 0 &&  yearCZ == 0 &&  urlCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (authorCZ > 0) { nsize += 3+fieldAuthor.getText().toString().length();}
+							if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+							if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+							if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+							if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+							contentSize.setText(String.valueOf(7+nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (authorCZ > 0) { nsize += 3+fieldAuthor.getText().toString().length();}
+						if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+						if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+						if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+						if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+						contentSize.setText(String.valueOf(7+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			fieldAuthor.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int titleCZ = fieldTitle.getText().toString().length();
+					int tutorCZ = fieldTutor.getText().toString().length();
+					int refCZ = fieldRef.getText().toString().length();
+					int yearCZ = fieldYear.getText().toString().length();
+					int urlCZ = fieldURL.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( titleCZ == 0 &&  tutorCZ == 0 &&  refCZ == 0 &&  yearCZ == 0 &&  urlCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+							if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+							if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+							if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+							if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+							contentSize.setText(String.valueOf(nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+						if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+						if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+						if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+						if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+						contentSize.setText(String.valueOf(3+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			fieldTutor.addTextChangedListener(new TextWatcher() {
+			
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int titleCZ = fieldTitle.getText().toString().length();
+					int authorCZ = fieldAuthor.getText().toString().length();
+					int refCZ = fieldRef.getText().toString().length();
+					int yearCZ = fieldYear.getText().toString().length();
+					int urlCZ = fieldURL.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( titleCZ == 0 &&  authorCZ == 0 &&  refCZ == 0 &&  yearCZ == 0 &&  urlCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+							if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+							if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+							if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+							if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+							contentSize.setText(String.valueOf(nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+						if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+						if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+						if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+						if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+						contentSize.setText(String.valueOf(3+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			fieldRef.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int titleCZ = fieldTitle.getText().toString().length();
+					int authorCZ = fieldAuthor.getText().toString().length();
+					int tutorCZ = fieldTutor.getText().toString().length();
+					int yearCZ = fieldYear.getText().toString().length();
+					int urlCZ = fieldURL.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( titleCZ == 0 &&  authorCZ == 0 &&  tutorCZ == 0 &&  yearCZ == 0 &&  urlCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+							if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+							if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+							if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+							if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+							contentSize.setText(String.valueOf(nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+						if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+						if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+						if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+						if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+						contentSize.setText(String.valueOf(3+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			fieldYear.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int titleCZ = fieldTitle.getText().toString().length();
+					int authorCZ = fieldAuthor.getText().toString().length();
+					int tutorCZ = fieldTutor.getText().toString().length();
+					int refCZ = fieldRef.getText().toString().length();
+					int urlCZ = fieldURL.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( titleCZ == 0 &&  authorCZ == 0 &&  tutorCZ == 0 &&  refCZ == 0 &&  urlCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+							if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+							if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+							if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+							if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+							contentSize.setText(String.valueOf(nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+						if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+						if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+						if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+						if (urlCZ > 0) {nsize += 3+fieldURL.getText().toString().length();}
+						contentSize.setText(String.valueOf(3+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			fieldURL.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					int titleCZ = fieldTitle.getText().toString().length();
+					int authorCZ = fieldAuthor.getText().toString().length();
+					int tutorCZ = fieldTutor.getText().toString().length();
+					int refCZ = fieldRef.getText().toString().length();
+					int yearCZ = fieldYear.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if ( titleCZ == 0 &&  authorCZ == 0 &&  tutorCZ == 0 &&  refCZ == 0 &&  yearCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						else {
+							int nsize = 3;
+							if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+							if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+							if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+							if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+							if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+							contentSize.setText(String.valueOf(nsize));
+						}
+						
+					} else {
+						int nsize = 3;
+						if (titleCZ > 0) { nsize += 7+fieldTitle.getText().toString().length();}
+						if (authorCZ > 0) {nsize += 3+fieldAuthor.getText().toString().length();}
+						if (tutorCZ > 0) {nsize += 3+fieldTutor.getText().toString().length();}
+						if (refCZ > 0) {nsize += 3+fieldRef.getText().toString().length();}
+						if (yearCZ > 0) {nsize += 3+fieldYear.getText().toString().length();}
+						contentSize.setText(String.valueOf(3+nsize+arg0.length()));
+					}
+					
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			break;
 		default:
 			break;
 		}

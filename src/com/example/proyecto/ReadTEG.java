@@ -35,8 +35,10 @@ public class ReadTEG extends Activity {
 	private String[][] techListsArray;
 	private TextView title;
 	private TextView author;
+	private TextView tutor;
 	private TextView reference;
 	private TextView url;
+	private TextView year;
 	private TagContentDataSource datasource;
 	private TagInfo tInfo;
 
@@ -49,7 +51,9 @@ public class ReadTEG extends Activity {
 		
 		title = (TextView)findViewById(R.id.rfieldTitle);
 		author = (TextView)findViewById(R.id.rfieldAuthor);
+		tutor = (TextView)findViewById(R.id.rfieldTutor);
 		reference = (TextView)findViewById(R.id.rfieldRef);
+		year = (TextView)findViewById(R.id.rfieldYear);
 		url = (TextView)findViewById(R.id.rFieldUrl);
 		
 		
@@ -97,7 +101,11 @@ public class ReadTEG extends Activity {
 					payload.indexOf("?")));
 			author.setText(payload.substring(payload.indexOf("a=") + 2,
 					payload.indexOf("&")));
-			reference.setText(payload.substring(payload.indexOf("r=") + 2,
+			tutor.setText(payload.substring(payload.indexOf("t=") + 2,
+					payload.indexOf("&s")));
+			reference.setText(payload.substring(payload.indexOf("s=") + 2,
+					payload.indexOf("&y")));
+			year.setText(payload.substring(payload.indexOf("y=") + 2,
 					payload.lastIndexOf("&")));
 			url.setText(payload.substring(payload.indexOf("u=") + 2,
 					payload.length()));
