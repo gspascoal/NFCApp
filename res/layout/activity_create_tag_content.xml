@@ -55,13 +55,36 @@
             android:layout_below="@+id/createTagHeader"
              >
             
-            <TextView android:id="@+id/labelSize"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="12dp"
-	        android:layout_alignParentRight="true"
-	        android:layout_margin="15dp"
-	        android:text="Message size: 0" />
+            <TextView
+                android:id="@+id/labelSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_toLeftOf="@+id/fieldSize"
+                android:text="Message size: " />
+
+              <TextView
+                  android:id="@+id/fieldSize"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignBaseline="@+id/fieldSize2"
+                  android:layout_alignBottom="@+id/fieldSize2"
+                  android:layout_toLeftOf="@+id/fieldSize2"
+                  android:text="3" />
+
+              <TextView
+                  android:id="@+id/fieldSize2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignBaseline="@+id/labelSize"
+                  android:layout_alignBottom="@+id/labelSize"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginRight="18dp"
+                  android:text=" bytes" />
+
         </RelativeLayout>
         
         <LinearLayout android:id="@+id/createTagFooter"
