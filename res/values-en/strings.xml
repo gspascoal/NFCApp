@@ -97,6 +97,7 @@
         <item>@string/geoLoc</item>
         <item>@string/plainText</item>
         <item>@string/thesis</item>
+        <item>@string/report</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Edit</item>
@@ -190,6 +191,7 @@
     <string name="plainText">Plain Text</string>
     <string name="tag">Tag</string>
     <string name="thesis">TEG</string>
+    <string name="report">Accident Report</string>
     <string name="sms">SMS</string>
     <string name="uri">URI</string>
     <string name="bussinesCard">Bussines card</string>

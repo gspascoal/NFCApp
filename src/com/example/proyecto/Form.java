@@ -1,5 +1,7 @@
 package com.example.proyecto;
 
+import com.example.proyecto.R;
+
 import android.R.integer;
 import android.content.Context;
 import android.content.Intent;

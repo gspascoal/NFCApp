@@ -1,5 +1,7 @@
                                                                                                                                                                                                        package com.example.proyecto;
 
+import com.example.proyecto.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

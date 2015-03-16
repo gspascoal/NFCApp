@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R;
 
 public class SaveResult extends Activity {
 

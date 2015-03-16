@@ -42,6 +42,7 @@ import com.example.objetos.FilterKind;
 import com.example.objetos.FilterLayout;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R;
 
 public class TagsMain extends ListActivity {
 

@@ -3,6 +3,8 @@ package com.example.proyecto;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.example.proyecto.R;
+
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;

@@ -74,6 +74,7 @@ import android.widget.Toast;
 import com.example.objetos.GPSTracker;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R;
 
 public class CreateTagContent extends Activity implements
 		OnItemSelectedListener {
@@ -136,6 +137,7 @@ public class CreateTagContent extends Activity implements
 		DBR.put("4",getResources().getString(R.string.geoLoc));
 		DBR.put("5",getResources().getString(R.string.plainText));
 		DBR.put("6",getResources().getString(R.string.thesis));
+		DBR.put("7",getResources().getString(R.string.report));
 		
 		
 		LNI.put(getResources().getString(R.string.link), R.layout.form_link);
@@ -145,6 +147,7 @@ public class CreateTagContent extends Activity implements
 		LNI.put(getResources().getString(R.string.geoLoc), R.layout.form_geo);
 		LNI.put(getResources().getString(R.string.plainText), R.layout.form_text);
 		LNI.put(getResources().getString(R.string.thesis), R.layout.form_thesis);
+		LNI.put(getResources().getString(R.string.report), R.layout.form_report);
 
 		UP.put("http://www.", (byte) 0x01);
 		UP.put("https://www.", (byte) 0x02);
@@ -351,6 +354,16 @@ public class CreateTagContent extends Activity implements
 			fieldRef.setText(ref);
 			fieldYear.setText(year);
 			fieldURL.setText(url);
+			break;
+		case 7 : //"Accident Report"
+			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
+			EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
+			String policy = payload.substring(payload.indexOf("p=") + 2,
+					payload.indexOf(","));
+			String plate = payload.substring(payload.indexOf("lp=") + 2,
+					payload.length());
+			fieldPolicy.setText(policy);
+			fieldPlate.setText(plate);
 			break;
 		default:
 			break;
@@ -815,6 +828,23 @@ public class CreateTagContent extends Activity implements
 					externalType.getBytes(), new byte[0], payload);
 			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
 			break;
+		case 7 : //"Accident Report"
+			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
+			EditText filedPlate = (EditText) findViewById(R.id.fieldPlate);
+			content = "www.alstelecom.com/enviod.php";
+			content += "?p=" + fieldPolicy.getText().toString() + "&pl="
+					+ filedPlate.getText().toString()
+					+ "bd=demo";
+			
+			uriField = content.getBytes();
+			payload = new byte[uriField.length + 1];
+			payload[0] =  0x01;
+			System.arraycopy(uriField, 0, payload, 1, uriField.length);
+			uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+					NdefRecord.RTD_URI, new byte[0], payload);
+			newMessage = new NdefMessage(new NdefRecord[] { uriRecord });
+			break;
+			
 		default:
 			break;
 		}
@@ -939,6 +969,21 @@ public class CreateTagContent extends Activity implements
 						+ fieldYear.getText().toString() + "&u="
 						+ shortened.getText().toString();
 				payloadHeaderDesc = "thesis:";
+				//payloadTypeDesc = kind;
+				valid = true;
+			}
+
+			break;
+		case 7: //Accident Report
+			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
+			EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
+			if (!fieldPolicy.getText().toString().trim().equals("")
+					&& !fieldPlate.getText().toString().trim().equals("")) {
+				payload = "www.alstelecom.com/enviod.php";
+				payload += "?p=" + fieldPolicy.getText().toString() + "&lp="
+						+ fieldPlate.getText().toString()
+						+ "bd=demo";
+				payloadHeaderDesc = "";
 				//payloadTypeDesc = kind;
 				valid = true;
 			}

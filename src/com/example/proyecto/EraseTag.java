@@ -1,5 +1,7 @@
 package com.example.proyecto;
 
+import com.example.proyecto.R;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;

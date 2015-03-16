@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.example.objetos.CustomAdapater;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R;
 
 public class WriteMain extends Activity {
 	

@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
+import com.example.proyecto.R;
 
 import android.app.Activity;
 import android.app.PendingIntent;

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
+import com.example.proyecto.R;
 
 public class TransferContent extends Activity {
 

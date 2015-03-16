@@ -1,5 +1,7 @@
 package com.example.proyecto;
 
+import com.example.proyecto.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +43,10 @@ public class ExtrasMain extends Activity {
 			intent = new Intent(ExtrasMain.this, EraseTag.class);
 			startActivity(intent);
 			break;
-
+		case R.id.untitled:
+			intent = new Intent(ExtrasMain.this, GenerateQRCodeActivity.class );
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}

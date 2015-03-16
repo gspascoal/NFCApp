@@ -110,6 +110,7 @@
         <item>@string/geoLoc</item>
         <item>@string/plainText</item>
         <item>@string/thesis</item>
+        <item>@string/report</item>
     </string-array>
     <string-array name="tOptions_array">
         <item>Editar</item>
@@ -193,12 +194,13 @@
     <string name="plainText">Texto plano</string>
     <string name="tag">Tag</string>
     <string name="thesis">TEG</string>
+    <string name="report">Reporte de accidente</string>
     <string name="sms">SMS</string>
     <string name="uri">URI</string>
     <string name="bussinesCard">Tarjeta de negocios</string>
     <string name="payloadsType">Tipo del contenido:</string>
     <string name="title_activity_read_teg">ReadTEG</string>
+    <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
+    <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
 
-    
-    <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a> </string>
 </resources>

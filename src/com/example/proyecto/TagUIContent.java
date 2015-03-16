@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.example.objetos.TagContentDataSource;
+import com.example.proyecto.R;
 
 import android.content.Context;
 import android.content.Intent;
