@@ -47,6 +47,7 @@ public class SaveResult extends Activity {
 		DBR.put("4",getResources().getString(R.string.geoLoc));
 		DBR.put("5",getResources().getString(R.string.plainText));
 		DBR.put("6",getResources().getString(R.string.thesis));
+		DBR.put("7",getResources().getString(R.string.report));
 
 		PLTI.put(getResources().getString(R.string.nA), R.drawable.default64);
 		PLTI.put(getResources().getString(R.string.link), R.drawable.link64);
@@ -58,6 +59,7 @@ public class SaveResult extends Activity {
 		PLTI.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		PLTI.put(getResources().getString(R.string.plainText), R.drawable.text64);
 		PLTI.put(getResources().getString(R.string.thesis), R.drawable.thesis64);
+		PLTI.put(getResources().getString(R.string.report), R.drawable.default64);
 
 		cDescription = (TextView) findViewById(R.id.contentDescription);
 		cPayload = (TextView) findViewById(R.id.contentPayload);

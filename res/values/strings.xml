@@ -202,5 +202,6 @@
     <string name="title_activity_read_teg">ReadTEG</string>
     <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
     <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
+    <string name="title_activity_backup_data">BackupData</string>
 
 </resources>

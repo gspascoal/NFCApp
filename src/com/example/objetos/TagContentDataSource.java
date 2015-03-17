@@ -50,6 +50,7 @@ public class TagContentDataSource {
 		DBR.put("4",context.getResources().getString(R.string.geoLoc));
 		DBR.put("5",context.getResources().getString(R.string.plainText));
 		DBR.put("6",context.getResources().getString(R.string.thesis));
+		DBR.put("7",context.getResources().getString(R.string.report));
 		
 		
 		Log.d("debug DB", "DB name: " + dbHelper.getDatabaseName());

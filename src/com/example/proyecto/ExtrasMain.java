@@ -1,6 +1,7 @@
 package com.example.proyecto;
 
 import com.example.proyecto.R;
+import com.example.proyecto.R.id;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -47,6 +48,9 @@ public class ExtrasMain extends Activity {
 			intent = new Intent(ExtrasMain.this, GenerateQRCodeActivity.class );
 			startActivity(intent);
 			break;
+		case R.id.backupData:
+			intent = new Intent(ExtrasMain.this, BackupData.class );
+			startActivity(intent);
 		default:
 			break;
 		}

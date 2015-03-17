@@ -359,9 +359,9 @@ public class CreateTagContent extends Activity implements
 			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
 			EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
 			String policy = payload.substring(payload.indexOf("p=") + 2,
-					payload.indexOf(","));
-			String plate = payload.substring(payload.indexOf("lp=") + 2,
-					payload.length());
+					payload.indexOf("&"));
+			String plate = payload.substring(payload.indexOf("lp=") + 3,
+					payload.indexOf("&bd"));
 			fieldPolicy.setText(policy);
 			fieldPlate.setText(plate);
 			break;
@@ -834,7 +834,7 @@ public class CreateTagContent extends Activity implements
 			content = "www.alstelecom.com/enviod.php";
 			content += "?p=" + fieldPolicy.getText().toString() + "&pl="
 					+ filedPlate.getText().toString()
-					+ "bd=demo";
+					+ "&bd=demo";
 			
 			uriField = content.getBytes();
 			payload = new byte[uriField.length + 1];
@@ -975,6 +975,7 @@ public class CreateTagContent extends Activity implements
 
 			break;
 		case 7: //Accident Report
+			Log.d("debug AR: ", payloadTypeDesc);
 			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
 			EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
 			if (!fieldPolicy.getText().toString().trim().equals("")
@@ -982,7 +983,7 @@ public class CreateTagContent extends Activity implements
 				payload = "www.alstelecom.com/enviod.php";
 				payload += "?p=" + fieldPolicy.getText().toString() + "&lp="
 						+ fieldPlate.getText().toString()
-						+ "bd=demo";
+						+ "&bd=demo";
 				payloadHeaderDesc = "";
 				//payloadTypeDesc = kind;
 				valid = true;
