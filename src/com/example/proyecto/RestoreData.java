@@ -1,5 +1,27 @@
 package com.example.proyecto;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
@@ -11,23 +33,6 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.common.HybridBinarizer;
-
-import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
-import android.os.Build;
 
 public class RestoreData extends Activity implements OnClickListener{
 
@@ -97,12 +102,16 @@ public class RestoreData extends Activity implements OnClickListener{
 		case R.id.restoreOp1: // Take photo
 			Intent i = new Intent(
 		    android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-			startActivityForResult(i, 0);
+			startActivityForResult(i,123);
 
 			
 			break;
 		case R.id.restoreOp2: // Open photo
 			
+			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  
+			Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/"+ getApplicationContext().getPackageName() + "/Files");
+			intent.setDataAndType(uri, "image/*");
+			startActivityForResult(Intent.createChooser(intent, "Select image"),234); 
 			
 			break;
 
@@ -117,16 +126,39 @@ public class RestoreData extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		String content;
-		if (resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-			bitmap = (Bitmap) extras.get("data");
-			//myImage.setImageBitmap(bitmap);
-			content = decode();
+		if (resultCode == RESULT_OK ) {
+			if (requestCode == 123 ) {
+				Bundle extras = data.getExtras();
+				bitmap = (Bitmap) extras.get("data");
+				//myImage.setImageBitmap(bitmap);
+				content = decode();
+				
+				Intent intent = new Intent(this, RestoreResults.class);
+				intent.putExtra("IMAGE_CONTENT", content);
+				startActivity(intent);
+			}
 			
-			Intent intent = new Intent(this, RestoreResults.class);
-			intent.putExtra("IMAGE_CONTENT", content);
-			startActivity(intent);
+			if (requestCode == 234) {
+				Uri selectedImage = data.getData();
+				InputStream imageStream = null;
+				try {
+					imageStream = getContentResolver().openInputStream(selectedImage);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	          bitmap = BitmapFactory.decodeStream(imageStream);
+	          content = decode();
+				
+				Intent intent = new Intent(this, RestoreResults.class);
+				intent.putExtra("IMAGE_CONTENT", content);
+				startActivity(intent);
+				
+			}
+			
 		}
+		
 
 	}
 	
