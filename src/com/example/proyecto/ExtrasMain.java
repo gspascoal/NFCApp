@@ -45,7 +45,7 @@ public class ExtrasMain extends Activity {
 			startActivity(intent);
 			break;
 		case R.id.untitled:
-			intent = new Intent(ExtrasMain.this, GenerateQRCodeActivity.class );
+			intent = new Intent(ExtrasMain.this, RestoreData.class );
 			startActivity(intent);
 			break;
 		case R.id.backupData:

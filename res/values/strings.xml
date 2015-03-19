@@ -203,5 +203,7 @@
     <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
     <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
     <string name="title_activity_backup_data">BackupData</string>
+    <string name="title_activity_restore_data">RestoreData</string>
+    <string name="title_activity_restore_results">RestoreResults</string>
 
 </resources>

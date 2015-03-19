@@ -21,9 +21,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyecto.BackupData;
 import com.example.proyecto.CreateTagContent;
 import com.example.proyecto.CustomDialog;
 import com.example.proyecto.R;
+import com.example.proyecto.SaveResult;
 import com.example.proyecto.TagUIContent;
 
 @SuppressLint("NewApi")
@@ -41,7 +43,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		this.objects = objects;
 		datasource = new TagContentDataSource(getContext());
 		tAdapater = this;
-	
+
 	}
 
 	@Override
@@ -77,10 +79,10 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		}
 
 		final ViewHolder holder = (ViewHolder) rowView.getTag();
-		
+
 		// LayoutInflater inflater = (LayoutInflater)
 		// context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		//Log.d("debug list write", "views");
+		// Log.d("debug list write", "views");
 		// Log.d("debug extra ID",objects[position].getContentId().getText().toString());
 		holder.payloadIconContent.setBackground(objects.get(position)
 				.getContentIcon().getBackground());
@@ -90,25 +92,28 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				.getContentDesc().getText());
 		holder.payloadContentTags.setText(objects.get(position)
 				.getContentTags().getText());
-		if (!holder.payloadContentTags.getText().toString().equalsIgnoreCase(getContext().getResources().getString(R.string.tagName))) {
+		if (!holder.payloadContentTags
+				.getText()
+				.toString()
+				.equalsIgnoreCase(
+						getContext().getResources().getString(R.string.tagName))) {
 			holder.payloadContentTags.setVisibility(View.VISIBLE);
 		}
-		
+
 		holder.payloadContentId.setText(objects.get(position).getContentId()
 				.getText());
-		
-		
+
 		datasource.open();
-		List<ContentTag> tagList = datasource.getTagsOfContent(holder.payloadContentId.getText().toString());
+		List<ContentTag> tagList = datasource
+				.getTagsOfContent(holder.payloadContentId.getText().toString());
 		for (ContentTag contentTag : tagList) {
 			Log.d("debug tags", contentTag.toString());
-			//holder.payloadContentTags.setText(objects.get(position).getContentTags().getText());
+			// holder.payloadContentTags.setText(objects.get(position).getContentTags().getText());
 		}
-		
-		//datasource.describeTable();
+
+		// datasource.describeTable();
 		datasource.close();
-		
-		
+
 		rowView.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -120,7 +125,7 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				String kind = holder.payloadDescContent.getText().toString();
 				String pLoad = holder.payloadContent.getText().toString();
 				String activityName = getContext().getClass().getSimpleName();
-				Log.d("debug", "activity name?: "+activityName);
+				Log.d("debug", "activity name?: " + activityName);
 				Log.d("debug extra", kind);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", pLoad);
@@ -134,18 +139,20 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 		rowView.setOnLongClickListener(new View.OnLongClickListener() {
 
-			Long itemId = Long.valueOf(holder.payloadContentId.getText().toString());
+			Long itemId = Long.valueOf(holder.payloadContentId.getText()
+					.toString());
 			String kind = holder.payloadDescContent.getText().toString();
 			String pLoad = holder.payloadContent.getText().toString();
 			private ListView optionDialog;
 			private CustomDialog dialog;
-			//private TagContentDataSource datasource;
+
+			// private TagContentDataSource datasource;
 
 			@Override
 			public boolean onLongClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				//Log.d("debug extra ID", itemId.toString());
+				// Log.d("debug extra ID", itemId.toString());
 				optionDialog = new ListView(getContext());
 				String[] cOptionsArrayStrings = getContext().getResources()
 						.getStringArray(
@@ -172,160 +179,253 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 								switch (position) {
 								case 0: // Delete
-									AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-									
-									alertDialog.setTitle(getContext().getResources().getString(R.string.cDelete_dialog_title)); //
-									
-									alertDialog.setMessage(getContext().getResources().getString(R.string.cDelete_dialog_msg)); 
-									
-									//getContext().getResources().getString(R.string.dialogOkButton)
-									alertDialog.setPositiveButton(getContext().getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
-										
-										@Override
-										public void onClick(DialogInterface dialogC, int which) {
-											int i = 0;
-											datasource.open();
-											while (i < objects.size()) {
-												Log.d("deleting", "i value: " + i);
-												if (objects.get(i).getContentId()
-														.getText().toString()
-														.equals(itemId.toString())) {
-													break;
-												}
-												i++;
-											}
-											Log.d("deleting", "Item id: " + itemId);
-											Log.d("deleting", "Item row: " + i);
-											objects.remove(i);
-											datasource.deleteContent(itemId);
-											notifyDataSetChanged();
-											/*Toast.makeText(getContext(),
-													"Item " + itemId + " deleted!",
-													Toast.LENGTH_LONG).show();*/
-											datasource.close();
-											dialogC.dismiss();
-											dialog.dismiss();
-											
-										}
-									});
-									
-									alertDialog.setNegativeButton(getContext().getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
-										
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-											dialog.cancel();
-										}
-									});
-									
+									AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+											context);
+
+									alertDialog
+											.setTitle(getContext()
+													.getResources()
+													.getString(
+															R.string.cDelete_dialog_title)); //
+
+									alertDialog
+											.setMessage(getContext()
+													.getResources()
+													.getString(
+															R.string.cDelete_dialog_msg));
+
+									// getContext().getResources().getString(R.string.dialogOkButton)
+									alertDialog
+											.setPositiveButton(
+													getContext()
+															.getResources()
+															.getString(
+																	R.string.accept),
+													new DialogInterface.OnClickListener() {
+
+														@Override
+														public void onClick(
+																DialogInterface dialogC,
+																int which) {
+															int i = 0;
+															datasource.open();
+															while (i < objects
+																	.size()) {
+																Log.d("deleting",
+																		"i value: "
+																				+ i);
+																if (objects
+																		.get(i)
+																		.getContentId()
+																		.getText()
+																		.toString()
+																		.equals(itemId
+																				.toString())) {
+																	break;
+																}
+																i++;
+															}
+															Log.d("deleting",
+																	"Item id: "
+																			+ itemId);
+															Log.d("deleting",
+																	"Item row: "
+																			+ i);
+															objects.remove(i);
+															datasource
+																	.deleteContent(itemId);
+															notifyDataSetChanged();
+															/*
+															 * Toast.makeText(
+															 * getContext(),
+															 * "Item " + itemId
+															 * + " deleted!",
+															 * Toast
+															 * .LENGTH_LONG)
+															 * .show();
+															 */
+															datasource.close();
+															dialogC.dismiss();
+															dialog.dismiss();
+
+														}
+													});
+
+									alertDialog
+											.setNegativeButton(
+													getContext()
+															.getResources()
+															.getString(
+																	R.string.dialogCancelButton),
+													new DialogInterface.OnClickListener() {
+
+														@Override
+														public void onClick(
+																DialogInterface dialog,
+																int which) {
+															dialog.cancel();
+														}
+													});
+
 									alertDialog.show();
-									
-									
+
 									break;
 								case 1: // Share
 									Intent sendIntent = new Intent();
 									sendIntent.setAction(Intent.ACTION_SEND);
-									sendIntent.putExtra(Intent.EXTRA_TEXT, pLoad);
+									sendIntent.putExtra(Intent.EXTRA_TEXT,
+											pLoad);
 									sendIntent.setType("text/plain");
 									getContext().startActivity(sendIntent);
-								break;
+									break;
 								case 2: // Add Tag
 									datasource.open();
-									final AddTagLayout addTagLayout = new AddTagLayout(getContext());
-									dialogAddTag = new CustomDialog(getContext());
-									List<FilterKind> filterList = getContentFilter(String.valueOf(itemId));
+									final AddTagLayout addTagLayout = new AddTagLayout(
+											getContext());
+									dialogAddTag = new CustomDialog(
+											getContext());
+									List<FilterKind> filterList = getContentFilter(String
+											.valueOf(itemId));
 									if (filterList.size() != 0) {
-										filterListAdapter = new TagAdapter(context, filterList);
-										filterListAdapter.setCurrentItemId(itemId);
-										addTagLayout.getTagList().setAdapter(filterListAdapter);
-										addTagLayout.getTagList().setVisibility(View.VISIBLE);
-									}
-									else{
+										filterListAdapter = new TagAdapter(
+												context, filterList);
+										filterListAdapter
+												.setCurrentItemId(itemId);
+										addTagLayout.getTagList().setAdapter(
+												filterListAdapter);
+										addTagLayout.getTagList()
+												.setVisibility(View.VISIBLE);
+									} else {
 										Log.d("debug tag list", "Empty List");
 									}
-									
-									
-									addTagLayout.getNegative().setOnClickListener(new View.OnClickListener() {
-										
-										@Override
-										public void onClick(View v) {
-											// TODO Auto-generated method stub
-											datasource.open();
-											objects.clear();
-											objects.addAll(datasource.getTagUIContents());
-											notifyDataSetChanged();
-											datasource.close();
-											
-											
-											dialogAddTag.dismiss();
-										}
-									});
-																		
-									addTagLayout.getPositive().setOnClickListener(new View.OnClickListener() {
-										
-										private int selectedCount;
 
-										@Override
-										public void onClick(View v) {
-											// TODO Auto-generated method stub
-											
-											selectedCount = 0;
-											datasource.open();
-											/*
-											for (int i = 0; i < filterListAdapter.getCount(); i++) {
-												if (filterListAdapter.getItem(i).getContentCheck().isChecked()) {
-													selectedCount ++;
-												}
-											}
-											
-											Log.d("debug select tag","selectedCount: "+selectedCount);
-											if(selectedCount != 0){
-												
-											}*/
-											
-											if (addTagLayout.getAddTagField().getText().length() > 0) {
-												ContentTag nContentTag = datasource.createTag(addTagLayout.getAddTagField().getText().toString());
-												datasource.assignTag(itemId, nContentTag.getId());
-												//objects.clear();
-												//
-												notifyDataSetChanged();
-											}
-											else{}
-											objects.clear();
-											objects.addAll(datasource.getTagUIContents());
-											notifyDataSetChanged();
-											datasource.close();
-											
-											
-											dialogAddTag.dismiss();
-											
-										}
-									});
-									
-									//notifyDataSetChanged();
-									//dialogAddTag.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-									dialogAddTag.setTitle(getContext().getResources().getString(R.string.tChoose_dialog_title));
+									addTagLayout.getNegative()
+											.setOnClickListener(
+													new View.OnClickListener() {
+
+														@Override
+														public void onClick(
+																View v) {
+															// TODO
+															// Auto-generated
+															// method stub
+															datasource.open();
+															objects.clear();
+															objects.addAll(datasource
+																	.getTagUIContents());
+															notifyDataSetChanged();
+															datasource.close();
+
+															dialogAddTag
+																	.dismiss();
+														}
+													});
+
+									addTagLayout.getPositive()
+											.setOnClickListener(
+													new View.OnClickListener() {
+
+														private int selectedCount;
+
+														@Override
+														public void onClick(
+																View v) {
+															// TODO
+															// Auto-generated
+															// method stub
+
+															selectedCount = 0;
+															datasource.open();
+															/*
+															 * for (int i = 0; i
+															 * <
+															 * filterListAdapter
+															 * .getCount(); i++)
+															 * { if
+															 * (filterListAdapter
+															 * .getItem(i).
+															 * getContentCheck
+															 * ().isChecked()) {
+															 * selectedCount ++;
+															 * } }
+															 * 
+															 * Log.d(
+															 * "debug select tag"
+															 * ,
+															 * "selectedCount: "
+															 * +selectedCount);
+															 * if(selectedCount
+															 * != 0){
+															 * 
+															 * }
+															 */
+
+															if (addTagLayout
+																	.getAddTagField()
+																	.getText()
+																	.length() > 0) {
+																ContentTag nContentTag = datasource
+																		.createTag(addTagLayout
+																				.getAddTagField()
+																				.getText()
+																				.toString());
+																datasource
+																		.assignTag(
+																				itemId,
+																				nContentTag
+																						.getId());
+																// objects.clear();
+																//
+																notifyDataSetChanged();
+															} else {
+															}
+															objects.clear();
+															objects.addAll(datasource
+																	.getTagUIContents());
+															notifyDataSetChanged();
+															datasource.close();
+
+															dialogAddTag
+																	.dismiss();
+
+														}
+													});
+
+									// notifyDataSetChanged();
+									// dialogAddTag.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+									dialogAddTag
+											.setTitle(getContext()
+													.getResources()
+													.getString(
+															R.string.tChoose_dialog_title));
 									dialogAddTag.setContentView(addTagLayout);
-									//tAdapater.notifyDataSetChanged();
+									// tAdapater.notifyDataSetChanged();
 									dialogAddTag.show();
 									datasource.close();
-									
-								break;
 
+									break;
+								case 3: // QR Code
+									Intent intent = new Intent(getContext(), BackupData.class);
+									intent.putExtra("CONTENT_ID", itemId.toString());
+									getContext().startActivity(intent);
+									
+									break;
 								default:
 									break;
 								}
-								//notifyDataSetChanged();
+								// notifyDataSetChanged();
 								dialog.dismiss();
 							}
-							
+
 						});
 
 				dialog = new CustomDialog(getContext());
 				// dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-				dialog.setTitle(getContext().getResources().getString(R.string.options));
+				dialog.setTitle(getContext().getResources().getString(
+						R.string.options));
 				dialog.setContentView(optionDialog);
 				dialog.show();
-				
+
 				return true;
 			}
 		});
@@ -340,28 +440,32 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 		public TextView payloadContentId;
 		public TextView payloadContentTags;
 	}
-	
+
 	public List<FilterKind> getContentFilter(String itemId) {
 
 		List<ContentTag> kind = datasource.getAllTags();
-		List<ContentTag> checkedContentTags = datasource.getTagsOfContent(itemId);
+		List<ContentTag> checkedContentTags = datasource
+				.getTagsOfContent(itemId);
 		List<FilterKind> contentFilters = new ArrayList<FilterKind>();
 		for (ContentTag contentTag : kind) {
 			FilterKind nContentFilter = new FilterKind(getContext());
 			nContentFilter.getContentDesc().setText(contentTag.getName());
-			nContentFilter.getContentId().setText(String.valueOf(contentTag.getId()));			
+			nContentFilter.getContentId().setText(
+					String.valueOf(contentTag.getId()));
 			nContentFilter.getContentCheck().setChecked(false);
 			for (ContentTag contentTag2 : checkedContentTags) {
 				if (contentTag2.getId() == contentTag.getId()) {
 					nContentFilter.getContentCheck().setChecked(true);
-					Log.d("debug getContentFilterChecked -->", nContentFilter.getContentDesc().getText().toString() + " checked");
+					Log.d("debug getContentFilterChecked -->", nContentFilter
+							.getContentDesc().getText().toString()
+							+ " checked");
 				}
 
-			}			
+			}
 			nContentFilter.setKindIcon("Tag");
 			contentFilters.add(nContentFilter);
 		}
-		//datasource.close();
+		// datasource.close();
 		return contentFilters;
 	}
 }

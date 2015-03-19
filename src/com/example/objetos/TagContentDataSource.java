@@ -259,6 +259,32 @@ public class TagContentDataSource {
 		return nTagContent;
 	}
 
+	public TagUIContent getUIContentById(String id) {
+		TagUIContent nTagUIContent = new TagUIContent(context);
+		TagContent nTagContent = null;
+		
+		nTagContent =  getContentById(id);
+		
+		String[] argumentsString = { String.valueOf(id) };
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
+				contentColumns, "_id=?", argumentsString, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			nTagContent = cursorToComment(cursor);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		
+		nTagUIContent.setPayload(nTagContent.getPayloadHeader()
+				+ nTagContent.getPayload());
+		nTagUIContent.setContentDesc(DBR.get(nTagContent.getPayloadType()));
+		nTagUIContent.setContentIcon(DBR.get(nTagContent.getPayloadType()));
+		nTagUIContent.setContentId(String.valueOf(nTagContent.getId()));
+
+		return nTagUIContent;
+	}
 	public int updateContent(String id, String payload, String header,
 			String type) {
 
