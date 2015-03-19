@@ -94,7 +94,9 @@ public class BackupData extends Activity implements OnClickListener {
 		PLTI.put(getResources().getString(R.string.report), R.drawable.default64);
 
 		datasource = new TagContentDataSource(this);
-
+		
+		toCode = "NFCTag (c) 2015 \n";
+				
 		bkQRT = (TextView) findViewById(R.id.backupQRT);
 		bkQRST = (TextView) findViewById(R.id.backupQRST);
 		Button button1 = (Button) findViewById(R.id.backupSave);
@@ -126,8 +128,8 @@ public class BackupData extends Activity implements OnClickListener {
 			datasource.close();
 			
 			bkQRST.setText("has been encoded in the follow QR code.");
-			toCode = DBR.get(nTagContent.getPayloadType()) + " - "
-					+ nTagContent.getPayloadHeader() + nTagContent.getPayload();
+			toCode += nTagContent.getPayloadType() + " Type: " +DBR.get(nTagContent.getPayloadType()) 
+					 + " Header: " + nTagContent.getPayloadHeader() + " Content: " + nTagContent.getPayload();
 			
 		}
 		else{
@@ -135,14 +137,16 @@ public class BackupData extends Activity implements OnClickListener {
 			List<TagContent> contents = datasource.getAllComments();
 			String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss")
 					.format(new Date());
-			toCode = "Saved at " + timeStamp + "\n";
+			toCode += "Saved at " + timeStamp + "\n";
 
 			for (TagContent tagContent : contents) {
-				toCode += DBR.get(tagContent.getPayloadType()) + " - "
-						+ tagContent.getPayloadHeader() + tagContent.getPayload()
+				toCode +=  "Item: "+ tagContent.getPayloadType() + " Type: "+DBR.get(tagContent.getPayloadType()) + " Header: "
+						+ tagContent.getPayloadHeader() + " Content: " + tagContent.getPayload()
 						+ "\n";
 			}
 			datasource.close();
+			
+			
 		}
 		
 		
@@ -157,6 +161,7 @@ public class BackupData extends Activity implements OnClickListener {
 		int smallerDimension = width < height ? width : height;
 		smallerDimension = smallerDimension * 3 / 4;
 
+		Log.d("toCode text", toCode);
 		// Encode with a QR Code image
 		QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(toCode, null,
 				Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString(),
@@ -304,7 +309,7 @@ public class BackupData extends Activity implements OnClickListener {
 		// To be safe, you should check that the SDCard is mounted
 		// using Environment.getExternalStorageState() before doing this.
 		File mediaStorageDir = new File(
-				Environment.getExternalStorageDirectory() + "/"
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/"
 						+ getApplicationContext().getPackageName() + "/Files");
 		Log.d(LOG_TAG,
 				"Storing path: " + Environment.getExternalStorageDirectory()

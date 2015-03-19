@@ -44,7 +44,7 @@ public class ExtrasMain extends Activity {
 			intent = new Intent(ExtrasMain.this, EraseTag.class);
 			startActivity(intent);
 			break;
-		case R.id.untitled:
+		case R.id.restoreData:
 			intent = new Intent(ExtrasMain.this, RestoreData.class );
 			startActivity(intent);
 			break;

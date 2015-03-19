@@ -7,32 +7,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.proyecto.ExtrasMain" >
-
-    <Button
-        android:id="@+id/untitled"
-        style="@style/button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/backupData"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="25dp"
-        android:drawableLeft="@drawable/default64"
-        android:drawablePadding="10dp"
-        android:gravity="left|center_vertical"
-        android:onClick="onClick"
-        android:padding="5dp"
-        android:text="Por definir" />
+    tools:context="com.example.proyecto.ExtrasMain"
+    android:layout_gravity="center"
+     >
 
     <Button
         android:id="@+id/erase"
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/untitled"
-        android:layout_alignLeft="@+id/untitled"
-        android:layout_marginBottom="25dp"
+        android:layout_alignLeft="@+id/backupData"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
         android:drawableLeft="@drawable/phone344"
         android:drawablePadding="10dp"
         android:gravity="left|center_vertical"
@@ -45,13 +31,29 @@
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/erase"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/default64"
         android:drawablePadding="10dp"
         android:gravity="left|center_vertical"
         android:onClick="onClick"
         android:padding="5dp"
         android:text="Backup Data" />
+
+    <Button
+        android:id="@+id/restoreData"
+        style="@style/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/backupData"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/default64"
+        android:drawablePadding="10dp"
+        android:gravity="left|center_vertical"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="Restore Data" />
 
 </RelativeLayout>
