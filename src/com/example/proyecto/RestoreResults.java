@@ -48,11 +48,16 @@ public class RestoreResults extends Activity implements OnClickListener{
 	private String header;
 	private LinearLayout singleContent;
 	private ListView contents;
+	private int restoreMode;
+	private List<TagContent> tagContents;
+	private Button saveButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_restore_results);
+		setContentView(R.layout.activity_restore_results);		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		contentHeader = "NFCTag (c) 2015 \n";
 		
 		datasource = new TagContentDataSource(this);
@@ -86,6 +91,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 		savedQRDataLayout = (LinearLayout)findViewById(R.id.savedQRContent);
 		singleContent = (LinearLayout)findViewById(R.id.restoredQRContent);
 		contents = (ListView)findViewById(R.id.contents);
+		saveButton = (Button)findViewById(R.id.restoreQRsave);
 		
 		myImage = (ImageView) findViewById(R.id.backupQRImage);
 		cDescription = (TextView) findViewById(R.id.contentDescription);
@@ -99,7 +105,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 			
 			
 			if (!content.contains("Saved at")) {
-				
+				restoreMode = 1;
 				typeCode = content.substring(content.indexOf("Type:")-2, content.indexOf("Type:")-1);
 				header = content.substring(content.indexOf("Header:")+7,  content.indexOf("Content:"));
 				payload = content.substring(content.indexOf("Content:")+9, content.length());
@@ -111,11 +117,13 @@ public class RestoreResults extends Activity implements OnClickListener{
 				cPayload.setText(header+payload);
 				cId.setText(String.valueOf(-2));
 				singleContent.setVisibility(View.VISIBLE);
+				saveButton.setText("Save");
 				
 			}
 			else{
+				restoreMode = 2;
 				StringTokenizer st = new StringTokenizer(content, "\n");
-				List<TagContent> tagContents = new ArrayList<TagContent>();
+				tagContents = new ArrayList<TagContent>();
 				while (st.hasMoreElements()) {
 					String line = st.nextElement().toString();
 					Log.d("debug content", "Item: "+line);
@@ -128,7 +136,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 						tagContents.add(nTagContent);
 						TagContentAdapter tagContentAdapter = new TagContentAdapter(this, tagContents);
 						contents.setAdapter(tagContentAdapter);
-						
+						saveButton.setText("Save all");
 					}
 					
 				}
@@ -187,19 +195,48 @@ public class RestoreResults extends Activity implements OnClickListener{
 		case R.id.restoreQRsave:
 			 datasource.open();
 		    
-		      TagContent tagContent = datasource.createContent(payload,
-		    		  header,
-		    		 typeCode);
+			 if (restoreMode == 1) {
+				 TagContent tagContent = datasource.createContent(payload,
+			    		  header,
+			    		 typeCode);
 
-		      if (tagContent != null) {
-		    	  Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
-			      	Intent intent = new Intent(this, SaveResult.class);
-					intent.putExtra("CONTENT_ID", tagContent.getId());
-					intent.putExtra("CONTENT_EDIT", "NEW");
-					startActivity(intent);
-			} else {
-				Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();
+			      if (tagContent != null) {
+			    	  Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+				      	Intent intent = new Intent(this, SaveResult.class);
+						intent.putExtra("CONTENT_ID", tagContent.getId());
+						intent.putExtra("CONTENT_EDIT", "NEW");
+						startActivity(intent);
+				} else {
+					Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();
+				}
+			     
 			}
+			 if (restoreMode == 2) {
+				 ArrayList<TagContent> restoredContents = new ArrayList<TagContent>();
+				for (TagContent tagContent : tagContents) {
+					TagContent ntagContent = datasource.createContent(tagContent.getPayload(),
+				    		 tagContent.getPayloadHeader(),
+				    		 tagContent.getPayloadType());
+
+				      if (ntagContent != null) {
+				    	  restoredContents.add(ntagContent);
+					} 
+				}
+				
+				 
+					Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+					Log.d("debug extra list RD", restoredContents.size()+"");
+					
+			      	Intent intent = new Intent(this, SaveResult.class);
+			      	Bundle bundle = new Bundle();
+			      	bundle.putSerializable("CONTENT_LIST", restoredContents);
+					intent.putExtra("CONTENT_LIST_BUNDLE", bundle);
+					intent.putExtra("CONTENT_EDIT", "RESTORED");
+					startActivity(intent);
+			}
+			 
+			 datasource.close();
+		     
 			break;
 
 		default:
@@ -207,6 +244,13 @@ public class RestoreResults extends Activity implements OnClickListener{
 		}
 	}
 	
-	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, ExtrasMain.class);
+		startActivity(intent);
+		//this.finish();
+	}
 
 }

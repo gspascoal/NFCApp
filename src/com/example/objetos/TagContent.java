@@ -1,6 +1,8 @@
 package com.example.objetos;
 
-public class TagContent {
+import java.io.Serializable;
+
+public class TagContent implements Serializable {
 	private long id;
 	private String payload;
 	private String payloadHeader;

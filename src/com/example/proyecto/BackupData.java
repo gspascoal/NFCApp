@@ -70,6 +70,7 @@ public class BackupData extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_backup_data);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		DBR.put("0", getResources().getString(R.string.link));
 		DBR.put("1", getResources().getString(R.string.mail));
@@ -180,7 +181,7 @@ public class BackupData extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.backup_data, menu);
+		//getMenuInflater().inflate(R.menu.backup_data, menu);
 		return true;
 	}
 
@@ -335,5 +336,13 @@ public class BackupData extends Activity implements OnClickListener {
 				+ mImageName);
 		return mediaFile;
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, ExtrasMain.class);
+		startActivity(intent);
+		//this.finish();
+	}
 }

@@ -38,7 +38,10 @@ public class CustomDialog extends Dialog {
 			intent = new Intent(getContext(), CreateTagContent.class);
 			getContext().startActivity(intent);
 			break;
-
+		case "EraseTag":
+			intent = new Intent(getContext(), ExtrasMain.class);
+			getContext().startActivity(intent);
+			break;
 		default:
 			break;
 		}
@@ -78,4 +81,5 @@ public class CustomDialog extends Dialog {
 		negative.setVisibility(View.VISIBLE);
 	}
 
+	
 }

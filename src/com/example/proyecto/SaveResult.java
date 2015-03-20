@@ -1,5 +1,6 @@
 package com.example.proyecto;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,13 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.objetos.TagContent;
+import com.example.objetos.TagContentAdapter;
 import com.example.objetos.TagContentDataSource;
-import com.example.proyecto.R;
 
 public class SaveResult extends Activity {
 
@@ -33,6 +33,11 @@ public class SaveResult extends Activity {
 	public Map<String, Integer> PLTI = new LinkedHashMap<String, Integer>();
 	public Map<String, String> DBR = new LinkedHashMap<String, String>();
 	private TagContent nTagContent;
+	private ArrayList<TagContent> contents;
+	private TagContentAdapter tagContentAdapter;
+	private ListView savedContents;
+	private TextView saveResultText;
+	private TextView savedContentLabel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +70,30 @@ public class SaveResult extends Activity {
 		cPayload = (TextView) findViewById(R.id.contentPayload);
 		cIcon = (ImageView) findViewById(R.id.contentIcon);
 		cId = (TextView) findViewById(R.id.contentId);
-
+		
+		savedContents = (ListView)findViewById(R.id.savedContents);
+		contents = new ArrayList<TagContent>();
+		saveResultText =  (TextView)findViewById(R.id.saveResultText);
+		savedContentLabel =  (TextView)findViewById(R.id.savedContentLabel);
+		
 		datasource = new TagContentDataSource(this);
 		datasource.open();
+		
+		if (getIntent().getStringExtra("CONTENT_EDIT").equals("RESTORED")) {
+			
+			if(getIntent().getBundleExtra("CONTENT_LIST_BUNDLE") != null) {
+				Bundle b = getIntent().getBundleExtra("CONTENT_LIST_BUNDLE");
+				contents =  (ArrayList<TagContent>) b.getSerializable("CONTENT_LIST");
+				Log.d("debug extra list SR", contents.size()+"");
+				
+				if (contents.size() == 0) {
+					saveResultText.setText(R.string.resultTextB);
+					savedContentLabel.setVisibility(View.GONE);
+				}
 
+			}
+		}
+		
 		if (getIntent().getStringExtra("CONTENT_EDIT").equals("EDIT")) {
 
 			if (getIntent().getStringExtra("CONTENT_ID") != null) {
@@ -77,21 +102,27 @@ public class SaveResult extends Activity {
 			}
 
 			nTagContent = datasource.getContentById(contentId);
+			contents.add(nTagContent);
 
-		} else {
+		} 
+		if (getIntent().getStringExtra("CONTENT_EDIT").equals("NEW")){
 
 			nTagContent = datasource.getAllComments().get(
 					datasource.getAllComments().size() - 1);
+			contents.add(nTagContent);
 
 		}
 		
 		
+		tagContentAdapter = new TagContentAdapter(this, contents);
+		savedContents.setAdapter(tagContentAdapter);
 		
+		/*
 		cIcon.setBackgroundResource(PLTI.get(DBR.get(nTagContent.getPayloadType())));
 		cDescription.setText(DBR.get(nTagContent.getPayloadType()));
 		cPayload.setText(nTagContent.getPayloadHeader()+nTagContent.getPayload());
 		cId.setText(String.valueOf(nTagContent.getId()));
-
+		*/
 		datasource.close();
 
 		if (savedInstanceState == null) {
@@ -104,7 +135,7 @@ public class SaveResult extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.save_result, menu);
+		//getMenuInflater().inflate(R.menu.save_result, menu);
 		return true;
 	}
 

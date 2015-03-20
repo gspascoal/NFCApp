@@ -1,14 +1,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="fill_parent"
+	android:background="@android:color/white"
     >    
 
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:background="@android:color/white"
         tools:context="com.example.proyecto.CreateTagContent"
         tools:ignore="MergeRootFrame" >
         
@@ -16,7 +17,7 @@
             android:id="@+id/createTagHeader"
             android:layout_height="100dp"
             android:layout_width="match_parent"
-            android:background="#FFF"
+            android:background="@android:color/white"
             android:orientation="vertical"
             >
             
@@ -41,7 +42,7 @@
         <RelativeLayout android:id="@+id/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:background="@android:color/white"
         android:layout_below="@+id/createTagContentSize" 
          >
             
@@ -51,7 +52,7 @@
         <RelativeLayout android:id="@+id/createTagContentSize"
             android:layout_height="50dp"
             android:layout_width="match_parent"
-            android:background="#FFF"
+           android:background="@android:color/white"
             android:layout_below="@+id/createTagHeader"
              >
             
@@ -99,10 +100,11 @@
         <LinearLayout android:id="@+id/createTagFooter"
             android:layout_height="100dp"
             android:layout_width="match_parent"
-            android:background="#FFF"
+            android:background="@android:color/white"
             android:orientation="horizontal"
             android:layout_below="@+id/formContainer"
             android:gravity="center_horizontal"
+            
             >
             
             <Button 

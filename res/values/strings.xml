@@ -121,7 +121,9 @@
     <string name="title_activity_save_result">Contenido guardado</string>
     <string name="resultLabel">Resultado </string>
     <string name="resultText">El contenido ha sido guardado.</string>
+    <string name="resultTextB">El contenido ya existe. No se han guardado nuevos registros.</string>
     <string name="savedContentLabel">Contenido guardado</string>
+    
 
     <!-- GPSTracker Alter Dialog strings -->
     <string name="dialogTitle">Configuración de GPS</string>

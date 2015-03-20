@@ -255,7 +255,7 @@ public class WriteMain extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.write_main, menu);
+		//getMenuInflater().inflate(R.menu.write_main, menu);
 		return true;
 	}
 
@@ -324,5 +324,13 @@ public class WriteMain extends Activity {
 			return rootView;
 		}
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		//this.finish();
+	}
 }

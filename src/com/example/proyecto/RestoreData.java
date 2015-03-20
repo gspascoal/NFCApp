@@ -44,7 +44,7 @@ public class RestoreData extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restore_data);
-		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Button button1 = (Button) findViewById(R.id.restoreOp1);
 		button1.setOnClickListener(this);
@@ -251,4 +251,12 @@ public class RestoreData extends Activity implements OnClickListener{
 
     }
 	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, ExtrasMain.class);
+		startActivity(intent);
+		//this.finish();
+	}
 }

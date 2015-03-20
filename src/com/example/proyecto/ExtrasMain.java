@@ -16,12 +16,13 @@ public class ExtrasMain extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_extras_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.extras_main, menu);
+		//getMenuInflater().inflate(R.menu.extras_main, menu);
 		return true;
 	}
 
@@ -42,6 +43,7 @@ public class ExtrasMain extends Activity {
 		switch (view.getId()) {
 		case R.id.erase:
 			intent = new Intent(ExtrasMain.this, EraseTag.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
 			break;
 		case R.id.restoreData:
@@ -57,5 +59,12 @@ public class ExtrasMain extends Activity {
 		
 	}
 	
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		//this.finish();
+	}
 
 }

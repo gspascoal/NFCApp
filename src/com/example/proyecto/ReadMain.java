@@ -370,7 +370,7 @@ public class ReadMain extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.read_main, menu);
+		//getMenuInflater().inflate(R.menu.read_main, menu);
 		return true;
 	}
 
@@ -433,6 +433,7 @@ public class ReadMain extends Activity {
 			      	Intent intent = new Intent(this, SaveResult.class);
 					intent.putExtra("CONTENT_ID", content.getId());
 					intent.putExtra("CONTENT_EDIT", "NEW");
+					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 					startActivity(intent);
 			} else {
 				Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();

@@ -43,13 +43,23 @@
         android:layout_below="@+id/savedContentLabel"
         android:layout_margin="5dp"
         layout="@layout/recent_content"
-        android:background="#469" />
+        android:background="#469"
+        android:visibility="gone"
+         />
+	
+    
+      <ListView 
+           android:id="@+id/savedContents"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/savedContentLabel"
+           ></ListView>
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/savedContent"
+            android:layout_below="@+id/savedContents"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:onClick="onClick"

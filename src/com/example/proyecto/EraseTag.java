@@ -1,9 +1,9 @@
 package com.example.proyecto;
 
-import com.example.proyecto.R;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
@@ -16,7 +16,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,7 +75,7 @@ public class EraseTag extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.erase_tag, menu);
+		//getMenuInflater().inflate(R.menu.erase_tag, menu);
 		return true;
 	}
 
@@ -217,5 +217,66 @@ public class EraseTag extends Activity {
 
 	}
 
+	private void checkNFCConnection(){
+		if (myNfcAdapter != null) {
+			Log.d("debug NFC Connection", "NFC is available for the device");
+			if (myNfcAdapter.isEnabled()) {
+				Log.d("debug NFC Connection", "Connected");
+				dialog.show();
+			} else {
+				Log.d("debug NFC Connection", "Disonnected");
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				
+				alertDialog.setTitle(getResources().getString(R.string.dialogNTitle));
+				
+				alertDialog.setMessage(getResources().getString(R.string.dialogNMessage));
+				
+				alertDialog.setPositiveButton(getResources().getString(R.string.dialogOkButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+						startActivity(intent);
+					}
+				});
+				
+				alertDialog.setNegativeButton(getResources().getString(R.string.dialogCancelButton), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+				
+				alertDialog.show();
 
+			}
+			
+		} else {
+			Log.d("debug NFC Connection", "NFC is not  available for the device");
+			
+		}
+
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		//this.finish();
+	}
+	
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		checkNFCConnection();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		//this.finish();
+	}
 }

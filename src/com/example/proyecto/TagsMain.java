@@ -146,7 +146,7 @@ public class TagsMain extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tags_main, menu);
+		//getMenuInflater().inflate(R.menu.tags_main, menu);
 		actionsMenu = menu;
 		/*
 		 * SearchManager searchManager = (SearchManager)
@@ -733,4 +733,11 @@ public class TagsMain extends ListActivity {
 		return tagUIContents;
 	}
 
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		//this.finish();
+	}
 }
