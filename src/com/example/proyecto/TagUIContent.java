@@ -46,6 +46,7 @@ public class TagUIContent extends RelativeLayout {
 		DBR.put("4",getResources().getString(R.string.geoLoc));
 		DBR.put("5",getResources().getString(R.string.plainText));
 		DBR.put("6",getResources().getString(R.string.thesis));
+		DBR.put("7",getResources().getString(R.string.report));
 		
 		/*Initialize associative array of URI prefixes icons id*/
 		PLTI.put(getResources().getString(R.string.nA), R.drawable.default64);
@@ -58,6 +59,7 @@ public class TagUIContent extends RelativeLayout {
 		PLTI.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		PLTI.put(getResources().getString(R.string.plainText), R.drawable.text64);
 		PLTI.put(getResources().getString(R.string.thesis), R.drawable.thesis64);
+		PLTI.put(getResources().getString(R.string.report), R.drawable.report64);
 		
 		
 		RelativeLayout rLayout = (RelativeLayout) inflate(context,R.layout.recent_content,this);

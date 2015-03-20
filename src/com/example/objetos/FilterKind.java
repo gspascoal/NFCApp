@@ -38,7 +38,8 @@ public class FilterKind extends RelativeLayout {
 		kindIcons.put(getResources().getString(R.string.geoLoc), R.drawable.geo32);
 		kindIcons.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		kindIcons.put(getResources().getString(R.string.plainText), R.drawable.text32);
-		kindIcons.put(getResources().getString(R.string.thesis), R.drawable.default32);
+		kindIcons.put(getResources().getString(R.string.thesis), R.drawable.thesis32);
+		kindIcons.put(getResources().getString(R.string.report), R.drawable.report32);
 		kindIcons.put(getResources().getString(R.string.tag), R.drawable.tag32);
 		
 		

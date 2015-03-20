@@ -102,7 +102,8 @@ public class TagRecord {
 		PLTI.put(context.getResources().getString(R.string.geoLoc), R.drawable.geo64);
 		PLTI.put(context.getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		PLTI.put(context.getResources().getString(R.string.plainText), R.drawable.text64);
-		PLTI.put("TEG", R.drawable.thesis64);
+		PLTI.put(context.getResources().getString(R.string.thesis), R.drawable.thesis64);
+		PLTI.put(context.getResources().getString(R.string.report), R.drawable.report64);
 
 		this.record = r;
 		

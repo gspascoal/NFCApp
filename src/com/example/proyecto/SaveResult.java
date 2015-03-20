@@ -64,7 +64,7 @@ public class SaveResult extends Activity {
 		PLTI.put(getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		PLTI.put(getResources().getString(R.string.plainText), R.drawable.text64);
 		PLTI.put(getResources().getString(R.string.thesis), R.drawable.thesis64);
-		PLTI.put(getResources().getString(R.string.report), R.drawable.default64);
+		PLTI.put(getResources().getString(R.string.report), R.drawable.report64);
 
 		cDescription = (TextView) findViewById(R.id.contentDescription);
 		cPayload = (TextView) findViewById(R.id.contentPayload);
