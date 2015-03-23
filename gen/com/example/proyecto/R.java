@@ -216,8 +216,8 @@ public final class R {
         public static final int fieldPolicy=0x7f0b0081;
         public static final int fieldReceiver=0x7f0b0085;
         public static final int fieldRef=0x7f0b0091;
-        public static final int fieldSize=0x7f0b0016;
-        public static final int fieldSize2=0x7f0b0017;
+        public static final int fieldSize=0x7f0b0015;
+        public static final int fieldSize2=0x7f0b0016;
         public static final int fieldSubject=0x7f0b007f;
         public static final int fieldText=0x7f0b008c;
         public static final int fieldTitle=0x7f0b008e;
@@ -251,7 +251,7 @@ public final class R {
         public static final int labelPolicy=0x7f0b0080;
         public static final int labelReceiver=0x7f0b0084;
         public static final int labelRef=0x7f0b0094;
-        public static final int labelSize=0x7f0b0015;
+        public static final int labelSize=0x7f0b0017;
         public static final int labelSubject=0x7f0b007e;
         public static final int labelText=0x7f0b008b;
         public static final int labelTitle=0x7f0b008d;
@@ -404,207 +404,250 @@ public final class R {
         public static final int write_main=0x7f0a000d;
     }
     public static final class string {
-        public static final int aar=0x7f070070;
+        public static final int aar=0x7f070075;
         public static final int accept=0x7f070006;
         public static final int action_about=0x7f070002;
         public static final int action_settings=0x7f070001;
         public static final int affirmation=0x7f070005;
-        public static final int appLauncher=0x7f07006c;
+        public static final int appLauncher=0x7f070071;
         /**  Commons Strings 
  Commons Strings 
          */
         public static final int app_name=0x7f070000;
-        public static final int bodyHint=0x7f070052;
-        public static final int bodyLabel=0x7f070051;
-        public static final int bussinesCard=0x7f070078;
-        public static final int cDelete_dialog_msg=0x7f070066;
+        public static final int backUpButton=0x7f070061;
+        public static final int bodyHint=0x7f070055;
+        public static final int bodyLabel=0x7f070054;
+        public static final int bu_title=0x7f07008a;
+        public static final int bu_title2=0x7f07008b;
+        public static final int bussinesCard=0x7f07007d;
+        public static final int cDelete_dialog_msg=0x7f07006b;
         /**  Content CRUD strings 
  Content CRUD strings 
          */
-        public static final int cDelete_dialog_title=0x7f070065;
-        public static final int cntnt_desc_tagicon=0x7f070016;
-        public static final int cntnt_desc_tagread=0x7f070014;
-        public static final int creditIcons=0x7f07007b;
-        public static final int currentText=0x7f070034;
-        public static final int dialogCancelButton=0x7f070047;
-        public static final int dialogMMessage=0x7f070083;
+        public static final int cDelete_dialog_title=0x7f07006a;
+        public static final int cntnt_desc_tagicon=0x7f070017;
+        public static final int cntnt_desc_tagread=0x7f070015;
+        public static final int creditIcons=0x7f070084;
+        public static final int credit_icons=0x7f070088;
+        /**  About Dialog Strings 
+ About Dialog Strings 
+         */
+        public static final int credits_author=0x7f070083;
+        public static final int credits_desc=0x7f070086;
+        public static final int credits_develop=0x7f070085;
+        public static final int credits_teg=0x7f070087;
+        public static final int currentText=0x7f070036;
+        public static final int dialogAddLabel=0x7f07003f;
+        public static final int dialogCancelButton=0x7f07004a;
+        public static final int dialogMMessage=0x7f07009b;
         /**  Network Alert Dialog strings 
          */
-        public static final int dialogMTitle=0x7f070082;
-        public static final int dialogMessage=0x7f070045;
-        public static final int dialogNMessage=0x7f070081;
+        public static final int dialogMTitle=0x7f07009a;
+        public static final int dialogMessage=0x7f070048;
+        public static final int dialogNMessage=0x7f070099;
         /**  Nfc Alert  Dialog strings 
          */
-        public static final int dialogNTitle=0x7f070080;
-        public static final int dialogOkButton=0x7f070046;
+        public static final int dialogNTitle=0x7f070098;
+        public static final int dialogOkButton=0x7f070049;
         /**  GPSTracker Alter Dialog strings 
  GPSTracker Alert Dialog strings 
          */
-        public static final int dialogTitle=0x7f070044;
-        public static final int doneButton=0x7f070032;
+        public static final int dialogTitle=0x7f070047;
+        public static final int doneButton=0x7f070034;
         public static final int emptyList=0x7f070008;
-        public static final int extras=0x7f07000f;
-        public static final int f_CBMRO=0x7f070020;
-        public static final int f_DataFormat=0x7f07001f;
+        public static final int eraseButton=0x7f070064;
+        public static final int ereaseResult=0x7f07009c;
+        public static final int extras=0x7f070010;
+        public static final int f_CBMRO=0x7f070021;
+        public static final int f_DataFormat=0x7f070020;
         /**  Tag features Strings 
  Tag features Strings 
          */
-        public static final int f_SerialNumber=0x7f07001e;
-        public static final int f_Storage=0x7f070021;
-        public static final int f_Storage_F=0x7f070025;
-        public static final int f_Storage_T=0x7f070024;
-        public static final int f_TechList=0x7f070023;
-        public static final int f_WRTBL=0x7f070022;
-        public static final int filterButton=0x7f070036;
-        public static final int filterBy=0x7f07003c;
+        public static final int f_SerialNumber=0x7f07001f;
+        public static final int f_Storage=0x7f070022;
+        public static final int f_Storage_F=0x7f070026;
+        public static final int f_Storage_T=0x7f070025;
+        public static final int f_TechList=0x7f070024;
+        public static final int f_WRTBL=0x7f070023;
+        public static final int filterButton=0x7f070038;
+        public static final int filterBy=0x7f07003e;
         public static final int fupdate=0x7f07000a;
         public static final int fwrite=0x7f07000b;
-        public static final int geoLoc=0x7f070071;
-        public static final int hello_world=0x7f07005e;
-        public static final int latitudeHint=0x7f070049;
+        public static final int geoLoc=0x7f070076;
+        public static final int latitudeHint=0x7f07004c;
         /**  Forms string 
  Geo Location strings 
  Forms string 
  Geo Location strings 
          */
-        public static final int latitudeLabel=0x7f070048;
+        public static final int latitudeLabel=0x7f07004b;
         public static final int launchButton=0x7f070004;
-        public static final int link=0x7f070068;
+        public static final int link=0x7f07006d;
         /**  Link strings 
  Link strings 
          */
-        public static final int linkHint=0x7f07004d;
-        public static final int linkLabel=0x7f07004e;
-        public static final int locationButton=0x7f07004c;
-        public static final int longitudeHint=0x7f07004b;
-        public static final int longitudeLabel=0x7f07004a;
-        public static final int mail=0x7f07006b;
-        public static final int mailHint=0x7f070050;
+        public static final int linkHint=0x7f070050;
+        public static final int linkLabel=0x7f070051;
+        public static final int locationButton=0x7f07004f;
+        public static final int longitudeHint=0x7f07004e;
+        public static final int longitudeLabel=0x7f07004d;
+        public static final int mail=0x7f070070;
+        public static final int mailHint=0x7f070053;
         /**  Mail strings 
  Mail strings 
          */
-        public static final int mailLabel=0x7f07004f;
-        public static final int messageHint=0x7f070058;
-        public static final int messageLabel=0x7f070057;
-        public static final int my_tags=0x7f07000e;
-        public static final int nA=0x7f070067;
+        public static final int mailLabel=0x7f070052;
+        public static final int messageHint=0x7f07005b;
+        public static final int messageLabel=0x7f07005a;
+        public static final int messageSize=0x7f070032;
+        public static final int my_tags=0x7f07000f;
+        public static final int nA=0x7f07006c;
         public static final int negation=0x7f070007;
-        public static final int newContentButton=0x7f07001a;
+        public static final int newContentButton=0x7f07001b;
         public static final int options=0x7f070009;
-        public static final int payloadsType=0x7f070079;
-        public static final int phoneHint=0x7f07005a;
+        public static final int payloadsType=0x7f07007e;
+        public static final int phoneHint=0x7f07005d;
         /**  Telephone Number strings 
  Telephone Number strings 
          */
-        public static final int phoneLabel=0x7f070059;
-        public static final int plEmpty=0x7f07002f;
-        public static final int plNumber=0x7f070030;
-        public static final int plainText=0x7f070072;
-        public static final int previousText=0x7f070033;
-        public static final int r_Payload=0x7f07002b;
-        public static final int r_Protocol=0x7f07002a;
-        public static final int r_TNF=0x7f070028;
-        public static final int r_Type=0x7f070029;
-        public static final int r_number=0x7f070027;
+        public static final int phoneLabel=0x7f07005c;
+        public static final int plEmpty=0x7f070030;
+        public static final int plNumber=0x7f070031;
+        public static final int plainText=0x7f070077;
+        public static final int previousText=0x7f070035;
+        public static final int r_Payload=0x7f07002c;
+        public static final int r_Protocol=0x7f07002b;
+        public static final int r_TNF=0x7f070029;
+        public static final int r_Type=0x7f07002a;
+        public static final int r_number=0x7f070028;
+        public static final int rd_imageTitle=0x7f070093;
+        public static final int rd_openButton=0x7f070096;
+        public static final int rd_photoOr=0x7f070094;
+        /**  Restore Data 
+ Restore Data strings 
+         */
+        public static final int rd_photoTitle=0x7f070092;
+        public static final int rd_takeButton=0x7f070095;
         /**  Main activity strings 
  Main activity strings 
          */
-        public static final int read=0x7f07000c;
-        public static final int readIntent_Empty=0x7f070017;
-        public static final int readIntenta=0x7f070011;
-        public static final int readIntentb=0x7f070012;
-        public static final int readIntentc=0x7f070013;
-        public static final int receiverHint=0x7f070056;
+        public static final int read=0x7f07000d;
+        public static final int readIntent_Empty=0x7f070018;
+        public static final int readIntenta=0x7f070012;
+        public static final int readIntentb=0x7f070013;
+        public static final int readIntentc=0x7f070014;
+        public static final int receiverHint=0x7f070059;
         /**  SMS strings 
  SMS strings 
          */
-        public static final int receiverLabel=0x7f070055;
-        public static final int removeFilterButton=0x7f07003b;
-        public static final int report=0x7f070075;
-        public static final int resultLabel=0x7f070040;
-        public static final int resultText=0x7f070041;
-        public static final int resultTextB=0x7f070042;
+        public static final int receiverLabel=0x7f070058;
+        public static final int removeFilterButton=0x7f07003d;
+        public static final int report=0x7f07007a;
+        public static final int restoreButton=0x7f070062;
+        public static final int resultLabel=0x7f070043;
+        public static final int resultText=0x7f070044;
+        public static final int resultTextB=0x7f070045;
+        /**   Restore results 
+  Restore results 
+         */
+        public static final int rr_title=0x7f070097;
+        public static final int rt_author=0x7f07008d;
+        public static final int rt_school=0x7f07008f;
+        /**  Read TEG strings 
+ Read TEG strings 
+         */
+        public static final int rt_title=0x7f07008c;
+        public static final int rt_tutor=0x7f07008e;
+        public static final int rt_url=0x7f070091;
+        public static final int rt_year=0x7f070090;
         public static final int saveButton=0x7f070003;
-        public static final int savedContentLabel=0x7f070043;
+        public static final int savedContentLabel=0x7f070046;
         /**  Search widget strings 
  Search widget strings 
          */
-        public static final int search_hint=0x7f07003d;
-        public static final int search_label=0x7f07003e;
-        public static final int showMoreButton=0x7f07001b;
-        public static final int sign=0x7f07006f;
-        public static final int slink=0x7f070069;
-        public static final int smartPoster=0x7f07006e;
-        public static final int sms=0x7f070076;
-        public static final int subjectHint=0x7f070054;
-        public static final int subjectLabel=0x7f070053;
-        public static final int tChoose_dialog_title=0x7f070063;
-        public static final int tDelete_dialog_msg=0x7f070061;
+        public static final int search_hint=0x7f070040;
+        public static final int search_label=0x7f070041;
+        public static final int share=0x7f07000c;
+        public static final int showMoreButton=0x7f07001c;
+        public static final int sign=0x7f070074;
+        public static final int slink=0x7f07006e;
+        public static final int smartPoster=0x7f070073;
+        public static final int sms=0x7f07007b;
+        public static final int subjectHint=0x7f070057;
+        public static final int subjectLabel=0x7f070056;
+        public static final int tChoose_dialog_title=0x7f070068;
+        public static final int tDelete_dialog_msg=0x7f070066;
         /**  Tag CRUD Strings 
  Tag CRUD Strings 
          */
-        public static final int tDelete_dialog_title=0x7f070060;
-        public static final int tEdit_dialog_title=0x7f070062;
-        public static final int tag=0x7f070073;
-        public static final int tagName=0x7f070064;
-        public static final int tel=0x7f07006a;
-        public static final int text=0x7f07006d;
-        public static final int textHint=0x7f07005c;
+        public static final int tDelete_dialog_title=0x7f070065;
+        public static final int tEdit_dialog_title=0x7f070067;
+        public static final int tag=0x7f070078;
+        public static final int tagName=0x7f070069;
+        public static final int tel=0x7f07006f;
+        public static final int text=0x7f070072;
+        public static final int textHint=0x7f07005f;
         /**  Plain text strings 
  Plain text strings 
          */
-        public static final int textLabel=0x7f07005b;
-        public static final int thesis=0x7f070074;
-        public static final int title_activity_backup_data=0x7f07007d;
+        public static final int textLabel=0x7f07005e;
+        public static final int thesis=0x7f070079;
+        /**  Backup Data strings 
+ Backup Data strings 
+         */
+        public static final int title_activity_backup_data=0x7f070089;
         /**  CreateTagContent (Main) activity strings 
  CreateTagContent (Main) activity strings 
          */
-        public static final int title_activity_create_tag_content=0x7f07002c;
-        public static final int title_activity_erase_tag=0x7f07005f;
+        public static final int title_activity_create_tag_content=0x7f07002d;
+        /**  Erease Tag strings 
+ Erease Tag strings 
+         */
+        public static final int title_activity_erase_tag=0x7f070063;
         /**  Extras (Main) activity string 
  Extras (Main) activity string 
          */
-        public static final int title_activity_extras_main=0x7f07005d;
-        public static final int title_activity_generate_qrcode=0x7f07007c;
+        public static final int title_activity_extras_main=0x7f070060;
+        public static final int title_activity_generate_qrcode=0x7f070080;
         /**  Read(Main) activity strings 
  Read(Main) activity strings 
          */
-        public static final int title_activity_read_main=0x7f070010;
-        public static final int title_activity_read_teg=0x7f07007a;
-        public static final int title_activity_restore_data=0x7f07007e;
-        public static final int title_activity_restore_results=0x7f07007f;
+        public static final int title_activity_read_main=0x7f070011;
+        public static final int title_activity_read_teg=0x7f07007f;
+        public static final int title_activity_restore_data=0x7f070081;
+        public static final int title_activity_restore_results=0x7f070082;
         /**  SavedContent activity strings 
  SavedContent activity strings 
          */
-        public static final int title_activity_save_result=0x7f07003f;
+        public static final int title_activity_save_result=0x7f070042;
         /**  Tags (Main) activity strings 
  Tags (Main) activity strings 
          */
-        public static final int title_activity_tags_main=0x7f070035;
+        public static final int title_activity_tags_main=0x7f070037;
         /**  TransferContent(Main) activity strings 
  TransferContent(Main) activity strings 
          */
-        public static final int title_activity_transfer_content=0x7f070031;
+        public static final int title_activity_transfer_content=0x7f070033;
         /**  Write(Main) activity strings 
  Write(Main) activity strings 
          */
-        public static final int title_activity_write_main=0x7f070018;
-        public static final int title_feature_list=0x7f070015;
-        public static final int title_filterLabelOff=0x7f070038;
-        public static final int title_filterLabelOn=0x7f070037;
-        public static final int title_filterTypeOff=0x7f07003a;
-        public static final int title_filterTypeOn=0x7f070039;
-        public static final int title_recent_content=0x7f070019;
+        public static final int title_activity_write_main=0x7f070019;
+        public static final int title_feature_list=0x7f070016;
+        public static final int title_filterLabelOff=0x7f07003a;
+        public static final int title_filterLabelOn=0x7f070039;
+        public static final int title_filterTypeOff=0x7f07003c;
+        public static final int title_filterTypeOn=0x7f07003b;
+        public static final int title_recent_content=0x7f07001a;
         /**  Tag Records Strings 
  Tag Records Strings 
          */
-        public static final int title_record_list=0x7f070026;
-        public static final int uri=0x7f070077;
-        public static final int wSaveWriteButton=0x7f07002d;
-        public static final int wSelectorText=0x7f07002e;
-        public static final int write=0x7f07000d;
-        public static final int writeDialogBottom=0x7f07001d;
-        public static final int writeDialogTop=0x7f07001c;
+        public static final int title_record_list=0x7f070027;
+        public static final int uri=0x7f07007c;
+        public static final int wSaveWriteButton=0x7f07002e;
+        public static final int wSelectorText=0x7f07002f;
+        public static final int write=0x7f07000e;
+        public static final int writeDialogBottom=0x7f07001e;
+        public static final int writeDialogTop=0x7f07001d;
     }
     public static final class style {
         /** 
