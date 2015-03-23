@@ -3,16 +3,16 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.proyecto.RestoreResults"
-    tools:ignore="MergeRootFrame"
-    android:orientation="vertical" >
+    tools:ignore="MergeRootFrame" >
 
     <TextView
         android:id="@+id/restoreResultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="The content stored in the QR code is:"
+        android:text="@string/rr_title"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -23,37 +23,31 @@
         android:layout_margin="15dp"
         android:scrollHorizontally="false"
         android:singleLine="false"
-        android:text="TextView"
-        android:textSize="16sp" 
-        android:visibility="gone"
-        />
+        android:text=""
+        android:textSize="16sp"
+        android:visibility="gone" />
 
-    
-       <include
+    <include
         android:id="@+id/restoredQRContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         layout="@layout/recent_content"
-        android:background="#469" 
-        android:visibility="gone"
-        
-        />
-       
-       <ListView 
-           android:id="@+id/contents"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           ></ListView>
+        android:background="#469"
+        android:visibility="gone" />
 
-       <Button
-           android:id="@+id/restoreQRsave"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Save"
-           style="@style/buttonS"
-           android:layout_gravity="center_horizontal"
-            />
-    
+    <ListView
+        android:id="@+id/contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    <Button
+        android:id="@+id/restoreQRsave"
+        style="@style/buttonS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/saveButton" />
+
 </LinearLayout>
-

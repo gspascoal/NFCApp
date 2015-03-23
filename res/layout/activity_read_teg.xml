@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:text="TEG Title"
+        android:text="@string/rt_title"
         android:textStyle="bold" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldTitle"
         android:layout_marginTop="20dp"
-        android:text="Author"
+        android:text="@string/rt_author"
         android:textStyle="bold" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldAuthor"
         android:layout_marginTop="20dp"
-        android:text="Tutor"
+        android:text="@string/rt_tutor"
         android:textStyle="bold" />
 
     <TextView
@@ -75,7 +75,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldTutor"
         android:layout_marginTop="20dp"
-        android:text="School"
+        android:text="@string/rt_school"
         android:textStyle="bold" />
 
     <TextView
@@ -96,7 +96,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldRef"
         android:layout_marginTop="20dp"
-        android:text="Year"
+        android:text="@string/rt_year"
         android:textStyle="bold" />
 
     <TextView
@@ -115,7 +115,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rfieldYear"
         android:layout_marginTop="20dp"
-        android:text="For more details visit:"
+        android:text="@string/rt_url"
         android:textStyle="bold" />
 
     <TextView
@@ -140,7 +140,7 @@
         android:layout_marginRight="74dp"
         android:layout_marginTop="50dp"
         android:onClick="onClick"
-        android:text="Share" />
+        android:text="@string/share" />
 
     <Button
         android:id="@+id/rsaveButton"
@@ -149,9 +149,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/shareButton"
         android:layout_alignBottom="@+id/shareButton"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/rfieldRef"
+        android:layout_toRightOf="@+id/rfieldYear"
         android:onClick="onClick"
-        android:text="Save" />
+        android:text="@string/saveButton" />
 
 </RelativeLayout>

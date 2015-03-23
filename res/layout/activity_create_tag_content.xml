@@ -55,18 +55,6 @@
            android:background="@android:color/white"
             android:layout_below="@+id/createTagHeader"
              >
-            
-            <TextView
-                android:id="@+id/labelSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="12dp"
-                android:layout_toLeftOf="@+id/fieldSize"
-                android:textSize="16sp" 
-                android:text="Message size: " />
 
               <TextView
                   android:id="@+id/fieldSize"
@@ -88,6 +76,15 @@
                   android:layout_marginRight="18dp"
                   android:textSize="16sp" 
                   android:text=" bytes" />
+
+              <TextView
+                  android:id="@+id/labelSize"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_toLeftOf="@+id/fieldSize"
+                  android:text="@string/messageSize"
+                  android:textSize="16sp" />
 
         </RelativeLayout>
         

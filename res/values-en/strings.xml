@@ -10,11 +10,12 @@
     <string name="affirmation">Yes</string>
     <string name="accept">Accept</string>
     <string name="negation">No</string>
-	 <string name="emptyList">There\'s no elements</string>
+    <string name="emptyList">There\'s no elements</string>
     <string name="options">Options</string>
-     <string name="fupdate">Update</string>
+    <string name="fupdate">Update</string>
     <string name="fwrite">Write</string>
-    
+    <string name="share">Share</string>
+
     <!-- Main activity strings -->
     <string name="read">Read tag</string>
     <string name="write">Write tag</string>
@@ -36,6 +37,8 @@
     <string name="title_recent_content">Recent content</string>
     <string name="newContentButton">Add new tag content</string>
     <string name="showMoreButton">Show more</string>
+    <string name="writeDialogTop">Ready to write content</string>
+    <string name="writeDialogBottom">Writing will begin when you tap a NFC compatible item with the back of your device</string>
 
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Serial Number</string>
@@ -57,26 +60,29 @@
 
     <!-- Tags (Main) activity strings -->
     <string name="title_activity_tags_main">My contents</string>
-     <string name="filterButton">Filter</string>
-     <string name="title_filterLabelOn">Filtered by label</string>
-   <string name="title_filterLabelOff">Filter by label</string>
-   <string name="title_filterTypeOn">Filtered by type</string>
-   <string name="title_filterTypeOff">Filter by type</string>
-   <string name="removeFilterButton">Remove filter</string>
-   <string name="filterBy">Filter by: </string>
-    
+    <string name="filterButton">Filter</string>
+    <string name="title_filterLabelOn">Filtered by label</string>
+    <string name="title_filterLabelOff">Filter by label</string>
+    <string name="title_filterTypeOn">Filtered by type</string>
+    <string name="title_filterTypeOff">Filter by type</string>
+    <string name="removeFilterButton">Remove filter</string>
+    <string name="filterBy">Filter by: </string>
+    <string name="dialogAddLabel">Add label:</string>
+
     <!-- CreateTagContent (Main) activity strings -->
     <string name="title_activity_create_tag_content">Create tag content</string>
     <string name="wSaveWriteButton">Save &amp; write</string>
-     <string name="wSelectorText">Select the kind of content that you wish create</string>
-      <string name="plEmpty">Empty number list</string>
+    <string name="wSelectorText">Select the kind of content that you wish create</string>
+    <string name="plEmpty">Empty number list</string>
     <string name="plNumber">You\'ve picked </string>
+    <string name="messageSize">Message size: </string>
     
-     <!-- TransferContent(Main) activity strings -->
+
+    <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transfer content</string>
-     <string name="doneButton">Done</string>
-     <string name="previousText">Previous content</string>
-     <string name="currentText">Current content</string>
+    <string name="doneButton">Done</string>
+    <string name="previousText">Previous content</string>
+    <string name="currentText">Current content</string>
 
     <!-- Search widget strings -->
     <string name="search_hint">Tag\'s content</string>
@@ -89,7 +95,6 @@
         <item>Label</item>
         <item>QR Code</item>
     </string-array>
-
     <string-array name="kinds_array">
         <item>@string/link</item>
         <item>@string/mail</item>
@@ -116,16 +121,15 @@
     <string name="dialogMessage">GPS is disabled. You want to go to Settings?</string>
     <string name="dialogOkButton">Settings</string>
     <string name="dialogCancelButton">Cancel</string>
-    
-    
+
     <!-- Nfc Alert  Dialog strings -->
     <string name="dialogNTitle">NFC Settings</string>
     <string name="dialogNMessage">NFC is disabled. You want to go to Settings?</string>
 
-	<!-- Network Alert Dialog strings -->
+    <!-- Network Alert Dialog strings -->
     <string name="dialogMTitle">Network Settings</string>
     <string name="dialogMMessage">Network connection is need.You want to go to Settings?</string>
-    
+
     <!-- Forms string -->
 
 
@@ -161,11 +165,18 @@
     <!-- Plain text strings -->
     <string name="textLabel">Plain Text</string>
     <string name="textHint">Type your text here</string>
-    
+
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="eraseButton">Erase tag</string>
+    <string name="backUpButton">Backup data</string>
+    <string name="restoreButton">Restore data</string>
+    
+    
+    <!-- Erease Tag strings -->
     <string name="title_activity_erase_tag">Erase tag</string>
+    <string name="ereaseResult">Erase succesfull</string>
+	
     
     <!-- Tag CRUD Strings -->
     <string name="tDelete_dialog_title">Delete label</string>
@@ -177,7 +188,6 @@
     <!-- Content CRUD strings -->
     <string name="cDelete_dialog_title">Delete content</string>
     <string name="cDelete_dialog_msg">Do you want to delete this content?</string>
-
     <string name="nA">N/A</string>
     <string name="link">Link</string>
     <string name="slink">Secure Link</string>
@@ -197,5 +207,38 @@
     <string name="uri">URI</string>
     <string name="bussinesCard">Bussines card</string>
     <string name="payloadsType">Payload\'s type:</string>
+
     
+    <!-- About Dialog Strings -->
+    <string name="credits_author">Author:</string>
+    <string name="creditIcons"> Iconos made by <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
+    <string name="credits_develop">Developed at the request of ALS TELECOM, C.A.</string>
+    <string name="credits_desc">This application allows the exchange of content between your device and NFC tags.</string>
+    <string name="credits_teg">This application is part of the Degree Project to opt for the Bachelor Degree in Computer Science awarded by the Central University of Venezuela.</string>
+    <string name="credit_icons">Icons:</string>
+    
+    <!-- Backup Data strings -->
+     <string name="title_activity_backup_data">Backup Data</string>
+    <string name="bu_title">The QR code below contains all the content in plain text.</string>
+    <string name="bu_title2">This content:</string>
+    
+    
+    <!-- Read TEG strings -->
+    <string name="rt_title">Degree Project Title</string>
+    <string name="rt_author">Author</string>
+    <string name="rt_tutor">Tutor</string>
+    <string name="rt_school">School</string>
+    <string name="rt_year">Year</string>
+    <string name="rt_url">For more details visit:</string>
+    
+    <!-- Restore Data strings -->
+    <string name="rd_photoTitle">Take a photo of a QR Code generated by this application</string>
+    <string name="rd_imageTitle">Open a QR Code image generated by this application</string>
+    <string name="rd_photoOr">or</string>
+    <string name="rd_takeButton">Take a photo</string>
+    <string name="rd_openButton">Open an image</string>
+    
+    <!--  Restore results -->
+    <string name="rr_title">The content stored in the QR code is:</string>
+
 </resources>

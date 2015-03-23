@@ -17,7 +17,7 @@
     
     <TextView 
         android:id="@+id/creditTitle"
-        android:text="Proyecto"
+        android:text="@string/app_name"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textSize="16sp"
@@ -29,7 +29,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="10dp"
-         android:text="Autor:"
+         android:text="@string/credits_author"
          android:textSize="16sp"
          android:textStyle="bold" />
     
@@ -49,7 +49,7 @@
          android:layout_marginTop="10dp"
          android:gravity="top|center"
           android:textSize="14sp"
-         android:text="Esta aplicación permite el intercambio de contenido entre el dispositivo y etiquetas NFC." />
+         android:text="@string/credits_desc" />
     
     
     
@@ -60,7 +60,7 @@
          android:layout_marginTop="10dp"
          android:gravity="top|center"
           android:textSize="14sp"
-         android:text="Desarrollada a petición de ALS TELECOM C.A." />
+         android:text="@string/credits_develop" />
 
     <ImageView
         android:id="@+id/logoALS"
@@ -76,7 +76,7 @@
          android:layout_marginTop="10dp"
          android:gravity="top|center"
           android:textSize="14sp"
-         android:text="Esta aplicación forma parte del Trabajo Especial de Grado para optar por el título de Licenciado en Computación otorgado por la Universidad Central de Venezuela." />
+         android:text="@string/credits_teg" />
 
      
      <TextView
@@ -84,7 +84,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="10dp"
-         android:text="Iconos:"
+         android:text="@string/credit_icons"
          android:textSize="16sp"
          android:textStyle="bold" />
     

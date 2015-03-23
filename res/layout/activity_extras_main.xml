@@ -24,7 +24,7 @@
         android:gravity="left|center_vertical"
         android:onClick="onClick"
         android:padding="5dp"
-        android:text="Erase Tag" />
+        android:text="@string/eraseButton" />
 
     <Button
         android:id="@+id/backupData"
@@ -39,7 +39,7 @@
         android:gravity="left|center_vertical"
         android:onClick="onClick"
         android:padding="5dp"
-        android:text="Backup Data" />
+        android:text="@string/backUpButton" />
 
     <Button
         android:id="@+id/restoreData"
@@ -54,6 +54,6 @@
         android:gravity="left|center_vertical"
         android:onClick="onClick"
         android:padding="5dp"
-        android:text="Restore Data" />
+        android:text="@string/restoreButton" />
 
 </RelativeLayout>

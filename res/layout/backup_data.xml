@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="The QR code below contains all the content in plain text."
+        android:text="@string/bu_title"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Share" />
+            android:text="@string/share" />
     </LinearLayout>
 
 </LinearLayout>

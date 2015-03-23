@@ -14,6 +14,8 @@
     <string name="options">Opciones</string>
     <string name="fupdate">Actualizar</string>
     <string name="fwrite">Escribir</string>
+    <string name="share">Compartir</string>
+    
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -63,6 +65,7 @@
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
     <string name="plEmpty">Lista de números vacía</string>
     <string name="plNumber">Has seleccionado a: </string>
+    <string name="messageSize">Tamaño del mensaje: </string>
 
     <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
@@ -91,6 +94,7 @@
     <string name="title_filterTypeOff">Filtrado por tipo</string>
     <string name="removeFilterButton">Remover filtro</string>
     <string name="filterBy">Filtrado por: </string>
+    <string name="dialogAddLabel">Agregar etiqueta:</string>
 
     <!-- Search widget strings -->
     <string name="search_hint">Contenido de la etiqueta</string>
@@ -101,6 +105,7 @@
         <item>Eliminar</item>
         <item>Compartir</item>
         <item>Etiquetar</item>
+        <item>Generar código QR</item>
     </string-array>
     <string-array name="kinds_array">
         <item>@string/link</item>
@@ -123,7 +128,6 @@
     <string name="resultText">El contenido ha sido guardado.</string>
     <string name="resultTextB">El contenido ya existe. No se han guardado nuevos registros.</string>
     <string name="savedContentLabel">Contenido guardado</string>
-    
 
     <!-- GPSTracker Alter Dialog strings -->
     <string name="dialogTitle">Configuración de GPS</string>
@@ -169,8 +173,12 @@
 
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="backUpButton">Respladar datos</string>
+    <string name="restoreButton">Restaurar datos</string>
+
+    <!-- Erease Tag strings -->
     <string name="title_activity_erase_tag">Borrar tag</string>
+    <string name="eraseButton">Borrar etiqueta</string>
 
     <!-- Tag CRUD Strings -->
     <string name="tDelete_dialog_title">Eliminar etiqueta</string>
@@ -202,10 +210,41 @@
     <string name="bussinesCard">Tarjeta de negocios</string>
     <string name="payloadsType">Tipo del contenido:</string>
     <string name="title_activity_read_teg">ReadTEG</string>
-    <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
     <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
-    <string name="title_activity_backup_data">BackupData</string>
     <string name="title_activity_restore_data">RestoreData</string>
     <string name="title_activity_restore_results">RestoreResults</string>
+
+    <!-- About Dialog Strings -->
+    <string name="credits_author">Autor:</string>
+    <string name="creditIcons"> Iconos hechos por <a href="http://sebastien-gabriel.com" title="Sebastien Gabriel">Sebastien Gabriel</a></string>
+    <string name="credits_develop">Desarrollado a peticion de ALS TELECOM, C.A.</string>
+    <string name="credits_desc">Esta aplicación permite el intercambio de contenido entre el dispositivo y etiquetas NFC.</string>
+    <string name="credits_teg">Esta aplicación forma parte del Trabajo Especial de Grado para optar por el título de Licenciado en Computación otorgado por la Universidad Central de Venezuela.</string>
+    <string name="credit_icons">Iconos:</string>
+
+    <!-- Backup Data strings -->
+    <string name="title_activity_backup_data">Respladar datos</string>
+    <string name="bu_title">El siguiente código QR contiene todo el contenido almacenado en texto plano.</string>
+    <string name="bu_title2">Este contenido:</string>
+    
+    <!-- Read TEG strings -->
+    <string name="rt_title">Título del Trabajo Especial de Grado</string>
+    <string name="rt_author">Autor</string>
+    <string name="rt_tutor">Tutor</string>
+    <string name="rt_school">Escuela</string>
+    <string name="rt_year">Año</string>
+    <string name="rt_url">Para mas detalles visite:</string>
+    
+
+    <!-- Restore Data -->
+    <string name="rd_photoTitle">Tome una foto de un código QR generado por esta aplicación</string>
+    <string name="rd_imageTitle">Abra una imagen de un código QR generado por esta aplicación</string>
+    <string name="rd_photoOr">ó</string>
+    <string name="rd_takeButton">Tomar una foto</string>
+    <string name="rd_openButton">Abrir una imagen</string>
+    
+        
+    <!--  Restore results -->
+   <string name="rr_title">El contenido almacendado en el código QR es:</string>
 
 </resources>

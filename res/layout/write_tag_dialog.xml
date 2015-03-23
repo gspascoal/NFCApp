@@ -12,25 +12,29 @@
         android:layout_height="wrap_content"
         android:text="@string/writeDialogTop"
         android:padding="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
          />  
     
-	  <ImageView 
-     	android:id="@+id/mainimage"
-     	android:src="@drawable/tagwrite140"
-     	android:contentDescription="@string/cntnt_desc_tagread"
-     	android:layout_width="wrap_content"
-     	android:layout_height="wrap_content"
-     	android:layout_centerInParent="true"
-     	android:layout_below="@+id/writeIntent1"       
-     />
+	  <ImageView
+	      android:id="@+id/mainimage"
+	      android:layout_width="100dp"
+	      android:layout_height="100dp"
+	      android:layout_below="@+id/writeIntent1"
+	      android:layout_centerInParent="true"
+	      android:contentDescription="@string/cntnt_desc_tagread"
+	      android:src="@drawable/tagwrite140" />
 	  
     <TextView
         android:id="@+id/writeIntent2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/writeDialogBottom"
         android:layout_below="@+id/mainimage"
         android:padding="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        
          />  
 
 </RelativeLayout>

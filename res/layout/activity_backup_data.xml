@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="This content :"
+        android:text="@string/bu_title2"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="The QR code below contains all the content in plain text."
+        android:text="@string/bu_title"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
             style="@style/buttonS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/saveButton" />
 
         <Button
             android:id="@+id/backupShare"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Share" />
+            android:text="@string/share" />
 
     </RelativeLayout>
 
