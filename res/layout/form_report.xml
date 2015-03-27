@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="29dp"
-        android:text="Policy Number" />
+        android:text="@string/policyLabel" />
 
     <EditText
         android:id="@+id/fieldPolicy"
@@ -21,7 +21,7 @@
         android:layout_below="@+id/labelPolicy"
         android:layout_marginTop="14dp"
         android:ems="10"
-        android:hint="Type the policy number here"
+        android:hint="@string/policyField"
         android:singleLine="true" >
 
         <requestFocus />
@@ -34,7 +34,7 @@
         android:layout_alignLeft="@+id/fieldPolicy"
         android:layout_below="@+id/fieldPolicy"
         android:layout_marginTop="28dp"
-        android:text="License plate" />
+        android:text="@string/plateLabel" />
 
     <EditText
         android:id="@+id/fieldPlate"
@@ -44,7 +44,7 @@
         android:layout_below="@+id/labelPLate"
         android:layout_marginTop="11dp"
         android:ems="10"
-        android:hint="Type the license plate number here" 
+        android:hint="@string/plateField" 
         android:singleLine="true"
         />
 

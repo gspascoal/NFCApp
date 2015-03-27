@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/labelTitle"
@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldTitle"
         android:layout_marginTop="15dp"
-        android:text="TEG Title" />
+        android:text="@string/ct_title" />
 
     <EditText
         android:id="@+id/fieldTitle"
@@ -20,7 +20,7 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:gravity="left|top"
-        android:hint="Type the title here"
+        android:hint="@string/ct_titleH"
         android:inputType="textCapSentences|textMultiLine"
         android:scrollHorizontally="false"
         android:singleLine="true" />
@@ -32,7 +32,7 @@
         android:layout_alignLeft="@+id/fieldAuthor"
         android:layout_below="@+id/fieldTitle"
         android:layout_marginTop="15dp"
-        android:text="Author" />
+        android:text="@string/ct_author" />
 
     <EditText
         android:id="@+id/fieldAuthor"
@@ -44,7 +44,7 @@
         android:layout_margin="10dp"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:hint="X. XXXX"
+        android:hint="@string/ct_authorH"
         android:inputType="text" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_alignLeft="@+id/fieldAuthor"
         android:layout_below="@+id/fieldAuthor"
         android:layout_marginTop="15dp"
-        android:text="Tutor" />
+        android:text="@string/ct_tutor" />
 
     <EditText
         android:id="@+id/fieldTutor"
@@ -66,7 +66,7 @@
         android:layout_margin="10dp"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:hint="X. XXXX"
+        android:hint="@string/ct_tutorH"
         android:inputType="text" />
 
     <TextView
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldRef"
         android:layout_below="@+id/fieldTutor"
-        android:text="School" />
+        android:text="@string/ct_school" />
 
     <EditText
         android:id="@+id/fieldRef"
@@ -84,7 +84,7 @@
         android:layout_below="@+id/labelRef"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Computer Science"
+        android:hint="@string/ct_schoolH"
         android:inputType="text" />
     
     
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/fieldRef"
         android:layout_below="@+id/fieldRef"
-        android:text="Year" />
+        android:text="@string/ct_year" />
 
     <EditText
         android:id="@+id/fieldYear"
@@ -103,7 +103,7 @@
         android:layout_below="@+id/labelYear"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="2000"
+        android:hint="@string/ct_yearH"
         android:inputType="number" />
 
     <TextView
@@ -113,7 +113,7 @@
         android:layout_alignLeft="@+id/fieldRef"
         android:layout_below="@+id/fieldYear"
         android:layout_marginBottom="20dp"
-        android:text="URL" />
+        android:text="@string/ct_url" />
 
     <EditText
         android:id="@+id/fieldURL"
@@ -121,9 +121,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/labelURL"
         android:layout_below="@+id/labelURL"
-        android:layout_marginBottom="80dp"
         android:ems="10"
-        android:hint="Type the URL here"
+        android:hint="@string/ct_urlH"
         android:inputType="textUri" >
 
         <requestFocus />
@@ -136,6 +135,6 @@
         android:layout_alignBottom="@+id/fieldURL"
         android:layout_toRightOf="@+id/fieldURL"
         android:enabled="false"
-        android:text="Shorten URL" />
+        android:text="@string/ct_Surl" />
 
 </RelativeLayout>

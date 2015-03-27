@@ -65,7 +65,7 @@
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
     <string name="plEmpty">Lista de números vacía</string>
     <string name="plNumber">Has seleccionado a: </string>
-    <string name="messageSize">Tamaño del mensaje: </string>
+    <string name="messageSize">Tamaño del mensaje:  \u00A0</string>
 
     <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
@@ -171,6 +171,30 @@
     <string name="textLabel">Texto plano</string>
     <string name="textHint">Escriba el texto</string>
 
+   	<!-- Accident Report Strings -->
+    <string name="policyLabel">Número de póliza </string>
+    <string name="policyField">Escriba el número de póliza</string>
+    <string name="plateLabel">Número de placa</string>
+    <string name="plateField">Escriba el número de placa</string>
+    
+      <!-- Create TEG strings -->
+    <string name="ct_title">Título del Trabajo Especial de Grado</string>
+    <string name="ct_titleH">Escriba el título</string>
+    <string name="ct_author">Autor(es)</string>
+    <string name="ct_authorH">X. XXXXX, X. XXXXX </string>
+    <string name="ct_tutor">Tutor(es)</string>
+    <string name="ct_tutorH">X. XXXXX, X. XXXXX</string>
+    <string name="ct_school">Escuela</string>
+    <string name="ct_schoolH">Computación</string>
+    <string name="ct_year">Año</string>
+    <string name="ct_yearH">0000</string>
+    <string name="ct_url">URL</string>
+    <string name="ct_urlH">Escriba la dirección</string>
+    <string name="ct_Surl">Acortar URL</string>
+    
+    
+    
+    
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
     <string name="backUpButton">Respladar datos</string>
@@ -209,10 +233,10 @@
     <string name="uri">URI</string>
     <string name="bussinesCard">Tarjeta de negocios</string>
     <string name="payloadsType">Tipo del contenido:</string>
-    <string name="title_activity_read_teg">ReadTEG</string>
+    <string name="title_activity_read_teg">Leer TEG</string>
     <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
-    <string name="title_activity_restore_data">RestoreData</string>
-    <string name="title_activity_restore_results">RestoreResults</string>
+    <string name="title_activity_restore_data">Restaurar datos</string>
+    <string name="title_activity_restore_results">Resultado de la restauración</string>
 
     <!-- About Dialog Strings -->
     <string name="credits_author">Autor:</string>

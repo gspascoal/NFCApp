@@ -57,6 +57,7 @@ public class TagContentAdapter extends ArrayAdapter<TagContent> {
 		PLTI.put(context.getResources().getString(R.string.bussinesCard), R.drawable.business_cardb24);
 		PLTI.put(context.getResources().getString(R.string.plainText), R.drawable.text64);
 		PLTI.put(context.getResources().getString(R.string.thesis), R.drawable.thesis64);
+		PLTI.put(context.getResources().getString(R.string.report), R.drawable.report64);
 
 		
 		

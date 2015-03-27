@@ -1,9 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:background="@android:color/white"
-    >    
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white" >
 
     <RelativeLayout
         android:id="@+id/container"
@@ -12,122 +11,108 @@
         android:background="@android:color/white"
         tools:context="com.example.proyecto.CreateTagContent"
         tools:ignore="MergeRootFrame" >
-        
-        <LinearLayout 
+
+        <LinearLayout
             android:id="@+id/createTagHeader"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_width="match_parent"
             android:background="@android:color/white"
-            android:orientation="vertical"
-            >
-            
-            <TextView 
+            android:orientation="vertical" >
+
+            <TextView
                 android:id="@+id/selectorText"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/wSelectorText"
-                android:textSize="16sp" 
-                />
-            
-            <Spinner 
-            	android:id="@+id/kindSelector"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            />
-            
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/kindSelector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-		
-        <RelativeLayout android:id="@+id/formContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_below="@+id/createTagContentSize" 
-         >
-            
-        </RelativeLayout>
-    
-        
-        <RelativeLayout android:id="@+id/createTagContentSize"
-            android:layout_height="50dp"
+
+        <RelativeLayout
+            android:id="@+id/formContainer"
             android:layout_width="match_parent"
-           android:background="@android:color/white"
-            android:layout_below="@+id/createTagHeader"
-             >
-
-              <TextView
-                  android:id="@+id/fieldSize"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_alignBaseline="@+id/fieldSize2"
-                  android:layout_alignBottom="@+id/fieldSize2"
-                  android:layout_toLeftOf="@+id/fieldSize2"
-                  android:textSize="16sp" 
-                  android:text="3" />
-
-              <TextView
-                  android:id="@+id/fieldSize2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_alignBaseline="@+id/labelSize"
-                  android:layout_alignBottom="@+id/labelSize"
-                  android:layout_alignParentRight="true"
-                  android:layout_marginRight="18dp"
-                  android:textSize="16sp" 
-                  android:text=" bytes" />
-
-              <TextView
-                  android:id="@+id/labelSize"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_toLeftOf="@+id/fieldSize"
-                  android:text="@string/messageSize"
-                  android:textSize="16sp" />
-
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createTagContentSize"
+            android:background="@android:color/white" >
         </RelativeLayout>
-        
-        <View style="@style/Divider"
+
+        <RelativeLayout
+            android:id="@+id/createTagContentSize"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/createTagHeader"
+            android:background="@android:color/white" >
+
+            <TextView
+                android:id="@+id/fieldSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/fieldSize2"
+                android:layout_alignBottom="@+id/fieldSize2"
+                android:layout_toLeftOf="@+id/fieldSize2"
+                android:text="3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/fieldSize2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/labelSize"
+                android:layout_alignBottom="@+id/labelSize"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                android:text=" bytes"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/labelSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/fieldSize"
+                android:text="@string/messageSize"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            style="@style/Divider"
             android:layout_below="@+id/createTagContentSize"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            />
-        
-        <LinearLayout android:id="@+id/createTagFooter"
-            android:layout_height="100dp"
+            android:layout_marginRight="15dp" />
+
+        <LinearLayout
+            android:id="@+id/createTagFooter"
             android:layout_width="match_parent"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
+            android:layout_height="100dp"
             android:layout_below="@+id/formContainer"
+            android:background="@android:color/white"
             android:gravity="center_horizontal"
-            
-            >
-            
-            <Button 
-            	android:id="@+id/wsaveButton"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:text="@string/saveButton"
-            	android:layout_margin="10dp"
-            	android:onClick="onClick"
-            	style="@style/buttonSS"
-            />
-            
-            <Button 
-            	android:id="@+id/wsaveWriteButton"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:text="@string/wSaveWriteButton"
-            	android:layout_margin="10dp"
-            	android:onClick="onClick"
-            	style="@style/buttonS"
-            	
-            />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/wsaveButton"
+                style="@style/buttonSS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="onClick"
+                android:text="@string/saveButton" />
+
+            <Button
+                android:id="@+id/wsaveWriteButton"
+                style="@style/buttonS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="onClick"
+                android:text="@string/wSaveWriteButton" />
         </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>
-
-
- 

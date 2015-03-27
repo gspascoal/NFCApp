@@ -75,7 +75,7 @@
     <string name="wSelectorText">Select the kind of content that you wish create</string>
     <string name="plEmpty">Empty number list</string>
     <string name="plNumber">You\'ve picked </string>
-    <string name="messageSize">Message size: </string>
+    <string name="messageSize">Message size: \u00A0</string>
     
 
     <!-- TransferContent(Main) activity strings -->
@@ -166,6 +166,26 @@
     <string name="textLabel">Plain Text</string>
     <string name="textHint">Type your text here</string>
 
+    <!-- Accident Report Strings -->
+    <string name="policyLabel">Policy Number</string>
+    <string name="policyField">Type the policy number here</string>
+    <string name="plateLabel">License plate</string>
+    <string name="plateField">Type the license plate number here</string>
+    
+    <string name="ct_title">Degree Proyect Title</string>
+    <string name="ct_titleH">Type the title</string>
+    <string name="ct_author">Author(s)</string>
+    <string name="ct_authorH">X. XXXXX, X. XXXXX</string>
+    <string name="ct_tutor">Tutor(s)</string>
+    <string name="ct_tutorH">X. XXXXX, X. XXXXX</string>
+    <string name="ct_school">School</string>
+    <string name="ct_schoolH">Computer Science</string>
+    <string name="ct_year">Year</string>
+    <string name="ct_yearH">0000</string>
+    <string name="ct_url">URL</string>
+    <string name="ct_urlH">Type the url</string>
+     <string name="ct_Surl">Shorten URL</string>
+    
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
     <string name="eraseButton">Erase tag</string>
@@ -207,6 +227,10 @@
     <string name="uri">URI</string>
     <string name="bussinesCard">Bussines card</string>
     <string name="payloadsType">Payload\'s type:</string>
+    <string name="title_activity_read_teg">Read TEG</string>
+    <string name="title_activity_generate_qrcode">GenerateQRCodeActivity</string>
+    <string name="title_activity_restore_data">Restore data</string>
+    <string name="title_activity_restore_results">Restore results</string>
 
     
     <!-- About Dialog Strings -->

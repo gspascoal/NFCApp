@@ -1823,6 +1823,95 @@ public class CreateTagContent extends Activity implements
 			});
 			
 			break;
+		case 7: // Accident Report
+			final EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
+			final EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
+			
+			fieldPolicy.addTextChangedListener(new TextWatcher() {
+				int sizeBefore;
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					
+					contentSize.setText("3");
+					int currentSize = Integer.valueOf(contentSize.getText().toString());
+					int plateCZ  = fieldPlate.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if (plateCZ == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						if (plateCZ  > 0) {
+							contentSize.setText(String.valueOf(3+4+plateCZ ));
+						}
+					} else {
+						if (plateCZ  == 0) {
+							contentSize.setText(String.valueOf(3+3+arg0.length()));
+						}
+						if (plateCZ  > 0) {
+							contentSize.setText(String.valueOf(3+3+4+plateCZ+arg0.length()));
+						}
+					}
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					sizeBefore = Integer.valueOf(contentSize.getText().toString());
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			fieldPlate.addTextChangedListener(new TextWatcher() {
+				int sizeBefore;
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					
+					contentSize.setText("3");
+					int currentSize = Integer.valueOf(contentSize.getText().toString());
+					int polCZ = fieldPolicy.getText().toString().length();
+					
+					if (arg0.length() == 0) {
+						if (polCZ  == 0) {
+							contentSize.setText(String.valueOf(3));
+						}
+						if (polCZ  > 0) {
+							contentSize.setText(String.valueOf(3+3+polCZ ));
+						}
+					} else {
+						if (polCZ  == 0) {
+							contentSize.setText(String.valueOf(3+4+arg0.length()));
+						}
+						if (polCZ  > 0) {
+							contentSize.setText(String.valueOf(3+3+4+polCZ+arg0.length()));
+						}
+					}
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					// TODO Auto-generated method stub
+					sizeBefore = Integer.valueOf(contentSize.getText().toString());
+				}
+				
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			break;
 		default:
 			break;
 		}

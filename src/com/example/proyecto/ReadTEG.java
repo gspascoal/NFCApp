@@ -225,7 +225,7 @@ public class ReadTEG extends Activity {
 		    //Log.d("debug TEG",tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
 		      content = datasource.createContent(tInfo.getTagRecords().get(0).getRecordPayload(),
 		    		  payloadHeaderDesc,
-		    		  tInfo.getTagRecords().get(0).getRecordPayloadTypeDesc());
+		    		  "6");
 		      
 		      	
 		      if (content != null) {
