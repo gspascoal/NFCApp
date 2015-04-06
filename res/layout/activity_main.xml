@@ -61,7 +61,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:background="@drawable/button"
-        android:drawableLeft="@drawable/star150"
+        android:drawableLeft="@drawable/add131"
         android:drawablePadding="10dp"
         android:gravity="left|center_vertical"
         android:onClick="onClick"

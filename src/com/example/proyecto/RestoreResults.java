@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.w3c.dom.Text;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -51,6 +53,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 	private int restoreMode;
 	private List<TagContent> tagContents;
 	private Button saveButton;
+	private TextView restoreTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,8 @@ public class RestoreResults extends Activity implements OnClickListener{
 		singleContent = (LinearLayout)findViewById(R.id.restoredQRContent);
 		contents = (ListView)findViewById(R.id.contents);
 		saveButton = (Button)findViewById(R.id.restoreQRsave);
+		restoreTitle = (TextView)findViewById(R.id.restoreResultTitle);
+		
 		
 		myImage = (ImageView) findViewById(R.id.backupQRImage);
 		cDescription = (TextView) findViewById(R.id.contentDescription);
@@ -104,7 +109,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 			imageContent.setText(content);
 			
 			
-			if (!content.contains("Saved at")) {
+			if (!content.contains("Saved at") && content.contains(contentHeader) ) {
 				restoreMode = 1;
 				typeCode = content.substring(content.indexOf("Type:")-2, content.indexOf("Type:")-1);
 				header = content.substring(content.indexOf("Header:")+7,  content.indexOf("Content:"));
@@ -121,25 +126,34 @@ public class RestoreResults extends Activity implements OnClickListener{
 				
 			}
 			else{
-				restoreMode = 2;
-				StringTokenizer st = new StringTokenizer(content, "\n");
-				tagContents = new ArrayList<TagContent>();
-				while (st.hasMoreElements()) {
-					String line = st.nextElement().toString();
-					Log.d("debug content", "Item: "+line);
-					if (line.contains("Item:")) {
-						typeCode = line.substring(line.indexOf("Type:")-2, line.indexOf("Type:")-1);
-						header = line.substring(line.indexOf("Header:")+7,  line.indexOf("Content:"));
-						payload = line.substring(line.indexOf("Content:")+9, line.length());
+				if (content.contains("Saved at") && content.contains(contentHeader)) {
+					restoreMode = 2;
+					StringTokenizer st = new StringTokenizer(content, "\n");
+					tagContents = new ArrayList<TagContent>();
+					while (st.hasMoreElements()) {
+						String line = st.nextElement().toString();
+						Log.d("debug content", "Item: "+line);
+						if (line.contains("Item:")) {
+							typeCode = line.substring(line.indexOf("Type:")-2, line.indexOf("Type:")-1);
+							header = line.substring(line.indexOf("Header:")+7,  line.indexOf("Content:"));
+							payload = line.substring(line.indexOf("Content:")+9, line.length());
+							
+							TagContent nTagContent  = new TagContent(payload,header,typeCode);
+							tagContents.add(nTagContent);
+							TagContentAdapter tagContentAdapter = new TagContentAdapter(this, tagContents);
+							contents.setAdapter(tagContentAdapter);
+							saveButton.setText(getResources().getString(R.string.saveButton2));
+						}
 						
-						TagContent nTagContent  = new TagContent(payload,header,typeCode);
-						tagContents.add(nTagContent);
-						TagContentAdapter tagContentAdapter = new TagContentAdapter(this, tagContents);
-						contents.setAdapter(tagContentAdapter);
-						saveButton.setText(getResources().getString(R.string.saveButton2));
 					}
-					
 				}
+				else
+				{
+					restoreMode=0;
+					restoreTitle.setText(getResources().getString(R.string.rr_titleB));
+					saveButton.setText(getResources().getString(R.string.doneButton));
+				}
+				
 			}
 			
 		}
@@ -194,7 +208,11 @@ public class RestoreResults extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.restoreQRsave:
 			 datasource.open();
-		    
+			 if (restoreMode == 0) {
+				 Intent intent = new Intent(this, ExtrasMain.class);
+				 //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				 startActivity(intent);
+			}
 			 if (restoreMode == 1) {
 				 TagContent tagContent = datasource.createContent(payload,
 			    		  header,

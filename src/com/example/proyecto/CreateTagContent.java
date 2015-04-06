@@ -645,7 +645,7 @@ public class CreateTagContent extends Activity implements
 					// int type =
 					// phones.getInt(phones.getColumnIndex(Phone.TYPE));
 					
-					if(numbers.size() == 0){ numbers.add("0 Numbers found");}
+					if(numbers.size() == 0){ numbers.add(getResources().getString(R.string.plEmpty));}
 					numberListView = new ListView(this);
 					final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 							this, android.R.layout.simple_list_item_1, numbers);
@@ -691,7 +691,15 @@ public class CreateTagContent extends Activity implements
 
 				c.close();
 			}
-
+			else{
+				Log.d("debug", "! RESULT_OK");
+				
+			}
+		}
+		
+		else{
+			Log.d("debug", "PICK_CONTACT");
+			
 		}
 	}
 

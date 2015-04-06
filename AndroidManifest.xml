@@ -103,7 +103,6 @@
             android:name="com.example.proyecto.CreateTagContent"
             android:label="@string/title_activity_create_tag_content"
             android:launchMode="singleTop"
-            android:noHistory="true"
             android:parentActivityName="com.example.proyecto.WriteMain"
             android:screenOrientation="portrait" >
 

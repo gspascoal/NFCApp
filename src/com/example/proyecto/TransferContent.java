@@ -303,6 +303,7 @@ public class TransferContent extends Activity {
 		}
 
 	}
+	
 	private NdefMessage[] getNdefMessages(Intent intent) {
 		// TODO Auto-generated method stub
 		NdefMessage[] message = null;

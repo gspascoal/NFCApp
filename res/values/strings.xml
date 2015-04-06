@@ -16,7 +16,6 @@
     <string name="fupdate">Actualizar</string>
     <string name="fwrite">Escribir</string>
     <string name="share">Compartir</string>
-    
 
     <!-- Main activity strings -->
     <string name="read">Leer etiqueta</string>
@@ -27,13 +26,12 @@
     <!-- Read(Main) activity strings -->
     <string name="title_activity_read_main">Leer etiqueta</string>
     <string name="readIntenta">"Listo para leer el contenido"</string>
-    <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo"</string>
+    <string name="readIntentb">"La lectura comenzará al acercar un elemento NFC compatible a la parte posterior de su dispositivo"</string>
     <string name="readIntentc">"Acerque una etiqueta NFC "</string>
     <string name="cntnt_desc_tagread">"Etiqueta y lupa"</string>
-    <string name="title_feature_list">"Carácteristicas de la etiqueta"</string>
+    <string name="title_feature_list">"Características de la etiqueta"</string>
     <string name="cntnt_desc_tagicon">"Icono del contenido"</string>
     <string name="readIntent_Empty">"Etiqueta vacia"</string>
-    
 
     <!-- Write(Main) activity strings -->
     <string name="title_activity_write_main">Escribir etiqueta</string>
@@ -41,7 +39,7 @@
     <string name="newContentButton">Crear nuevo contenido</string>
     <string name="showMoreButton">Mostrar más</string>
     <string name="writeDialogTop">Listo para almacenar el contenido seleccionado</string>
-    <string name="writeDialogBottom">La escritura comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo</string>
+    <string name="writeDialogBottom">La escritura comenzará al acercar un elemento NFC compatible a la parte posterior de su dispositivo</string>
 
     <!-- Tag features Strings -->
     <string name="f_SerialNumber">Número de serie</string>
@@ -55,7 +53,7 @@
 
     <!-- Tag Records Strings -->
     <string name="title_record_list">Lista de registros</string>
-    <string name="r_number">Registro #</string>
+    <string name="r_number"><b>Registro #</b></string>
     <string name="r_TNF">TNF:</string>
     <string name="r_Type">Tipo de registro:</string>
     <string name="r_Protocol">Protocolo:</string>
@@ -66,7 +64,7 @@
     <string name="wSaveWriteButton">Guardar y escribir</string>
     <string name="wSelectorText">Seleccione el tipo de contenido que desea crear</string>
     <string name="plEmpty">Lista de números vacía</string>
-    <string name="plNumber">Has seleccionado a: </string>
+    <string name="plNumber">Ha seleccionado a: \u00A0</string>
     <string name="messageSize">Tamaño del mensaje:  \u00A0</string>
 
     <!-- TransferContent(Main) activity strings -->
@@ -96,7 +94,9 @@
     <string name="title_filterTypeOn">Filtrar por tipo</string>
     <string name="title_filterTypeOff">Filtrado por tipo</string>
     <string name="removeFilterButton">Remover filtro</string>
-    <string name="filterBy">Filtrado por: </string>
+    <string name="filterBy">Filtrado por: \u00A0</string>
+    <string name="filterByL">Etiqueta(s): \u00A0</string>
+    <string name="filterByT">Tipo(s): \u00A0</string>
     <string name="dialogAddLabel">Agregar etiqueta:</string>
 
     <!-- Search widget strings -->
@@ -175,13 +175,13 @@
     <string name="textLabel">Texto plano</string>
     <string name="textHint">Escriba el texto</string>
 
-   	<!-- Accident Report Strings -->
+    <!-- Accident Report Strings -->
     <string name="policyLabel">Número de póliza </string>
     <string name="policyField">Escriba el número de póliza</string>
     <string name="plateLabel">Número de placa</string>
     <string name="plateField">Escriba el número de placa</string>
-    
-      <!-- Create TEG strings -->
+
+    <!-- Create TEG strings -->
     <string name="ct_title">Título del Trabajo Especial de Grado</string>
     <string name="ct_titleH">Escriba el título</string>
     <string name="ct_author">Autor(es)</string>
@@ -191,25 +191,23 @@
     <string name="ct_school">Escuela</string>
     <string name="ct_schoolH">Computación</string>
     <string name="ct_year">Año</string>
-    <string name="ct_yearH">0000</string>
+    <string name="ct_yearH">2015</string>
     <string name="ct_url">URL</string>
     <string name="ct_urlH">Escriba la dirección</string>
     <string name="ct_Surl">Acortar URL</string>
-    
-    
-    
-    
+
     <!-- Extras (Main) activity string -->
     <string name="title_activity_extras_main">Extras</string>
-    <string name="backUpButton">Respladar datos</string>
+    <string name="backUpButton">Respaldar datos</string>
     <string name="restoreButton">Restaurar datos</string>
 
     <!-- Erease Tag strings -->
     <string name="title_activity_erase_tag">Borrar etiqueta</string>
     <string name="eraseButton">Borrar etiqueta</string>
     <string name="ereaseResult">Borrado exitoso</string>
-     <string name="ed_title">Listo para borrar el contenido</string>
-    <string name="ed_subtitle">El borrado comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo</string>
+    <string name="ereaseResultB">Borrado fallido</string>
+    <string name="ed_title">Listo para borrar el contenido</string>
+    <string name="ed_subtitle">El borrado tardará unos segundos y comenzará al acercar un elemento NFC compatible a la parte posterior de su dispositivo.</string>
 
     <!-- Tag CRUD Strings -->
     <string name="tDelete_dialog_title">Eliminar etiqueta</string>
@@ -254,17 +252,16 @@
     <string name="credit_icons">Iconos:</string>
 
     <!-- Backup Data strings -->
-    <string name="title_activity_backup_data">Respladar datos</string>
+    <string name="title_activity_backup_data">Respaldar datos</string>
     <string name="bu_title">El siguiente código QR contiene todo el contenido almacenado en texto plano.</string>
     <string name="bu_title2">Este contenido:</string>
     <string name="bu_title3">ha sido codificado en el siguiente código QR.</string>
-      <string name="bu_dialogTitle">Compartir como</string>
+    <string name="bu_dialogTitle">Compartir como</string>
     <string name="bu_savePath">Imagen guardada en: \u00A0</string>
-     <string name="bu_shareChooser">Compartir imagen</string>
-     <string name="bu_at">Como texto</string>
-     <string name="bu_ai">Como imagen</string>
-    
-    
+    <string name="bu_shareChooser">Compartir imagen</string>
+    <string name="bu_at">Como texto</string>
+    <string name="bu_ai">Como imagen</string>
+
     <!-- Read TEG strings -->
     <string name="rt_title">Título del Trabajo Especial de Grado</string>
     <string name="rt_author">Autor</string>
@@ -272,7 +269,6 @@
     <string name="rt_school">Escuela</string>
     <string name="rt_year">Año</string>
     <string name="rt_url">Para mas detalles visite:</string>
-    
 
     <!-- Restore Data -->
     <string name="rd_photoTitle">Tome una foto de un código QR generado por esta aplicación</string>
@@ -280,18 +276,17 @@
     <string name="rd_photoOr">ó</string>
     <string name="rd_takeButton">Tomar una foto</string>
     <string name="rd_openButton">Abrir una imagen</string>
-    
-        
-    <!--  Restore results -->
-   <string name="rr_title">El contenido almacenado en el código QR es:</string>
 
-   <!-- Transfer content strings -->
-   <string name="tc_ro">Etiqueta de sólo lectura</string>
+    <!-- Restore results -->
+    <string name="rr_title">El contenido almacenado en el código QR es:</string>
+    <string name="rr_titleB">El contenido almacenado en el código QR no ha sido generado por esta aplicación.</string>
+
+    <!-- Transfer content strings -->
+    <string name="tc_ro">Etiqueta de sólo lectura</string>
     <string name="tc_ok">Mensaje escrito en la etiqueta</string>
     <string name="tc_ff">Error al formatear etiqueta</string>
     <string name="tc_ndef">NDEF no soportado</string>
     <string name="tc_wrong">Operación de escritura fallida</string>
     <string name="tc_oom">No se pudo escribir el mensaje en la etiqueta. La capacidad de la etiqueta es %1$d bytes y el mensaje ocupa %2$d bytes.</string>
-    
-    
+
 </resources>

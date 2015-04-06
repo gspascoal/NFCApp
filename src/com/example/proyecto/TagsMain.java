@@ -67,8 +67,8 @@ public class TagsMain extends ListActivity {
 	private boolean tagfiltered = false; // Filtered by tag
 	private String dialogTitle;
 	private int TypeFilter; // Tag Filter On
-	
-	private int TagFilter ;
+
+	private int TagFilter;
 	private static Context context;
 
 	@Override
@@ -77,7 +77,7 @@ public class TagsMain extends ListActivity {
 		setContentView(R.layout.activity_tags_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		context =this;
+		context = this;
 		selectedTagFilters = new ArrayList<String>();
 		datasource = new TagContentDataSource(this);
 		datasource.open();
@@ -181,7 +181,8 @@ public class TagsMain extends ListActivity {
 			Log.d("debug filters list size", filterList.size() + "");
 			Log.d("debug filterAdapter size", filterListAdapter.getCount() + "");
 			filterLayout = new FilterLayout(this);
-			dialogTitle = getResources().getString(R.string.title_filterTypeOff);
+			dialogTitle = getResources()
+					.getString(R.string.title_filterTypeOff);
 			int selectedC = selectedCount;
 			Log.d("debug filter button", filterTextView.getText().toString());
 
@@ -209,12 +210,15 @@ public class TagsMain extends ListActivity {
 					}
 
 				}
-				filterLayout.getFilterTextView().setText(getResources().getString(R.string.filterBy)
+				filterLayout.getFilterTextView().setText(
+						getResources().getString(R.string.filterByT)
 								+ filterText.substring(0,
 										filterText.length() - 1));
 				filterLayout.getFilterTextView().setVisibility(View.VISIBLE);
-				filterLayout.getFilterButton().setText(getResources().getString(R.string.removeFilterButton));
-				dialogTitle = getResources().getString(R.string.title_filterTypeOn);
+				filterLayout.getFilterButton().setText(
+						getResources().getString(R.string.removeFilterButton));
+				dialogTitle = getResources().getString(
+						R.string.title_filterTypeOn);
 			}
 
 			/*
@@ -237,7 +241,7 @@ public class TagsMain extends ListActivity {
 			// (ListView)findViewById(R.id.filterList);
 
 			dialog = new CustomDialog(this);
-			//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			// dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			dialog.setTitle(dialogTitle);
 			dialog.setContentView(filterLayout);
 			dialog.show();
@@ -258,41 +262,59 @@ public class TagsMain extends ListActivity {
 			String filterText = "";
 			TextView filterTextView = (TextView) findViewById(R.id.action_filterTag);
 			List<FilterKind> filterTagList = getContentTagFilter();
-			// Log.d("debug filters list size", filterList.size() + "");
+			Log.d("debug filters list size", filterTagList.size() + "");
 			// Log.d("debug filterAdapter size", filterListAdapter.getCount() +
 			// "");
 			filterTagLayout = new FilterLayout(this);
-			dialogTitle = getResources().getString(R.string.title_filterLabelOff);
+			dialogTitle = getResources().getString(
+					R.string.title_filterLabelOff);
 			// int selectedC = selectedCount;
 			// Log.d("debug filter button",
 			// filterTextView.getText().toString());
 
 			// filterTextView.getText().toString() == "ON"
 			
-			  if (tagfiltered) {
-				  filterTagLayout.getFilterList().setVisibility(View.INVISIBLE);
-				  filterTagLayout.getFilterImageView().setBackgroundResource(R.drawable.filter_v3);
-				  filterTagLayout.getFilterImageView().setVisibility(View.VISIBLE);
-				  for (String filterKind : selectedTagFilters) { 
-					  if (filterKind != "" && filterKind != null) {
-					  filterText += filterKind + ","; 
-				  }
-					  dialogTitle = getResources().getString(R.string.title_filterLabelOn);
-			  } 
-				  
-			filterTagLayout.getFilterTextView().setText( getResources().getString(R.string.filterBy) + filterText.substring(0, filterText.length() - 1));
-			filterTagLayout.getFilterTextView().setVisibility(View.VISIBLE);
-			filterTagLayout.getFilterButton().setText(getResources().getString(R.string.removeFilterButton)); }
-		
+			if (filterTagList.size() == 0) {
+				
+				filterTagLayout.getFilterTextView().setText("No existen etiquetas");
+				filterTagLayout.getFilterImageView().setVisibility(View.GONE);
+				filterTagLayout.getFilterTextView().setVisibility(View.VISIBLE);
+				filterTagLayout.getFilterButton().setVisibility(View.GONE);
+			}
+
+			if (tagfiltered) {
+				filterTagLayout.getFilterList().setVisibility(View.INVISIBLE);
+				filterTagLayout.getFilterImageView().setBackgroundResource(
+						R.drawable.filter_v3);
+				filterTagLayout.getFilterImageView()
+						.setVisibility(View.VISIBLE);
+				for (String filterKind : selectedTagFilters) {
+					if (filterKind != "" && filterKind != null) {
+						filterText += filterKind + ",";
+					}
+					dialogTitle = getResources().getString(
+							R.string.title_filterLabelOn);
+				}
+
+				filterTagLayout.getFilterTextView().setText(
+						getResources().getString(R.string.filterByL)
+								+ filterText.substring(0,
+										filterText.length() - 1));
+				filterTagLayout.getFilterTextView().setVisibility(View.VISIBLE);
+				filterTagLayout.getFilterButton().setText(
+						getResources().getString(R.string.removeFilterButton));
+			}
+
 			filterTagListAdapter = new FilterAdapter(this, filterTagList);
 			filterTagLayout.getFilterList().setAdapter(filterTagListAdapter);
 			filterTagListAdapter.notifyDataSetChanged();
 
+			
 			// ListView filterListView =
 			// (ListView)findViewById(R.id.filterList);
 
 			dialog = new CustomDialog(this);
-			//dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			// dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			dialog.setTitle(dialogTitle);
 			dialog.setContentView(filterTagLayout);
 			dialog.show();
@@ -338,179 +360,185 @@ public class TagsMain extends ListActivity {
 	public void onClick(View view) {
 
 		switch (view.getId()) {
-			case R.id.filterButton:
-				datasource.open();
-				switch (FilteredBy) {
-					case 1:
-						selectedCount = 0;
-						boolean removeFilter = false;
-						TextView filterTextView = (TextView) findViewById(R.id.action_filter);
-		
-						String filters = "";
-						for (int i = 0; i < filterListAdapter.getCount(); i++) {
-							if (filterListAdapter.getItem(i).getContentCheck()
-									.isChecked()) {
-								selectedCount++;
-							}
+		case R.id.filterButton:
+			datasource.open();
+			switch (FilteredBy) {
+			case 1:
+				selectedCount = 0;
+				boolean removeFilter = false;
+				TextView filterTextView = (TextView) findViewById(R.id.action_filter);
+
+				String filters = "";
+				for (int i = 0; i < filterListAdapter.getCount(); i++) {
+					if (filterListAdapter.getItem(i).getContentCheck()
+							.isChecked()) {
+						selectedCount++;
+					}
+				}
+
+				int c = 0;
+				for (int i = 0; i < filterListAdapter.getCount(); i++) {
+					if (filterListAdapter.getItem(i).getContentCheck()
+							.isChecked()) {
+						filters += "'"
+								+ filterListAdapter.getItem(i).getContentDesc()
+										.getText() + "'";
+						selectedFilters[c] = filterListAdapter.getItem(i)
+								.getContentDesc().getText().toString();
+						Log.d("debug filters list ", selectedFilters[c]);
+
+						if (c < selectedCount - 1) {
+							filters += ",";
+							c++;
 						}
-		
-						int c = 0;
-						for (int i = 0; i < filterListAdapter.getCount(); i++) {
-							if (filterListAdapter.getItem(i).getContentCheck()
-									.isChecked()) {
-								filters += "'"
-										+ filterListAdapter.getItem(i).getContentDesc()
-												.getText() + "'";
-								selectedFilters[c] = filterListAdapter.getItem(i)
-										.getContentDesc().getText().toString();
-								Log.d("debug filters list ", selectedFilters[c]);
-		
-								if (c < selectedCount - 1) {
-									filters += ",";
-									c++;
-								}
-							}
-		
+					}
+
+				}
+
+				// Log.d("debug filters list ", filters);
+				// Log.d("debug filters list ",
+				// filterListAdapter.getItem(0).getContentCheck().isChecked()+
+				// "");
+
+				if (filterLayout.getFilterButton().getText().toString()
+						.toString() == getResources().getString(
+						R.string.removeFilterButton)) {
+					filters = "";
+					for (int i = 0; i < selectedFilters.length; i++) {
+						selectedFilters[i] = "";
+					}
+					for (int j = 0; j < filterListAdapter.getCount(); j++) {
+						filterListAdapter.getItem(j).getContentCheck()
+								.setChecked(false);
+					}
+					removeFilter = true;
+				}
+				if (filters == "") {
+					removeFilter = true;
+				}
+				TypeFilter = 0;
+				adapterAdapater.addAll(getFilteredList(removeFilter));
+				adapterAdapater.notifyDataSetChanged();
+
+				if (filters != "") {
+
+					// filterTextView.setText("ON");
+					if (actionsMenu != null) {
+						Log.d("debug filters button ", "Menu found");
+						actionsMenu.findItem(R.id.action_filter).setTitle("ON");
+						actionsMenu.findItem(R.id.action_filter).setIcon(
+								R.drawable.ic_action_filter_on);
+						filtered = true;
+						TypeFilter = 1;
+					}
+					// menuTags.findItem(R.id.action_filter);
+				}
+
+				dialog.dismiss();
+
+				if (filterLayout.getFilterButton().getText().toString()
+						.toString() == getResources().getString(
+						R.string.removeFilterButton)) {
+					// filterTextView.setText("Filter");
+					filterLayout.getFilterButton().setText("Filter");
+					selectedCount = 0;
+					filtered = false;
+
+					actionsMenu.findItem(R.id.action_filter).setIcon(
+							R.drawable.ic_action_filter_off);
+				}
+
+				break; // END CASE FILTERED BY = 1
+			case 2:
+				selectedCount = 0;
+				boolean removeTagFilter = false;
+
+				String tagfilters = "";
+				for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
+					if (filterTagListAdapter.getItem(i).getContentCheck()
+							.isChecked()) {
+						selectedCount++;
+					}
+				}
+
+				int count = 0;
+				for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
+					if (filterTagListAdapter.getItem(i).getContentCheck()
+							.isChecked()) {
+						tagfilters += "'"
+								+ filterTagListAdapter.getItem(i)
+										.getContentDesc().getText() + "'";
+						selectedTagFilters.add(filterTagListAdapter.getItem(i)
+								.getContentDesc().getText().toString());
+
+						Log.d("debug filters list ",
+								selectedTagFilters.get(count).toString());
+
+						if (count < selectedCount - 1) {
+							tagfilters += ",";
+							count++;
 						}
-		
-						// Log.d("debug filters list ", filters);
-						// Log.d("debug filters list ",
-						// filterListAdapter.getItem(0).getContentCheck().isChecked()+
-						// "");
-		
-						if (filterLayout.getFilterButton().getText().toString()
-								.toString() == getResources().getString(R.string.removeFilterButton)) {
-							filters = "";
-							for (int i = 0; i < selectedFilters.length; i++) {
-								selectedFilters[i] = "";
-							}
-							for (int j = 0; j < filterListAdapter.getCount(); j++) {
-								filterListAdapter.getItem(j).getContentCheck()
-										.setChecked(false);
-							}
-							removeFilter = true;
-						}
-						if (filters == "") {
-							removeFilter = true;
-						}
-						TypeFilter = 0;
-						adapterAdapater.addAll(getFilteredList(removeFilter));
-						adapterAdapater.notifyDataSetChanged();
-		
-						if (filters != "") {
-		
-							// filterTextView.setText("ON");
-							if (actionsMenu != null) {
-								Log.d("debug filters button ", "Menu found");
-								actionsMenu.findItem(R.id.action_filter).setTitle("ON");
-								actionsMenu.findItem(R.id.action_filter).setIcon(
-										R.drawable.ic_action_filter_on);
-								filtered = true;
-								TypeFilter = 1;
-							}
-							// menuTags.findItem(R.id.action_filter);
-						}
-		
-						dialog.dismiss();
-		
-						if (filterLayout.getFilterButton().getText().toString()
-								.toString() == getResources().getString(R.string.removeFilterButton)) {
-							// filterTextView.setText("Filter");
-							filterLayout.getFilterButton().setText("Filter");
-							selectedCount = 0;
-							filtered = false;
-							
-							actionsMenu.findItem(R.id.action_filter).setIcon(
-									R.drawable.ic_action_filter_off);
-						}
-		
-						break; // END CASE FILTERED BY = 1
-					case 2:
-						selectedCount = 0;
-						boolean removeTagFilter = false;
-								
-						String tagfilters = "";
-						for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
-							if (filterTagListAdapter.getItem(i).getContentCheck()
-									.isChecked()) {
-								selectedCount++;
-							}
-						}
-		
-						int count = 0;
-						for (int i = 0; i < filterTagListAdapter.getCount(); i++) {
-							if (filterTagListAdapter.getItem(i).getContentCheck()
-									.isChecked()) {
-								tagfilters += "'"
-										+ filterTagListAdapter.getItem(i).getContentDesc()
-												.getText() + "'";
-								selectedTagFilters.add(filterTagListAdapter.getItem(i).getContentDesc().getText().toString());
-								
-								Log.d("debug filters list ", selectedTagFilters.get(count).toString());
-		
-								if (count < selectedCount - 1) {
-									tagfilters += ",";
-									count++;
-								}
-							}
-		
-						}
-		
-						// Log.d("debug filters list ", filters);
-						// Log.d("debug filters list ",
-						// filterListAdapter.getItem(0).getContentCheck().isChecked()+
-						// "");
-		
-						if (filterTagLayout.getFilterButton().getText().toString()
-								.toString() == getResources().getString(R.string.removeFilterButton)) {
-							tagfilters = "";
-							selectedTagFilters.clear();
-							for (int j = 0; j < filterTagListAdapter.getCount(); j++) {
-								filterTagListAdapter.getItem(j).getContentCheck()
-										.setChecked(false);
-							}
-							removeTagFilter = true;
-						}
-						if (tagfilters == "") {
-							removeTagFilter = true;
-						}
-						TagFilter = 0;
-						adapterAdapater.addAll(getFilteredList(removeTagFilter)); 
-						adapterAdapater.notifyDataSetChanged();
-		
-						if (tagfilters != "") {
-		
-							// filterTextView.setText("ON");
-							if (actionsMenu != null) {
-								//Log.d("debug filters button ", "Menu found");
-								actionsMenu.findItem(R.id.action_filterTag).setTitle("ON");
-								actionsMenu.findItem(R.id.action_filterTag).setIcon(R.drawable.ic_action_filter_on);
-								tagfiltered = true;
-								TagFilter = 1;
-							}
-							// menuTags.findItem(R.id.action_filter);
-						}
-		
-						dialog.dismiss();
-		
-						if (filterTagLayout.getFilterButton().getText().toString()
-								.toString() == getResources().getString(R.string.removeFilterButton)) {
-							// filterTextView.setText("Filter");
-							filterTagLayout.getFilterButton().setText("Filter");
-							selectedCount = 0;
-							tagfiltered = false;
-							
-							
-							actionsMenu.findItem(R.id.action_filterTag).setIcon(R.drawable.ic_action_filter_tag);
-						}
-		
-								
-						
-						break; // END CASE FILTERED BY = 2
-				default:
-					break;
-				} // END SWITCH FILTERED BY
-				datasource.close();
+					}
+
+				}
+
+				// Log.d("debug filters list ", filters);
+				// Log.d("debug filters list ",
+				// filterListAdapter.getItem(0).getContentCheck().isChecked()+
+				// "");
+
+				if (filterTagLayout.getFilterButton().getText().toString()
+						.toString() == getResources().getString(
+						R.string.removeFilterButton)) {
+					tagfilters = "";
+					selectedTagFilters.clear();
+					for (int j = 0; j < filterTagListAdapter.getCount(); j++) {
+						filterTagListAdapter.getItem(j).getContentCheck()
+								.setChecked(false);
+					}
+					removeTagFilter = true;
+				}
+				if (tagfilters == "") {
+					removeTagFilter = true;
+				}
+				TagFilter = 0;
+				adapterAdapater.addAll(getFilteredList(removeTagFilter));
+				adapterAdapater.notifyDataSetChanged();
+
+				if (tagfilters != "") {
+
+					// filterTextView.setText("ON");
+					if (actionsMenu != null) {
+						// Log.d("debug filters button ", "Menu found");
+						actionsMenu.findItem(R.id.action_filterTag).setTitle(
+								"ON");
+						actionsMenu.findItem(R.id.action_filterTag).setIcon(
+								R.drawable.ic_action_filter_on);
+						tagfiltered = true;
+						TagFilter = 1;
+					}
+					// menuTags.findItem(R.id.action_filter);
+				}
+
+				dialog.dismiss();
+
+				if (filterTagLayout.getFilterButton().getText().toString()
+						.toString() == getResources().getString(
+						R.string.removeFilterButton)) {
+					// filterTextView.setText("Filter");
+					filterTagLayout.getFilterButton().setText("Filter");
+					selectedCount = 0;
+					tagfiltered = false;
+
+					actionsMenu.findItem(R.id.action_filterTag).setIcon(
+							R.drawable.ic_action_filter_tag);
+				}
+
+				break; // END CASE FILTERED BY = 2
+			default:
+				break;
+			} // END SWITCH FILTERED BY
+			datasource.close();
 			break;
 
 		default:
@@ -556,54 +584,64 @@ public class TagsMain extends ListActivity {
 		listView.requestLayout();
 	}
 
-	class ShortenUrlTask extends AsyncTask<String, Void, String> { 
-		private final String GOOGLE_URL = "https://www.googleapis.com/urlshortener/v1/url"; 
-		private String mLongUrl = null; 
-		@Override protected String doInBackground(String... arg) { 
+	class ShortenUrlTask extends AsyncTask<String, Void, String> {
+		private final String GOOGLE_URL = "https://www.googleapis.com/urlshortener/v1/url";
+		private String mLongUrl = null;
+
+		@Override
+		protected String doInBackground(String... arg) {
 			mLongUrl = arg[0];
-			try { 
-					// Set connection timeout to 5 secs and socket timeout to 10 secs 
-					HttpParams httpParameters = new BasicHttpParams(); 
-					int timeoutConnection = 5000; 
-					HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection); 
-					int timeoutSocket = 10000; 
-					HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket); 
-					HttpClient hc = new DefaultHttpClient(httpParameters); 
-					HttpPost request = new HttpPost(GOOGLE_URL); 
-					request.setHeader("Content-type", "application/json"); 
-					request.setHeader("Accept", "application/json"); 
-					JSONObject obj = new JSONObject(); obj.put("longUrl", mLongUrl); 
-					request.setEntity(new StringEntity(obj.toString(), "UTF-8")); 
-					HttpResponse response = hc.execute(request); 
-					if ( response.getStatusLine().getStatusCode() == HttpStatus.SC_OK ) { 
-						ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-						response.getEntity().writeTo(out); out.close(); 
-						return out.toString(); 
-					}
-					else{
-						return null; 
-					} 
-				} catch ( Exception e ) { 
-					e.printStackTrace(); 
-				} return null; 
-			} 
-		@Override protected void onPostExecute(String result) {
-			if ( result == null ) 
-				return; 
-			try { 
-				final JSONObject json = new JSONObject(result); 
-				final String id = json.getString("id"); 
-				if ( json.has("id") ) { 
-					//((Activity) mContext).runOnUiThread(new Runnable() { public void run() { mOutput.setText(id); } });
+			try {
+				// Set connection timeout to 5 secs and socket timeout to 10
+				// secs
+				HttpParams httpParameters = new BasicHttpParams();
+				int timeoutConnection = 5000;
+				HttpConnectionParams.setConnectionTimeout(httpParameters,
+						timeoutConnection);
+				int timeoutSocket = 10000;
+				HttpConnectionParams
+						.setSoTimeout(httpParameters, timeoutSocket);
+				HttpClient hc = new DefaultHttpClient(httpParameters);
+				HttpPost request = new HttpPost(GOOGLE_URL);
+				request.setHeader("Content-type", "application/json");
+				request.setHeader("Accept", "application/json");
+				JSONObject obj = new JSONObject();
+				obj.put("longUrl", mLongUrl);
+				request.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+				HttpResponse response = hc.execute(request);
+				if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					response.getEntity().writeTo(out);
+					out.close();
+					return out.toString();
+				} else {
+					return null;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			if (result == null)
+				return;
+			try {
+				final JSONObject json = new JSONObject(result);
+				final String id = json.getString("id");
+				if (json.has("id")) {
+					// ((Activity) mContext).runOnUiThread(new Runnable() {
+					// public void run() { mOutput.setText(id); } });
 					Log.d("debug shortened url?", id);
-				} 
+				}
 			} catch (JSONException e) {
-				e.printStackTrace(); 
-			} 
-		} 
-		
+				e.printStackTrace();
+			}
+		}
+
 	}
-	
+
 	public List<FilterKind> getContentFilter() {
 
 		String[] kind = getResources().getStringArray(R.array.kinds_array);
@@ -643,11 +681,14 @@ public class TagsMain extends ListActivity {
 	public List<TagUIContent> getFilteredList(Boolean rFilters) {
 
 		datasource.open();
-		/*Log.d("debug filters list NF ", "selectedFilters Size: "+ selectedFilters.length);
-		Log.d("debug filters list NF ", "selectedFilters Size: "+ selectedTagFilters.size());
-		Log.d("debug filters on", rFilters+" <-- rfilters");
-		Log.d("debug filters on","TF: "+TagFilter +" - TpF: "+TypeFilter);
-		Log.d("debug filters on","TF: "+tagfiltered +" - TpF: "+filtered);*/
+		/*
+		 * Log.d("debug filters list NF ", "selectedFilters Size: "+
+		 * selectedFilters.length); Log.d("debug filters list NF ",
+		 * "selectedFilters Size: "+ selectedTagFilters.size());
+		 * Log.d("debug filters on", rFilters+" <-- rfilters");
+		 * Log.d("debug filters on","TF: "+TagFilter +" - TpF: "+TypeFilter);
+		 * Log.d("debug filters on","TF: "+tagfiltered +" - TpF: "+filtered);
+		 */
 		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
 		int j;
 
@@ -657,68 +698,81 @@ public class TagsMain extends ListActivity {
 			} else {
 				adapterAdapater.clear();
 				adapterAdapater.addAll(datasource.getTagUIContents());
-				
+
 				if (TagFilter == 1) {
-					//Log.d("debug filters on", selectedTagFilters.size()+" <-- selectedTagFilters Size");
+					// Log.d("debug filters on",
+					// selectedTagFilters.size()+" <-- selectedTagFilters Size");
 					for (int i = 0; i < selectedTagFilters.size(); i++) {
 						j = 0;
 						int aas = adapterAdapater.getCount();
 						while (j < aas) {
-							if (adapterAdapater.getItem(j).getContentTags().getText().toString().contains(selectedTagFilters.get(i))) {
-								if (!tagUIContents.contains(adapterAdapater.getItem(j))) {
-									tagUIContents.add(adapterAdapater.getItem(j));
+							if (adapterAdapater.getItem(j).getContentTags()
+									.getText().toString()
+									.contains(selectedTagFilters.get(i))) {
+								if (!tagUIContents.contains(adapterAdapater
+										.getItem(j))) {
+									tagUIContents.add(adapterAdapater
+											.getItem(j));
 								}
 							}
 							j++;
 						}
 					}
-				}
-				else if (TypeFilter == 1) {
+				} else if (TypeFilter == 1) {
 					for (int i = 0; i < selectedFilters.length; i++) {
 						j = 0;
 						while (j < adapterAdapater.getCount()) {
-							if (adapterAdapater.getItem(j).getContentDesc().getText()
-									.toString().equals(selectedFilters[i])) {
+							if (adapterAdapater.getItem(j).getContentDesc()
+									.getText().toString()
+									.equals(selectedFilters[i])) {
 								tagUIContents.add(adapterAdapater.getItem(j));
 							}
 							j++;
 						}
 					}
-				}
-				else{
+				} else {
 					tagUIContents = datasource.getTagUIContents();
 				}
-				
+
 			}
 
 		} else {
-			if (FilteredBy == 1) { //Kind
+			if (FilteredBy == 1) { // Kind
 				for (int i = 0; i < selectedFilters.length; i++) {
 					j = 0;
 					while (j < adapterAdapater.getCount()) {
-						//Log.d("debug filters list NF ", adapterAdapater.getItem(j).getContentDesc().getText().toString()+ " :: " + selectedFilters[i]);
-						if (adapterAdapater.getItem(j).getContentDesc().getText()
-								.toString().equals(selectedFilters[i])) {
+						// Log.d("debug filters list NF ",
+						// adapterAdapater.getItem(j).getContentDesc().getText().toString()+
+						// " :: " + selectedFilters[i]);
+						if (adapterAdapater.getItem(j).getContentDesc()
+								.getText().toString()
+								.equals(selectedFilters[i])) {
 							tagUIContents.add(adapterAdapater.getItem(j));
 						}
 						j++;
 					}
 				}
 			}
-			if (FilteredBy == 2) {//Tags
-				
+			if (FilteredBy == 2) {// Tags
+
 				for (int i = 0; i < selectedTagFilters.size(); i++) {
 					j = 0;
 					int aas = adapterAdapater.getCount();
 					while (j < aas) {
-						//Log.d("debug filters list AAS ", "adapterAdapter Size: "+ adapterAdapater.getCount());
-						//Log.d("debug filters list AAS ", adapterAdapater.getItem(j).getContentDesc().getText().toString()+ " :: " + selectedTagFilters.get(i).toString());
-						if (adapterAdapater.getItem(j).getContentTags().getText().toString().contains(selectedTagFilters.get(i))) {
-							if (!tagUIContents.contains(adapterAdapater.getItem(j))) {
+						// Log.d("debug filters list AAS ",
+						// "adapterAdapter Size: "+ adapterAdapater.getCount());
+						// Log.d("debug filters list AAS ",
+						// adapterAdapater.getItem(j).getContentDesc().getText().toString()+
+						// " :: " + selectedTagFilters.get(i).toString());
+						if (adapterAdapater.getItem(j).getContentTags()
+								.getText().toString()
+								.contains(selectedTagFilters.get(i))) {
+							if (!tagUIContents.contains(adapterAdapater
+									.getItem(j))) {
 								tagUIContents.add(adapterAdapater.getItem(j));
-								//adapterAdapater.remove(adapterAdapater.getItem(j));
+								// adapterAdapater.remove(adapterAdapater.getItem(j));
 							}
-							
+
 						}
 						j++;
 					}
@@ -727,7 +781,7 @@ public class TagsMain extends ListActivity {
 
 		}
 
-		//Log.d("debug filters list NF ", "Size: " + tagUIContents.size());
+		// Log.d("debug filters list NF ", "Size: " + tagUIContents.size());
 		adapterAdapater.clear();
 		datasource.close();
 		return tagUIContents;
@@ -738,6 +792,6 @@ public class TagsMain extends ListActivity {
 		super.onBackPressed();
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
-		//this.finish();
+		// this.finish();
 	}
 }

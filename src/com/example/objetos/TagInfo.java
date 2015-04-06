@@ -17,6 +17,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Parcelable;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -281,16 +282,16 @@ public class TagInfo {
 		
 		com.example.proyecto.TagRecord tagRecord = new com.example.proyecto.TagRecord(context);
 		for (int i = 0; i < tagRecords.size(); i++) {
-			tagRecord.getR_Number().setText(tagRecord.getR_Number().getText()+" "+String.valueOf(i+1));
-			tagRecord.getR_TNF().setText(tagRecord.getR_TNF().getText()+" "+tagRecords.get(i).getRecordTNFDesc());
-			tagRecord.getR_Type().setText(tagRecord.getR_Type().getText()+" "+tagRecords.get(i).getRecordType());
+			tagRecord.getR_Number().setText(Html.fromHtml("<b>"+tagRecord.getR_Number().getText()+"</b>"+" "+String.valueOf(i+1)));
+			tagRecord.getR_TNF().setText(Html.fromHtml("<b>"+tagRecord.getR_TNF().getText()+"</b>"+" "+tagRecords.get(i).getRecordTNFDesc()));
+			tagRecord.getR_Type().setText(Html.fromHtml("<b>"+tagRecord.getR_Type().getText()+"</b>"+" "+tagRecords.get(i).getRecordType()));
 			if (tagRecords.get(i).isWOP()) {
-				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+context.getResources().getString(R.string.nA));
+				tagRecord.getR_PLHeader().setText(Html.fromHtml("<b>"+tagRecord.getR_PLHeader().getText()+"</b>"+" "+context.getResources().getString(R.string.nA)));
 			}else {
-				tagRecord.getR_PLHeader().setText(tagRecord.getR_PLHeader().getText()+" "+tagRecords.get(i).getRecordPayloadHeaderDesc()); //Protocol
+				tagRecord.getR_PLHeader().setText(Html.fromHtml("<b>"+tagRecord.getR_PLHeader().getText()+"</b>"+" "+tagRecords.get(i).getRecordPayloadHeaderDesc())); //Protocol
 			}
-			tagRecord.getR_PLType().setText(tagRecord.getR_PLType().getText()+" "+tagRecords.get(i).getRecordPayloadTypeDesc());
-			tagRecord.getR_Payload().setText(tagRecord.getR_Payload().getText()+" "+tagRecords.get(i).getRecordPayload());
+			tagRecord.getR_PLType().setText(Html.fromHtml("<b>"+tagRecord.getR_PLType().getText()+"</b>"+" "+tagRecords.get(i).getRecordPayloadTypeDesc()));
+			tagRecord.getR_Payload().setText(Html.fromHtml("<b>"+tagRecord.getR_Payload().getText()+"</b>"+" "+tagRecords.get(i).getRecordPayload()));
 			tagRecord.setRecordIcon(i == 0 ? tagRecords.get(i).getRecordPayloadTypeDesc() : context.getResources().getString(R.string.nA));
 			tagUIRecords.add(tagRecord);
 			tagRecord = new com.example.proyecto.TagRecord(context);
