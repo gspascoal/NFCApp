@@ -1,5 +1,7 @@
 package com.example.proyecto;
 
+import com.example.proyecto.R.string;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -22,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ public class EraseTag extends Activity {
 	private String[][] techListsArray;
 	private String writeMessage;
 	private TextView eraseMessage;
+	private RelativeLayout eraseContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class EraseTag extends Activity {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.erase_tag_dialog);
 		
-		
+		eraseContainer = (RelativeLayout)findViewById(R.id.eraseContainer);
 		eraseMessage = (TextView)findViewById(R.id.eraseResult);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
@@ -123,6 +127,7 @@ public class EraseTag extends Activity {
 		writeNdefMessageToTag(msgEMP, detectedTag);
 		
 		eraseMessage.setText(writeMessage);
+		eraseContainer.setVisibility(View.VISIBLE);
 		
 	}
 	
@@ -152,33 +157,31 @@ public class EraseTag extends Activity {
 				ndef.connect();
 				Log.d("debug", "After Connect");
 				if (!ndef.isWritable()) {
-					Toast.makeText(this, "Tag is read-only", Toast.LENGTH_SHORT)
-							.show();
-					writeMessage = "Tag is read-only";
+					/*Toast.makeText(this, getResources().getString(R.string.tc_ro), Toast.LENGTH_SHORT)
+							.show();*/
+					writeMessage = getResources().getString(R.string.tc_ro);
 					return false;
 				}
 				if (ndef.getMaxSize() < size) {
-					Toast.makeText(
+					/*Toast.makeText(
 							this,
 							"Tag data can't written to tag, Tag capacity is "
 									+ ndef.getMaxSize() + "bytes, message is"
 									+ size + " bytes.", Toast.LENGTH_SHORT)
-							.show();
+							.show(); */
 					Log.d("debug erase", "Tag data can't written to tag, Tag capacity is "
 									+ ndef.getMaxSize() + "bytes, message is"
 									+ size + " bytes.");
-					writeMessage = "Tag data can't written to tag, Tag capacity is "
-							+ ndef.getMaxSize()
-							+ "bytes, message is"
-							+ size
-							+ " bytes.";
+					
+					String msg = getResources().getString(R.string.tc_oom);
+					writeMessage = String.format(msg, ndef.getMaxSize(), size);
 					return false;
 				}
 				ndef.writeNdefMessage(message);
 				ndef.close();
-				Toast.makeText(this, "Message is written tag",
-						Toast.LENGTH_SHORT).show();
-				writeMessage = "Message is written tag";
+				/*Toast.makeText(this, getResources().getString(R.string.tc_ok),
+						Toast.LENGTH_SHORT).show();*/
+				writeMessage = getResources().getString(R.string.ereaseResult);
 				return true;
 			} else {
 				NdefFormatable ndefFormat = NdefFormatable.get(detectedTag);
@@ -187,22 +190,22 @@ public class EraseTag extends Activity {
 						ndefFormat.connect();
 						ndefFormat.format(message);
 						ndefFormat.close();
-						Toast.makeText(this, "The data is written to the tag",
-								Toast.LENGTH_SHORT).show();
-						writeMessage = "The data is written to the tag";
+						/*Toast.makeText(this, getResources().getString(R.string.tc_ok),
+								Toast.LENGTH_SHORT).show();*/
+						writeMessage = getResources().getString(R.string.ereaseResult);
 						return true;
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(this, "Failed to format tag",
-								Toast.LENGTH_SHORT).show();
-						writeMessage = "Failed to format tag";
+						/*Toast.makeText(this, getResources().getString(R.string.tc_ff),
+								Toast.LENGTH_SHORT).show();*/
+						writeMessage = getResources().getString(R.string.tc_ff);
 						return false;
 					}
 
 				} else {
-					Toast.makeText(this, "NDEF is not supported",
-							Toast.LENGTH_SHORT).show();
-					writeMessage = "NDEF is not supported";
+					/*Toast.makeText(this, getResources().getString(R.string.tc_ndef),
+							Toast.LENGTH_SHORT).show();*/
+					writeMessage = getResources().getString(R.string.tc_ndef);
 					return false;
 				}
 
@@ -210,8 +213,9 @@ public class EraseTag extends Activity {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Log.d("debug", "Exception: " + e.toString());
-			Toast.makeText(this, "Write operation is failed",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(this, getResources().getString(R.string.tc_wrong),
+					Toast.LENGTH_SHORT).show();*/
+			writeMessage = getResources().getString(R.string.tc_wrong);
 			return false;
 		}
 

@@ -6,6 +6,7 @@
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca</string>
     <string name="saveButton">Guardar</string>
+    <string name="saveButton2">Guardar todos</string>
     <string name="launchButton">Ejecutar</string>
     <string name="affirmation">Si</string>
     <string name="accept">Aceptar</string>
@@ -32,6 +33,7 @@
     <string name="title_feature_list">"Carácteristicas de la etiqueta"</string>
     <string name="cntnt_desc_tagicon">"Icono del contenido"</string>
     <string name="readIntent_Empty">"Etiqueta vacia"</string>
+    
 
     <!-- Write(Main) activity strings -->
     <string name="title_activity_write_main">Escribir etiqueta</string>
@@ -72,6 +74,7 @@
     <string name="doneButton">Listo</string>
     <string name="previousText">Contenido previo</string>
     <string name="currentText">Contenido actual</string>
+    <string name="validateForm">Por favor, complete todos los campos</string>
 
     <!-- URI/URL protocol Strings -->
     <string-array name="protocols_array">
@@ -89,7 +92,7 @@
     <string name="title_activity_tags_main">Mis contenidos</string>
     <string name="filterButton">Filtrar</string>
     <string name="title_filterLabelOn">Filtrado por etiqueta</string>
-    <string name="title_filterLabelOff">Filtr por etiqueta</string>
+    <string name="title_filterLabelOff">Filtar por etiqueta</string>
     <string name="title_filterTypeOn">Filtrar por tipo</string>
     <string name="title_filterTypeOff">Filtrado por tipo</string>
     <string name="removeFilterButton">Remover filtro</string>
@@ -126,6 +129,7 @@
     <string name="title_activity_save_result">Contenido guardado</string>
     <string name="resultLabel">Resultado </string>
     <string name="resultText">El contenido ha sido guardado.</string>
+    <string name="resultTextA">El contenido ya existe.</string>
     <string name="resultTextB">El contenido ya existe. No se han guardado nuevos registros.</string>
     <string name="savedContentLabel">Contenido guardado</string>
 
@@ -201,8 +205,11 @@
     <string name="restoreButton">Restaurar datos</string>
 
     <!-- Erease Tag strings -->
-    <string name="title_activity_erase_tag">Borrar tag</string>
+    <string name="title_activity_erase_tag">Borrar etiqueta</string>
     <string name="eraseButton">Borrar etiqueta</string>
+    <string name="ereaseResult">Borrado exitoso</string>
+     <string name="ed_title">Listo para borrar el contenido</string>
+    <string name="ed_subtitle">El borrado comenzará al acercar un elemento NFC compatible a la parte posetrior de su dispositivo</string>
 
     <!-- Tag CRUD Strings -->
     <string name="tDelete_dialog_title">Eliminar etiqueta</string>
@@ -250,6 +257,13 @@
     <string name="title_activity_backup_data">Respladar datos</string>
     <string name="bu_title">El siguiente código QR contiene todo el contenido almacenado en texto plano.</string>
     <string name="bu_title2">Este contenido:</string>
+    <string name="bu_title3">ha sido codificado en el siguiente código QR.</string>
+      <string name="bu_dialogTitle">Compartir como</string>
+    <string name="bu_savePath">Imagen guardada en: \u00A0</string>
+     <string name="bu_shareChooser">Compartir imagen</string>
+     <string name="bu_at">Como texto</string>
+     <string name="bu_ai">Como imagen</string>
+    
     
     <!-- Read TEG strings -->
     <string name="rt_title">Título del Trabajo Especial de Grado</string>
@@ -269,6 +283,15 @@
     
         
     <!--  Restore results -->
-   <string name="rr_title">El contenido almacendado en el código QR es:</string>
+   <string name="rr_title">El contenido almacenado en el código QR es:</string>
 
+   <!-- Transfer content strings -->
+   <string name="tc_ro">Etiqueta de sólo lectura</string>
+    <string name="tc_ok">Mensaje escrito en la etiqueta</string>
+    <string name="tc_ff">Error al formatear etiqueta</string>
+    <string name="tc_ndef">NDEF no soportado</string>
+    <string name="tc_wrong">Operación de escritura fallida</string>
+    <string name="tc_oom">No se pudo escribir el mensaje en la etiqueta. La capacidad de la etiqueta es %1$d bytes y el mensaje ocupa %2$d bytes.</string>
+    
+    
 </resources>

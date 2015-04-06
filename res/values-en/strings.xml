@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="saveButton">Save</string>
+    <string name="saveButton2">Save all</string>
     <string name="launchButton">Launch</string>
     <string name="affirmation">Yes</string>
     <string name="accept">Accept</string>
@@ -83,6 +84,7 @@
     <string name="doneButton">Done</string>
     <string name="previousText">Previous content</string>
     <string name="currentText">Current content</string>
+    <string name="validateForm">Enter your data first, please</string>
 
     <!-- Search widget strings -->
     <string name="search_hint">Tag\'s content</string>
@@ -114,6 +116,8 @@
     <string name="title_activity_save_result">Content saved</string>
     <string name="resultLabel">Result </string>
     <string name="resultText">The content has been saved.</string>
+    <string name="resultTextA">Content already saved.</string>
+    <string name="resultTextB">Content already saved. None record saved.</string>
     <string name="savedContentLabel">Content saved</string>
 
     <!-- GPSTracker Alert Dialog strings -->
@@ -196,6 +200,10 @@
     <!-- Erease Tag strings -->
     <string name="title_activity_erase_tag">Erase tag</string>
     <string name="ereaseResult">Erase succesfull</string>
+    <string name="ed_title">Ready to erase content</string>
+    <string name="ed_subtitle">Erasing will begin when you tap a NFC compatible item with the back of your device</string>
+    
+    
 	
     
     <!-- Tag CRUD Strings -->
@@ -245,6 +253,13 @@
      <string name="title_activity_backup_data">Backup Data</string>
     <string name="bu_title">The QR code below contains all the content in plain text.</string>
     <string name="bu_title2">This content:</string>
+    <string name="bu_title3">has been encoded in te follow QR code.</string>
+    <string name="bu_dialogTitle">Share as</string>
+    <string name="bu_savePath">Image saved at: \u00A0</string>
+    <string name="bu_shareChooser">Share image</string>
+     <string name="bu_at">As text</string>
+     <string name="bu_ai">As iamge</string>
+    
     
     
     <!-- Read TEG strings -->
@@ -264,5 +279,14 @@
     
     <!--  Restore results -->
     <string name="rr_title">The content stored in the QR code is:</string>
+    
+       <!-- Transfer content strings -->
+   <string name="tc_ro">Tag is read-only</string>
+    <string name="tc_ok">Message is written in tag</string>
+    <string name="tc_ff">Failed to format tag</string>
+    <string name="tc_ndef">NDEF is not supported</string>
+    <string name="tc_wrong">Write operation is failed</string>
+    <string name="tc_oom">Message can´t written to tag. Tag capacity is %1$d bytes, message is %2$d bytes.</string>
+    
 
 </resources>

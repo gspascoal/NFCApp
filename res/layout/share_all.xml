@@ -14,14 +14,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="As Text" />
+            android:text="@string/bu_at" />
 
         <RadioButton
             android:id="@+id/asImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="As Image" />
+            android:text="@string/bu_ai" />
     </RadioGroup>
 
     <LinearLayout
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:layout_weight="0.5"
-            android:text="Cancel" />
+            android:text="@string/dialogCancelButton" />
 
         <Button
             android:id="@+id/shareAllButton"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="fill_horizontal|fill_vertical"
             android:layout_weight="0.5"
-            android:text="Ok" />
+            android:text="@string/accept" />
     </LinearLayout>
 
 </LinearLayout>

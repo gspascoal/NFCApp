@@ -37,22 +37,21 @@ public class TagContentDataSource {
 	private FileInputStream fileInputStream;
 	private FileOutputStream fileOutputStream;
 	private Context context;
-	public Map<String, String> DBR =  new LinkedHashMap<String,String>();
+	public Map<String, String> DBR = new LinkedHashMap<String, String>();
 
 	public TagContentDataSource(Context context) {
 		this.context = context;
 		dbHelper = new MySQLiteHelper(context);
 
-		DBR.put("0",context.getResources().getString(R.string.link));
-		DBR.put("1",context.getResources().getString(R.string.mail));
-		DBR.put("2",context.getResources().getString(R.string.sms));
-		DBR.put("3",context.getResources().getString(R.string.tel));
-		DBR.put("4",context.getResources().getString(R.string.geoLoc));
-		DBR.put("5",context.getResources().getString(R.string.plainText));
-		DBR.put("6",context.getResources().getString(R.string.thesis));
-		DBR.put("7",context.getResources().getString(R.string.report));
-		
-		
+		DBR.put("0", context.getResources().getString(R.string.link));
+		DBR.put("1", context.getResources().getString(R.string.mail));
+		DBR.put("2", context.getResources().getString(R.string.sms));
+		DBR.put("3", context.getResources().getString(R.string.tel));
+		DBR.put("4", context.getResources().getString(R.string.geoLoc));
+		DBR.put("5", context.getResources().getString(R.string.plainText));
+		DBR.put("6", context.getResources().getString(R.string.thesis));
+		DBR.put("7", context.getResources().getString(R.string.report));
+
 		Log.d("debug DB", "DB name: " + dbHelper.getDatabaseName());
 		// Log.d("debug DB", "DB name: "+dbHelper.);
 	}
@@ -153,26 +152,26 @@ public class TagContentDataSource {
 		values.put(MySQLiteHelper.COLUMN_PLHEADER, plHeader);
 		values.put(MySQLiteHelper.COLUMN_PLTYPE, plType);
 		values.put(MySQLiteHelper.COLUMN_CREATED_AT, getDateTime());
-		
+
 		Cursor cursorC = database.query(MySQLiteHelper.TABLE_CONTENT,
-				contentColumns, MySQLiteHelper.COLUMN_PAYLOAD + " = '" +payload+"'",
-				null, null, null, null);
+				contentColumns, MySQLiteHelper.COLUMN_PAYLOAD + " = '"
+						+ payload + "'", null, null, null, null);
 		if (cursorC.getCount() == 0) {
 			long insertId = database.insert(MySQLiteHelper.TABLE_CONTENT, null,
 					values);
-			Log.d("debug TEG", insertId+"");
+			Log.d("debug TEG", insertId + "");
 			Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
-					contentColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId,
-					null, null, null, null);
+					contentColumns,
+					MySQLiteHelper.COLUMN_ID + " = " + insertId, null, null,
+					null, null);
 			cursor.moveToFirst();
 			TagContent newComment = cursorToComment(cursor);
 			cursor.close();
 			return newComment;
-		}
-		else {
+		} else {
 			return null;
 		}
-		
+
 	}
 
 	public void deleteContent(Long id) {
@@ -224,17 +223,19 @@ public class TagContentDataSource {
 			nTagUIContent.getContentTags().setText("");
 			if (getTagsOfContent(String.valueOf(tagContent.getId())).size() > 0) {
 				int i = 0;
-				nTagUIContent.getContentTags().setText(context.getResources().getString(R.string.tagName));
-				List<ContentTag> contentTags = getTagsOfContent(String.valueOf(tagContent.getId()));
+				nTagUIContent.getContentTags().setText(
+						context.getResources().getString(R.string.tagName));
+				List<ContentTag> contentTags = getTagsOfContent(String
+						.valueOf(tagContent.getId()));
 				for (ContentTag content : contentTags) {
 					nTagUIContent.getContentTags().append(content.getName());
-					if (i < contentTags.size()-1 ) {
+					if (i < contentTags.size() - 1) {
 						nTagUIContent.getContentTags().append(",");
 					}
 					i++;
 				}
 			}
-			
+
 			tagUIContents.add(nTagUIContent);
 		}
 
@@ -262,9 +263,9 @@ public class TagContentDataSource {
 	public TagUIContent getUIContentById(String id) {
 		TagUIContent nTagUIContent = new TagUIContent(context);
 		TagContent nTagContent = null;
-		
-		nTagContent =  getContentById(id);
-		
+
+		nTagContent = getContentById(id);
+
 		String[] argumentsString = { String.valueOf(id) };
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTENT,
 				contentColumns, "_id=?", argumentsString, null, null, null);
@@ -276,7 +277,7 @@ public class TagContentDataSource {
 		}
 		// make sure to close the cursor
 		cursor.close();
-		
+
 		nTagUIContent.setPayload(nTagContent.getPayloadHeader()
 				+ nTagContent.getPayload());
 		nTagUIContent.setContentDesc(DBR.get(nTagContent.getPayloadType()));
@@ -285,6 +286,7 @@ public class TagContentDataSource {
 
 		return nTagUIContent;
 	}
+
 	public int updateContent(String id, String payload, String header,
 			String type) {
 
@@ -345,27 +347,33 @@ public class TagContentDataSource {
 		String condition = "";
 		String sqlSentence2 = "";
 		String typeId = " ";
-		
+
 		if (DBR.containsValue(query)) {
-			
+
 			for (String key : DBR.keySet()) {
 				if (DBR.get(key).equals(query)) {
 					typeId = key;
 				}
 			}
 		}
-		
+
 		if (query != "") {
-			condition = "WHERE "+MySQLiteHelper.COLUMN_PAYLOAD+" LIKE '%" + query + "%'"
-					+ " OR "+MySQLiteHelper.COLUMN_PLTYPE+" LIKE '%" + typeId + "%'";
-			
-			sqlSentence2 = "SELECT * FROM "+MySQLiteHelper.TABLE_CONTENT+" c, "+MySQLiteHelper.TABLE_CONTENT_TAG + " ct"
-					+ " WHERE c."+MySQLiteHelper.COLUMN_ID + " = ct."+MySQLiteHelper.COLUMN_CONTENT_ID
-					+ " AND ct."+MySQLiteHelper.COLUMN_TAG_ID + " IN "
-					+ "(SELECT "+MySQLiteHelper.COLUMN_ID+" FROM "+MySQLiteHelper.TABLE_TAG+" WHERE "+MySQLiteHelper.COLUMN_NAME+" LIKE '%" + query + "%')";
+			condition = "WHERE " + MySQLiteHelper.COLUMN_PAYLOAD + " LIKE '%"
+					+ query + "%'" + " OR " + MySQLiteHelper.COLUMN_PLTYPE
+					+ " LIKE '%" + typeId + "%'";
+
+			sqlSentence2 = "SELECT * FROM " + MySQLiteHelper.TABLE_CONTENT
+					+ " c, " + MySQLiteHelper.TABLE_CONTENT_TAG + " ct"
+					+ " WHERE c." + MySQLiteHelper.COLUMN_ID + " = ct."
+					+ MySQLiteHelper.COLUMN_CONTENT_ID + " AND ct."
+					+ MySQLiteHelper.COLUMN_TAG_ID + " IN " + "(SELECT "
+					+ MySQLiteHelper.COLUMN_ID + " FROM "
+					+ MySQLiteHelper.TABLE_TAG + " WHERE "
+					+ MySQLiteHelper.COLUMN_NAME + " LIKE '%" + query + "%')";
 		}
 
-		String sqlSentence = "SELECT * FROM "+MySQLiteHelper.TABLE_CONTENT+" " + condition;
+		String sqlSentence = "SELECT * FROM " + MySQLiteHelper.TABLE_CONTENT
+				+ " " + condition;
 		Log.d("debug query", sqlSentence);
 		List<TagContent> tagContents = new ArrayList<TagContent>();
 		List<TagUIContent> tagUIContents = new ArrayList<TagUIContent>();
@@ -404,10 +412,11 @@ public class TagContentDataSource {
 			if (getTagsOfContent(String.valueOf(tagContent.getId())).size() > 0) {
 				int i = 0;
 				nTagUIContent.getContentTags().setText("Tags: ");
-				List<ContentTag> contentTags = getTagsOfContent(String.valueOf(tagContent.getId()));
+				List<ContentTag> contentTags = getTagsOfContent(String
+						.valueOf(tagContent.getId()));
 				for (ContentTag content : contentTags) {
 					nTagUIContent.getContentTags().append(content.getName());
-					if (i < contentTags.size()-1 ) {
+					if (i < contentTags.size() - 1) {
 						nTagUIContent.getContentTags().append(",");
 					}
 					i++;
@@ -461,8 +470,10 @@ public class TagContentDataSource {
 
 	public int updateTag(String id, String name) {
 
-		//String updateQueryString = "UPDATE "+MySQLiteHelper.TABLE_TAG + " SET "+MySQLiteHelper.COLUMN_NAME+ " = '" + name + "' WHERE "+MySQLiteHelper.COLUMN_ID + " = "+id;
-		//database.rawQuery(updateQueryString, null);
+		// String updateQueryString = "UPDATE "+MySQLiteHelper.TABLE_TAG +
+		// " SET "+MySQLiteHelper.COLUMN_NAME+ " = '" + name +
+		// "' WHERE "+MySQLiteHelper.COLUMN_ID + " = "+id;
+		// database.rawQuery(updateQueryString, null);
 		String whereClause = MySQLiteHelper.COLUMN_ID + "=?";
 		String[] whereArgs = { id };
 
@@ -512,27 +523,26 @@ public class TagContentDataSource {
 	// CONTENT_TAGS table methods
 	public long assignTag(long cId, long tId) {
 
-		long id= 0;
+		long id = 0;
 		String search = "SELECT * FROM " + MySQLiteHelper.TABLE_CONTENT_TAG
 				+ " WHERE " + MySQLiteHelper.COLUMN_CONTENT_ID + " = " + cId
 				+ " AND " + MySQLiteHelper.COLUMN_TAG_ID + " = " + tId;
-		
+
 		Cursor cursor = database.rawQuery(search, null);
-		
+
 		if (cursor.getCount() == 0) {
 			ContentValues values = new ContentValues();
 
 			values.put(MySQLiteHelper.COLUMN_CONTENT_ID, cId);
 			values.put(MySQLiteHelper.COLUMN_TAG_ID, tId);
 
-			id = database.insert(MySQLiteHelper.TABLE_CONTENT_TAG, null,
-					values);
+			id = database
+					.insert(MySQLiteHelper.TABLE_CONTENT_TAG, null, values);
 
-			
 		}
-		
+
 		return id;
-		
+
 	}
 
 	public List<TagContent> getContentByTag(String tagName) {

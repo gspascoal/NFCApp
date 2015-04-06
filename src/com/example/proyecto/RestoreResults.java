@@ -117,7 +117,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 				cPayload.setText(header+payload);
 				cId.setText(String.valueOf(-2));
 				singleContent.setVisibility(View.VISIBLE);
-				saveButton.setText("Save");
+				saveButton.setText(getResources().getString(R.string.saveButton));
 				
 			}
 			else{
@@ -136,7 +136,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 						tagContents.add(nTagContent);
 						TagContentAdapter tagContentAdapter = new TagContentAdapter(this, tagContents);
 						contents.setAdapter(tagContentAdapter);
-						saveButton.setText("Save all");
+						saveButton.setText(getResources().getString(R.string.saveButton2));
 					}
 					
 				}
@@ -155,7 +155,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.restore_results, menu);
+		//getMenuInflater().inflate(R.menu.restore_results, menu);
 		return true;
 	}
 
@@ -201,13 +201,13 @@ public class RestoreResults extends Activity implements OnClickListener{
 			    		 typeCode);
 
 			      if (tagContent != null) {
-			    	  Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+			    	  Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
 				      	Intent intent = new Intent(this, SaveResult.class);
 						intent.putExtra("CONTENT_ID", tagContent.getId());
 						intent.putExtra("CONTENT_EDIT", "NEW");
 						startActivity(intent);
 				} else {
-					Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this,getResources().getString(R.string.resultTextA), Toast.LENGTH_SHORT).show();
 				}
 			     
 			}
@@ -224,7 +224,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 				}
 				
 				 
-					Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
 					Log.d("debug extra list RD", restoredContents.size()+"");
 					
 			      	Intent intent = new Intent(this, SaveResult.class);

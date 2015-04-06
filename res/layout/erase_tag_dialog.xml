@@ -10,8 +10,9 @@
         android:id="@+id/readIntent1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reday to erase the content"
+        android:text="@string/ed_title"
         android:padding="5dp"
+        android:textStyle="bold"
          />  
     
 	  <ImageView 
@@ -28,9 +29,10 @@
         android:id="@+id/readIntent2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Erasing will begin when you tap an NFC compatible item with the back of your device"
+        android:text="@string/ed_subtitle"
         android:layout_below="@+id/mainimage"
         android:padding="5dp"
+        android:textStyle="bold"
          />  
 
 </RelativeLayout>

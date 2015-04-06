@@ -103,7 +103,7 @@ public class TransferContent extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.transfer_content, menu);
+		//getMenuInflater().inflate(R.menu.transfer_content, menu);
 		return true;
 	}
 
@@ -158,7 +158,7 @@ public class TransferContent extends Activity {
 		NdefMessage[] messages = getNdefMessages(intent);
 
 		container.setVisibility(View.VISIBLE);
-		rContainer.setVisibility(View.VISIBLE);
+		//rContainer.setVisibility(View.VISIBLE);
 
 		// WRITE DATA TO TAG
 		Log.d("debug", "Starting writing process");
@@ -210,8 +210,9 @@ public class TransferContent extends Activity {
 				nTagUIContent.setContentId(String.valueOf(-1));
 				pContent.addView(nTagUIContent);
 			}
+			rContainer.setVisibility(View.VISIBLE);
 		} else {
-			writeResult.setText("Write failure");
+			writeResult.setText(writeMessage);
 		}
 	}
 
@@ -239,30 +240,31 @@ public class TransferContent extends Activity {
 				ndef.connect();
 				Log.d("debug", "After Connect");
 				if (!ndef.isWritable()) {
-					Toast.makeText(this, "Tag is read-only", Toast.LENGTH_SHORT)
-							.show();
-					writeMessage = "Tag is read-only";
+					/*Toast.makeText(this, getResources().getString(R.string.tc_ro), Toast.LENGTH_SHORT)
+							.show();*/
+					writeMessage = getResources().getString(R.string.tc_ro);
 					return false;
 				}
 				if (ndef.getMaxSize() < size) {
-					Toast.makeText(
+					/*Toast.makeText(
 							this,
 							"Tag data can't written to tag, Tag capacity is "
 									+ ndef.getMaxSize() + "bytes, message is"
 									+ size + " bytes.", Toast.LENGTH_SHORT)
-							.show();
-					writeMessage = "Tag data can't written to tag, Tag capacity is "
-							+ ndef.getMaxSize()
-							+ "bytes, message is"
-							+ size
-							+ " bytes.";
+							.show(); */
+					Log.d("debug erase", "Tag data can't written to tag, Tag capacity is "
+									+ ndef.getMaxSize() + "bytes, message is"
+									+ size + " bytes.");
+					
+					String msg = getResources().getString(R.string.tc_oom);
+					writeMessage = String.format(msg, ndef.getMaxSize(), size);
 					return false;
 				}
 				ndef.writeNdefMessage(message);
 				ndef.close();
-				Toast.makeText(this, "Message is written tag",
-						Toast.LENGTH_SHORT).show();
-				writeMessage = "Message is written tag";
+				/*Toast.makeText(this, getResources().getString(R.string.tc_ok),
+						Toast.LENGTH_SHORT).show();*/
+				writeMessage = getResources().getString(R.string.tc_ok);
 				return true;
 			} else {
 				NdefFormatable ndefFormat = NdefFormatable.get(detectedTag);
@@ -271,22 +273,22 @@ public class TransferContent extends Activity {
 						ndefFormat.connect();
 						ndefFormat.format(message);
 						ndefFormat.close();
-						Toast.makeText(this, "The data is written to the tag",
-								Toast.LENGTH_SHORT).show();
-						writeMessage = "The data is written to the tag";
+						/*Toast.makeText(this, getResources().getString(R.string.tc_ok),
+								Toast.LENGTH_SHORT).show();*/
+						writeMessage = getResources().getString(R.string.tc_ok);
 						return true;
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(this, "Failed to format tag",
-								Toast.LENGTH_SHORT).show();
-						writeMessage = "Failed to format tag";
+						/*Toast.makeText(this, getResources().getString(R.string.tc_ff),
+								Toast.LENGTH_SHORT).show();*/
+						writeMessage = getResources().getString(R.string.tc_ff);
 						return false;
 					}
 
 				} else {
-					Toast.makeText(this, "NDEF is not supported",
-							Toast.LENGTH_SHORT).show();
-					writeMessage = "NDEF is not supported";
+					/*Toast.makeText(this, getResources().getString(R.string.tc_ndef),
+							Toast.LENGTH_SHORT).show();*/
+					writeMessage = getResources().getString(R.string.tc_ndef);
 					return false;
 				}
 
@@ -294,13 +296,13 @@ public class TransferContent extends Activity {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Log.d("debug", "Exception: " + e.toString());
-			Toast.makeText(this, "Write operation is failed",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(this, getResources().getString(R.string.tc_wrong),
+					Toast.LENGTH_SHORT).show();*/
+			writeMessage = getResources().getString(R.string.tc_wrong) + writeMessage;
 			return false;
 		}
 
 	}
-
 	private NdefMessage[] getNdefMessages(Intent intent) {
 		// TODO Auto-generated method stub
 		NdefMessage[] message = null;

@@ -1004,10 +1004,10 @@ public class CreateTagContent extends Activity implements
 						payloadTypeDesc);
 				saved = true;
 			}
-			Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT)
-					.show();
+			/*Toast.makeText(this, getResources().getString(R.string.tc_ok), Toast.LENGTH_SHORT)
+					.show();*/
 		} else {
-			Toast.makeText(this, "Enter your data first, please",
+			Toast.makeText(this, getResources().getString(R.string.validateForm),
 					Toast.LENGTH_SHORT).show();
 		}
 

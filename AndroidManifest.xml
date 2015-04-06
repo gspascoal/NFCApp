@@ -71,6 +71,7 @@
                     android:pathPrefix="" />
             </intent-filter>  
             -->
+            
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>

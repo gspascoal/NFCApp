@@ -231,7 +231,7 @@ public class ReadMain extends Activity {
 				Content.setText(""); // change for a system string
 		    	Type.setText(R.string.readIntent_Empty);
 		    	payloadTypeIcon.setBackgroundResource(R.drawable.default64);// Assign default icon
-		    	Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(this, getResources().getString(R.string.readIntent_Empty), Toast.LENGTH_SHORT).show();
 		    	SaveButtonVisibility = View.INVISIBLE;
 			}
 	    	
@@ -425,7 +425,7 @@ public class ReadMain extends Activity {
 		     // List<TagContent> test = datasource.getAllComments();
 		      
 		      if (content != null) {
-		    	  Toast.makeText(this, "Tag content saved!", Toast.LENGTH_SHORT).show();
+		    	  Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
 			      /*for (int i = 0; i < test.size(); i++) {
 					Log.d("List element", "tag_content: " + test.get(i));
 				
@@ -436,7 +436,7 @@ public class ReadMain extends Activity {
 					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 					startActivity(intent);
 			} else {
-				Toast.makeText(this, "Tag content already saved!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getResources().getString(R.string.resultTextA), Toast.LENGTH_SHORT).show();
 			}
 		      
 		      

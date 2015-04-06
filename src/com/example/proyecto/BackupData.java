@@ -128,7 +128,7 @@ public class BackupData extends Activity implements OnClickListener {
 			cId.setText(String.valueOf(nTagContent.getId()));
 			datasource.close();
 			
-			bkQRST.setText("has been encoded in the follow QR code.");
+			bkQRST.setText(getResources().getString(R.string.bu_title3));
 			toCode += nTagContent.getPayloadType() + " Type: " +DBR.get(nTagContent.getPayloadType()) 
 					 + " Header: " + nTagContent.getPayloadHeader() + " Content: " + nTagContent.getPayload();
 			
@@ -263,7 +263,7 @@ public class BackupData extends Activity implements OnClickListener {
 								 System.err.println(e.toString()); }
 								  
 								 share.putExtra(Intent.EXTRA_STREAM, uri);
-								 startActivity(Intent.createChooser(share, "Share Image")); 
+								 startActivity(Intent.createChooser(share, getResources().getString(R.string.bu_shareChooser))); 
 								 
 							}
 							
@@ -274,7 +274,7 @@ public class BackupData extends Activity implements OnClickListener {
 						}
 					});
 			
-			dialogShare.setTitle("Share as");
+			dialogShare.setTitle(getResources().getString(R.string.bu_dialogTitle));
 			dialogShare.setContentView(shareAllLayout);
 			dialogShare.show();
 			
@@ -297,7 +297,7 @@ public class BackupData extends Activity implements OnClickListener {
 			FileOutputStream fos = new FileOutputStream(pictureFile);
 			image.compress(Bitmap.CompressFormat.PNG, 90, fos);
 			fos.close();
-			Toast.makeText(this, "Image saved at : " + pictureFile.getPath(),
+			Toast.makeText(this, getResources().getString(R.string.bu_savePath) + pictureFile.getPath(),
 					Toast.LENGTH_LONG).show();
 		} catch (FileNotFoundException e) {
 			Log.d(LOG_TAG, "File not found: " + e.getMessage());

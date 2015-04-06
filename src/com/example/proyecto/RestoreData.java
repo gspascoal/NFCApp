@@ -61,7 +61,7 @@ public class RestoreData extends Activity implements OnClickListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.restore_data, menu);
+		//getMenuInflater().inflate(R.menu.restore_data, menu);
 		return true;
 	}
 

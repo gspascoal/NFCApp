@@ -18,6 +18,7 @@
 
         <Button
             android:id="@+id/eraseDone"
+            style="@style/buttonS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
@@ -31,16 +32,19 @@
             android:id="@+id/eraseResultLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/resultLabel" />
+            android:text="@string/resultLabel" 
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/eraseResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/eraseResultLabel"
             android:layout_margin="15dp"
-            android:layout_marginRight="18dp"
-            android:layout_toLeftOf="@+id/eraseDone"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="18dp"
             android:text="@string/ereaseResult" />
 	
 	</RelativeLayout>
