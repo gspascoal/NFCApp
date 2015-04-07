@@ -70,7 +70,7 @@ public class BackupData extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_backup_data);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		DBR.put("0", getResources().getString(R.string.link));
 		DBR.put("1", getResources().getString(R.string.mail));
@@ -341,8 +341,20 @@ public class BackupData extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		Intent intent = new Intent(this, ExtrasMain.class);
-		startActivity(intent);
-		//this.finish();
+Log.d("debug CREATE", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
+		
+		if ( getIntent().getStringExtra("CALLING_ACTIVITY") != null
+				&& getIntent().getStringExtra("CALLING_ACTIVITY").equals("TagsMain")) {
+			
+			Intent intent = new Intent(this, TagsMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			
+		}else{
+			
+			Intent intent = new Intent(this, WriteMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+		}
 	}
 }

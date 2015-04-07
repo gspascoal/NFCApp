@@ -119,7 +119,7 @@ public class CreateTagContent extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_tag_content);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		PLH.put("1", "http://www.");
 		PLH.put("2", "https://www.");
@@ -165,13 +165,16 @@ public class CreateTagContent extends Activity implements
 		contentSize = (TextView) findViewById(R.id.fieldSize);
 
 		if (getIntent().getStringExtra("CONTENT_ID") != null) {
+			
 			contenId = getIntent().getStringExtra("CONTENT_ID");
+			Log.d("debug id",contenId);
 		}
 
 		if (getIntent().getStringExtra("CONTENT_EDIT") != null) {
 			
 			editMode =  getIntent().getStringExtra("CONTENT_EDIT");
 			Log.d("debug edit",editMode);
+			
 			wsaveButton.setText(getResources().getString(R.string.fupdate));
 			wsaveWriteButton.setText(getResources().getString(R.string.fwrite));
 		}
@@ -225,8 +228,16 @@ public class CreateTagContent extends Activity implements
 		// Log.d("debug extra",getIntent().getStringExtra("CONTENT_PAYLOAD").toString());
 		if (getIntent().getStringExtra("CONTENT_KIND") != null
 				&& getIntent().getStringExtra("CONTENT_PAYLOAD") != null) {
+		
 			String kind = getIntent().getStringExtra("CONTENT_KIND");
 			extraPayload = getIntent().getStringExtra("CONTENT_PAYLOAD");
+			
+			
+			Log.d("debug kind",kind);
+			Log.d("debug payload",extraPayload);
+			
+			
+			
 			String[] kindsArray = getResources().getStringArray(
 					R.array.kinds_array);
 			int selected = 0;
@@ -576,6 +587,7 @@ public class CreateTagContent extends Activity implements
 				intent.putExtra("CONTENT_ID", contenId);
 				intent.putExtra("CONTENT_EDIT", editMode);
 				startActivity(intent);
+				this.finish();
 			}
 
 			break;
@@ -587,7 +599,9 @@ public class CreateTagContent extends Activity implements
 				intent.putExtra("TAG_CONTENT", createTagContent(kind));
 				intent.putExtra("CONTENT_ID", contenId);
 				intent.putExtra("CONTENT_EDIT", editMode);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(intent);
+				this.finish();
 			}
 
 			break;
@@ -1096,7 +1110,6 @@ public class CreateTagContent extends Activity implements
 	    return haveConnectedWifi || haveConnectedMobile ;
 	}
 	
-		
 	private void setTextWatchwers(){
 		
 		switch (currentPosition) {
@@ -1925,6 +1938,28 @@ public class CreateTagContent extends Activity implements
 		}
 	}
 	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		
+		Log.d("debug CREATE", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
+		
+		if ( getIntent().getStringExtra("CALLING_ACTIVITY") != null
+				&& getIntent().getStringExtra("CALLING_ACTIVITY").equals("TagsMain")) {
+			
+			Intent intent = new Intent(this, TagsMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			
+		}else{
+			
+			Intent intent = new Intent(this, WriteMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+		}
+	
+	}
 	
 	/*
 	 * private class extends ArrayAdapter<String> {

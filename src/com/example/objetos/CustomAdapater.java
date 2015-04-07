@@ -127,12 +127,16 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				String activityName = getContext().getClass().getSimpleName();
 				Log.d("debug", "activity name?: " + activityName);
 				Log.d("debug extra", kind);
+				intent.putExtra("CALLING_ACTIVITY", activityName);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", pLoad);
 				intent.putExtra("CONTENT_ID", itemId);
 				intent.putExtra("CONTENT_EDIT", "EDIT");
-
+				
+				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				getContext().startActivity(intent);
+				context.finish();
+				
 			}
 
 		});
@@ -405,8 +409,11 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 
 									break;
 								case 3: // QR Code
+									String activityName = getContext().getClass().getSimpleName();
 									Intent intent = new Intent(getContext(), BackupData.class);
 									intent.putExtra("CONTENT_ID", itemId.toString());
+									//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+									intent.putExtra("CALLING_ACTIVITY", activityName);
 									getContext().startActivity(intent);
 									
 									break;

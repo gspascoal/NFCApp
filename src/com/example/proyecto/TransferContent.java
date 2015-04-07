@@ -49,12 +49,15 @@ public class TransferContent extends Activity {
 	private RelativeLayout container;
 	private TagContentDataSource datasource;
 	private String writeMessage;
+	public String payloadForBack;
+	public String typeforBack;
+	public String idForBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transfer_content);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
@@ -65,7 +68,27 @@ public class TransferContent extends Activity {
 		container = (RelativeLayout) findViewById(R.id.main_container);
 
 		content = getIntent().getParcelableExtra("TAG_CONTENT");
-
+		datasource = new TagContentDataSource(this);
+		
+		datasource.open();
+		List<TagUIContent> tagUIContents = datasource.getTagUIContents();
+		if (getIntent().getStringExtra("CONTENT_EDIT").equals("NEW")) {
+			TagUIContent tagUI = tagUIContents.get(datasource.getTagUIContents().size() - 1);
+			idForBack = tagUI.getContentId().getText().toString();
+			payloadForBack = tagUI.getPayload().getText().toString();
+			typeforBack = tagUI.getContentDesc().getText().toString();
+		} else {
+			for (TagUIContent tagUIContent : tagUIContents) {
+				Log.d("debug edit tranfer", tagUIContent.getContentId().getText().toString()+ " - " + getIntent().getStringExtra("CONTENT_ID"));
+				if (tagUIContent.getContentId().getText().toString().equals(getIntent().getStringExtra("CONTENT_ID"))) {
+					idForBack = tagUIContent.getContentId().getText().toString();
+					payloadForBack = tagUIContent.getPayload().getText().toString();
+					typeforBack = tagUIContent.getContentDesc().getText().toString();
+				}
+			}
+		}
+		datasource.close();
+		
 		dialog = new CustomDialog(this);
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.write_tag_dialog);
@@ -96,8 +119,8 @@ public class TransferContent extends Activity {
 				new String[] { NfcA.class.getName(), Ndef.class.getName() },
 				{ MifareUltralight.class.getName() } };
 
-		datasource = new TagContentDataSource(this);
-		datasource.open();
+		
+		//datasource.open();
 	}
 
 	@Override
@@ -124,7 +147,7 @@ public class TransferContent extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		myNfcAdapter.disableForegroundDispatch(this);
-		datasource.open();
+		//datasource.open();
 	}
 
 	@Override
@@ -133,7 +156,7 @@ public class TransferContent extends Activity {
 		super.onResume();
 		myNfcAdapter.enableForegroundDispatch(this, pendingIntent,
 				intentFiltersArray, techListsArray);
-		datasource.open();
+		//datasource.open();
 	}
 
 	@Override
@@ -146,7 +169,7 @@ public class TransferContent extends Activity {
 	public void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		// super.onNewIntent(intent);
-
+		datasource.open();
 		if (dialog.isShowing()) {
 			dialog.dismiss();
 		}
@@ -168,8 +191,11 @@ public class TransferContent extends Activity {
 			List<TagUIContent> tagUIContents = datasource.getTagUIContents();
 
 			if (getIntent().getStringExtra("CONTENT_EDIT").equals("NEW")) {
-				cContent.addView(tagUIContents.get(datasource
-						.getTagUIContents().size() - 1));
+				TagUIContent tagUI = tagUIContents.get(datasource.getTagUIContents().size() - 1);
+				cContent.addView(tagUI);
+				idForBack = tagUI.getContentId().getText().toString();
+				payloadForBack = tagUI.getPayload().getText().toString();
+				typeforBack = tagUI.getContentDesc().getText().toString();
 			} else {
 
 				for (TagUIContent tagUIContent : tagUIContents) {
@@ -180,6 +206,9 @@ public class TransferContent extends Activity {
 							.equals(getIntent().getStringExtra("CONTENT_ID"))) {
 						Log.d("debug info", "dentro del if");
 						cContent.addView(tagUIContent);
+						idForBack = tagUIContent.getContentId().getText().toString();
+						payloadForBack = tagUIContent.getPayload().getText().toString();
+						typeforBack = tagUIContent.getContentDesc().getText().toString();
 
 					}
 				}
@@ -214,6 +243,7 @@ public class TransferContent extends Activity {
 		} else {
 			writeResult.setText(writeMessage);
 		}
+		datasource.close();
 	}
 
 	public void onClick(View view) {
@@ -221,6 +251,7 @@ public class TransferContent extends Activity {
 		case R.id.doneButton:
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
+			this.finish();
 			break;
 
 		default:
@@ -388,5 +419,36 @@ public class TransferContent extends Activity {
 			
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		
+		//Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+		Intent intent;
+		//super.onBackPressed();
+		if (dialog.isShowing()) {
+			Log.d("debug", "dialog on");
+			intent = new Intent(this, CreateTagContent.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.putExtra("CONTENT_KIND", typeforBack);
+			intent.putExtra("CONTENT_PAYLOAD", payloadForBack);
+			intent.putExtra("CONTENT_ID", idForBack);
+			intent.putExtra("CONTENT_EDIT", "EDIT");
+			startActivity(intent);
+			this.finish();
+		}
+		else{
+			Log.d("debug", "Starting off");
+			intent = new Intent(this, MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			this.finish();
+		}
+		
+		
+		
+		//this.finish();
 	}
 }

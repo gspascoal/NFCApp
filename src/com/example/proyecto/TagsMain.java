@@ -75,7 +75,7 @@ public class TagsMain extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tags_main);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		context = this;
 		selectedTagFilters = new ArrayList<String>();
@@ -158,6 +158,11 @@ public class TagsMain extends ListActivity {
 		 * searchView.setIconifiedByDefault(false); // Do not iconify the
 		 * widget; expand it by default
 		 */
+		
+		if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
+			actionsMenu.getItem(0).setVisible(false);
+		}
+		
 		return true;
 	}
 
@@ -252,6 +257,7 @@ public class TagsMain extends ListActivity {
 		if (id == R.id.action_search) {
 			// Get the SearchView and set the searchable configuration
 			onSearchRequested();
+			
 		}
 
 		if (id == R.id.action_filterTag) {
@@ -335,6 +341,7 @@ public class TagsMain extends ListActivity {
 			Log.d("debug search", "OR called by search widget. Query: " + query);
 			fromSearch = query;
 			tagUIContents = datasource.getContentbySearch(query);
+			
 		} else {
 			tagUIContents = datasource.getTagUIContents();
 		}
@@ -789,9 +796,23 @@ public class TagsMain extends ListActivity {
 
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		
+		Log.d("debug back from search", "pressed ");
 		super.onBackPressed();
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+		if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
+			Log.d("debug back from search", "pressed if");
+			Intent intent = new Intent(this, TagsMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			this.finish();
+		}
+		else{
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			this.finish();
+		}
+		
 		// this.finish();
 	}
 }

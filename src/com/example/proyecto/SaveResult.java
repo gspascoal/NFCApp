@@ -156,6 +156,7 @@ public class SaveResult extends Activity {
 		case R.id.saveButton:
 			Intent intent = new Intent(SaveResult.this, MainActivity.class);
 			startActivity(intent);
+			this.finish();
 			break;
 
 		default:
@@ -179,5 +180,15 @@ public class SaveResult extends Activity {
 			return rootView;
 		}
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		//Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		startActivity(intent);
+		//this.finish();
+	}
 }

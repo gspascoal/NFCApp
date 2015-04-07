@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.NFC" />
     <!--
      If the next instruction is omitted, anybody could download the app from the market 
-     regardless that is not a NFC compatible device
+     regardless that is not a NFC compatible device
     -->
     <uses-feature
         android:name="android.hardware.nfc"
@@ -26,13 +26,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-     <supports-screens android:smallScreens="false"
-                      android:normalScreens="true"
-                      android:largeScreens="false"
-                      android:xlargeScreens="false"
-                       />
-    
-    
+    <supports-screens
+        android:largeScreens="false"
+        android:normalScreens="true"
+        android:smallScreens="false"
+        android:xlargeScreens="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon_v1"
@@ -42,7 +41,6 @@
         <activity
             android:name="com.example.proyecto.MainActivity"
             android:label="@string/app_name"
-            android:noHistory="true"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,14 +51,14 @@
         <activity
             android:name="com.example.proyecto.ReadMain"
             android:label="@string/title_activity_read_main"
-            android:noHistory="true"
-            android:parentActivityName="com.example.proyecto.MainActivity"
             android:screenOrientation="portrait" >
 
-            <!-- Parent activity meta-data o support and lower -->
+            <!--
+            Parent activity meta-data o support and lower 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.MainActivity" />
+                android:value="com.example.proyecto.MainActivity" />
+            -->
             <!--
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -69,9 +67,9 @@
                     android:scheme="http"
                     android:host="*"
                     android:pathPrefix="" />
-            </intent-filter>  
+            </intent-filter>  
             -->
-            
+
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
@@ -83,14 +81,14 @@
         <activity
             android:name="com.example.proyecto.WriteMain"
             android:label="@string/title_activity_write_main"
-            android:parentActivityName="com.example.proyecto.MainActivity"
             android:screenOrientation="portrait" >
 
-            <!-- Parent activity meta-data o support and lower -->
+            <!--
+            Parent activity meta-data o support and lower 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.MainActivity" />
-
+                android:value="com.example.proyecto.MainActivity" />
+            -->
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
@@ -103,31 +101,32 @@
             android:name="com.example.proyecto.CreateTagContent"
             android:label="@string/title_activity_create_tag_content"
             android:launchMode="singleTop"
-            android:parentActivityName="com.example.proyecto.WriteMain"
             android:screenOrientation="portrait" >
 
-            <!-- Parent activity meta-data o support and lower -->
+            <!--
+            Parent activity meta-data o support and lower 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.WriteMain" />
+                android:value="com.example.proyecto.WriteMain" />
+            -->
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_list" />
         </activity>
         <activity
             android:name="com.example.proyecto.TransferContent"
-            android:noHistory="true"
             android:label="@string/title_activity_transfer_content"
-            android:parentActivityName="com.example.proyecto.CreateTagContent"
             android:screenOrientation="portrait" >
+
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.CreateTagContent" />
+                android:value="com.example.proyecto.CreateTagContent" />
+            -->
         </activity>
         <activity
             android:name="com.example.proyecto.TagsMain"
             android:label="@string/title_activity_tags_main"
-            android:parentActivityName="com.example.proyecto.MainActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -136,30 +135,31 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.MainActivity" />
+                android:value="com.example.proyecto.MainActivity" />
+            -->
         </activity>
         <activity
             android:name="com.example.proyecto.SaveResult"
             android:label="@string/title_activity_save_result"
-            android:noHistory="true"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.proyecto.ExtrasMain"
             android:label="@string/title_activity_extras_main"
-            android:parentActivityName="com.example.proyecto.MainActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait" >
+
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.MainActivity" />
+                android:value="com.example.proyecto.MainActivity" />
+            -->
         </activity>
         <activity
             android:name="com.example.proyecto.EraseTag"
             android:label="@string/title_activity_erase_tag"
-            android:noHistory="true"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -192,25 +192,27 @@
         <activity
             android:name="com.example.proyecto.BackupData"
             android:label="@string/title_activity_backup_data"
-            android:parentActivityName="com.example.proyecto.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.proyecto.ExtrasMain" />
+                android:value="com.example.proyecto.ExtrasMain" />
+            -->
         </activity>
         <activity
             android:name="com.example.proyecto.RestoreData"
             android:label="@string/title_activity_restore_data"
-            android:parentActivityName="com.example.proyecto.MainActivity"
             android:screenOrientation="portrait" >
-                  <meta-data
+            <!-- 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.proyecto.ExtrasMain" />
+             -->
         </activity>
         <activity
             android:name="com.example.proyecto.RestoreResults"
             android:label="@string/title_activity_restore_results"
-            android:noHistory="true"
             android:screenOrientation="portrait" >
         </activity>
     </application>

@@ -42,7 +42,6 @@ import android.widget.Toast;
 import com.example.objetos.TagContent;
 import com.example.objetos.TagContentDataSource;
 import com.example.objetos.TagInfo;
-import com.example.proyecto.R;
 
 public class ReadMain extends Activity {
 
@@ -74,7 +73,7 @@ public class ReadMain extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_read_main);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		DBR.put(getResources().getString(R.string.link),"0");
 		DBR.put(getResources().getString(R.string.mail),"1");
@@ -689,6 +688,10 @@ public class ReadMain extends Activity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
+		//Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		startActivity(intent);
 		//this.finish();
 	}
 }

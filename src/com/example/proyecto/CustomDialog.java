@@ -35,8 +35,11 @@ public class CustomDialog extends Dialog {
 			getContext().startActivity(intent);
 			break;
 		case "TransferContent":
-			intent = new Intent(getContext(), CreateTagContent.class);
-			getContext().startActivity(intent);
+			TransferContent tContent = (TransferContent) getOwnerActivity();
+			if (tContent != null) {
+				tContent.onBackPressed();
+			}
+			
 			break;
 		case "EraseTag":
 			intent = new Intent(getContext(), ExtrasMain.class);

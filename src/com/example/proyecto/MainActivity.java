@@ -69,22 +69,27 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.read:
 			intent = new Intent(MainActivity.this, ReadMain.class);
-			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
+			this.finish();
 			break;
 		case R.id.write:
 			intent = new Intent(MainActivity.this, WriteMain.class);
-			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
+			this.finish();
 			break;
 		case R.id.my_tag:
 			intent = new Intent(MainActivity.this, TagsMain.class);
-			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
+			this.finish();
 			break;
 		case R.id.extras:
 			intent = new Intent(MainActivity.this, ExtrasMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
+			this.finish();
 			break;
 		default:
 			break;
@@ -95,6 +100,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		super.onBackPressed();
 		this.finish();
 	}
 
