@@ -16,7 +16,7 @@ public class ExtrasMain extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_extras_main);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -43,15 +43,20 @@ public class ExtrasMain extends Activity {
 		switch (view.getId()) {
 		case R.id.erase:
 			intent = new Intent(ExtrasMain.this, EraseTag.class);
+			intent.putExtra("CALLING_ACTIVITY", this.getClass().getSimpleName());
 			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
 			break;
 		case R.id.restoreData:
 			intent = new Intent(ExtrasMain.this, RestoreData.class );
+			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.putExtra("CALLING_ACTIVITY", this.getClass().getSimpleName());
 			startActivity(intent);
 			break;
 		case R.id.backupData:
 			intent = new Intent(ExtrasMain.this, BackupData.class );
+			intent.putExtra("CALLING_ACTIVITY", this.getClass().getSimpleName());
+			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
 		default:
 			break;

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.example.objetos.TagContentDataSource;
 import com.example.proyecto.R;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class TagUIContent extends RelativeLayout {
 	public Map<String, Integer> PLTI =  new LinkedHashMap<String,Integer>();
 	public Map<String, String> DBR =  new LinkedHashMap<String,String>();
 	
-	public TagUIContent(Context context) {
+	public TagUIContent(final Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		//this.context = context;
@@ -80,14 +81,27 @@ public class TagUIContent extends RelativeLayout {
 				Intent intent = new Intent(getContext(), CreateTagContent.class);
 			    String kind = getContentDesc().getText().toString();
 			    String payload = getPayload().getText().toString();
+			    String activityName = getContext().getClass().getSimpleName();
 				Log.d("debug extra",payload);
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_PAYLOAD", payload);
 				intent.putExtra("CONTENT_ID", getContentId().getText().toString());
 				intent.putExtra("CONTENT_KIND", kind);
 				intent.putExtra("CONTENT_EDIT", "EDIT");
+				intent.putExtra("CALLING_ACTIVITY", activityName);
 				
-				getContext().startActivity(intent);
+				
+				if(kind.equals("N/A") || payload.contains("nullnull")){
+					Toast.makeText(context, context.getResources().getString(R.string.readIntent_Empty), Toast.LENGTH_SHORT).show();
+					
+				}
+				else {
+					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+					getContext().startActivity(intent);
+					((Activity) context).finish();
+				}
+				
+				
 			}
 			
 		});

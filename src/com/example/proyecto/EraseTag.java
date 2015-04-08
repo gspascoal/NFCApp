@@ -51,6 +51,8 @@ public class EraseTag extends Activity {
 		eraseMessage = (TextView) findViewById(R.id.eraseResult);
 		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
+		Log.d("debug Erase", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
+		
 		dialog.show();
 
 		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
@@ -322,6 +324,9 @@ public class EraseTag extends Activity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		// this.finish();
+		Intent intent = new Intent(this, ExtrasMain.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		startActivity(intent);
+		this.finish();
 	}
 }

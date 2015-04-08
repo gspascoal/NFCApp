@@ -133,6 +133,12 @@ public class CustomAdapater extends ArrayAdapter<TagUIContent> {
 				intent.putExtra("CONTENT_ID", itemId);
 				intent.putExtra("CONTENT_EDIT", "EDIT");
 				
+				
+				if(kind.equals("N/A") || pLoad.contains("nullnull")){
+					Toast.makeText(context, context.getResources().getString(R.string.readIntent_Empty), Toast.LENGTH_SHORT).show();
+					
+				}
+				
 				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				getContext().startActivity(intent);
 				context.finish();

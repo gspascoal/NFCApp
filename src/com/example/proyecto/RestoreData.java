@@ -44,7 +44,7 @@ public class RestoreData extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restore_data);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Button button1 = (Button) findViewById(R.id.restoreOp1);
 		button1.setOnClickListener(this);
@@ -100,8 +100,8 @@ public class RestoreData extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.restoreOp1: // Take photo
-			Intent i = new Intent(
-		    android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			//i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivityForResult(i,123);
 
 			
@@ -111,6 +111,7 @@ public class RestoreData extends Activity implements OnClickListener{
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  
 			Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/"+ getApplicationContext().getPackageName() + "/Files");
 			intent.setDataAndType(uri, "image/*");
+			//intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivityForResult(Intent.createChooser(intent, "Select image"),234); 
 			
 			break;
@@ -136,6 +137,7 @@ public class RestoreData extends Activity implements OnClickListener{
 				Intent intent = new Intent(this, RestoreResults.class);
 				intent.putExtra("IMAGE_CONTENT", content);
 				startActivity(intent);
+				finish();
 			}
 			
 			if (requestCode == 234) {
@@ -159,10 +161,16 @@ public class RestoreData extends Activity implements OnClickListener{
 				Intent intent = new Intent(this, RestoreResults.class);
 				intent.putExtra("IMAGE_CONTENT", content);
 				startActivity(intent);
+				finish();
 				
 			}
 			
 		}
+		/*if (resultCode == RESULT_CANCELED) {
+			Intent intent = new Intent(this, ExtrasMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+		}*/
 		
 
 	}
@@ -256,6 +264,7 @@ public class RestoreData extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		Intent intent = new Intent(this, ExtrasMain.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
 		//this.finish();
 	}

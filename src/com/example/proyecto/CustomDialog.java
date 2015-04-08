@@ -39,11 +39,12 @@ public class CustomDialog extends Dialog {
 			if (tContent != null) {
 				tContent.onBackPressed();
 			}
-			
 			break;
 		case "EraseTag":
-			intent = new Intent(getContext(), ExtrasMain.class);
-			getContext().startActivity(intent);
+			EraseTag eTag = (EraseTag) getOwnerActivity();
+			if (eTag != null) {
+				eTag.onBackPressed();
+			}
 			break;
 		default:
 			break;

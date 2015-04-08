@@ -65,6 +65,7 @@ public class BackupData extends Activity implements OnClickListener {
 	private TextView bkQRST;
 	private TextView bkQRT;
 	private LinearLayout savedQRDataLayout;
+	private String activityName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,10 @@ public class BackupData extends Activity implements OnClickListener {
 		PLTI.put(getResources().getString(R.string.report), R.drawable.default64);
 
 		datasource = new TagContentDataSource(this);
+		
+		Log.d("debug Backup", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
+		
+		activityName = getIntent().getStringExtra("CALLING_ACTIVITY");
 		
 		toCode = "NFCTag (c) 2015 \n";
 				
@@ -341,7 +346,7 @@ public class BackupData extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-Log.d("debug CREATE", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
+		Log.d("debug Backup", "activity name?: " + getIntent().getStringExtra("CALLING_ACTIVITY"));
 		
 		if ( getIntent().getStringExtra("CALLING_ACTIVITY") != null
 				&& getIntent().getStringExtra("CALLING_ACTIVITY").equals("TagsMain")) {
@@ -350,7 +355,19 @@ Log.d("debug CREATE", "activity name?: " + getIntent().getStringExtra("CALLING_A
 			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(intent);
 			
-		}else{
+		}
+		
+		if ( getIntent().getStringExtra("CALLING_ACTIVITY") != null
+				&& getIntent().getStringExtra("CALLING_ACTIVITY").equals("ExtrasMain")) {
+			
+			Intent intent = new Intent(this, ExtrasMain.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
+			
+		}
+		if ( getIntent().getStringExtra("CALLING_ACTIVITY") != null
+				&& getIntent().getStringExtra("CALLING_ACTIVITY").equals("WriteMain")) {
+			
 			
 			Intent intent = new Intent(this, WriteMain.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

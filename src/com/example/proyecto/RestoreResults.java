@@ -59,7 +59,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restore_results);		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		contentHeader = "NFCTag (c) 2015 \n";
 		
@@ -158,7 +158,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 			
 		}
 		
-		
+		Log.d("debug restorMode", restoreMode+"");
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -210,7 +210,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 			 datasource.open();
 			 if (restoreMode == 0) {
 				 Intent intent = new Intent(this, ExtrasMain.class);
-				 //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				 startActivity(intent);
 			}
 			 if (restoreMode == 1) {
@@ -219,13 +219,15 @@ public class RestoreResults extends Activity implements OnClickListener{
 			    		 typeCode);
 
 			      if (tagContent != null) {
-			    	  Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
+			    	  //Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
 				      	Intent intent = new Intent(this, SaveResult.class);
 						intent.putExtra("CONTENT_ID", tagContent.getId());
 						intent.putExtra("CONTENT_EDIT", "NEW");
+						intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 						startActivity(intent);
+						finish();
 				} else {
-					Toast.makeText(this,getResources().getString(R.string.resultTextA), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(this,getResources().getString(R.string.resultTextA), Toast.LENGTH_SHORT).show();
 				}
 			     
 			}
@@ -242,7 +244,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 				}
 				
 				 
-					Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(this, getResources().getString(R.string.resultText), Toast.LENGTH_SHORT).show();
 					Log.d("debug extra list RD", restoredContents.size()+"");
 					
 			      	Intent intent = new Intent(this, SaveResult.class);
@@ -250,8 +252,12 @@ public class RestoreResults extends Activity implements OnClickListener{
 			      	bundle.putSerializable("CONTENT_LIST", restoredContents);
 					intent.putExtra("CONTENT_LIST_BUNDLE", bundle);
 					intent.putExtra("CONTENT_EDIT", "RESTORED");
+					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 					startActivity(intent);
+					finish();
 			}
+			 
+			
 			 
 			 datasource.close();
 		     
@@ -267,6 +273,7 @@ public class RestoreResults extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		Intent intent = new Intent(this, ExtrasMain.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
 		//this.finish();
 	}
