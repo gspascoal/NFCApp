@@ -30,11 +30,11 @@ public class TagRecord {
 	private NdefRecord record;
 	private short recordTNF = 0;
 	private String recordType = "";
-	private String recordPayload;
-	private byte recordPayloadheader;
+	private String recordPayload = " ";
+	private byte recordPayloadheader = 0x00;
 	private String recordTNFDesc = "";
-	private String recordPayloadTypeDesc = "";
-	private String recordPayloadHeaderDesc;
+	private String recordPayloadTypeDesc = " ";
+	private String recordPayloadHeaderDesc = " ";
 	private Integer iconId;
 	private boolean isWOP =  false;
 	private String recordLanguageCode = "";
@@ -110,6 +110,12 @@ public class TagRecord {
 		if (r.equals(null)) {
 			Log.d("debug", "Empty Tag");
 		}
+		
+		
+		this.recordPayloadHeaderDesc = context.getResources().getString(R.string.nA);
+		recordType = context.getResources().getString(R.string.nA);
+		recordPayload = context.getResources().getString(R.string.nA);
+		recordPayloadTypeDesc = context.getResources().getString(R.string.nA);
 		this.setMessageId(messsageId);
 		setRecordTNF();
 		setRecordTNFDesc();
@@ -139,6 +145,7 @@ public class TagRecord {
 		
 		if (record.getType().length > 0) {
 			
+			
 			for (int k = 0; k < record.getType().length; k++) {
 				asciiCode = record.getType()[k];
 				recordType += (char) asciiCode; 
@@ -147,6 +154,9 @@ public class TagRecord {
 			Log.d("debug", "RAW  type:" + recordType );
 			if (NRTD.containsKey( recordType) ) {
 				this.recordType =  NRTD.get(recordType);
+			}
+			else{
+				this.recordType = context.getResources().getString(R.string.nA);
 			}
 			
 		}
@@ -158,8 +168,8 @@ public class TagRecord {
 	}
 
 	public void setRecordPayload() {
-		String payload = "";
-		byte payloadHeader;
+		String payload = " ";
+		byte payloadHeader = 0x00;
 		try {
 			Log.d("debug", "RAW payload: "+ new String(record.getPayload(), 0, record.getPayload().length, Charset.forName("UTF-8")));
 			//Log.d("debug", "Record's type: " + recordType );
@@ -196,6 +206,8 @@ public class TagRecord {
 		} catch (StringIndexOutOfBoundsException e) {
 			// TODO: handle exception
 			//Toast.makeText(this, "Empty tag", Toast.LENGTH_SHORT).show();
+			recordPayload = payload;
+			
 		}
 	}
 
@@ -214,9 +226,13 @@ public class TagRecord {
 
 	public void setRecordPayloadTypeDesc() {
 		
+		this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);
 		Log.d("TagInfo", "Payload Header:" + getRecordPayloadheader());
 		int i = 0;
 		Object[] wopArray = WOP.keySet().toArray();
+		if (recordTNFDesc.contains("Unknown")) {
+			this.recordPayloadTypeDesc = context.getResources().getString(R.string.nA);
+		}
 		if(getRecordTNF() != 0){
 			
 			if (getRecordPayloadheader() == 0) {
@@ -288,7 +304,7 @@ public class TagRecord {
 		
 		int i=0;
 		Object[] wopArray  = WOP.keySet().toArray();
-		
+		this.recordPayloadHeaderDesc = context.getResources().getString(R.string.nA);
 		if (getRecordPayloadheader() == 0) {
 			if (recordType.equalsIgnoreCase(context.getResources().getString(R.string.text))) {
 				this.recordPayloadHeaderDesc = context.getResources().getString(R.string.plainText);

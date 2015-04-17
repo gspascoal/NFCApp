@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Commons Strings -->
-    <string name="app_name">Proyecto</string>
+    <string name="app_name">tagR</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca</string>
     <string name="saveButton">Guardar</string>
@@ -66,6 +66,7 @@
     <string name="plEmpty">Lista de números vacía</string>
     <string name="plNumber">Ha seleccionado a: \u00A0</string>
     <string name="messageSize">Tamaño del mensaje:  \u00A0</string>
+    <string name="selector">Tipo de contenido</string>
 
     <!-- TransferContent(Main) activity strings -->
     <string name="title_activity_transfer_content">Transferencia</string>
@@ -289,4 +290,12 @@
     <string name="tc_wrong">Operación de escritura fallida</string>
     <string name="tc_oom">No se pudo escribir el mensaje en la etiqueta. La capacidad de la etiqueta es %1$d bytes y el mensaje ocupa %2$d bytes.</string>
 
+    <string name="hello_world">Hello world!</string>
+
+    <!-- Accident assistance strings-->
+    <string name="title_activity_accident_assistance">Asistencia de accidente</string>
+    <string name="aa_header">Presione el botón para iniciar el proceso de asistencia.</string>
+    <string name="aa_footer">Cuando el proceso de asitencia haya finalizado, presione el botón nuevamente para actualizar el estado de la incidencia.</string>
+    <string name="aa_OFFbutton">Iniciar asistencia</string>
+    <string name="aa_ONbutton">Finalizar asistencia</string>
 </resources>

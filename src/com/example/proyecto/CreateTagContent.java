@@ -172,6 +172,8 @@ public class CreateTagContent extends Activity implements
 
 		if (getIntent().getStringExtra("CONTENT_EDIT") != null) {
 			
+			TextView selectorText = (TextView) findViewById(R.id.selectorText);
+			selectorText.setText(getResources().getString(R.string.selector));
 			editMode =  getIntent().getStringExtra("CONTENT_EDIT");
 			Log.d("debug edit",editMode);
 			
@@ -853,14 +855,14 @@ public class CreateTagContent extends Activity implements
 		case 7 : //"Accident Report"
 			EditText fieldPolicy = (EditText) findViewById(R.id.fieldPolicy);
 			EditText filedPlate = (EditText) findViewById(R.id.fieldPlate);
-			content = "www.alstelecom.com/enviod.php";
+			content = "alstelecom.com/Pruebas/appSMS/assistance.php";
 			content += "?p=" + fieldPolicy.getText().toString() + "&pl="
 					+ filedPlate.getText().toString()
 					+ "&bd=demo";
 			
 			uriField = content.getBytes();
 			payload = new byte[uriField.length + 1];
-			payload[0] =  0x01;
+			payload[0] =  0x03;
 			System.arraycopy(uriField, 0, payload, 1, uriField.length);
 			uriRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
 					NdefRecord.RTD_URI, new byte[0], payload);
@@ -1002,11 +1004,11 @@ public class CreateTagContent extends Activity implements
 			EditText fieldPlate = (EditText) findViewById(R.id.fieldPlate);
 			if (!fieldPolicy.getText().toString().trim().equals("")
 					&& !fieldPlate.getText().toString().trim().equals("")) {
-				payload = "www.alstelecom.com/enviod.php";
+				payload = "alstelecom.com/Pruebas/appSMS/assistance.php";
 				payload += "?p=" + fieldPolicy.getText().toString() + "&lp="
 						+ fieldPlate.getText().toString()
 						+ "&bd=demo";
-				payloadHeaderDesc = "";
+				payloadHeaderDesc = "http://";
 				//payloadTypeDesc = kind;
 				valid = true;
 			}

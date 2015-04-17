@@ -64,7 +64,7 @@ public class WriteMain extends Activity {
 		}
 
 		// status = (TextView) findViewById(R.id.status);
-		//myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		myNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
 		contentList = (ListView) findViewById(R.id.recentList);
 		moreButton = (Button) findViewById(R.id.moreButton);

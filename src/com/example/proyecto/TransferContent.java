@@ -48,7 +48,7 @@ public class TransferContent extends Activity {
 	private RelativeLayout rContainer;
 	private RelativeLayout container;
 	private TagContentDataSource datasource;
-	private String writeMessage;
+	private String writeMessage = "";
 	public String payloadForBack;
 	public String typeforBack;
 	public String idForBack;
