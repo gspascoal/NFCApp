@@ -692,6 +692,6 @@ public class ReadMain extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
-		//this.finish();
+		this.finish();
 	}
 }

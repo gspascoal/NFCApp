@@ -140,6 +140,15 @@
     <string name="dialogOkButton">Ajustes</string>
     <string name="dialogCancelButton">Cancelar</string>
 
+     <!-- Nfc Alert  Dialog strings -->
+    <string name="dialogNTitle">Configuraciones NFC</string>
+    <string name="dialogNMessage">NFC está deshabilitado. ¿Desea ir al menú de Ajustes?</string>
+
+    <!-- Network Alert Dialog strings -->
+    <string name="dialogMTitle">Configuraciones de Red</string>
+    <string name="dialogMMessage">Es necesario estar conectado a la red. ¿Desea ir al menú de Ajustes?</string>
+    
+    
     <!-- Forms string -->
 
 
