@@ -287,6 +287,7 @@
         <!-- Accident assistance strings-->
     <string name="title_activity_accident_assistance">Accident assistance</string>
     <string name="aa_header">Press the button to start the assistance process</string>
+    <string name="aa_dataHeader">Insured data</string>
     <string name="aa_footer">To complete de process, press the button again to update the incidence\'s status</string>
     <string name="aa_OFFbutton">Start assistance</string>
     <string name="aa_ONbutton">Finish assistance</string>

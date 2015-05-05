@@ -12,11 +12,9 @@
             android:id="@+id/assistanceFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/assistanceHeader"
+            android:text="@string/aa_footer"
             android:layout_below="@+id/assistanceProcessButton"
             android:layout_margin="15dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/aa_footer"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="invisible" />
@@ -25,7 +23,6 @@
             android:id="@+id/tagData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/assistanceFooter"
             android:layout_centerVertical="true"
             android:text="" />
 
@@ -33,12 +30,11 @@
             android:id="@+id/dataHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/assistanceHeader"
-            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="14dp"
+            android:text="@string/aa_dataHeader"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="Datos del asegurado" />
+            android:textStyle="bold" />
 
         <ToggleButton
             android:id="@+id/assistanceProcessButton"
@@ -56,31 +52,28 @@
             android:id="@+id/dataPolicy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/dataHeader"
             android:layout_below="@+id/dataHeader"
-            android:layout_marginTop="14dp"
-             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@string/policyLabel" />
+            android:layout_marginBottom="5dp"
+            android:text="@string/policyLabel"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/dataPNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/assistanceHeader"
-            android:layout_alignRight="@+id/dataPolicy"
-            android:layout_toRightOf="@+id/tagData"
-             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@string/plateLabel" />
+            android:layout_below="@+id/dataPolicy"
+            android:layout_marginBottom="5dp"
+            android:text="@string/plateLabel"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/assistanceHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/assistanceProcessButton"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="15dp"
+            android:layout_below="@+id/dataPNumber"
+            android:layout_marginTop="25dp"
             android:text="@string/aa_header"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -89,17 +82,18 @@
             android:id="@+id/dataPolicyField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/dataPolicy"
-            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/dataPolicy"
+            android:layout_alignBaseline="@+id/dataPolicy"
+            android:layout_marginLeft="5dp"
             android:text="policy" />
 
         <TextView
             android:id="@+id/dataPNumberField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/assistanceHeader"
-            android:layout_alignLeft="@+id/dataPolicyField"
+            android:layout_toRightOf="@+id/dataPNumber"
+            android:layout_alignBaseline="@+id/dataPNumber"
+            android:layout_marginLeft="5dp"
             android:text="plate" />
     
 </RelativeLayout>

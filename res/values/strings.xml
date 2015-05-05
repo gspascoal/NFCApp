@@ -304,7 +304,8 @@
     <!-- Accident assistance strings-->
     <string name="title_activity_accident_assistance">Asistencia de accidente</string>
     <string name="aa_header">Presione el botón para iniciar el proceso de asistencia.</string>
-    <string name="aa_footer">Cuando el proceso de asitencia haya finalizado, presione el botón nuevamente para actualizar el estado de la incidencia.</string>
+    <string name="aa_dataHeader">Datos del asegurado</string>
+    <string name="aa_footer">Cuando el proceso de asistencia haya finalizado, presione el botón nuevamente para actualizar el estado de la incidencia.</string>
     <string name="aa_OFFbutton">Iniciar asistencia</string>
     <string name="aa_ONbutton">Finalizar asistencia</string>
 </resources>
