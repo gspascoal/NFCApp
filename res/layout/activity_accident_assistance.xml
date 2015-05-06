@@ -38,7 +38,7 @@
 
         <ToggleButton
             android:id="@+id/assistanceProcessButton"
-            style="@style/buttonS"
+            style="@style/toogle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tagData"

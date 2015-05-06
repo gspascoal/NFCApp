@@ -291,4 +291,5 @@
     <string name="aa_footer">To complete de process, press the button again to update the incidence\'s status</string>
     <string name="aa_OFFbutton">Start assistance</string>
     <string name="aa_ONbutton">Finish assistance</string>
+    <string name="aa_finished">Assistance\'s process is complete. The incidence\'s status has been changed to FINISHED.</string>
 </resources>

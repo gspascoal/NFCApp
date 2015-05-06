@@ -22,6 +22,8 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.proyecto.R.string;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -56,6 +58,7 @@ public class AccidentAssistance extends Activity {
 	private String plate;
 	private static Context context;
 	private String incidence_id;
+	private TextView header;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class AccidentAssistance extends Activity {
 		setContentView(R.layout.activity_accident_assistance);
 
 		footer = (TextView) findViewById(R.id.assistanceFooter);
+		header = (TextView) findViewById(R.id.assistanceHeader);
 		pNumber = (TextView) findViewById(R.id.dataPNumberField);
 		policy = (TextView) findViewById(R.id.dataPolicyField);
 
@@ -191,7 +195,11 @@ public class AccidentAssistance extends Activity {
 		} else {
 			EndReportTask task = new EndReportTask();
 			task.execute(incidence_id);
+			view.setVisibility(View.INVISIBLE);
 			footer.setVisibility(View.INVISIBLE);
+			header.setText(getResources().getString(R.string.aa_finished));
+			
+			
 		}
 	}
 

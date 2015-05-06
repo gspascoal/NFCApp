@@ -23,6 +23,7 @@ public final class R {
     }
     public static final class color {
         public static final int main_blue=0x7f050001;
+        public static final int main_gray=0x7f050002;
         public static final int main_green=0x7f050000;
     }
     public static final class dimen {
@@ -147,11 +148,12 @@ public final class R {
         public static final int thesis32=0x7f02006b;
         public static final int thesis64=0x7f02006c;
         public static final int thesis64_1=0x7f02006d;
-        public static final int two292=0x7f02006e;
-        public static final int write_tag264=0x7f02006f;
-        public static final int write_tag32=0x7f020070;
-        public static final int write_tag64=0x7f020071;
-        public static final int wrtbl64=0x7f020072;
+        public static final int toogle_button=0x7f02006e;
+        public static final int two292=0x7f02006f;
+        public static final int write_tag264=0x7f020070;
+        public static final int write_tag32=0x7f020071;
+        public static final int write_tag64=0x7f020072;
+        public static final int wrtbl64=0x7f020073;
     }
     public static final class id {
         public static final int action_about=0x7f0b00c0;
@@ -422,6 +424,7 @@ public final class R {
         public static final int aa_OFFbutton=0x7f0700c9;
         public static final int aa_ONbutton=0x7f0700ca;
         public static final int aa_dataHeader=0x7f0700c7;
+        public static final int aa_finished=0x7f0700cb;
         public static final int aa_footer=0x7f0700c8;
         public static final int aa_header=0x7f0700c6;
         public static final int aar=0x7f070094;
@@ -727,11 +730,13 @@ public final class R {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -755,6 +760,7 @@ public final class R {
         public static final int buttonS=0x7f090003;
         public static final int buttonSS=0x7f090004;
         public static final int buttonSSS=0x7f090005;
+        public static final int toogle=0x7f090007;
     }
     public static final class xml {
         public static final int nfc_tech_list=0x7f040000;

@@ -2,5 +2,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/main_green" name="main_green">#2ECC71</color>
     <color android:id="@+id/main_blue" android:layout_width="wrap_content" android:layout_height="wrap_content" name="main_blue">#3498DB</color>
+    <color  android:id="@+id/main_gray" android:layout_width="wrap_content" android:layout_height="wrap_content"  name="main_gray">#95a5a6</color>
     
 </resources>

@@ -308,4 +308,5 @@
     <string name="aa_footer">Cuando el proceso de asistencia haya finalizado, presione el botón nuevamente para actualizar el estado de la incidencia.</string>
     <string name="aa_OFFbutton">Iniciar asistencia</string>
     <string name="aa_ONbutton">Finalizar asistencia</string>
+    <string name="aa_finished">El proceso de asistencia a finalizado.La incidencia ha sido reportada como atendida.</string>
 </resources>
